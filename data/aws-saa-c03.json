@@ -6,10 +6,22 @@
   "lastUpdated": "2026-06-11",
   "passScore": 72,
   "domains": [
-    { "id": "d1", "name": "Design Secure Architectures" },
-    { "id": "d2", "name": "Design Resilient Architectures" },
-    { "id": "d3", "name": "Design High-Performing Architectures" },
-    { "id": "d4", "name": "Design Cost-Optimized Architectures" }
+    {
+      "id": "d1",
+      "name": "Design Secure Architectures"
+    },
+    {
+      "id": "d2",
+      "name": "Design Resilient Architectures"
+    },
+    {
+      "id": "d3",
+      "name": "Design High-Performing Architectures"
+    },
+    {
+      "id": "d4",
+      "name": "Design Cost-Optimized Architectures"
+    }
   ],
   "sets": [
     {
@@ -18,60 +30,1704 @@
       "timeLimitMin": 65,
       "questions": [
         {
-          "id": "saa-s1-q1",
           "domainId": "d2",
           "difficulty": "medium",
           "type": "single",
-          "stem": "An app needs a database that survives an AZ failure with automatic failover and no application code changes. Which option fits best?",
+          "stem": "You need a database that survives an AZ failure with automatic failover and no app changes. Which fits?",
           "options": [
-            { "id": "a", "text": "Amazon RDS Multi-AZ deployment", "correct": true, "explanation": "Correct. Multi-AZ keeps a synchronous standby in another AZ and fails over automatically using the same endpoint." },
-            { "id": "b", "text": "RDS read replica in another AZ", "correct": false, "explanation": "Wrong. Read replicas serve reads and need manual promotion; failover isn't automatic." },
-            { "id": "c", "text": "A single-AZ RDS instance with daily snapshots", "correct": false, "explanation": "Wrong. Snapshots allow restore but not automatic failover, and an AZ outage causes downtime." },
-            { "id": "d", "text": "Storing the DB on an EBS volume with a backup", "correct": false, "explanation": "Wrong. EBS is AZ-scoped; an AZ failure takes the volume offline with no automatic failover." }
+            {
+              "text": "Amazon RDS Multi-AZ deployment",
+              "correct": true,
+              "explanation": "Correct. Multi-AZ keeps a synchronous standby and fails over automatically via the same endpoint.",
+              "id": "a"
+            },
+            {
+              "text": "RDS read replica in another AZ",
+              "correct": false,
+              "explanation": "Wrong. Replicas serve reads and need manual promotion.",
+              "id": "b"
+            },
+            {
+              "text": "Single-AZ RDS with daily snapshots",
+              "correct": false,
+              "explanation": "Wrong. Snapshots allow restore but no automatic failover.",
+              "id": "c"
+            },
+            {
+              "text": "EBS volume with a backup",
+              "correct": false,
+              "explanation": "Wrong. EBS is AZ-scoped with no automatic failover.",
+              "id": "d"
+            }
           ],
-          "reference": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html"
+          "reference": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html",
+          "id": "awssaac03-s1-q1"
         },
         {
-          "id": "saa-s1-q2",
           "domainId": "d1",
           "difficulty": "medium",
           "type": "single",
-          "stem": "An EC2 app must read from an S3 bucket. What is the most secure way to grant access?",
+          "stem": "An EC2 app must read from S3. What is the most secure access method?",
           "options": [
-            { "id": "a", "text": "Attach an IAM role to the EC2 instance", "correct": true, "explanation": "Correct. Instance roles deliver temporary, rotated credentials with no long-lived keys to leak." },
-            { "id": "b", "text": "Store an access key and secret in the app config", "correct": false, "explanation": "Wrong. Long-lived static keys in config are a leading credential-leak risk." },
-            { "id": "c", "text": "Make the bucket public", "correct": false, "explanation": "Wrong. Public buckets expose data to everyone — a serious security misconfiguration." },
-            { "id": "d", "text": "Embed the root account credentials", "correct": false, "explanation": "Wrong. Root credentials should never be used by applications; they carry unrestricted access." }
+            {
+              "text": "Attach an IAM role to the EC2 instance",
+              "correct": true,
+              "explanation": "Correct. Instance roles deliver temporary, rotated credentials.",
+              "id": "a"
+            },
+            {
+              "text": "Store an access key in the app config",
+              "correct": false,
+              "explanation": "Wrong. Long-lived keys are a leak risk.",
+              "id": "b"
+            },
+            {
+              "text": "Make the bucket public",
+              "correct": false,
+              "explanation": "Wrong. Public buckets expose data to everyone.",
+              "id": "c"
+            },
+            {
+              "text": "Embed root account credentials",
+              "correct": false,
+              "explanation": "Wrong. Root should never be used by apps.",
+              "id": "d"
+            }
           ],
-          "reference": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html"
+          "reference": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html",
+          "id": "awssaac03-s1-q2"
         },
         {
-          "id": "saa-s1-q3",
           "domainId": "d3",
           "difficulty": "medium",
           "type": "single",
-          "stem": "A read-heavy web app sees repeated database queries for the same data. Which AWS service best reduces DB load with minimal changes?",
+          "stem": "A read-heavy app repeatedly queries the same data. What reduces DB load with minimal change?",
           "options": [
-            { "id": "a", "text": "Amazon ElastiCache", "correct": true, "explanation": "Correct. An in-memory cache (Redis/Memcached) absorbs repeated reads and offloads the database." },
-            { "id": "b", "text": "Amazon Kinesis", "correct": false, "explanation": "Wrong. Kinesis handles streaming ingestion, not read caching." },
-            { "id": "c", "text": "AWS Glue", "correct": false, "explanation": "Wrong. Glue is ETL/data-catalog tooling, irrelevant to query caching." },
-            { "id": "d", "text": "Amazon SQS", "correct": false, "explanation": "Wrong. SQS decouples via queues; it doesn't cache read results." }
+            {
+              "text": "Amazon ElastiCache",
+              "correct": true,
+              "explanation": "Correct. An in-memory cache absorbs repeated reads.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon Kinesis",
+              "correct": false,
+              "explanation": "Wrong. Kinesis handles streaming, not caching.",
+              "id": "b"
+            },
+            {
+              "text": "AWS Glue",
+              "correct": false,
+              "explanation": "Wrong. Glue is ETL, not caching.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon SQS",
+              "correct": false,
+              "explanation": "Wrong. SQS decouples, it does not cache reads.",
+              "id": "d"
+            }
           ],
-          "reference": "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/WhatIs.html"
+          "reference": "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/WhatIs.html",
+          "id": "awssaac03-s1-q3"
         },
         {
-          "id": "saa-s1-q4",
           "domainId": "d4",
           "difficulty": "medium",
           "type": "single",
-          "stem": "A batch job is fault-tolerant and can restart if interrupted. Which purchase option minimizes compute cost?",
+          "stem": "A fault-tolerant batch job can restart if interrupted. Which option minimizes cost?",
           "options": [
-            { "id": "a", "text": "Spot Instances", "correct": true, "explanation": "Correct. Spot offers the deepest discount and suits interruptible, restartable workloads." },
-            { "id": "b", "text": "On-Demand Instances", "correct": false, "explanation": "Wrong. On-Demand is flexible but the most expensive per hour for steady batch use." },
-            { "id": "c", "text": "Dedicated Hosts", "correct": false, "explanation": "Wrong. Dedicated Hosts target licensing/compliance needs at premium cost." },
-            { "id": "d", "text": "Reserved Instances", "correct": false, "explanation": "Wrong. RIs save on steady long-term usage, not short interruptible batches." }
+            {
+              "text": "Spot Instances",
+              "correct": true,
+              "explanation": "Correct. Spot offers the deepest discount for interruptible work.",
+              "id": "a"
+            },
+            {
+              "text": "On-Demand Instances",
+              "correct": false,
+              "explanation": "Wrong. On-Demand is the most expensive per hour.",
+              "id": "b"
+            },
+            {
+              "text": "Dedicated Hosts",
+              "correct": false,
+              "explanation": "Wrong. Dedicated targets licensing at premium cost.",
+              "id": "c"
+            },
+            {
+              "text": "Reserved Instances",
+              "correct": false,
+              "explanation": "Wrong. RIs suit steady long-term usage.",
+              "id": "d"
+            }
           ],
-          "reference": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"
+          "reference": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html",
+          "id": "awssaac03-s1-q4"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must decouple a spike-prone front end from slower back-end processing without losing requests. Which service?",
+          "options": [
+            {
+              "text": "Amazon SQS",
+              "correct": true,
+              "explanation": "Correct. SQS buffers messages so the back end consumes at its own pace.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon Route 53",
+              "correct": false,
+              "explanation": "Wrong. Route 53 is DNS, not buffering.",
+              "id": "b"
+            },
+            {
+              "text": "AWS WAF",
+              "correct": false,
+              "explanation": "Wrong. WAF filters web traffic for security.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon CloudFront",
+              "correct": false,
+              "explanation": "Wrong. CloudFront caches content, it does not queue work.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html",
+          "id": "awssaac03-s1-q5"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "multi",
+          "stem": "Which TWO measures protect S3 data at rest?",
+          "options": [
+            {
+              "text": "Enable SSE-KMS encryption on the bucket",
+              "correct": true,
+              "explanation": "Correct. Server-side encryption protects objects at rest.",
+              "id": "a"
+            },
+            {
+              "text": "Enable S3 Block Public Access",
+              "correct": true,
+              "explanation": "Correct. It prevents accidental public exposure.",
+              "id": "b"
+            },
+            {
+              "text": "Put the bucket behind a NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. NAT routes VPC egress, irrelevant to S3 objects.",
+              "id": "c"
+            },
+            {
+              "text": "Attach a security group to the bucket",
+              "correct": false,
+              "explanation": "Wrong. S3 buckets do not use security groups.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html",
+          "id": "awssaac03-s1-q6"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service distributes global content with low latency by caching at edge locations?",
+          "options": [
+            {
+              "text": "Amazon CloudFront",
+              "correct": true,
+              "explanation": "Correct. CloudFront caches at edges close to users.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon EBS",
+              "correct": false,
+              "explanation": "Wrong. EBS is block storage.",
+              "id": "b"
+            },
+            {
+              "text": "AWS Direct Connect",
+              "correct": false,
+              "explanation": "Wrong. Direct Connect is private connectivity, not a CDN.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon SNS",
+              "correct": false,
+              "explanation": "Wrong. SNS is pub/sub messaging.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html",
+          "id": "awssaac03-s1-q7"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which design spreads EC2 instances to survive an AZ outage?",
+          "options": [
+            {
+              "text": "An Auto Scaling group across multiple AZs behind a load balancer",
+              "correct": true,
+              "explanation": "Correct. Multi-AZ ASG plus ELB tolerates an AZ failure.",
+              "id": "a"
+            },
+            {
+              "text": "A single large instance in one AZ",
+              "correct": false,
+              "explanation": "Wrong. One AZ is a single point of failure.",
+              "id": "b"
+            },
+            {
+              "text": "Multiple instances in one subnet",
+              "correct": false,
+              "explanation": "Wrong. One subnet is one AZ.",
+              "id": "c"
+            },
+            {
+              "text": "Spot instances in one AZ",
+              "correct": false,
+              "explanation": "Wrong. Still a single-AZ exposure.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/auto-scaling-benefits.html",
+          "id": "awssaac03-s1-q8"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "For data accessed rarely but needing retrieval in milliseconds, which S3 storage class fits and saves cost?",
+          "options": [
+            {
+              "text": "S3 Standard-Infrequent Access",
+              "correct": true,
+              "explanation": "Correct. Standard-IA lowers storage cost with instant access for infrequent data.",
+              "id": "a"
+            },
+            {
+              "text": "S3 Glacier Deep Archive",
+              "correct": false,
+              "explanation": "Wrong. Deep Archive retrieval takes hours.",
+              "id": "b"
+            },
+            {
+              "text": "S3 Standard",
+              "correct": false,
+              "explanation": "Wrong. Standard is priced for frequent access.",
+              "id": "c"
+            },
+            {
+              "text": "S3 One Zone-IA for critical data",
+              "correct": false,
+              "explanation": "Wrong. One Zone-IA lacks multi-AZ resilience for critical data.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
+          "id": "awssaac03-s1-q9"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service centrally manages encryption keys for AWS services?",
+          "options": [
+            {
+              "text": "AWS KMS",
+              "correct": true,
+              "explanation": "Correct. KMS creates and controls encryption keys.",
+              "id": "a"
+            },
+            {
+              "text": "AWS Config",
+              "correct": false,
+              "explanation": "Wrong. Config tracks resource configuration/compliance.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon Inspector",
+              "correct": false,
+              "explanation": "Wrong. Inspector assesses vulnerabilities.",
+              "id": "c"
+            },
+            {
+              "text": "AWS Shield",
+              "correct": false,
+              "explanation": "Wrong. Shield is DDoS protection.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/kms/latest/developerguide/overview.html",
+          "id": "awssaac03-s1-q10"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you grant temporary, limited access to AWS resources for federated users?",
+          "options": [
+            {
+              "text": "AWS STS (temporary security credentials)",
+              "correct": true,
+              "explanation": "Correct. STS issues short-lived credentials, often via role assumption.",
+              "id": "a"
+            },
+            {
+              "text": "IAM access keys",
+              "correct": false,
+              "explanation": "Wrong. Access keys are long-lived, not temporary federation.",
+              "id": "b"
+            },
+            {
+              "text": "S3 bucket policies",
+              "correct": false,
+              "explanation": "Wrong. Those govern bucket access, not federation tokens.",
+              "id": "c"
+            },
+            {
+              "text": "Security groups",
+              "correct": false,
+              "explanation": "Wrong. Those are network filters.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/STS/latest/APIReference/welcome.html",
+          "id": "awssaac03-s1-q11"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which database service offers single-digit millisecond performance and automatic multi-AZ replication as a managed NoSQL store?",
+          "options": [
+            {
+              "text": "Amazon DynamoDB",
+              "correct": true,
+              "explanation": "Correct. DynamoDB is managed NoSQL with built-in replication.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon RDS for MySQL",
+              "correct": false,
+              "explanation": "Wrong. RDS is relational, not NoSQL.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon Redshift",
+              "correct": false,
+              "explanation": "Wrong. Redshift is a data warehouse.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon Athena",
+              "correct": false,
+              "explanation": "Wrong. Athena queries S3, it is not a NoSQL store.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html",
+          "id": "awssaac03-s1-q12"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which option scales compute automatically based on demand for a web tier?",
+          "options": [
+            {
+              "text": "EC2 Auto Scaling",
+              "correct": true,
+              "explanation": "Correct. Auto Scaling adds/removes instances based on policies.",
+              "id": "a"
+            },
+            {
+              "text": "A larger fixed instance",
+              "correct": false,
+              "explanation": "Wrong. Fixed sizing does not scale with demand.",
+              "id": "b"
+            },
+            {
+              "text": "Reserved Instances",
+              "correct": false,
+              "explanation": "Wrong. RIs are a pricing model, not autoscaling.",
+              "id": "c"
+            },
+            {
+              "text": "A NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. NAT handles egress, not scaling.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html",
+          "id": "awssaac03-s1-q13"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which pricing model best suits a steady 24/7 production database for one year?",
+          "options": [
+            {
+              "text": "Reserved Instances (or Savings Plans)",
+              "correct": true,
+              "explanation": "Correct. Commitment-based pricing saves on steady usage.",
+              "id": "a"
+            },
+            {
+              "text": "Spot Instances",
+              "correct": false,
+              "explanation": "Wrong. Spot can be interrupted, unsuitable for steady prod DB.",
+              "id": "b"
+            },
+            {
+              "text": "On-Demand only",
+              "correct": false,
+              "explanation": "Wrong. On-Demand costs more for predictable steady load.",
+              "id": "c"
+            },
+            {
+              "text": "Dedicated Hosts",
+              "correct": false,
+              "explanation": "Wrong. Premium pricing aimed at licensing/compliance.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html",
+          "id": "awssaac03-s1-q14"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service records API calls for auditing across the account?",
+          "options": [
+            {
+              "text": "AWS CloudTrail",
+              "correct": true,
+              "explanation": "Correct. CloudTrail logs API activity for governance and audit.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon CloudWatch",
+              "correct": false,
+              "explanation": "Wrong. CloudWatch is metrics/logs/alarms, not API audit trails primarily.",
+              "id": "b"
+            },
+            {
+              "text": "AWS Config",
+              "correct": false,
+              "explanation": "Wrong. Config tracks configuration state, not every API call.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon Macie",
+              "correct": false,
+              "explanation": "Wrong. Macie discovers sensitive data in S3.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html",
+          "id": "awssaac03-s1-q15"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which Route 53 routing policy directs users to the nearest healthy endpoint for low latency?",
+          "options": [
+            {
+              "text": "Latency-based routing",
+              "correct": true,
+              "explanation": "Correct. It routes to the Region with the lowest latency.",
+              "id": "a"
+            },
+            {
+              "text": "Simple routing",
+              "correct": false,
+              "explanation": "Wrong. Simple returns records without latency awareness.",
+              "id": "b"
+            },
+            {
+              "text": "Weighted routing",
+              "correct": false,
+              "explanation": "Wrong. Weighted splits by assigned proportions.",
+              "id": "c"
+            },
+            {
+              "text": "Failover routing only",
+              "correct": false,
+              "explanation": "Wrong. Failover is for active-passive, not latency optimization.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html",
+          "id": "awssaac03-s1-q16"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which storage offers shared file access (NFS) to many EC2 instances at once?",
+          "options": [
+            {
+              "text": "Amazon EFS",
+              "correct": true,
+              "explanation": "Correct. EFS provides shared, elastic NFS storage.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon EBS",
+              "correct": false,
+              "explanation": "Wrong. EBS attaches to a single instance (generally).",
+              "id": "b"
+            },
+            {
+              "text": "Amazon S3",
+              "correct": false,
+              "explanation": "Wrong. S3 is object storage, not a file system.",
+              "id": "c"
+            },
+            {
+              "text": "Instance store",
+              "correct": false,
+              "explanation": "Wrong. Instance store is ephemeral local disk.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html",
+          "id": "awssaac03-s1-q17"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which approach reduces NAT gateway data costs for many instances reaching S3?",
+          "options": [
+            {
+              "text": "Use a VPC gateway endpoint for S3",
+              "correct": true,
+              "explanation": "Correct. Gateway endpoints keep S3 traffic off the NAT gateway.",
+              "id": "a"
+            },
+            {
+              "text": "Add more NAT gateways",
+              "correct": false,
+              "explanation": "Wrong. That increases, not reduces, cost.",
+              "id": "b"
+            },
+            {
+              "text": "Route S3 over the internet gateway with public IPs",
+              "correct": false,
+              "explanation": "Wrong. Less secure and does not save NAT cost like an endpoint.",
+              "id": "c"
+            },
+            {
+              "text": "Use Direct Connect for S3",
+              "correct": false,
+              "explanation": "Wrong. Overkill for in-Region S3 access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-s3.html",
+          "id": "awssaac03-s1-q18"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which AWS service provides managed DDoS protection at no extra cost for common attacks?",
+          "options": [
+            {
+              "text": "AWS Shield Standard",
+              "correct": true,
+              "explanation": "Correct. Shield Standard protects against common DDoS automatically.",
+              "id": "a"
+            },
+            {
+              "text": "AWS WAF alone",
+              "correct": false,
+              "explanation": "Wrong. WAF filters web requests but is not the DDoS baseline service.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon GuardDuty",
+              "correct": false,
+              "explanation": "Wrong. GuardDuty is threat detection, not DDoS mitigation.",
+              "id": "c"
+            },
+            {
+              "text": "AWS Config",
+              "correct": false,
+              "explanation": "Wrong. Config tracks configuration.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/waf/latest/developerguide/ddos-overview.html",
+          "id": "awssaac03-s1-q19"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature provides automated, point-in-time recovery for a relational database?",
+          "options": [
+            {
+              "text": "RDS automated backups",
+              "correct": true,
+              "explanation": "Correct. Automated backups enable point-in-time restore.",
+              "id": "a"
+            },
+            {
+              "text": "Manual EBS snapshots only",
+              "correct": false,
+              "explanation": "Wrong. Manual snapshots lack continuous PITR for the DB engine.",
+              "id": "b"
+            },
+            {
+              "text": "S3 versioning",
+              "correct": false,
+              "explanation": "Wrong. Versioning is for S3 objects, not RDS.",
+              "id": "c"
+            },
+            {
+              "text": "CloudFront caching",
+              "correct": false,
+              "explanation": "Wrong. Caching is unrelated to DB recovery.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html",
+          "id": "awssaac03-s1-q20"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which service lets you run code without provisioning servers, scaling automatically per request?",
+          "options": [
+            {
+              "text": "AWS Lambda",
+              "correct": true,
+              "explanation": "Correct. Lambda runs code serverlessly and scales per invocation.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon EC2",
+              "correct": false,
+              "explanation": "Wrong. EC2 requires managing instances.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon ECS on EC2",
+              "correct": false,
+              "explanation": "Wrong. That still manages instances.",
+              "id": "c"
+            },
+            {
+              "text": "AWS Batch on EC2",
+              "correct": false,
+              "explanation": "Wrong. Still provisions compute you manage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
+          "id": "awssaac03-s1-q21"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which tool helps estimate and track AWS spending against budgets?",
+          "options": [
+            {
+              "text": "AWS Budgets",
+              "correct": true,
+              "explanation": "Correct. Budgets sets thresholds and alerts on spend.",
+              "id": "a"
+            },
+            {
+              "text": "AWS CloudFormation",
+              "correct": false,
+              "explanation": "Wrong. CloudFormation provisions infra, not budgeting.",
+              "id": "b"
+            },
+            {
+              "text": "AWS Step Functions",
+              "correct": false,
+              "explanation": "Wrong. Step Functions orchestrate workflows.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon QuickSight only",
+              "correct": false,
+              "explanation": "Wrong. QuickSight is BI, not native budget alerting.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html",
+          "id": "awssaac03-s1-q22"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which design enforces least privilege for a Lambda function accessing DynamoDB?",
+          "options": [
+            {
+              "text": "An IAM execution role scoped to the specific table and actions",
+              "correct": true,
+              "explanation": "Correct. A narrowly scoped role grants only needed access.",
+              "id": "a"
+            },
+            {
+              "text": "Hardcoded admin credentials in the function",
+              "correct": false,
+              "explanation": "Wrong. Admin credentials violate least privilege and risk leakage.",
+              "id": "b"
+            },
+            {
+              "text": "A public DynamoDB table",
+              "correct": false,
+              "explanation": "Wrong. DynamoDB tables are not public; this is nonsensical and insecure.",
+              "id": "c"
+            },
+            {
+              "text": "Root account keys in environment variables",
+              "correct": false,
+              "explanation": "Wrong. Never use root keys.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/lambda/latest/dg/lambda-intro-execution-role.html",
+          "id": "awssaac03-s1-q23"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature provides cross-Region disaster recovery for S3 objects?",
+          "options": [
+            {
+              "text": "S3 Cross-Region Replication",
+              "correct": true,
+              "explanation": "Correct. CRR copies objects to a bucket in another Region.",
+              "id": "a"
+            },
+            {
+              "text": "S3 versioning alone",
+              "correct": false,
+              "explanation": "Wrong. Versioning is single-Region object history.",
+              "id": "b"
+            },
+            {
+              "text": "EBS snapshots",
+              "correct": false,
+              "explanation": "Wrong. EBS snapshots are for block volumes.",
+              "id": "c"
+            },
+            {
+              "text": "CloudFront",
+              "correct": false,
+              "explanation": "Wrong. CloudFront caches, it does not replicate buckets.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html",
+          "id": "awssaac03-s1-q24"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which database engine is best for complex analytical queries over petabytes of data?",
+          "options": [
+            {
+              "text": "Amazon Redshift",
+              "correct": true,
+              "explanation": "Correct. Redshift is a columnar data warehouse for analytics at scale.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon DynamoDB",
+              "correct": false,
+              "explanation": "Wrong. DynamoDB is key-value/NoSQL, not analytical OLAP.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon ElastiCache",
+              "correct": false,
+              "explanation": "Wrong. ElastiCache is an in-memory cache.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon RDS MySQL",
+              "correct": false,
+              "explanation": "Wrong. RDS handles OLTP, not petabyte analytics efficiently.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html",
+          "id": "awssaac03-s1-q25"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A workload has unpredictable, spiky traffic and you want to pay only for actual usage. Which compute is most cost-aligned?",
+          "options": [
+            {
+              "text": "AWS Lambda (serverless)",
+              "correct": true,
+              "explanation": "Correct. Lambda bills per invocation/duration, ideal for spiky usage.",
+              "id": "a"
+            },
+            {
+              "text": "A large always-on EC2 instance",
+              "correct": false,
+              "explanation": "Wrong. You pay even when idle.",
+              "id": "b"
+            },
+            {
+              "text": "Reserved Instances",
+              "correct": false,
+              "explanation": "Wrong. RIs assume steady predictable usage.",
+              "id": "c"
+            },
+            {
+              "text": "Dedicated Hosts",
+              "correct": false,
+              "explanation": "Wrong. Premium fixed cost regardless of usage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
+          "id": "awssaac03-s1-q26"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service detects threats by analyzing VPC flow logs, DNS logs, and CloudTrail?",
+          "options": [
+            {
+              "text": "Amazon GuardDuty",
+              "correct": true,
+              "explanation": "Correct. GuardDuty is a managed threat-detection service.",
+              "id": "a"
+            },
+            {
+              "text": "AWS WAF",
+              "correct": false,
+              "explanation": "Wrong. WAF filters HTTP requests.",
+              "id": "b"
+            },
+            {
+              "text": "AWS Shield",
+              "correct": false,
+              "explanation": "Wrong. Shield is DDoS protection.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon Inspector",
+              "correct": false,
+              "explanation": "Wrong. Inspector scans for software vulnerabilities.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html",
+          "id": "awssaac03-s1-q27"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which load balancer operates at Layer 7 and routes by host/path?",
+          "options": [
+            {
+              "text": "Application Load Balancer",
+              "correct": true,
+              "explanation": "Correct. ALB is L7 with content-based routing.",
+              "id": "a"
+            },
+            {
+              "text": "Network Load Balancer",
+              "correct": false,
+              "explanation": "Wrong. NLB is L4 (TCP/UDP).",
+              "id": "b"
+            },
+            {
+              "text": "Classic Load Balancer only",
+              "correct": false,
+              "explanation": "Wrong. CLB is legacy and not the L7 path-routing answer.",
+              "id": "c"
+            },
+            {
+              "text": "Gateway Load Balancer",
+              "correct": false,
+              "explanation": "Wrong. GWLB is for inline appliances.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html",
+          "id": "awssaac03-s1-q28"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which NLB property makes it suitable for extreme performance and static IPs?",
+          "options": [
+            {
+              "text": "Layer 4 handling with ultra-low latency and static IP support",
+              "correct": true,
+              "explanation": "Correct. NLB operates at L4 with very high throughput and static IPs.",
+              "id": "a"
+            },
+            {
+              "text": "Content-based L7 routing",
+              "correct": false,
+              "explanation": "Wrong. That is ALB.",
+              "id": "b"
+            },
+            {
+              "text": "Built-in WAF",
+              "correct": false,
+              "explanation": "Wrong. WAF integrates with ALB/CloudFront, not core NLB.",
+              "id": "c"
+            },
+            {
+              "text": "Automatic image caching",
+              "correct": false,
+              "explanation": "Wrong. Caching is CloudFront's role.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html",
+          "id": "awssaac03-s1-q29"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which storage class automatically moves objects between tiers based on access patterns to optimize cost?",
+          "options": [
+            {
+              "text": "S3 Intelligent-Tiering",
+              "correct": true,
+              "explanation": "Correct. Intelligent-Tiering shifts objects across tiers automatically.",
+              "id": "a"
+            },
+            {
+              "text": "S3 Standard",
+              "correct": false,
+              "explanation": "Wrong. Standard does not auto-tier.",
+              "id": "b"
+            },
+            {
+              "text": "S3 Glacier",
+              "correct": false,
+              "explanation": "Wrong. Glacier is archival, not auto-tiering.",
+              "id": "c"
+            },
+            {
+              "text": "S3 One Zone-IA",
+              "correct": false,
+              "explanation": "Wrong. One Zone-IA is a single fixed tier.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
+          "id": "awssaac03-s1-q30"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which approach isolates resources at the network layer within a VPC?",
+          "options": [
+            {
+              "text": "Subnets with security groups and NACLs",
+              "correct": true,
+              "explanation": "Correct. Subnets plus SGs/NACLs segment and control traffic.",
+              "id": "a"
+            },
+            {
+              "text": "IAM policies only",
+              "correct": false,
+              "explanation": "Wrong. IAM governs API permissions, not network isolation.",
+              "id": "b"
+            },
+            {
+              "text": "S3 bucket policies",
+              "correct": false,
+              "explanation": "Wrong. Those govern S3 access, not VPC networking.",
+              "id": "c"
+            },
+            {
+              "text": "Route 53 records",
+              "correct": false,
+              "explanation": "Wrong. DNS records do not isolate network traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-security-groups.html",
+          "id": "awssaac03-s1-q31"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which design provides an active-passive failover site that can take over via DNS?",
+          "options": [
+            {
+              "text": "Route 53 failover routing with health checks",
+              "correct": true,
+              "explanation": "Correct. Failover routing shifts traffic to a healthy standby.",
+              "id": "a"
+            },
+            {
+              "text": "Weighted routing at 50/50",
+              "correct": false,
+              "explanation": "Wrong. That is active-active distribution, not failover.",
+              "id": "b"
+            },
+            {
+              "text": "A single Region with backups",
+              "correct": false,
+              "explanation": "Wrong. No automatic DNS failover to a second site.",
+              "id": "c"
+            },
+            {
+              "text": "CloudFront only",
+              "correct": false,
+              "explanation": "Wrong. CloudFront caches; it is not DR failover routing.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/dns-failover.html",
+          "id": "awssaac03-s1-q32"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service streams and processes large volumes of real-time data?",
+          "options": [
+            {
+              "text": "Amazon Kinesis",
+              "correct": true,
+              "explanation": "Correct. Kinesis ingests and processes streaming data.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon S3 alone",
+              "correct": false,
+              "explanation": "Wrong. S3 stores objects; it is not a stream processor.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon RDS",
+              "correct": false,
+              "explanation": "Wrong. RDS is relational OLTP.",
+              "id": "c"
+            },
+            {
+              "text": "AWS Glue",
+              "correct": false,
+              "explanation": "Wrong. Glue is batch ETL/catalog.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/streams/latest/dev/introduction.html",
+          "id": "awssaac03-s1-q33"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which is the cheapest durable option for long-term archival accessed once or twice a year, tolerating hours to retrieve?",
+          "options": [
+            {
+              "text": "S3 Glacier Deep Archive",
+              "correct": true,
+              "explanation": "Correct. Deep Archive is the lowest-cost archival tier.",
+              "id": "a"
+            },
+            {
+              "text": "S3 Standard",
+              "correct": false,
+              "explanation": "Wrong. Standard is for frequent access at higher cost.",
+              "id": "b"
+            },
+            {
+              "text": "EBS volumes",
+              "correct": false,
+              "explanation": "Wrong. EBS is not archival storage.",
+              "id": "c"
+            },
+            {
+              "text": "S3 Standard-IA",
+              "correct": false,
+              "explanation": "Wrong. Standard-IA is pricier than deep archival for rare access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
+          "id": "awssaac03-s1-q34"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you require MFA before sensitive IAM actions?",
+          "options": [
+            {
+              "text": "IAM policy conditions requiring aws:MultiFactorAuthPresent",
+              "correct": true,
+              "explanation": "Correct. Policy conditions can enforce MFA for actions.",
+              "id": "a"
+            },
+            {
+              "text": "A security group rule",
+              "correct": false,
+              "explanation": "Wrong. SGs are network filters, not MFA controls.",
+              "id": "b"
+            },
+            {
+              "text": "An S3 lifecycle rule",
+              "correct": false,
+              "explanation": "Wrong. Lifecycle rules manage object transitions.",
+              "id": "c"
+            },
+            {
+              "text": "A Route 53 health check",
+              "correct": false,
+              "explanation": "Wrong. Health checks monitor endpoints.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_mfa.html",
+          "id": "awssaac03-s1-q35"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which database feature scales read capacity for a relational workload?",
+          "options": [
+            {
+              "text": "RDS read replicas",
+              "correct": true,
+              "explanation": "Correct. Read replicas offload read traffic from the primary.",
+              "id": "a"
+            },
+            {
+              "text": "Multi-AZ standby",
+              "correct": false,
+              "explanation": "Wrong. The standby is for failover, not serving reads (in classic Multi-AZ).",
+              "id": "b"
+            },
+            {
+              "text": "Larger EBS volume",
+              "correct": false,
+              "explanation": "Wrong. Storage size does not scale reads.",
+              "id": "c"
+            },
+            {
+              "text": "S3 Transfer Acceleration",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to RDS reads.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html",
+          "id": "awssaac03-s1-q36"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service provides a managed message bus for fan-out notifications to many subscribers?",
+          "options": [
+            {
+              "text": "Amazon SNS",
+              "correct": true,
+              "explanation": "Correct. SNS publishes messages to many subscribers (fan-out).",
+              "id": "a"
+            },
+            {
+              "text": "Amazon SQS",
+              "correct": false,
+              "explanation": "Wrong. SQS is a queue consumed by pollers, not pub/sub fan-out by itself.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon Kinesis",
+              "correct": false,
+              "explanation": "Wrong. Kinesis is streaming, not simple pub/sub notifications.",
+              "id": "c"
+            },
+            {
+              "text": "AWS Step Functions",
+              "correct": false,
+              "explanation": "Wrong. Step Functions orchestrate workflows.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/sns/latest/dg/welcome.html",
+          "id": "awssaac03-s1-q37"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which approach lowers cost for predictable compute while keeping flexibility across instance families?",
+          "options": [
+            {
+              "text": "Compute Savings Plans",
+              "correct": true,
+              "explanation": "Correct. Compute Savings Plans discount usage flexibly across families/Regions.",
+              "id": "a"
+            },
+            {
+              "text": "Standard Reserved Instances locked to one type",
+              "correct": false,
+              "explanation": "Wrong. Less flexible than Compute Savings Plans.",
+              "id": "b"
+            },
+            {
+              "text": "Spot for steady prod",
+              "correct": false,
+              "explanation": "Wrong. Spot risks interruption for steady workloads.",
+              "id": "c"
+            },
+            {
+              "text": "On-Demand always",
+              "correct": false,
+              "explanation": "Wrong. On-Demand is the costliest for predictable load.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html",
+          "id": "awssaac03-s1-q38"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service manages secrets like DB passwords with automatic rotation?",
+          "options": [
+            {
+              "text": "AWS Secrets Manager",
+              "correct": true,
+              "explanation": "Correct. Secrets Manager stores and rotates secrets.",
+              "id": "a"
+            },
+            {
+              "text": "AWS Systems Manager Parameter Store standard tier only",
+              "correct": false,
+              "explanation": "Wrong. Standard Parameter Store lacks built-in rotation like Secrets Manager.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon S3",
+              "correct": false,
+              "explanation": "Wrong. S3 is object storage, not a secrets manager.",
+              "id": "c"
+            },
+            {
+              "text": "AWS KMS alone",
+              "correct": false,
+              "explanation": "Wrong. KMS manages keys, not secret rotation lifecycle.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html",
+          "id": "awssaac03-s1-q39"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which compute option provides containers without managing servers?",
+          "options": [
+            {
+              "text": "AWS Fargate",
+              "correct": true,
+              "explanation": "Correct. Fargate runs containers serverlessly.",
+              "id": "a"
+            },
+            {
+              "text": "ECS on EC2",
+              "correct": false,
+              "explanation": "Wrong. That manages EC2 capacity.",
+              "id": "b"
+            },
+            {
+              "text": "EKS self-managed nodes",
+              "correct": false,
+              "explanation": "Wrong. Self-managed nodes require server management.",
+              "id": "c"
+            },
+            {
+              "text": "EC2 with Docker installed",
+              "correct": false,
+              "explanation": "Wrong. You manage the servers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonECS/latest/userguide/what-is-fargate.html",
+          "id": "awssaac03-s1-q40"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which service accelerates uploads to S3 from distant users?",
+          "options": [
+            {
+              "text": "S3 Transfer Acceleration",
+              "correct": true,
+              "explanation": "Correct. It routes uploads through edge locations for speed.",
+              "id": "a"
+            },
+            {
+              "text": "S3 Cross-Region Replication",
+              "correct": false,
+              "explanation": "Wrong. CRR replicates after upload, it does not accelerate uploads.",
+              "id": "b"
+            },
+            {
+              "text": "CloudFront for uploads only",
+              "correct": false,
+              "explanation": "Wrong. CloudFront primarily accelerates downloads/distribution.",
+              "id": "c"
+            },
+            {
+              "text": "Direct Connect always",
+              "correct": false,
+              "explanation": "Wrong. Direct Connect is dedicated connectivity, not S3 upload acceleration.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/transfer-acceleration.html",
+          "id": "awssaac03-s1-q41"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which is a quick cost win for idle non-production EC2 instances overnight?",
+          "options": [
+            {
+              "text": "Scheduled start/stop (instance scheduler)",
+              "correct": true,
+              "explanation": "Correct. Stopping idle instances off-hours cuts cost.",
+              "id": "a"
+            },
+            {
+              "text": "Upsizing the instances",
+              "correct": false,
+              "explanation": "Wrong. Larger instances cost more.",
+              "id": "b"
+            },
+            {
+              "text": "Buying Dedicated Hosts",
+              "correct": false,
+              "explanation": "Wrong. That increases cost.",
+              "id": "c"
+            },
+            {
+              "text": "Adding more EBS volumes",
+              "correct": false,
+              "explanation": "Wrong. That adds cost, not savings.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/solutions/latest/instance-scheduler-on-aws/solution-overview.html",
+          "id": "awssaac03-s1-q42"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which network feature provides a private connection between a VPC and supported AWS services without internet?",
+          "options": [
+            {
+              "text": "Interface VPC endpoints (PrivateLink)",
+              "correct": true,
+              "explanation": "Correct. Interface endpoints keep traffic on the AWS network.",
+              "id": "a"
+            },
+            {
+              "text": "Internet gateway",
+              "correct": false,
+              "explanation": "Wrong. That provides internet access, not private service links.",
+              "id": "b"
+            },
+            {
+              "text": "NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. NAT provides outbound internet, not private endpoints.",
+              "id": "c"
+            },
+            {
+              "text": "Public subnets",
+              "correct": false,
+              "explanation": "Wrong. Public subnets route to the internet.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html",
+          "id": "awssaac03-s1-q43"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature keeps an application available during the failure of a single EC2 instance behind a load balancer?",
+          "options": [
+            {
+              "text": "Health checks removing the unhealthy instance and ASG replacing it",
+              "correct": true,
+              "explanation": "Correct. ELB health checks plus ASG self-heal the fleet.",
+              "id": "a"
+            },
+            {
+              "text": "A larger single instance",
+              "correct": false,
+              "explanation": "Wrong. One instance is a single point of failure.",
+              "id": "b"
+            },
+            {
+              "text": "Manual restart only",
+              "correct": false,
+              "explanation": "Wrong. Manual recovery is slow and not automatic.",
+              "id": "c"
+            },
+            {
+              "text": "CloudFront caching",
+              "correct": false,
+              "explanation": "Wrong. Caching does not replace failed compute.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/elasticloadbalancing/latest/userguide/how-elastic-load-balancing-works.html",
+          "id": "awssaac03-s1-q44"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service provides a managed Kubernetes control plane?",
+          "options": [
+            {
+              "text": "Amazon EKS",
+              "correct": true,
+              "explanation": "Correct. EKS runs a managed Kubernetes control plane.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon ECS",
+              "correct": false,
+              "explanation": "Wrong. ECS is AWS's own orchestrator, not Kubernetes.",
+              "id": "b"
+            },
+            {
+              "text": "AWS Batch",
+              "correct": false,
+              "explanation": "Wrong. Batch runs batch jobs, not a K8s control plane.",
+              "id": "c"
+            },
+            {
+              "text": "AWS Lambda",
+              "correct": false,
+              "explanation": "Wrong. Lambda is serverless functions.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html",
+          "id": "awssaac03-s1-q45"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which option reduces data transfer cost for content served repeatedly to global users?",
+          "options": [
+            {
+              "text": "Serve via CloudFront to cache at the edge",
+              "correct": true,
+              "explanation": "Correct. Edge caching reduces origin fetches and transfer cost.",
+              "id": "a"
+            },
+            {
+              "text": "Serve directly from a single S3 bucket every time",
+              "correct": false,
+              "explanation": "Wrong. Repeated origin fetches cost more in transfer.",
+              "id": "b"
+            },
+            {
+              "text": "Use a NAT gateway for delivery",
+              "correct": false,
+              "explanation": "Wrong. NAT is for egress, not content delivery.",
+              "id": "c"
+            },
+            {
+              "text": "Increase EC2 instance size",
+              "correct": false,
+              "explanation": "Wrong. Size does not reduce transfer cost.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html",
+          "id": "awssaac03-s1-q46"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which is the recommended root account practice?",
+          "options": [
+            {
+              "text": "Enable MFA and avoid daily use of the root user",
+              "correct": true,
+              "explanation": "Correct. Lock down root with MFA and use IAM users/roles instead.",
+              "id": "a"
+            },
+            {
+              "text": "Use root for all administrative tasks",
+              "correct": false,
+              "explanation": "Wrong. Root should be avoided for daily work.",
+              "id": "b"
+            },
+            {
+              "text": "Share root credentials with the team",
+              "correct": false,
+              "explanation": "Wrong. Never share root credentials.",
+              "id": "c"
+            },
+            {
+              "text": "Create access keys for root",
+              "correct": false,
+              "explanation": "Wrong. Root access keys are strongly discouraged.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
+          "id": "awssaac03-s1-q47"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which DynamoDB feature provides cross-Region, multi-active replication?",
+          "options": [
+            {
+              "text": "DynamoDB global tables",
+              "correct": true,
+              "explanation": "Correct. Global tables replicate across Regions with multi-active writes.",
+              "id": "a"
+            },
+            {
+              "text": "DynamoDB streams alone",
+              "correct": false,
+              "explanation": "Wrong. Streams emit changes but are not multi-Region replication by themselves.",
+              "id": "b"
+            },
+            {
+              "text": "RDS Multi-AZ",
+              "correct": false,
+              "explanation": "Wrong. That is for RDS, not DynamoDB.",
+              "id": "c"
+            },
+            {
+              "text": "S3 CRR",
+              "correct": false,
+              "explanation": "Wrong. CRR is for S3 objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html",
+          "id": "awssaac03-s1-q48"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which AWS tool gives recommendations to reduce cost, improve performance, and tighten security?",
+          "options": [
+            {
+              "text": "AWS Trusted Advisor",
+              "correct": true,
+              "explanation": "Correct. Trusted Advisor checks for cost, performance, security, and more.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon CloudWatch alarms only",
+              "correct": false,
+              "explanation": "Wrong. Alarms watch metrics, they do not give holistic recommendations.",
+              "id": "b"
+            },
+            {
+              "text": "AWS CloudTrail",
+              "correct": false,
+              "explanation": "Wrong. CloudTrail audits API calls.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon Inspector",
+              "correct": false,
+              "explanation": "Wrong. Inspector focuses on vulnerability assessment.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/awssupport/latest/user/trusted-advisor.html",
+          "id": "awssaac03-s1-q49"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature improves application performance by routing users to the nearest of multiple Regional deployments?",
+          "options": [
+            {
+              "text": "Route 53 latency-based or geolocation routing",
+              "correct": true,
+              "explanation": "Correct. Route 53 directs users to the closest Regional endpoint.",
+              "id": "a"
+            },
+            {
+              "text": "A single-Region deployment",
+              "correct": false,
+              "explanation": "Wrong. One Region cannot localize global users.",
+              "id": "b"
+            },
+            {
+              "text": "An internet gateway",
+              "correct": false,
+              "explanation": "Wrong. IGW provides internet access, not Regional routing.",
+              "id": "c"
+            },
+            {
+              "text": "A NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. NAT handles egress, not user routing.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/routing-policy.html",
+          "id": "awssaac03-s1-q50"
         }
       ]
     },
@@ -81,32 +1737,1704 @@
       "timeLimitMin": 65,
       "questions": [
         {
-          "id": "saa-s2-q1",
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which policy type attaches directly to an S3 bucket to control access?",
+          "options": [
+            {
+              "text": "A bucket policy",
+              "correct": true,
+              "explanation": "Correct. Bucket policies are resource-based policies on the bucket.",
+              "id": "a"
+            },
+            {
+              "text": "An IAM group policy only",
+              "correct": false,
+              "explanation": "Wrong. Group policies attach to identities, not the bucket itself.",
+              "id": "b"
+            },
+            {
+              "text": "A security group",
+              "correct": false,
+              "explanation": "Wrong. S3 does not use security groups.",
+              "id": "c"
+            },
+            {
+              "text": "A NACL",
+              "correct": false,
+              "explanation": "Wrong. NACLs are subnet-level network controls.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html",
+          "id": "awssaac03-s2-q1"
+        },
+        {
           "domainId": "d2",
           "difficulty": "medium",
           "type": "single",
-          "stem": "You must decouple a spike-prone front end from slower back-end processing so no requests are lost. Which service fits?",
+          "stem": "Which approach gives the highest durability for object storage?",
           "options": [
-            { "id": "a", "text": "Amazon SQS", "correct": true, "explanation": "Correct. SQS buffers messages so the back end consumes at its own pace without dropping requests." },
-            { "id": "b", "text": "Amazon Route 53", "correct": false, "explanation": "Wrong. Route 53 is DNS; it doesn't buffer workloads." },
-            { "id": "c", "text": "AWS WAF", "correct": false, "explanation": "Wrong. WAF filters web traffic for security; it isn't a decoupling buffer." },
-            { "id": "d", "text": "Amazon CloudFront", "correct": false, "explanation": "Wrong. CloudFront caches/edge-delivers content; it doesn't queue back-end work." }
+            {
+              "text": "Amazon S3 (designed for 11 nines of durability)",
+              "correct": true,
+              "explanation": "Correct. S3 stores data redundantly across AZs for very high durability.",
+              "id": "a"
+            },
+            {
+              "text": "A single EBS volume",
+              "correct": false,
+              "explanation": "Wrong. One EBS volume is AZ-scoped and less durable.",
+              "id": "b"
+            },
+            {
+              "text": "Instance store",
+              "correct": false,
+              "explanation": "Wrong. Instance store is ephemeral.",
+              "id": "c"
+            },
+            {
+              "text": "A single-AZ file server",
+              "correct": false,
+              "explanation": "Wrong. Single AZ is a durability risk.",
+              "id": "d"
+            }
           ],
-          "reference": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html"
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/DataDurability.html",
+          "id": "awssaac03-s2-q2"
         },
         {
-          "id": "saa-s2-q2",
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service provides in-memory caching specifically compatible with Redis?",
+          "options": [
+            {
+              "text": "Amazon ElastiCache for Redis",
+              "correct": true,
+              "explanation": "Correct. ElastiCache offers a managed Redis-compatible cache.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon RDS",
+              "correct": false,
+              "explanation": "Wrong. RDS is relational, not an in-memory cache.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon DynamoDB",
+              "correct": false,
+              "explanation": "Wrong. DynamoDB is NoSQL, not a Redis cache.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon Athena",
+              "correct": false,
+              "explanation": "Wrong. Athena queries S3.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html",
+          "id": "awssaac03-s2-q3"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which approach reduces cost for a Lambda-heavy app with steady high volume?",
+          "options": [
+            {
+              "text": "Compute Savings Plans covering Lambda usage",
+              "correct": true,
+              "explanation": "Correct. Savings Plans apply to steady Lambda usage for discounts.",
+              "id": "a"
+            },
+            {
+              "text": "Provisioning idle EC2 instead",
+              "correct": false,
+              "explanation": "Wrong. Idle EC2 wastes money.",
+              "id": "b"
+            },
+            {
+              "text": "Disabling logging entirely",
+              "correct": false,
+              "explanation": "Wrong. Risky and not a primary cost lever.",
+              "id": "c"
+            },
+            {
+              "text": "Buying Dedicated Hosts",
+              "correct": false,
+              "explanation": "Wrong. Irrelevant to serverless.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/savingsplans/latest/userguide/what-is-savings-plans.html",
+          "id": "awssaac03-s2-q4"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which architecture survives a full Region outage?",
+          "options": [
+            {
+              "text": "Multi-Region deployment with data replication and DNS failover",
+              "correct": true,
+              "explanation": "Correct. Multi-Region with failover tolerates a Region loss.",
+              "id": "a"
+            },
+            {
+              "text": "Multi-AZ in one Region",
+              "correct": false,
+              "explanation": "Wrong. Multi-AZ does not survive a full Region outage.",
+              "id": "b"
+            },
+            {
+              "text": "A single Region with backups",
+              "correct": false,
+              "explanation": "Wrong. Backups alone do not provide automatic regional failover.",
+              "id": "c"
+            },
+            {
+              "text": "Larger instances in one Region",
+              "correct": false,
+              "explanation": "Wrong. Still single-Region exposure.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html",
+          "id": "awssaac03-s2-q5"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service helps discover and protect sensitive data stored in S3?",
+          "options": [
+            {
+              "text": "Amazon Macie",
+              "correct": true,
+              "explanation": "Correct. Macie uses ML to find sensitive data in S3.",
+              "id": "a"
+            },
+            {
+              "text": "AWS Shield",
+              "correct": false,
+              "explanation": "Wrong. Shield is DDoS protection.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon GuardDuty",
+              "correct": false,
+              "explanation": "Wrong. GuardDuty detects account threats, not S3 data classification.",
+              "id": "c"
+            },
+            {
+              "text": "AWS Config",
+              "correct": false,
+              "explanation": "Wrong. Config tracks configuration state.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html",
+          "id": "awssaac03-s2-q6"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service queries data directly in S3 using standard SQL without loading it?",
+          "options": [
+            {
+              "text": "Amazon Athena",
+              "correct": true,
+              "explanation": "Correct. Athena runs SQL over S3 data serverlessly.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon Redshift Spectrum only via cluster",
+              "correct": false,
+              "explanation": "Wrong. Spectrum needs a Redshift cluster; Athena is serverless for S3.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon RDS",
+              "correct": false,
+              "explanation": "Wrong. RDS queries its own storage, not arbitrary S3.",
+              "id": "c"
+            },
+            {
+              "text": "AWS Glue DataBrew",
+              "correct": false,
+              "explanation": "Wrong. DataBrew is for data prep, not ad-hoc SQL over S3.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/athena/latest/ug/what-is.html",
+          "id": "awssaac03-s2-q7"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which storage choice avoids paying for multi-AZ redundancy when data is reproducible?",
+          "options": [
+            {
+              "text": "S3 One Zone-IA",
+              "correct": true,
+              "explanation": "Correct. One Zone-IA costs less by storing in a single AZ for re-creatable data.",
+              "id": "a"
+            },
+            {
+              "text": "S3 Standard",
+              "correct": false,
+              "explanation": "Wrong. Standard includes multi-AZ at higher cost.",
+              "id": "b"
+            },
+            {
+              "text": "S3 Glacier Deep Archive for hot data",
+              "correct": false,
+              "explanation": "Wrong. Deep Archive is for cold archival, not infrequent-but-instant data.",
+              "id": "c"
+            },
+            {
+              "text": "EBS Provisioned IOPS",
+              "correct": false,
+              "explanation": "Wrong. Premium block storage, not the cost-saver here.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
+          "id": "awssaac03-s2-q8"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which AWS feature replaces an unhealthy instance automatically in a fleet?",
+          "options": [
+            {
+              "text": "Auto Scaling health checks and replacement",
+              "correct": true,
+              "explanation": "Correct. ASG terminates unhealthy instances and launches replacements.",
+              "id": "a"
+            },
+            {
+              "text": "Manual AMI baking",
+              "correct": false,
+              "explanation": "Wrong. That prepares images, it does not auto-replace instances.",
+              "id": "b"
+            },
+            {
+              "text": "Route 53 weighted routing",
+              "correct": false,
+              "explanation": "Wrong. That distributes DNS, not instance replacement.",
+              "id": "c"
+            },
+            {
+              "text": "S3 versioning",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to compute health.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/healthcheck.html",
+          "id": "awssaac03-s2-q9"
+        },
+        {
           "domainId": "d1",
           "difficulty": "hard",
-          "type": "multi",
-          "stem": "Which measures help protect data at rest in S3? (Select TWO)",
+          "type": "single",
+          "stem": "Which encryption option lets AWS manage the keys with minimal setup for S3?",
           "options": [
-            { "id": "a", "text": "Enable SSE-KMS encryption on the bucket", "correct": true, "explanation": "Correct. Server-side encryption with KMS encrypts objects at rest with managed keys." },
-            { "id": "b", "text": "Enable S3 Block Public Access", "correct": true, "explanation": "Correct. Block Public Access prevents accidental public exposure, protecting the data." },
-            { "id": "c", "text": "Put the bucket behind a NAT gateway", "correct": false, "explanation": "Wrong. NAT gateways route outbound VPC traffic; they don't apply to S3 object protection." },
-            { "id": "d", "text": "Attach a security group to the bucket", "correct": false, "explanation": "Wrong. S3 buckets don't use security groups; access is governed by policies and ACLs." }
+            {
+              "text": "SSE-S3 (Amazon S3-managed keys)",
+              "correct": true,
+              "explanation": "Correct. SSE-S3 encrypts with keys AWS fully manages.",
+              "id": "a"
+            },
+            {
+              "text": "SSE-C with customer-supplied keys",
+              "correct": false,
+              "explanation": "Wrong. SSE-C requires you to supply and manage keys per request.",
+              "id": "b"
+            },
+            {
+              "text": "Client-side encryption only",
+              "correct": false,
+              "explanation": "Wrong. That requires you to handle encryption before upload.",
+              "id": "c"
+            },
+            {
+              "text": "No encryption with a private bucket",
+              "correct": false,
+              "explanation": "Wrong. Private does not equal encrypted at rest.",
+              "id": "d"
+            }
           ],
-          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html"
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingServerSideEncryption.html",
+          "id": "awssaac03-s2-q10"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which compute option suits a long-running, memory-intensive in-memory database?",
+          "options": [
+            {
+              "text": "Memory-optimized EC2 instances",
+              "correct": true,
+              "explanation": "Correct. Memory-optimized families fit RAM-heavy workloads.",
+              "id": "a"
+            },
+            {
+              "text": "Burstable t-family for sustained load",
+              "correct": false,
+              "explanation": "Wrong. Burstable types throttle under sustained heavy use.",
+              "id": "b"
+            },
+            {
+              "text": "Lambda with 128MB",
+              "correct": false,
+              "explanation": "Wrong. Lambda has limited memory/runtime for big in-memory DBs.",
+              "id": "c"
+            },
+            {
+              "text": "GPU instances",
+              "correct": false,
+              "explanation": "Wrong. GPU is for accelerated compute, not memory-bound DBs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/memory-optimized-instances.html",
+          "id": "awssaac03-s2-q11"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature automatically deletes or transitions S3 objects on a schedule to save cost?",
+          "options": [
+            {
+              "text": "S3 Lifecycle rules",
+              "correct": true,
+              "explanation": "Correct. Lifecycle rules transition or expire objects automatically.",
+              "id": "a"
+            },
+            {
+              "text": "S3 versioning",
+              "correct": false,
+              "explanation": "Wrong. Versioning keeps history; it does not save cost by itself.",
+              "id": "b"
+            },
+            {
+              "text": "S3 Transfer Acceleration",
+              "correct": false,
+              "explanation": "Wrong. That speeds uploads, not cost transitions.",
+              "id": "c"
+            },
+            {
+              "text": "Bucket policies",
+              "correct": false,
+              "explanation": "Wrong. Policies govern access, not lifecycle transitions.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html",
+          "id": "awssaac03-s2-q12"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service orchestrates multi-step workflows with retries and state?",
+          "options": [
+            {
+              "text": "AWS Step Functions",
+              "correct": true,
+              "explanation": "Correct. Step Functions coordinate workflows with built-in error handling.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon SQS",
+              "correct": false,
+              "explanation": "Wrong. SQS is a queue, not a workflow orchestrator.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon SNS",
+              "correct": false,
+              "explanation": "Wrong. SNS is pub/sub messaging.",
+              "id": "c"
+            },
+            {
+              "text": "AWS Lambda alone",
+              "correct": false,
+              "explanation": "Wrong. Lambda runs functions but does not orchestrate state across steps natively.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html",
+          "id": "awssaac03-s2-q13"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which is the safest way to provide cross-account access to a resource?",
+          "options": [
+            {
+              "text": "Assume an IAM role in the target account",
+              "correct": true,
+              "explanation": "Correct. Cross-account roles grant temporary, auditable access.",
+              "id": "a"
+            },
+            {
+              "text": "Share long-lived access keys",
+              "correct": false,
+              "explanation": "Wrong. Sharing keys is insecure and unauditable.",
+              "id": "b"
+            },
+            {
+              "text": "Make the resource public",
+              "correct": false,
+              "explanation": "Wrong. Public exposure is unsafe.",
+              "id": "c"
+            },
+            {
+              "text": "Embed credentials in code",
+              "correct": false,
+              "explanation": "Wrong. Hardcoded credentials leak.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html",
+          "id": "awssaac03-s2-q14"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which EC2 feature provides predictable high network throughput between instances in a cluster?",
+          "options": [
+            {
+              "text": "A cluster placement group",
+              "correct": true,
+              "explanation": "Correct. Cluster placement groups pack instances for low-latency, high-throughput networking.",
+              "id": "a"
+            },
+            {
+              "text": "A spread placement group",
+              "correct": false,
+              "explanation": "Wrong. Spread isolates instances; it does not maximize inter-node throughput.",
+              "id": "b"
+            },
+            {
+              "text": "A NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. NAT is for egress.",
+              "id": "c"
+            },
+            {
+              "text": "An internet gateway",
+              "correct": false,
+              "explanation": "Wrong. IGW is for internet access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html",
+          "id": "awssaac03-s2-q15"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which choice reduces RDS cost for a dev database used only during business hours?",
+          "options": [
+            {
+              "text": "Stop the RDS instance when not in use",
+              "correct": true,
+              "explanation": "Correct. Stopping the instance saves compute cost off-hours.",
+              "id": "a"
+            },
+            {
+              "text": "Switch to the largest instance class",
+              "correct": false,
+              "explanation": "Wrong. Larger costs more.",
+              "id": "b"
+            },
+            {
+              "text": "Enable Multi-AZ for dev",
+              "correct": false,
+              "explanation": "Wrong. Multi-AZ doubles cost, unneeded for dev.",
+              "id": "c"
+            },
+            {
+              "text": "Add read replicas",
+              "correct": false,
+              "explanation": "Wrong. Replicas add cost, not savings.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_StopInstance.html",
+          "id": "awssaac03-s2-q16"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which DNS record type does Route 53 use to alias to AWS resources like an ALB at the zone apex?",
+          "options": [
+            {
+              "text": "Alias record",
+              "correct": true,
+              "explanation": "Correct. Alias records map the apex to AWS resources without a CNAME limitation.",
+              "id": "a"
+            },
+            {
+              "text": "A plain CNAME at the apex",
+              "correct": false,
+              "explanation": "Wrong. CNAMEs are not allowed at the zone apex.",
+              "id": "b"
+            },
+            {
+              "text": "An MX record",
+              "correct": false,
+              "explanation": "Wrong. MX is for mail routing.",
+              "id": "c"
+            },
+            {
+              "text": "A TXT record",
+              "correct": false,
+              "explanation": "Wrong. TXT holds text, not routing to an ALB.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html",
+          "id": "awssaac03-s2-q17"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which control restricts which actions an IAM user can perform regardless of resource policies, set org-wide?",
+          "options": [
+            {
+              "text": "Service Control Policies (SCPs) in AWS Organizations",
+              "correct": true,
+              "explanation": "Correct. SCPs set permission guardrails across accounts.",
+              "id": "a"
+            },
+            {
+              "text": "A single IAM user policy",
+              "correct": false,
+              "explanation": "Wrong. That governs one user, not org-wide guardrails.",
+              "id": "b"
+            },
+            {
+              "text": "A security group",
+              "correct": false,
+              "explanation": "Wrong. SGs are network controls.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket policy",
+              "correct": false,
+              "explanation": "Wrong. That is S3-specific.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_scps.html",
+          "id": "awssaac03-s2-q18"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service provides a fully managed, scalable Elasticsearch/OpenSearch cluster?",
+          "options": [
+            {
+              "text": "Amazon OpenSearch Service",
+              "correct": true,
+              "explanation": "Correct. It manages OpenSearch clusters for search and analytics.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon Redshift",
+              "correct": false,
+              "explanation": "Wrong. Redshift is a data warehouse.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon Athena",
+              "correct": false,
+              "explanation": "Wrong. Athena queries S3 with SQL.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon Kinesis",
+              "correct": false,
+              "explanation": "Wrong. Kinesis is streaming.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html",
+          "id": "awssaac03-s2-q19"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which design lowers cost for an app whose traffic is zero most of the day but spikes briefly?",
+          "options": [
+            {
+              "text": "Serverless (Lambda + API Gateway) that scales to zero",
+              "correct": true,
+              "explanation": "Correct. Pay-per-use serverless avoids paying for idle capacity.",
+              "id": "a"
+            },
+            {
+              "text": "A fleet of always-on EC2 instances",
+              "correct": false,
+              "explanation": "Wrong. You pay during the idle majority of the day.",
+              "id": "b"
+            },
+            {
+              "text": "A large Reserved Instance",
+              "correct": false,
+              "explanation": "Wrong. RIs assume steady usage.",
+              "id": "c"
+            },
+            {
+              "text": "Provisioned Redshift cluster",
+              "correct": false,
+              "explanation": "Wrong. Always-on cluster cost is wasteful here.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
+          "id": "awssaac03-s2-q20"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature provides automatic storage scaling for an RDS instance as data grows?",
+          "options": [
+            {
+              "text": "RDS storage autoscaling",
+              "correct": true,
+              "explanation": "Correct. RDS can grow allocated storage automatically up to a limit.",
+              "id": "a"
+            },
+            {
+              "text": "Manual snapshots",
+              "correct": false,
+              "explanation": "Wrong. Snapshots back up data; they do not autoscale storage.",
+              "id": "b"
+            },
+            {
+              "text": "S3 lifecycle rules",
+              "correct": false,
+              "explanation": "Wrong. Those are for S3 objects.",
+              "id": "c"
+            },
+            {
+              "text": "EBS multi-attach",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to RDS storage autoscaling.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIOPS.StorageTypes.html",
+          "id": "awssaac03-s2-q21"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which AWS service assesses EC2 and container images for software vulnerabilities?",
+          "options": [
+            {
+              "text": "Amazon Inspector",
+              "correct": true,
+              "explanation": "Correct. Inspector scans workloads for vulnerabilities.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon Macie",
+              "correct": false,
+              "explanation": "Wrong. Macie classifies sensitive data in S3.",
+              "id": "b"
+            },
+            {
+              "text": "AWS Shield",
+              "correct": false,
+              "explanation": "Wrong. Shield is DDoS protection.",
+              "id": "c"
+            },
+            {
+              "text": "AWS WAF",
+              "correct": false,
+              "explanation": "Wrong. WAF filters web requests.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/inspector/latest/user/what-is-inspector.html",
+          "id": "awssaac03-s2-q22"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which option provides the lowest-latency block storage for an I/O-intensive database on EC2?",
+          "options": [
+            {
+              "text": "Provisioned IOPS SSD (io2) EBS",
+              "correct": true,
+              "explanation": "Correct. io2 delivers consistent high IOPS for demanding databases.",
+              "id": "a"
+            },
+            {
+              "text": "Throughput-optimized HDD (st1)",
+              "correct": false,
+              "explanation": "Wrong. st1 is for large sequential throughput, not high IOPS.",
+              "id": "b"
+            },
+            {
+              "text": "Cold HDD (sc1)",
+              "correct": false,
+              "explanation": "Wrong. sc1 is the cheapest, lowest-performance tier.",
+              "id": "c"
+            },
+            {
+              "text": "S3",
+              "correct": false,
+              "explanation": "Wrong. S3 is object storage, not block storage for a DB.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html",
+          "id": "awssaac03-s2-q23"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which tool visualizes and analyzes historical AWS cost and usage with filtering?",
+          "options": [
+            {
+              "text": "AWS Cost Explorer",
+              "correct": true,
+              "explanation": "Correct. Cost Explorer analyzes spend trends and breakdowns.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon CloudWatch",
+              "correct": false,
+              "explanation": "Wrong. CloudWatch is metrics/monitoring.",
+              "id": "b"
+            },
+            {
+              "text": "AWS CloudTrail",
+              "correct": false,
+              "explanation": "Wrong. CloudTrail audits API calls.",
+              "id": "c"
+            },
+            {
+              "text": "AWS Config",
+              "correct": false,
+              "explanation": "Wrong. Config tracks resource configuration.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/cost-management/latest/userguide/ce-what-is.html",
+          "id": "awssaac03-s2-q24"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which approach provides near-zero RPO/RTO for a critical relational workload across Regions?",
+          "options": [
+            {
+              "text": "A warm/active standby in another Region with continuous replication",
+              "correct": true,
+              "explanation": "Correct. Continuous cross-Region replication minimizes RPO/RTO.",
+              "id": "a"
+            },
+            {
+              "text": "Nightly snapshots restored manually",
+              "correct": false,
+              "explanation": "Wrong. That gives a large RPO and slow RTO.",
+              "id": "b"
+            },
+            {
+              "text": "Single-Region Multi-AZ only",
+              "correct": false,
+              "explanation": "Wrong. It does not cover a Region loss.",
+              "id": "c"
+            },
+            {
+              "text": "S3 versioning of dumps",
+              "correct": false,
+              "explanation": "Wrong. Not a low-RPO relational DR strategy.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/whitepapers/latest/disaster-recovery-workloads-on-aws/disaster-recovery-options-in-the-cloud.html",
+          "id": "awssaac03-s2-q25"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which IAM best practice limits blast radius of leaked credentials?",
+          "options": [
+            {
+              "text": "Grant least privilege and use short-lived role credentials",
+              "correct": true,
+              "explanation": "Correct. Least privilege plus temporary credentials limit damage.",
+              "id": "a"
+            },
+            {
+              "text": "Give every user AdministratorAccess",
+              "correct": false,
+              "explanation": "Wrong. Broad access widens blast radius.",
+              "id": "b"
+            },
+            {
+              "text": "Reuse one access key across services",
+              "correct": false,
+              "explanation": "Wrong. Reuse increases exposure.",
+              "id": "c"
+            },
+            {
+              "text": "Disable MFA for convenience",
+              "correct": false,
+              "explanation": "Wrong. MFA reduces risk; disabling it increases it.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html",
+          "id": "awssaac03-s2-q26"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which managed service runs Apache Spark/Hadoop big-data jobs?",
+          "options": [
+            {
+              "text": "Amazon EMR",
+              "correct": true,
+              "explanation": "Correct. EMR runs managed big-data frameworks like Spark and Hadoop.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon RDS",
+              "correct": false,
+              "explanation": "Wrong. RDS is relational OLTP.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon DynamoDB",
+              "correct": false,
+              "explanation": "Wrong. DynamoDB is NoSQL key-value.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon SNS",
+              "correct": false,
+              "explanation": "Wrong. SNS is messaging.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html",
+          "id": "awssaac03-s2-q27"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which is a cost-effective way to serve static website content?",
+          "options": [
+            {
+              "text": "S3 static website hosting fronted by CloudFront",
+              "correct": true,
+              "explanation": "Correct. S3 plus CloudFront is cheap and scalable for static sites.",
+              "id": "a"
+            },
+            {
+              "text": "A fleet of EC2 web servers",
+              "correct": false,
+              "explanation": "Wrong. Overkill and costly for static content.",
+              "id": "b"
+            },
+            {
+              "text": "A large RDS instance",
+              "correct": false,
+              "explanation": "Wrong. Databases do not serve static files efficiently.",
+              "id": "c"
+            },
+            {
+              "text": "Dedicated Hosts",
+              "correct": false,
+              "explanation": "Wrong. Premium cost for static hosting.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/WebsiteHosting.html",
+          "id": "awssaac03-s2-q28"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which Auto Scaling policy adjusts capacity to keep a metric (like CPU) at a target?",
+          "options": [
+            {
+              "text": "Target tracking scaling",
+              "correct": true,
+              "explanation": "Correct. Target tracking maintains a chosen metric target.",
+              "id": "a"
+            },
+            {
+              "text": "Manual scaling",
+              "correct": false,
+              "explanation": "Wrong. Manual does not auto-adjust to a target.",
+              "id": "b"
+            },
+            {
+              "text": "Scheduled scaling only",
+              "correct": false,
+              "explanation": "Wrong. Scheduled changes capacity by time, not by live metric.",
+              "id": "c"
+            },
+            {
+              "text": "No scaling",
+              "correct": false,
+              "explanation": "Wrong. That does not adjust capacity.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-target-tracking.html",
+          "id": "awssaac03-s2-q29"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature provides centralized, temporary, auditable access to many AWS accounts for workforce users?",
+          "options": [
+            {
+              "text": "AWS IAM Identity Center (SSO)",
+              "correct": true,
+              "explanation": "Correct. IAM Identity Center centralizes workforce access with temporary credentials.",
+              "id": "a"
+            },
+            {
+              "text": "Long-lived IAM users per account",
+              "correct": false,
+              "explanation": "Wrong. That is hard to manage and less secure.",
+              "id": "b"
+            },
+            {
+              "text": "Root credentials shared",
+              "correct": false,
+              "explanation": "Wrong. Never share root.",
+              "id": "c"
+            },
+            {
+              "text": "Access keys in a spreadsheet",
+              "correct": false,
+              "explanation": "Wrong. Insecure and unauditable.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html",
+          "id": "awssaac03-s2-q30"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service provides a managed, serverless relational database that scales capacity automatically?",
+          "options": [
+            {
+              "text": "Amazon Aurora Serverless",
+              "correct": true,
+              "explanation": "Correct. Aurora Serverless scales database capacity on demand.",
+              "id": "a"
+            },
+            {
+              "text": "A fixed RDS instance",
+              "correct": false,
+              "explanation": "Wrong. Fixed sizing does not autoscale capacity.",
+              "id": "b"
+            },
+            {
+              "text": "DynamoDB",
+              "correct": false,
+              "explanation": "Wrong. DynamoDB is NoSQL, not relational.",
+              "id": "c"
+            },
+            {
+              "text": "Redshift",
+              "correct": false,
+              "explanation": "Wrong. Redshift is analytical, not OLTP serverless.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html",
+          "id": "awssaac03-s2-q31"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which combination minimizes cost for infrequently accessed backups that must restore within minutes?",
+          "options": [
+            {
+              "text": "S3 Glacier Instant Retrieval",
+              "correct": true,
+              "explanation": "Correct. It offers archival pricing with millisecond/instant retrieval.",
+              "id": "a"
+            },
+            {
+              "text": "S3 Glacier Deep Archive",
+              "correct": false,
+              "explanation": "Wrong. Deep Archive retrieval takes hours, not minutes.",
+              "id": "b"
+            },
+            {
+              "text": "S3 Standard",
+              "correct": false,
+              "explanation": "Wrong. Standard is pricier for rarely accessed data.",
+              "id": "c"
+            },
+            {
+              "text": "EBS snapshots in Standard tier",
+              "correct": false,
+              "explanation": "Wrong. Not the lowest-cost archival option for this pattern.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/storage-class-intro.html",
+          "id": "awssaac03-s2-q32"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature ensures messages are processed exactly once and in order in a queue?",
+          "options": [
+            {
+              "text": "An SQS FIFO queue",
+              "correct": true,
+              "explanation": "Correct. FIFO queues provide ordering and exactly-once processing.",
+              "id": "a"
+            },
+            {
+              "text": "A standard SQS queue",
+              "correct": false,
+              "explanation": "Wrong. Standard queues offer best-effort ordering and at-least-once delivery.",
+              "id": "b"
+            },
+            {
+              "text": "An SNS topic",
+              "correct": false,
+              "explanation": "Wrong. SNS is fan-out pub/sub, not ordered queue processing.",
+              "id": "c"
+            },
+            {
+              "text": "A Kinesis stream",
+              "correct": false,
+              "explanation": "Wrong. Kinesis ordering is per-shard, not SQS FIFO semantics.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/FIFO-queues.html",
+          "id": "awssaac03-s2-q33"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which approach encrypts data in transit to an S3 bucket?",
+          "options": [
+            {
+              "text": "Enforce HTTPS (TLS) via a bucket policy condition",
+              "correct": true,
+              "explanation": "Correct. Requiring aws:SecureTransport enforces encrypted transit.",
+              "id": "a"
+            },
+            {
+              "text": "Enable SSE-S3",
+              "correct": false,
+              "explanation": "Wrong. SSE-S3 encrypts at rest, not in transit.",
+              "id": "b"
+            },
+            {
+              "text": "Use a NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. NAT does not enforce TLS.",
+              "id": "c"
+            },
+            {
+              "text": "Make the bucket public over HTTP",
+              "correct": false,
+              "explanation": "Wrong. That is insecure and unencrypted.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html",
+          "id": "awssaac03-s2-q34"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service provides a global, low-latency content and API acceleration network with static anycast IPs?",
+          "options": [
+            {
+              "text": "AWS Global Accelerator",
+              "correct": true,
+              "explanation": "Correct. Global Accelerator routes over the AWS backbone with anycast IPs.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon CloudFront only for APIs",
+              "correct": false,
+              "explanation": "Wrong. CloudFront caches content; Global Accelerator targets TCP/UDP endpoints with static IPs.",
+              "id": "b"
+            },
+            {
+              "text": "A NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. NAT is egress, not global acceleration.",
+              "id": "c"
+            },
+            {
+              "text": "Route 53 alone",
+              "correct": false,
+              "explanation": "Wrong. DNS routing differs from anycast network acceleration.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html",
+          "id": "awssaac03-s2-q35"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which is the most cost-effective way to handle predictable, large nightly batch processing?",
+          "options": [
+            {
+              "text": "Spot or scheduled compute that runs only during the batch window",
+              "correct": true,
+              "explanation": "Correct. Running compute only when needed (and using Spot) cuts cost.",
+              "id": "a"
+            },
+            {
+              "text": "Always-on On-Demand fleet",
+              "correct": false,
+              "explanation": "Wrong. Paying 24/7 for a nightly job wastes money.",
+              "id": "b"
+            },
+            {
+              "text": "A permanent Reserved cluster sized for peak",
+              "correct": false,
+              "explanation": "Wrong. Idle most of the day.",
+              "id": "c"
+            },
+            {
+              "text": "Dedicated Hosts",
+              "correct": false,
+              "explanation": "Wrong. Premium fixed cost.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/batch/latest/userguide/what-is-batch.html",
+          "id": "awssaac03-s2-q36"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature protects against accidental deletion of S3 objects?",
+          "options": [
+            {
+              "text": "S3 Versioning (optionally with MFA Delete)",
+              "correct": true,
+              "explanation": "Correct. Versioning retains prior versions, guarding against deletes/overwrites.",
+              "id": "a"
+            },
+            {
+              "text": "S3 Transfer Acceleration",
+              "correct": false,
+              "explanation": "Wrong. That speeds uploads.",
+              "id": "b"
+            },
+            {
+              "text": "Bucket encryption",
+              "correct": false,
+              "explanation": "Wrong. Encryption protects confidentiality, not accidental deletion.",
+              "id": "c"
+            },
+            {
+              "text": "A CloudFront distribution",
+              "correct": false,
+              "explanation": "Wrong. CDN caching does not protect against deletes.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html",
+          "id": "awssaac03-s2-q37"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service provides a managed certificate for TLS on a load balancer at no extra cost?",
+          "options": [
+            {
+              "text": "AWS Certificate Manager (ACM)",
+              "correct": true,
+              "explanation": "Correct. ACM issues and renews TLS certificates for ELB/CloudFront.",
+              "id": "a"
+            },
+            {
+              "text": "AWS KMS",
+              "correct": false,
+              "explanation": "Wrong. KMS manages encryption keys, not TLS certs for ELB.",
+              "id": "b"
+            },
+            {
+              "text": "IAM server certificates only",
+              "correct": false,
+              "explanation": "Wrong. ACM is the modern managed approach.",
+              "id": "c"
+            },
+            {
+              "text": "Secrets Manager",
+              "correct": false,
+              "explanation": "Wrong. That stores secrets, not public TLS certs for ELB.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html",
+          "id": "awssaac03-s2-q38"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service is best for a managed GraphQL API backend?",
+          "options": [
+            {
+              "text": "AWS AppSync",
+              "correct": true,
+              "explanation": "Correct. AppSync is a managed GraphQL service.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon API Gateway REST only",
+              "correct": false,
+              "explanation": "Wrong. API Gateway is primarily REST/HTTP/WebSocket, not native GraphQL managed service.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon SQS",
+              "correct": false,
+              "explanation": "Wrong. SQS is a queue.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon SNS",
+              "correct": false,
+              "explanation": "Wrong. SNS is pub/sub.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/appsync/latest/devguide/what-is-appsync.html",
+          "id": "awssaac03-s2-q39"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which approach reduces inter-AZ data transfer charges for chatty services?",
+          "options": [
+            {
+              "text": "Co-locate tightly-coupled services within the same AZ where resilience allows",
+              "correct": true,
+              "explanation": "Correct. Keeping chatty traffic in one AZ avoids cross-AZ charges.",
+              "id": "a"
+            },
+            {
+              "text": "Spread every component across all AZs regardless of traffic",
+              "correct": false,
+              "explanation": "Wrong. That can increase cross-AZ transfer cost.",
+              "id": "b"
+            },
+            {
+              "text": "Use a NAT gateway between them",
+              "correct": false,
+              "explanation": "Wrong. NAT adds cost and is for egress.",
+              "id": "c"
+            },
+            {
+              "text": "Route traffic through the internet",
+              "correct": false,
+              "explanation": "Wrong. Less secure and not cheaper.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/whitepapers/latest/cost-optimization-pillar/welcome.html",
+          "id": "awssaac03-s2-q40"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which database option provides automatic failover within seconds for Aurora?",
+          "options": [
+            {
+              "text": "Aurora replicas in multiple AZs with automatic failover",
+              "correct": true,
+              "explanation": "Correct. Aurora promotes a replica automatically on primary failure.",
+              "id": "a"
+            },
+            {
+              "text": "A single Aurora instance",
+              "correct": false,
+              "explanation": "Wrong. One instance has no failover target.",
+              "id": "b"
+            },
+            {
+              "text": "Manual snapshot restore",
+              "correct": false,
+              "explanation": "Wrong. That is slow, not seconds.",
+              "id": "c"
+            },
+            {
+              "text": "S3 backups only",
+              "correct": false,
+              "explanation": "Wrong. Backups are not automatic failover.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/Aurora.Managing.Backups.html",
+          "id": "awssaac03-s2-q41"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which mechanism lets an application retrieve database credentials securely at runtime with rotation?",
+          "options": [
+            {
+              "text": "Fetch from AWS Secrets Manager via the instance role",
+              "correct": true,
+              "explanation": "Correct. Secrets Manager plus an IAM role delivers rotated credentials securely.",
+              "id": "a"
+            },
+            {
+              "text": "Bake credentials into the AMI",
+              "correct": false,
+              "explanation": "Wrong. Baked credentials are hard to rotate and leak-prone.",
+              "id": "b"
+            },
+            {
+              "text": "Store them in a public S3 object",
+              "correct": false,
+              "explanation": "Wrong. Public storage of secrets is a severe risk.",
+              "id": "c"
+            },
+            {
+              "text": "Hardcode them in user data",
+              "correct": false,
+              "explanation": "Wrong. User data is visible and not rotated.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html",
+          "id": "awssaac03-s2-q42"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which option improves database read scalability for a globally distributed read audience with low latency?",
+          "options": [
+            {
+              "text": "Aurora Global Database with cross-Region read replicas",
+              "correct": true,
+              "explanation": "Correct. Global Database serves low-latency reads across Regions.",
+              "id": "a"
+            },
+            {
+              "text": "A single-Region RDS instance",
+              "correct": false,
+              "explanation": "Wrong. Distant readers face high latency.",
+              "id": "b"
+            },
+            {
+              "text": "DynamoDB local only",
+              "correct": false,
+              "explanation": "Wrong. Local is a dev tool, not a global service.",
+              "id": "c"
+            },
+            {
+              "text": "Larger EBS volume",
+              "correct": false,
+              "explanation": "Wrong. Storage size does not address global read latency.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html",
+          "id": "awssaac03-s2-q43"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which is a quick cost optimization for over-provisioned EBS volumes?",
+          "options": [
+            {
+              "text": "Right-size or change to a cheaper volume type based on actual IOPS/throughput",
+              "correct": true,
+              "explanation": "Correct. Matching volume type/size to real usage cuts cost.",
+              "id": "a"
+            },
+            {
+              "text": "Always use io2 for every volume",
+              "correct": false,
+              "explanation": "Wrong. io2 is premium and wasteful for low-IOPS needs.",
+              "id": "b"
+            },
+            {
+              "text": "Attach more volumes",
+              "correct": false,
+              "explanation": "Wrong. That adds cost.",
+              "id": "c"
+            },
+            {
+              "text": "Enable Multi-Attach everywhere",
+              "correct": false,
+              "explanation": "Wrong. Unnecessary and not a cost saver.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html",
+          "id": "awssaac03-s2-q44"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service provides managed, automated patching and configuration of EC2 fleets?",
+          "options": [
+            {
+              "text": "AWS Systems Manager",
+              "correct": true,
+              "explanation": "Correct. Systems Manager automates patching, config, and operations.",
+              "id": "a"
+            },
+            {
+              "text": "AWS CloudFormation only",
+              "correct": false,
+              "explanation": "Wrong. CloudFormation provisions infra, not ongoing patch automation.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon Inspector",
+              "correct": false,
+              "explanation": "Wrong. Inspector finds vulnerabilities; it does not patch.",
+              "id": "c"
+            },
+            {
+              "text": "AWS Config",
+              "correct": false,
+              "explanation": "Wrong. Config tracks configuration state.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html",
+          "id": "awssaac03-s2-q45"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which network control is stateless and evaluated at the subnet boundary?",
+          "options": [
+            {
+              "text": "Network ACL (NACL)",
+              "correct": true,
+              "explanation": "Correct. NACLs are stateless subnet-level filters.",
+              "id": "a"
+            },
+            {
+              "text": "Security group",
+              "correct": false,
+              "explanation": "Wrong. Security groups are stateful and instance-level.",
+              "id": "b"
+            },
+            {
+              "text": "IAM policy",
+              "correct": false,
+              "explanation": "Wrong. IAM governs API permissions.",
+              "id": "c"
+            },
+            {
+              "text": "Route table",
+              "correct": false,
+              "explanation": "Wrong. Route tables direct traffic, they do not filter by allow/deny rules.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-network-acls.html",
+          "id": "awssaac03-s2-q46"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service provides a fully managed, in-VPC, horizontally scalable graph database?",
+          "options": [
+            {
+              "text": "Amazon Neptune",
+              "correct": true,
+              "explanation": "Correct. Neptune is a managed graph database.",
+              "id": "a"
+            },
+            {
+              "text": "Amazon RDS",
+              "correct": false,
+              "explanation": "Wrong. RDS is relational.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon DynamoDB",
+              "correct": false,
+              "explanation": "Wrong. DynamoDB is key-value/document, not a graph engine.",
+              "id": "c"
+            },
+            {
+              "text": "Amazon Redshift",
+              "correct": false,
+              "explanation": "Wrong. Redshift is a data warehouse.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/neptune/latest/userguide/intro.html",
+          "id": "awssaac03-s2-q47"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service captures and stores VPC network traffic metadata for security analysis?",
+          "options": [
+            {
+              "text": "VPC Flow Logs",
+              "correct": true,
+              "explanation": "Correct. Flow Logs record IP traffic metadata for a VPC, subnet, or ENI.",
+              "id": "a"
+            },
+            {
+              "text": "CloudFront logs",
+              "correct": false,
+              "explanation": "Wrong. Those record CDN requests, not VPC traffic.",
+              "id": "b"
+            },
+            {
+              "text": "S3 access logs",
+              "correct": false,
+              "explanation": "Wrong. Those record bucket access, not network flows.",
+              "id": "c"
+            },
+            {
+              "text": "Route 53 query logs",
+              "correct": false,
+              "explanation": "Wrong. Those record DNS queries, not IP flow data.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html",
+          "id": "awssaac03-s2-q48"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which approach reduces cost for sending large volumes of data out to the internet repeatedly?",
+          "options": [
+            {
+              "text": "Cache and serve through CloudFront to cut origin egress",
+              "correct": true,
+              "explanation": "Correct. Edge caching lowers repeated data-transfer-out charges.",
+              "id": "a"
+            },
+            {
+              "text": "Send everything directly from EC2 each time",
+              "correct": false,
+              "explanation": "Wrong. Repeated origin egress is costlier.",
+              "id": "b"
+            },
+            {
+              "text": "Add more Elastic IPs",
+              "correct": false,
+              "explanation": "Wrong. EIPs do not reduce transfer cost.",
+              "id": "c"
+            },
+            {
+              "text": "Use larger instances",
+              "correct": false,
+              "explanation": "Wrong. Instance size does not lower egress charges.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html",
+          "id": "awssaac03-s2-q49"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you log and continuously evaluate resource configurations against compliance rules?",
+          "options": [
+            {
+              "text": "AWS Config with Config Rules",
+              "correct": true,
+              "explanation": "Correct. AWS Config records configuration and evaluates compliance rules.",
+              "id": "a"
+            },
+            {
+              "text": "AWS CloudTrail alone",
+              "correct": false,
+              "explanation": "Wrong. CloudTrail records API calls, not continuous config compliance.",
+              "id": "b"
+            },
+            {
+              "text": "Amazon CloudWatch alarms",
+              "correct": false,
+              "explanation": "Wrong. Alarms watch metrics, not resource compliance.",
+              "id": "c"
+            },
+            {
+              "text": "AWS Shield",
+              "correct": false,
+              "explanation": "Wrong. Shield is DDoS protection.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html",
+          "id": "awssaac03-s2-q50"
         }
       ]
     }
