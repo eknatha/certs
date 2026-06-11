@@ -1,9 +1,45 @@
 {
+  "generated": "2026-06-11",
   "certs": [
-    { "certId": "terraform-004", "title": "HashiCorp Certified: Terraform Associate (004)", "vendor": "HashiCorp", "file": "data/terraform-004.json" },
-    { "certId": "cka",           "title": "Certified Kubernetes Administrator (CKA)",       "vendor": "CNCF",       "file": "data/cka.json" },
-    { "certId": "aws-saa-c03",   "title": "AWS Solutions Architect – Associate (SAA-C03)",  "vendor": "AWS",        "file": "data/aws-saa-c03.json" },
-    { "certId": "az-104",        "title": "Microsoft Azure Administrator (AZ-104)",          "vendor": "Microsoft",  "file": "data/az-104.json" },
-    { "certId": "gcp-ace",       "title": "Google Associate Cloud Engineer",                "vendor": "Google",     "file": "data/gcp-ace.json" }
+    {
+      "certId": "terraform-004",
+      "title": "HashiCorp Certified: Terraform Associate (004)",
+      "vendor": "HashiCorp",
+      "file": "data/terraform-004.json",
+      "questionCount": 100,
+      "setCount": 2
+    },
+    {
+      "certId": "cka",
+      "title": "Certified Kubernetes Administrator (CKA)",
+      "vendor": "CNCF",
+      "file": "data/cka.json",
+      "questionCount": 100,
+      "setCount": 2
+    },
+    {
+      "certId": "aws-saa-c03",
+      "title": "AWS Certified Solutions Architect – Associate (SAA-C03)",
+      "vendor": "AWS",
+      "file": "data/aws-saa-c03.json",
+      "questionCount": 100,
+      "setCount": 2
+    },
+    {
+      "certId": "az-104",
+      "title": "Microsoft Azure Administrator (AZ-104)",
+      "vendor": "Microsoft",
+      "file": "data/az-104.json",
+      "questionCount": 100,
+      "setCount": 2
+    },
+    {
+      "certId": "gcp-ace",
+      "title": "Google Cloud Associate Cloud Engineer (ACE)",
+      "vendor": "Google Cloud",
+      "file": "data/gcp-ace.json",
+      "questionCount": 100,
+      "setCount": 2
+    }
   ]
 }
