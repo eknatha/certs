@@ -1,16 +1,31 @@
 {
   "certId": "gcp-ace",
   "title": "Google Cloud Associate Cloud Engineer (ACE)",
-  "vendor": "Google",
+  "vendor": "Google Cloud",
   "examVersion": "2026",
   "lastUpdated": "2026-06-11",
   "passScore": 70,
   "domains": [
-    { "id": "d1", "name": "Setting up a Cloud Environment" },
-    { "id": "d2", "name": "Planning & Configuring a Cloud Solution" },
-    { "id": "d3", "name": "Deploying & Implementing a Cloud Solution" },
-    { "id": "d4", "name": "Ensuring Successful Operation" },
-    { "id": "d5", "name": "Configuring Access & Security" }
+    {
+      "id": "d1",
+      "name": "Setting up a Cloud Environment"
+    },
+    {
+      "id": "d2",
+      "name": "Planning & Configuring a Solution"
+    },
+    {
+      "id": "d3",
+      "name": "Deploying & Implementing"
+    },
+    {
+      "id": "d4",
+      "name": "Ensuring Successful Operation"
+    },
+    {
+      "id": "d5",
+      "name": "Access & Security"
+    }
   ],
   "sets": [
     {
@@ -19,60 +34,1704 @@
       "timeLimitMin": 60,
       "questions": [
         {
-          "id": "ace-s1-q1",
-          "domainId": "d5",
-          "difficulty": "medium",
-          "type": "single",
-          "stem": "An application running on a Compute Engine VM needs to read objects from a Cloud Storage bucket. What is the recommended way to grant access?",
-          "options": [
-            { "id": "a", "text": "Attach a service account with the Storage Object Viewer role to the VM", "correct": true, "explanation": "Correct. Attaching a least-privilege service account lets the VM authenticate with rotated, short-lived credentials and no embedded keys." },
-            { "id": "b", "text": "Download a service account JSON key and place it on the VM", "correct": false, "explanation": "Wrong. Long-lived key files are a leak risk; attached service accounts avoid storing keys at all." },
-            { "id": "c", "text": "Make the bucket public", "correct": false, "explanation": "Wrong. Public buckets expose data to everyone — a serious misconfiguration." },
-            { "id": "d", "text": "Use the project Owner role on the VM's service account", "correct": false, "explanation": "Wrong. Owner is far too broad; it violates least privilege." }
-          ],
-          "reference": "https://cloud.google.com/iam/docs/service-account-overview"
-        },
-        {
-          "id": "ace-s1-q2",
           "domainId": "d1",
           "difficulty": "easy",
           "type": "single",
-          "stem": "Which resource container sits directly above projects and lets you apply IAM policies and org policies to groups of projects?",
+          "stem": "What is the top-level container for all Google Cloud resources in an organization's hierarchy?",
           "options": [
-            { "id": "a", "text": "Folders", "correct": true, "explanation": "Correct. Folders group projects under the organization and allow inherited IAM and org policies." },
-            { "id": "b", "text": "Billing accounts", "correct": false, "explanation": "Wrong. Billing accounts handle payment, not resource hierarchy or IAM grouping." },
-            { "id": "c", "text": "VPC networks", "correct": false, "explanation": "Wrong. VPCs are networking constructs, not hierarchy containers." },
-            { "id": "d", "text": "Resource labels", "correct": false, "explanation": "Wrong. Labels are metadata key-values for organization/billing breakdowns, not IAM containers." }
+            {
+              "text": "The organization node",
+              "correct": true,
+              "explanation": "Correct. The organization is the root of the resource hierarchy.",
+              "id": "a"
+            },
+            {
+              "text": "A project",
+              "correct": false,
+              "explanation": "Wrong. Projects sit below folders/organization.",
+              "id": "b"
+            },
+            {
+              "text": "A folder",
+              "correct": false,
+              "explanation": "Wrong. Folders are below the organization.",
+              "id": "c"
+            },
+            {
+              "text": "A billing account",
+              "correct": false,
+              "explanation": "Wrong. Billing accounts are separate from the resource hierarchy root.",
+              "id": "d"
+            }
           ],
-          "reference": "https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy"
+          "reference": "https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy",
+          "id": "gcpace-s1-q1"
         },
         {
-          "id": "ace-s1-q3",
-          "domainId": "d3",
+          "domainId": "d1",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which resource groups related Google Cloud services and forms the basic billing/permission boundary?",
+          "options": [
+            {
+              "text": "A project",
+              "correct": true,
+              "explanation": "Correct. Projects are the fundamental organizing and billing unit.",
+              "id": "a"
+            },
+            {
+              "text": "A folder",
+              "correct": false,
+              "explanation": "Wrong. Folders group projects, not services directly.",
+              "id": "b"
+            },
+            {
+              "text": "A VPC",
+              "correct": false,
+              "explanation": "Wrong. A VPC is a networking construct.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/resource-manager/docs/creating-managing-projects",
+          "id": "gcpace-s1-q2"
+        },
+        {
+          "domainId": "d1",
           "difficulty": "medium",
           "type": "single",
-          "stem": "You need to run a stateless containerized web app that scales to zero when idle and requires minimal infrastructure management. Which service fits best?",
+          "stem": "Which tool is the command-line interface for Google Cloud?",
           "options": [
-            { "id": "a", "text": "Cloud Run", "correct": true, "explanation": "Correct. Cloud Run runs stateless containers, scales to zero, and is fully managed — ideal for this profile." },
-            { "id": "b", "text": "Compute Engine managed instance group", "correct": false, "explanation": "Wrong. MIGs run VMs you manage and don't scale to zero as cleanly; more overhead than needed." },
-            { "id": "c", "text": "GKE Standard", "correct": false, "explanation": "Wrong. GKE Standard means managing a cluster — heavier than required for one stateless app." },
-            { "id": "d", "text": "Cloud Functions (1st gen) with HTTP only", "correct": false, "explanation": "Wrong. Functions suit event/function units, not arbitrary containerized web apps; Cloud Run is the container-native fit." }
+            {
+              "text": "gcloud CLI",
+              "correct": true,
+              "explanation": "Correct. gcloud manages Google Cloud resources from the command line.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl only",
+              "correct": false,
+              "explanation": "Wrong. kubectl targets Kubernetes, not all of Google Cloud.",
+              "id": "b"
+            },
+            {
+              "text": "terraform",
+              "correct": false,
+              "explanation": "Wrong. Terraform is third-party IaC, not the native CLI.",
+              "id": "c"
+            },
+            {
+              "text": "gsutil only",
+              "correct": false,
+              "explanation": "Wrong. gsutil is specific to Cloud Storage.",
+              "id": "d"
+            }
           ],
-          "reference": "https://cloud.google.com/run/docs/overview/what-is-cloud-run"
+          "reference": "https://cloud.google.com/sdk/gcloud",
+          "id": "gcpace-s1-q3"
         },
         {
-          "id": "ace-s1-q4",
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command-line tool historically manages Cloud Storage buckets and objects?",
+          "options": [
+            {
+              "text": "gsutil (or gcloud storage)",
+              "correct": true,
+              "explanation": "Correct. gsutil/gcloud storage manage Cloud Storage.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl",
+              "correct": false,
+              "explanation": "Wrong. kubectl targets Kubernetes.",
+              "id": "b"
+            },
+            {
+              "text": "bq",
+              "correct": false,
+              "explanation": "Wrong. bq is the BigQuery CLI.",
+              "id": "c"
+            },
+            {
+              "text": "cbt",
+              "correct": false,
+              "explanation": "Wrong. cbt is the Cloud Bigtable CLI.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/gsutil",
+          "id": "gcpace-s1-q4"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which structure lets you group projects for shared policy in large organizations?",
+          "options": [
+            {
+              "text": "Folders",
+              "correct": true,
+              "explanation": "Correct. Folders organize projects for inherited policy.",
+              "id": "a"
+            },
+            {
+              "text": "Buckets",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "b"
+            },
+            {
+              "text": "VPCs",
+              "correct": false,
+              "explanation": "Wrong. VPCs are networking.",
+              "id": "c"
+            },
+            {
+              "text": "Service accounts",
+              "correct": false,
+              "explanation": "Wrong. Those are identities for workloads.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/resource-manager/docs/creating-managing-folders",
+          "id": "gcpace-s1-q5"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "How is a billing account associated with resources?",
+          "options": [
+            {
+              "text": "It is linked to one or more projects to pay for their usage",
+              "correct": true,
+              "explanation": "Correct. Projects link to a billing account for charges.",
+              "id": "a"
+            },
+            {
+              "text": "It is attached directly to each VM",
+              "correct": false,
+              "explanation": "Wrong. Billing is at the project level, not per VM.",
+              "id": "b"
+            },
+            {
+              "text": "It replaces the organization node",
+              "correct": false,
+              "explanation": "Wrong. Billing accounts are separate from the hierarchy root.",
+              "id": "c"
+            },
+            {
+              "text": "It is stored inside a bucket",
+              "correct": false,
+              "explanation": "Wrong. Billing accounts are not objects in storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/billing/docs/how-to/manage-billing-account",
+          "id": "gcpace-s1-q6"
+        },
+        {
           "domainId": "d2",
           "difficulty": "medium",
           "type": "single",
-          "stem": "A workload is fault-tolerant and can be interrupted, and you want the lowest VM cost. Which Compute Engine option fits?",
+          "stem": "Which compute option provides configurable virtual machines (IaaS)?",
           "options": [
-            { "id": "a", "text": "Spot VMs", "correct": true, "explanation": "Correct. Spot VMs offer the deepest discount for interruptible, fault-tolerant workloads." },
-            { "id": "b", "text": "Committed use discounts on on-demand VMs", "correct": false, "explanation": "Wrong. CUDs save on steady long-term usage, not short interruptible jobs." },
-            { "id": "c", "text": "Sole-tenant nodes", "correct": false, "explanation": "Wrong. Sole-tenant targets compliance/licensing at premium cost." },
-            { "id": "d", "text": "On-demand standard VMs", "correct": false, "explanation": "Wrong. On-demand is the baseline price, not the cheapest for interruptible work." }
+            {
+              "text": "Compute Engine",
+              "correct": true,
+              "explanation": "Correct. Compute Engine offers customizable VMs.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud Functions",
+              "correct": false,
+              "explanation": "Wrong. Functions are serverless event handlers.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. That is object storage.",
+              "id": "c"
+            },
+            {
+              "text": "BigQuery",
+              "correct": false,
+              "explanation": "Wrong. BigQuery is a data warehouse.",
+              "id": "d"
+            }
           ],
-          "reference": "https://cloud.google.com/compute/docs/instances/spot"
+          "reference": "https://cloud.google.com/compute/docs",
+          "id": "gcpace-s1-q7"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service runs containers in a fully managed Kubernetes environment?",
+          "options": [
+            {
+              "text": "Google Kubernetes Engine (GKE)",
+              "correct": true,
+              "explanation": "Correct. GKE is managed Kubernetes.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud Functions",
+              "correct": false,
+              "explanation": "Wrong. Functions are serverless functions, not Kubernetes.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. That is storage.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. Cloud SQL is a managed relational database.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs",
+          "id": "gcpace-s1-q8"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which serverless option runs stateless containers that scale to zero?",
+          "options": [
+            {
+              "text": "Cloud Run",
+              "correct": true,
+              "explanation": "Correct. Cloud Run runs containers serverlessly and scales to zero.",
+              "id": "a"
+            },
+            {
+              "text": "Compute Engine",
+              "correct": false,
+              "explanation": "Wrong. Compute Engine VMs do not scale to zero like serverless.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. That is object storage.",
+              "id": "c"
+            },
+            {
+              "text": "BigQuery",
+              "correct": false,
+              "explanation": "Wrong. BigQuery is analytics.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/run/docs",
+          "id": "gcpace-s1-q9"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which storage class is cheapest for data accessed less than once a year?",
+          "options": [
+            {
+              "text": "Archive storage",
+              "correct": true,
+              "explanation": "Correct. Archive is the lowest-cost class for rarely accessed data.",
+              "id": "a"
+            },
+            {
+              "text": "Standard storage",
+              "correct": false,
+              "explanation": "Wrong. Standard is for frequently accessed data.",
+              "id": "b"
+            },
+            {
+              "text": "Nearline storage",
+              "correct": false,
+              "explanation": "Wrong. Nearline targets roughly monthly access.",
+              "id": "c"
+            },
+            {
+              "text": "Coldline storage",
+              "correct": false,
+              "explanation": "Wrong. Coldline targets roughly quarterly access, pricier than Archive.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/storage-classes",
+          "id": "gcpace-s1-q10"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which storage class suits data accessed about once a month?",
+          "options": [
+            {
+              "text": "Nearline storage",
+              "correct": true,
+              "explanation": "Correct. Nearline is designed for ~monthly access.",
+              "id": "a"
+            },
+            {
+              "text": "Standard storage",
+              "correct": false,
+              "explanation": "Wrong. Standard is for frequent access.",
+              "id": "b"
+            },
+            {
+              "text": "Archive storage",
+              "correct": false,
+              "explanation": "Wrong. Archive is for yearly-or-less access.",
+              "id": "c"
+            },
+            {
+              "text": "Coldline storage",
+              "correct": false,
+              "explanation": "Wrong. Coldline targets ~quarterly access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/storage-classes",
+          "id": "gcpace-s1-q11"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which managed service provides a relational database (MySQL, PostgreSQL, SQL Server)?",
+          "options": [
+            {
+              "text": "Cloud SQL",
+              "correct": true,
+              "explanation": "Correct. Cloud SQL is managed relational database hosting.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud Bigtable",
+              "correct": false,
+              "explanation": "Wrong. Bigtable is wide-column NoSQL.",
+              "id": "b"
+            },
+            {
+              "text": "Firestore",
+              "correct": false,
+              "explanation": "Wrong. Firestore is a document NoSQL database.",
+              "id": "c"
+            },
+            {
+              "text": "BigQuery",
+              "correct": false,
+              "explanation": "Wrong. BigQuery is an analytics warehouse.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sql/docs",
+          "id": "gcpace-s1-q12"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which database offers global, horizontally scalable, strongly consistent relational storage?",
+          "options": [
+            {
+              "text": "Cloud Spanner",
+              "correct": true,
+              "explanation": "Correct. Spanner is globally distributed, strongly consistent relational.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. Cloud SQL is regional and does not scale globally like Spanner.",
+              "id": "b"
+            },
+            {
+              "text": "Firestore",
+              "correct": false,
+              "explanation": "Wrong. Firestore is document NoSQL.",
+              "id": "c"
+            },
+            {
+              "text": "Bigtable",
+              "correct": false,
+              "explanation": "Wrong. Bigtable is NoSQL wide-column, not relational SQL.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/spanner/docs",
+          "id": "gcpace-s1-q13"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which command creates a Compute Engine VM instance?",
+          "options": [
+            {
+              "text": "gcloud compute instances create",
+              "correct": true,
+              "explanation": "Correct. That command provisions a VM.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud run deploy",
+              "correct": false,
+              "explanation": "Wrong. That deploys to Cloud Run.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil mb",
+              "correct": false,
+              "explanation": "Wrong. That makes a storage bucket.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl create",
+              "correct": false,
+              "explanation": "Wrong. That targets Kubernetes objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/compute/instances/create",
+          "id": "gcpace-s1-q14"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature scales a managed instance group based on load?",
+          "options": [
+            {
+              "text": "Autoscaling on a managed instance group",
+              "correct": true,
+              "explanation": "Correct. MIG autoscaling adds/removes VMs per metrics.",
+              "id": "a"
+            },
+            {
+              "text": "A single VM",
+              "correct": false,
+              "explanation": "Wrong. One VM does not autoscale horizontally.",
+              "id": "b"
+            },
+            {
+              "text": "A storage bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets do not run compute.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/autoscaler",
+          "id": "gcpace-s1-q15"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature deploys identical VMs from a common template?",
+          "options": [
+            {
+              "text": "A managed instance group with an instance template",
+              "correct": true,
+              "explanation": "Correct. MIGs use templates for identical VMs.",
+              "id": "a"
+            },
+            {
+              "text": "A single manually created VM",
+              "correct": false,
+              "explanation": "Wrong. That is not templated/group-managed.",
+              "id": "b"
+            },
+            {
+              "text": "A storage bucket",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to VM deployment.",
+              "id": "c"
+            },
+            {
+              "text": "A Cloud Function",
+              "correct": false,
+              "explanation": "Wrong. Functions are serverless, not VM groups.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/instance-templates",
+          "id": "gcpace-s1-q16"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command deploys a container image to Cloud Run?",
+          "options": [
+            {
+              "text": "gcloud run deploy",
+              "correct": true,
+              "explanation": "Correct. gcloud run deploy ships a service to Cloud Run.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud compute instances create",
+              "correct": false,
+              "explanation": "Wrong. That creates a VM.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil cp",
+              "correct": false,
+              "explanation": "Wrong. That copies storage objects.",
+              "id": "c"
+            },
+            {
+              "text": "bq load",
+              "correct": false,
+              "explanation": "Wrong. That loads data into BigQuery.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/run/docs/deploying",
+          "id": "gcpace-s1-q17"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which service deploys infrastructure declaratively as configuration on Google Cloud?",
+          "options": [
+            {
+              "text": "Infrastructure Manager (or Deployment Manager) / Terraform",
+              "correct": true,
+              "explanation": "Correct. These provision Google Cloud resources declaratively.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud Monitoring",
+              "correct": false,
+              "explanation": "Wrong. Monitoring observes; it does not provision.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. That is object storage.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/infrastructure-manager/docs",
+          "id": "gcpace-s1-q18"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command sets the active project for gcloud commands?",
+          "options": [
+            {
+              "text": "gcloud config set project PROJECT_ID",
+              "correct": true,
+              "explanation": "Correct. That sets the default project in the active config.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud projects delete",
+              "correct": false,
+              "explanation": "Wrong. That deletes a project.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil mb",
+              "correct": false,
+              "explanation": "Wrong. That creates a bucket.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl config use-context",
+              "correct": false,
+              "explanation": "Wrong. That switches Kubernetes context, not gcloud project.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/config/set",
+          "id": "gcpace-s1-q19"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which service collects metrics, dashboards, and uptime checks?",
+          "options": [
+            {
+              "text": "Cloud Monitoring",
+              "correct": true,
+              "explanation": "Correct. Cloud Monitoring provides metrics, dashboards, and alerts.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. That is object storage.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud Run",
+              "correct": false,
+              "explanation": "Wrong. Cloud Run runs containers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/monitoring/docs",
+          "id": "gcpace-s1-q20"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service centralizes log collection and analysis?",
+          "options": [
+            {
+              "text": "Cloud Logging",
+              "correct": true,
+              "explanation": "Correct. Cloud Logging ingests and lets you query logs.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud Monitoring metrics only",
+              "correct": false,
+              "explanation": "Wrong. Metrics are numeric; logs are richer records in Cloud Logging.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. Storage holds objects, not a log query engine.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/logging/docs",
+          "id": "gcpace-s1-q21"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature notifies you when a metric breaches a threshold?",
+          "options": [
+            {
+              "text": "An alerting policy in Cloud Monitoring",
+              "correct": true,
+              "explanation": "Correct. Alerting policies trigger notifications on conditions.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A storage bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "c"
+            },
+            {
+              "text": "A service account",
+              "correct": false,
+              "explanation": "Wrong. That is an identity.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/monitoring/alerts",
+          "id": "gcpace-s1-q22"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which tool helps diagnose latency by tracing requests across services?",
+          "options": [
+            {
+              "text": "Cloud Trace",
+              "correct": true,
+              "explanation": "Correct. Cloud Trace captures distributed latency traces.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. That is object storage.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. That is a managed database.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/trace/docs",
+          "id": "gcpace-s1-q23"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which approach gives a quick view of a VM's CPU and disk metrics?",
+          "options": [
+            {
+              "text": "Cloud Monitoring dashboards/metrics for the instance",
+              "correct": true,
+              "explanation": "Correct. Monitoring surfaces instance performance metrics.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "c"
+            },
+            {
+              "text": "A DNS record",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/monitoring/docs",
+          "id": "gcpace-s1-q24"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which system controls who can do what on Google Cloud resources?",
+          "options": [
+            {
+              "text": "Identity and Access Management (IAM)",
+              "correct": true,
+              "explanation": "Correct. IAM governs permissions via roles and bindings.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. That is object storage.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud Monitoring",
+              "correct": false,
+              "explanation": "Wrong. Monitoring observes resources.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/overview",
+          "id": "gcpace-s1-q25"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which IAM concept is a collection of permissions you grant to a principal?",
+          "options": [
+            {
+              "text": "A role",
+              "correct": true,
+              "explanation": "Correct. Roles bundle permissions granted to principals.",
+              "id": "a"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "b"
+            },
+            {
+              "text": "A VPC",
+              "correct": false,
+              "explanation": "Wrong. VPCs are networking.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/roles-overview",
+          "id": "gcpace-s1-q26"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which identity is used by applications/VMs rather than humans?",
+          "options": [
+            {
+              "text": "A service account",
+              "correct": true,
+              "explanation": "Correct. Service accounts are non-human identities for workloads.",
+              "id": "a"
+            },
+            {
+              "text": "A user account",
+              "correct": false,
+              "explanation": "Wrong. User accounts are for humans.",
+              "id": "b"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/service-account-overview",
+          "id": "gcpace-s1-q27"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which practice follows least privilege when assigning IAM roles?",
+          "options": [
+            {
+              "text": "Grant predefined or custom roles scoped to the needed permissions",
+              "correct": true,
+              "explanation": "Correct. Narrow roles limit access to what is required.",
+              "id": "a"
+            },
+            {
+              "text": "Grant the Owner role to everyone",
+              "correct": false,
+              "explanation": "Wrong. Owner is overly broad and risky.",
+              "id": "b"
+            },
+            {
+              "text": "Share one service account key widely",
+              "correct": false,
+              "explanation": "Wrong. Key sharing increases exposure.",
+              "id": "c"
+            },
+            {
+              "text": "Disable IAM entirely",
+              "correct": false,
+              "explanation": "Wrong. That removes access control.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/using-iam-securely",
+          "id": "gcpace-s1-q28"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which mechanism restricts inbound/outbound traffic to VMs in a VPC?",
+          "options": [
+            {
+              "text": "VPC firewall rules",
+              "correct": true,
+              "explanation": "Correct. Firewall rules allow/deny traffic to instances.",
+              "id": "a"
+            },
+            {
+              "text": "IAM roles",
+              "correct": false,
+              "explanation": "Wrong. IAM governs API permissions, not packet filtering.",
+              "id": "b"
+            },
+            {
+              "text": "A storage bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/vpc/docs/firewalls",
+          "id": "gcpace-s1-q29"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature manages encryption keys you control for Google Cloud services?",
+          "options": [
+            {
+              "text": "Cloud KMS (customer-managed encryption keys)",
+              "correct": true,
+              "explanation": "Correct. Cloud KMS lets you manage CMEK.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud Monitoring",
+              "correct": false,
+              "explanation": "Wrong. Monitoring observes resources.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kms/docs",
+          "id": "gcpace-s1-q30"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which networking resource provides a global private network for your resources?",
+          "options": [
+            {
+              "text": "A VPC network",
+              "correct": true,
+              "explanation": "Correct. VPCs provide private, global networking in Google Cloud.",
+              "id": "a"
+            },
+            {
+              "text": "A storage bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "b"
+            },
+            {
+              "text": "A service account",
+              "correct": false,
+              "explanation": "Wrong. That is an identity.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/vpc/docs/vpc",
+          "id": "gcpace-s1-q31"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which load balancer distributes global HTTP(S) traffic across regions?",
+          "options": [
+            {
+              "text": "Global external HTTP(S) Load Balancer",
+              "correct": true,
+              "explanation": "Correct. It routes HTTP(S) traffic globally to the nearest healthy backend.",
+              "id": "a"
+            },
+            {
+              "text": "An internal TCP load balancer only",
+              "correct": false,
+              "explanation": "Wrong. Internal LBs are regional and not global HTTP(S).",
+              "id": "b"
+            },
+            {
+              "text": "A single VM",
+              "correct": false,
+              "explanation": "Wrong. One VM is not a load balancer.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud DNS alone",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names; it is not a load balancer.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/load-balancing/docs/https",
+          "id": "gcpace-s1-q32"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command lists the VMs in your current project?",
+          "options": [
+            {
+              "text": "gcloud compute instances list",
+              "correct": true,
+              "explanation": "Correct. That lists Compute Engine instances.",
+              "id": "a"
+            },
+            {
+              "text": "gsutil ls",
+              "correct": false,
+              "explanation": "Wrong. That lists storage objects/buckets.",
+              "id": "b"
+            },
+            {
+              "text": "bq ls",
+              "correct": false,
+              "explanation": "Wrong. That lists BigQuery datasets.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl get nodes",
+              "correct": false,
+              "explanation": "Wrong. That lists Kubernetes nodes, not GCE VMs directly.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/compute/instances/list",
+          "id": "gcpace-s1-q33"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you define a target uptime and measure error budgets?",
+          "options": [
+            {
+              "text": "Service-level objectives (SLOs) in Cloud Monitoring",
+              "correct": true,
+              "explanation": "Correct. SLOs track reliability against targets and error budgets.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A storage bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/stackdriver/docs/solutions/slo-monitoring",
+          "id": "gcpace-s1-q34"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you grant temporary access without permanent role bindings via short-lived credentials?",
+          "options": [
+            {
+              "text": "Service account impersonation / short-lived tokens",
+              "correct": true,
+              "explanation": "Correct. Impersonation issues short-lived credentials for temporary access.",
+              "id": "a"
+            },
+            {
+              "text": "Sharing a long-lived key file",
+              "correct": false,
+              "explanation": "Wrong. Long-lived keys are a leak risk.",
+              "id": "b"
+            },
+            {
+              "text": "Granting Owner permanently",
+              "correct": false,
+              "explanation": "Wrong. That is broad and permanent.",
+              "id": "c"
+            },
+            {
+              "text": "Disabling IAM",
+              "correct": false,
+              "explanation": "Wrong. That removes access control.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/service-account-impersonation",
+          "id": "gcpace-s1-q35"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command authenticates the gcloud CLI with your account?",
+          "options": [
+            {
+              "text": "gcloud auth login",
+              "correct": true,
+              "explanation": "Correct. gcloud auth login authenticates a user.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud config list",
+              "correct": false,
+              "explanation": "Wrong. That shows config, not authentication.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil mb",
+              "correct": false,
+              "explanation": "Wrong. That creates a bucket.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl apply",
+              "correct": false,
+              "explanation": "Wrong. That applies Kubernetes manifests.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/auth/login",
+          "id": "gcpace-s1-q36"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service is a serverless, highly scalable data warehouse for analytics?",
+          "options": [
+            {
+              "text": "BigQuery",
+              "correct": true,
+              "explanation": "Correct. BigQuery is a serverless analytics warehouse.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. Cloud SQL is OLTP relational, not a warehouse.",
+              "id": "b"
+            },
+            {
+              "text": "Bigtable",
+              "correct": false,
+              "explanation": "Wrong. Bigtable is NoSQL wide-column.",
+              "id": "c"
+            },
+            {
+              "text": "Firestore",
+              "correct": false,
+              "explanation": "Wrong. Firestore is document NoSQL.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/bigquery/docs",
+          "id": "gcpace-s1-q37"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which NoSQL service offers low-latency, high-throughput wide-column storage for large analytical/operational workloads?",
+          "options": [
+            {
+              "text": "Cloud Bigtable",
+              "correct": true,
+              "explanation": "Correct. Bigtable is a wide-column NoSQL store for large workloads.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. Cloud SQL is relational.",
+              "id": "b"
+            },
+            {
+              "text": "BigQuery",
+              "correct": false,
+              "explanation": "Wrong. BigQuery is an analytics warehouse, not low-latency operational NoSQL.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. That is object storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/bigtable/docs",
+          "id": "gcpace-s1-q38"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command builds and submits a container image using Cloud Build?",
+          "options": [
+            {
+              "text": "gcloud builds submit",
+              "correct": true,
+              "explanation": "Correct. gcloud builds submit runs a Cloud Build job.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud compute instances create",
+              "correct": false,
+              "explanation": "Wrong. That creates a VM.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil cp",
+              "correct": false,
+              "explanation": "Wrong. That copies storage objects.",
+              "id": "c"
+            },
+            {
+              "text": "bq query",
+              "correct": false,
+              "explanation": "Wrong. That runs a BigQuery query.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/build/docs",
+          "id": "gcpace-s1-q39"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you export logs to BigQuery or Cloud Storage for retention/analysis?",
+          "options": [
+            {
+              "text": "Log sinks (log routing)",
+              "correct": true,
+              "explanation": "Correct. Sinks route logs to destinations like BigQuery or Storage.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "An instance template",
+              "correct": false,
+              "explanation": "Wrong. Templates define VM configs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/logging/docs/export",
+          "id": "gcpace-s1-q40"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature defines guardrails that restrict resource configurations org-wide?",
+          "options": [
+            {
+              "text": "Organization policies",
+              "correct": true,
+              "explanation": "Correct. Org policies set constraints across the hierarchy.",
+              "id": "a"
+            },
+            {
+              "text": "Firewall rules",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic, not resource config.",
+              "id": "b"
+            },
+            {
+              "text": "Labels",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "Buckets",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/resource-manager/docs/organization-policy/overview",
+          "id": "gcpace-s1-q41"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which command creates a new project with a specified ID?",
+          "options": [
+            {
+              "text": "gcloud projects create PROJECT_ID",
+              "correct": true,
+              "explanation": "Correct. That creates a new project.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud config set project",
+              "correct": false,
+              "explanation": "Wrong. That selects an existing project, not creates one.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil mb",
+              "correct": false,
+              "explanation": "Wrong. That creates a bucket.",
+              "id": "c"
+            },
+            {
+              "text": "gcloud compute instances create",
+              "correct": false,
+              "explanation": "Wrong. That creates a VM.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/projects/create",
+          "id": "gcpace-s1-q42"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which option provides persistent block storage attached to a Compute Engine VM?",
+          "options": [
+            {
+              "text": "Persistent Disk",
+              "correct": true,
+              "explanation": "Correct. Persistent Disks provide durable block storage for VMs.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud Storage bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets are object storage, not block disks.",
+              "id": "b"
+            },
+            {
+              "text": "BigQuery",
+              "correct": false,
+              "explanation": "Wrong. BigQuery is analytics.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/disks",
+          "id": "gcpace-s1-q43"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which compute discount applies automatically for running a VM a large portion of the month?",
+          "options": [
+            {
+              "text": "Sustained use discounts",
+              "correct": true,
+              "explanation": "Correct. Sustained use discounts apply automatically for long-running VMs.",
+              "id": "a"
+            },
+            {
+              "text": "Spot pricing only on request",
+              "correct": false,
+              "explanation": "Wrong. Spot is a separate, interruptible model, not automatic sustained discount.",
+              "id": "b"
+            },
+            {
+              "text": "Committed use without commitment",
+              "correct": false,
+              "explanation": "Wrong. Committed use requires a commitment.",
+              "id": "c"
+            },
+            {
+              "text": "There are no automatic discounts",
+              "correct": false,
+              "explanation": "Wrong. Sustained use discounts are automatic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/sustained-use-discounts",
+          "id": "gcpace-s1-q44"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature reduces VM cost for fault-tolerant, interruptible workloads?",
+          "options": [
+            {
+              "text": "Spot VMs (preemptible)",
+              "correct": true,
+              "explanation": "Correct. Spot/preemptible VMs are cheaper but can be reclaimed.",
+              "id": "a"
+            },
+            {
+              "text": "Committed use for short jobs",
+              "correct": false,
+              "explanation": "Wrong. Commitments suit steady long-term usage.",
+              "id": "b"
+            },
+            {
+              "text": "Larger machine types",
+              "correct": false,
+              "explanation": "Wrong. Bigger costs more.",
+              "id": "c"
+            },
+            {
+              "text": "Sustained use only",
+              "correct": false,
+              "explanation": "Wrong. Sustained discounts apply to steady VMs, not the deepest savings for interruptible jobs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/instances/spot",
+          "id": "gcpace-s1-q45"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature lets you visualize and alert on logs by extracting metrics from them?",
+          "options": [
+            {
+              "text": "Log-based metrics",
+              "correct": true,
+              "explanation": "Correct. Log-based metrics derive numeric metrics from log entries.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "An instance template",
+              "correct": false,
+              "explanation": "Wrong. Templates define VM configs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/logging/docs/logs-based-metrics",
+          "id": "gcpace-s1-q46"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which IAM role type can you tailor with an exact set of permissions?",
+          "options": [
+            {
+              "text": "A custom role",
+              "correct": true,
+              "explanation": "Correct. Custom roles let you choose specific permissions.",
+              "id": "a"
+            },
+            {
+              "text": "A basic (primitive) role only",
+              "correct": false,
+              "explanation": "Wrong. Basic roles are broad, not tailored.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/creating-custom-roles",
+          "id": "gcpace-s1-q47"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature secures secrets like API keys with versioning and access control?",
+          "options": [
+            {
+              "text": "Secret Manager",
+              "correct": true,
+              "explanation": "Correct. Secret Manager stores and controls access to secrets.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud Storage public bucket",
+              "correct": false,
+              "explanation": "Wrong. Public storage of secrets is unsafe.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/secret-manager/docs",
+          "id": "gcpace-s1-q48"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which interface provides a browser-based shell with the Cloud SDK preinstalled?",
+          "options": [
+            {
+              "text": "Cloud Shell",
+              "correct": true,
+              "explanation": "Correct. Cloud Shell is a browser CLI with tools preinstalled.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. That is object storage.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud Run",
+              "correct": false,
+              "explanation": "Wrong. Cloud Run runs containers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/shell/docs",
+          "id": "gcpace-s1-q49"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command creates a Cloud Storage bucket?",
+          "options": [
+            {
+              "text": "gcloud storage buckets create (or gsutil mb)",
+              "correct": true,
+              "explanation": "Correct. Those create a bucket.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud compute instances create",
+              "correct": false,
+              "explanation": "Wrong. That creates a VM.",
+              "id": "b"
+            },
+            {
+              "text": "bq mk",
+              "correct": false,
+              "explanation": "Wrong. That makes a BigQuery dataset/table.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl create",
+              "correct": false,
+              "explanation": "Wrong. That targets Kubernetes objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/creating-buckets",
+          "id": "gcpace-s1-q50"
         }
       ]
     },
@@ -82,32 +1741,1704 @@
       "timeLimitMin": 60,
       "questions": [
         {
-          "id": "ace-s2-q1",
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets policies set at a folder automatically apply to projects within it?",
+          "options": [
+            {
+              "text": "IAM policy inheritance through the resource hierarchy",
+              "correct": true,
+              "explanation": "Correct. Policies inherit down from organization/folders to projects.",
+              "id": "a"
+            },
+            {
+              "text": "Firewall rules",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic, not inherit IAM.",
+              "id": "b"
+            },
+            {
+              "text": "Labels",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "Buckets",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy",
+          "id": "gcpace-s2-q1"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command shows the currently active gcloud configuration?",
+          "options": [
+            {
+              "text": "gcloud config list",
+              "correct": true,
+              "explanation": "Correct. config list shows the active configuration.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud projects create",
+              "correct": false,
+              "explanation": "Wrong. That creates a project.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil ls",
+              "correct": false,
+              "explanation": "Wrong. That lists storage.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl get pods",
+              "correct": false,
+              "explanation": "Wrong. That lists Kubernetes pods.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/config/list",
+          "id": "gcpace-s2-q2"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which approach manages multiple gcloud environments (accounts/projects) side by side?",
+          "options": [
+            {
+              "text": "Named gcloud configurations",
+              "correct": true,
+              "explanation": "Correct. Multiple configurations let you switch contexts easily.",
+              "id": "a"
+            },
+            {
+              "text": "A single static config only",
+              "correct": false,
+              "explanation": "Wrong. That cannot hold multiple environments cleanly.",
+              "id": "b"
+            },
+            {
+              "text": "Firewall rules",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "c"
+            },
+            {
+              "text": "Labels",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/docs/configurations",
+          "id": "gcpace-s2-q3"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which document-model NoSQL database scales automatically and syncs to clients?",
+          "options": [
+            {
+              "text": "Firestore",
+              "correct": true,
+              "explanation": "Correct. Firestore is a scalable document NoSQL database.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. Cloud SQL is relational.",
+              "id": "b"
+            },
+            {
+              "text": "BigQuery",
+              "correct": false,
+              "explanation": "Wrong. BigQuery is analytics.",
+              "id": "c"
+            },
+            {
+              "text": "Bigtable",
+              "correct": false,
+              "explanation": "Wrong. Bigtable is wide-column NoSQL, not document with client sync.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/firestore/docs",
+          "id": "gcpace-s2-q4"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service ingests and delivers messages for event-driven, decoupled systems?",
+          "options": [
+            {
+              "text": "Pub/Sub",
+              "correct": true,
+              "explanation": "Correct. Pub/Sub is a scalable messaging service for decoupling.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. Cloud SQL is a database.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "c"
+            },
+            {
+              "text": "Persistent Disk",
+              "correct": false,
+              "explanation": "Wrong. That is block storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/pubsub/docs",
+          "id": "gcpace-s2-q5"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which managed service runs Apache Spark and Hadoop jobs?",
+          "options": [
+            {
+              "text": "Dataproc",
+              "correct": true,
+              "explanation": "Correct. Dataproc runs managed Spark/Hadoop clusters.",
+              "id": "a"
+            },
+            {
+              "text": "BigQuery",
+              "correct": false,
+              "explanation": "Wrong. BigQuery is a serverless warehouse, not Spark/Hadoop clusters.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. Cloud SQL is relational OLTP.",
+              "id": "c"
+            },
+            {
+              "text": "Firestore",
+              "correct": false,
+              "explanation": "Wrong. Firestore is document NoSQL.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/dataproc/docs",
+          "id": "gcpace-s2-q6"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which service builds serverless data pipelines for stream and batch (Apache Beam)?",
+          "options": [
+            {
+              "text": "Dataflow",
+              "correct": true,
+              "explanation": "Correct. Dataflow runs serverless Beam stream/batch pipelines.",
+              "id": "a"
+            },
+            {
+              "text": "Dataproc",
+              "correct": false,
+              "explanation": "Wrong. Dataproc is cluster-based Spark/Hadoop, not serverless Beam.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. Cloud SQL is relational.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/dataflow/docs",
+          "id": "gcpace-s2-q7"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service provides managed DNS hosting on Google Cloud?",
+          "options": [
+            {
+              "text": "Cloud DNS",
+              "correct": true,
+              "explanation": "Correct. Cloud DNS hosts and serves DNS zones.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. That is object storage.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. Cloud SQL is a database.",
+              "id": "c"
+            },
+            {
+              "text": "BigQuery",
+              "correct": false,
+              "explanation": "Wrong. BigQuery is analytics.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/dns/docs",
+          "id": "gcpace-s2-q8"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which command connects kubectl to a GKE cluster?",
+          "options": [
+            {
+              "text": "gcloud container clusters get-credentials",
+              "correct": true,
+              "explanation": "Correct. That fetches credentials for kubectl.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud compute instances create",
+              "correct": false,
+              "explanation": "Wrong. That creates a VM.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil mb",
+              "correct": false,
+              "explanation": "Wrong. That creates a bucket.",
+              "id": "c"
+            },
+            {
+              "text": "bq mk",
+              "correct": false,
+              "explanation": "Wrong. That makes a BigQuery dataset.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/container/clusters/get-credentials",
+          "id": "gcpace-s2-q9"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command creates a GKE cluster?",
+          "options": [
+            {
+              "text": "gcloud container clusters create",
+              "correct": true,
+              "explanation": "Correct. That provisions a GKE cluster.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud run deploy",
+              "correct": false,
+              "explanation": "Wrong. That deploys to Cloud Run.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil mb",
+              "correct": false,
+              "explanation": "Wrong. That makes a bucket.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl create cluster",
+              "correct": false,
+              "explanation": "Wrong. kubectl does not create GKE clusters.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/container/clusters/create",
+          "id": "gcpace-s2-q10"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which GKE mode manages nodes for you so you focus only on workloads?",
+          "options": [
+            {
+              "text": "Autopilot mode",
+              "correct": true,
+              "explanation": "Correct. Autopilot manages the nodes/infrastructure automatically.",
+              "id": "a"
+            },
+            {
+              "text": "Standard mode only",
+              "correct": false,
+              "explanation": "Wrong. Standard requires you to manage node pools.",
+              "id": "b"
+            },
+            {
+              "text": "Compute Engine mode",
+              "correct": false,
+              "explanation": "Wrong. That is not a GKE mode.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud Run mode",
+              "correct": false,
+              "explanation": "Wrong. Cloud Run is a separate serverless product.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview",
+          "id": "gcpace-s2-q11"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature deploys an application across multiple environments using version-controlled config?",
+          "options": [
+            {
+              "text": "Infrastructure as code (Terraform / Infrastructure Manager)",
+              "correct": true,
+              "explanation": "Correct. IaC enables repeatable, version-controlled deployments.",
+              "id": "a"
+            },
+            {
+              "text": "Manual console clicks each time",
+              "correct": false,
+              "explanation": "Wrong. Manual steps are not repeatable IaC.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/docs/terraform",
+          "id": "gcpace-s2-q12"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command copies a local file to a Cloud Storage bucket?",
+          "options": [
+            {
+              "text": "gcloud storage cp (or gsutil cp)",
+              "correct": true,
+              "explanation": "Correct. cp uploads files to a bucket.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud compute scp only",
+              "correct": false,
+              "explanation": "Wrong. scp targets VMs, not bucket uploads.",
+              "id": "b"
+            },
+            {
+              "text": "bq load",
+              "correct": false,
+              "explanation": "Wrong. That loads into BigQuery.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl cp",
+              "correct": false,
+              "explanation": "Wrong. That copies to/from pods.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/uploading-objects",
+          "id": "gcpace-s2-q13"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which feature checks whether a public endpoint is reachable on a schedule?",
+          "options": [
+            {
+              "text": "An uptime check in Cloud Monitoring",
+              "correct": true,
+              "explanation": "Correct. Uptime checks probe endpoints periodically.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/monitoring/uptime-checks",
+          "id": "gcpace-s2-q14"
+        },
+        {
           "domainId": "d4",
           "difficulty": "medium",
           "type": "single",
-          "stem": "Which service collects, queries, and alerts on logs from GCP resources?",
+          "stem": "Which feature groups related metrics and charts for at-a-glance health?",
           "options": [
-            { "id": "a", "text": "Cloud Logging", "correct": true, "explanation": "Correct. Cloud Logging ingests and stores logs, supports queries, and feeds log-based metrics and alerts." },
-            { "id": "b", "text": "Cloud Trace", "correct": false, "explanation": "Wrong. Trace handles distributed latency tracing, not general log collection." },
-            { "id": "c", "text": "Cloud Storage", "correct": false, "explanation": "Wrong. Storage holds objects; it's not a logging/alerting platform (though logs can be exported there)." },
-            { "id": "d", "text": "Pub/Sub", "correct": false, "explanation": "Wrong. Pub/Sub is messaging; it can carry log exports but doesn't query or alert on them itself." }
+            {
+              "text": "A Cloud Monitoring dashboard",
+              "correct": true,
+              "explanation": "Correct. Dashboards visualize metrics together.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "c"
+            },
+            {
+              "text": "A service account",
+              "correct": false,
+              "explanation": "Wrong. That is an identity.",
+              "id": "d"
+            }
           ],
-          "reference": "https://cloud.google.com/logging/docs/overview"
+          "reference": "https://cloud.google.com/monitoring/dashboards",
+          "id": "gcpace-s2-q15"
         },
         {
-          "id": "ace-s2-q2",
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which agent collects system and application metrics/logs from a VM?",
+          "options": [
+            {
+              "text": "The Ops Agent",
+              "correct": true,
+              "explanation": "Correct. The Ops Agent gathers metrics and logs from VMs.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/monitoring/agent/ops-agent",
+          "id": "gcpace-s2-q16"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which approach helps find which release introduced an error using profiling/diagnostics?",
+          "options": [
+            {
+              "text": "Cloud Profiler (with Error Reporting/Trace)",
+              "correct": true,
+              "explanation": "Correct. Profiler and related tools surface performance and error sources.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/profiler/docs",
+          "id": "gcpace-s2-q17"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service aggregates and groups application errors automatically?",
+          "options": [
+            {
+              "text": "Error Reporting",
+              "correct": true,
+              "explanation": "Correct. Error Reporting groups and surfaces recurring errors.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. That is object storage.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/error-reporting/docs",
+          "id": "gcpace-s2-q18"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which IAM element is the identity you grant a role to (user, group, or service account)?",
+          "options": [
+            {
+              "text": "A principal (member)",
+              "correct": true,
+              "explanation": "Correct. Principals are the identities receiving role grants.",
+              "id": "a"
+            },
+            {
+              "text": "A permission",
+              "correct": false,
+              "explanation": "Wrong. Permissions are bundled into roles, not the grantee.",
+              "id": "b"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/overview",
+          "id": "gcpace-s2-q19"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which approach avoids long-lived service account keys for workloads on Google Cloud?",
+          "options": [
+            {
+              "text": "Attach a service account to the resource (no exported key)",
+              "correct": true,
+              "explanation": "Correct. Attached service accounts avoid exported key files.",
+              "id": "a"
+            },
+            {
+              "text": "Email the key to developers",
+              "correct": false,
+              "explanation": "Wrong. Distributing keys risks leaks.",
+              "id": "b"
+            },
+            {
+              "text": "Commit the key to source control",
+              "correct": false,
+              "explanation": "Wrong. Never commit secrets to source control.",
+              "id": "c"
+            },
+            {
+              "text": "Make the key public",
+              "correct": false,
+              "explanation": "Wrong. Public keys are a severe risk.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/best-practices-service-accounts",
+          "id": "gcpace-s2-q20"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature controls which external IPs can reach the Google Cloud console/APIs for an org (context-aware)?",
+          "options": [
+            {
+              "text": "Access Context Manager / VPC Service Controls",
+              "correct": true,
+              "explanation": "Correct. These enforce context-aware access and service perimeters.",
+              "id": "a"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "b"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "c"
+            },
+            {
+              "text": "A persistent disk",
+              "correct": false,
+              "explanation": "Wrong. That is block storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/vpc-service-controls/docs",
+          "id": "gcpace-s2-q21"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which capability gives a security perimeter around services to mitigate data exfiltration?",
+          "options": [
+            {
+              "text": "VPC Service Controls",
+              "correct": true,
+              "explanation": "Correct. VPC Service Controls create a service perimeter to reduce exfiltration risk.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule alone",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules are network filters, not service perimeters.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket policy only",
+              "correct": false,
+              "explanation": "Wrong. That is narrower than a service perimeter.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/vpc-service-controls/docs/overview",
+          "id": "gcpace-s2-q22"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command links a billing account to a project?",
+          "options": [
+            {
+              "text": "gcloud billing projects link",
+              "correct": true,
+              "explanation": "Correct. That associates a project with a billing account.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud projects create",
+              "correct": false,
+              "explanation": "Wrong. That creates a project, not billing linkage.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil mb",
+              "correct": false,
+              "explanation": "Wrong. That creates a bucket.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl apply",
+              "correct": false,
+              "explanation": "Wrong. That applies Kubernetes manifests.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/billing/projects/link",
+          "id": "gcpace-s2-q23"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which networking option connects an on-premises network to a VPC over IPsec?",
+          "options": [
+            {
+              "text": "Cloud VPN",
+              "correct": true,
+              "explanation": "Correct. Cloud VPN establishes IPsec tunnels to a VPC.",
+              "id": "a"
+            },
+            {
+              "text": "A storage bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "b"
+            },
+            {
+              "text": "BigQuery",
+              "correct": false,
+              "explanation": "Wrong. BigQuery is analytics.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/network-connectivity/docs/vpn",
+          "id": "gcpace-s2-q24"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which option provides a dedicated, private physical connection to Google Cloud?",
+          "options": [
+            {
+              "text": "Cloud Interconnect (Dedicated)",
+              "correct": true,
+              "explanation": "Correct. Dedicated Interconnect provides a private physical link.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud VPN over the internet",
+              "correct": false,
+              "explanation": "Wrong. VPN runs over the public internet, not a dedicated circuit.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/network-connectivity/docs/interconnect",
+          "id": "gcpace-s2-q25"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets a VM reach the internet for updates without an external IP?",
+          "options": [
+            {
+              "text": "Cloud NAT",
+              "correct": true,
+              "explanation": "Correct. Cloud NAT provides outbound internet for private VMs.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule alone",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter; they do not provide NAT egress.",
+              "id": "b"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/nat/docs/overview",
+          "id": "gcpace-s2-q26"
+        },
+        {
           "domainId": "d3",
           "difficulty": "hard",
-          "type": "multi",
-          "stem": "Which commands/tools can deploy resources to GCP in a repeatable, scriptable way? (Select TWO)",
+          "type": "single",
+          "stem": "Which feature allows zero-downtime rollout of a new VM template across a managed instance group?",
           "options": [
-            { "id": "a", "text": "gcloud CLI commands in a script", "correct": true, "explanation": "Correct. The gcloud CLI is scriptable and repeatable for provisioning and management." },
-            { "id": "b", "text": "Terraform with the Google provider", "correct": true, "explanation": "Correct. Terraform declaratively provisions GCP resources and is fully repeatable." },
-            { "id": "c", "text": "Manually clicking through the Cloud Console", "correct": false, "explanation": "Wrong. Console clicks aren't repeatable or version-controlled." },
-            { "id": "d", "text": "Editing resources directly in the billing report", "correct": false, "explanation": "Wrong. Billing reports are read-only cost views; you can't deploy from them." }
+            {
+              "text": "A rolling update on the managed instance group",
+              "correct": true,
+              "explanation": "Correct. MIG rolling updates replace instances gradually.",
+              "id": "a"
+            },
+            {
+              "text": "Deleting all instances at once",
+              "correct": false,
+              "explanation": "Wrong. That causes downtime.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
           ],
-          "reference": "https://cloud.google.com/sdk/gcloud"
+          "reference": "https://cloud.google.com/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups",
+          "id": "gcpace-s2-q27"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you set a budget and receive alerts as spend approaches it?",
+          "options": [
+            {
+              "text": "Billing budgets and alerts",
+              "correct": true,
+              "explanation": "Correct. Budgets notify you as costs approach thresholds.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/billing/docs/how-to/budgets",
+          "id": "gcpace-s2-q28"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which approach analyzes detailed billing data with SQL?",
+          "options": [
+            {
+              "text": "Export billing data to BigQuery and query it",
+              "correct": true,
+              "explanation": "Correct. BigQuery billing export enables SQL cost analysis.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A persistent disk",
+              "correct": false,
+              "explanation": "Wrong. That is block storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/billing/docs/how-to/export-data-bigquery",
+          "id": "gcpace-s2-q29"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which IAM feature lets you see who has access to a resource?",
+          "options": [
+            {
+              "text": "The IAM policy (allow policy) bindings on the resource",
+              "correct": true,
+              "explanation": "Correct. The allow policy lists principals and their roles.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/policies",
+          "id": "gcpace-s2-q30"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which tool helps identify overly permissive IAM grants and recommends reductions?",
+          "options": [
+            {
+              "text": "IAM Recommender (policy insights)",
+              "correct": true,
+              "explanation": "Correct. IAM Recommender suggests least-privilege reductions.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/recommender-overview",
+          "id": "gcpace-s2-q31"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which command deletes a project (scheduling it for removal)?",
+          "options": [
+            {
+              "text": "gcloud projects delete PROJECT_ID",
+              "correct": true,
+              "explanation": "Correct. That schedules a project for deletion.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud config unset project",
+              "correct": false,
+              "explanation": "Wrong. That only clears the active project setting.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil rm",
+              "correct": false,
+              "explanation": "Wrong. That removes storage objects.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl delete",
+              "correct": false,
+              "explanation": "Wrong. That deletes Kubernetes objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/projects/delete",
+          "id": "gcpace-s2-q32"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature reduces cost for a 1- or 3-year predictable Compute Engine commitment?",
+          "options": [
+            {
+              "text": "Committed use discounts",
+              "correct": true,
+              "explanation": "Correct. Committed use offers discounts for term commitments.",
+              "id": "a"
+            },
+            {
+              "text": "Spot VMs for steady prod",
+              "correct": false,
+              "explanation": "Wrong. Spot is interruptible, unsuitable for steady prod commitments.",
+              "id": "b"
+            },
+            {
+              "text": "Sustained use only",
+              "correct": false,
+              "explanation": "Wrong. Sustained discounts apply automatically but are smaller than committed use.",
+              "id": "c"
+            },
+            {
+              "text": "Larger machine types",
+              "correct": false,
+              "explanation": "Wrong. Bigger costs more.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/instances/committed-use-discounts-overview",
+          "id": "gcpace-s2-q33"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which storage option suits data accessed roughly once a quarter at low cost?",
+          "options": [
+            {
+              "text": "Coldline storage",
+              "correct": true,
+              "explanation": "Correct. Coldline targets ~quarterly access at low cost.",
+              "id": "a"
+            },
+            {
+              "text": "Standard storage",
+              "correct": false,
+              "explanation": "Wrong. Standard is for frequent access.",
+              "id": "b"
+            },
+            {
+              "text": "Nearline storage",
+              "correct": false,
+              "explanation": "Wrong. Nearline targets ~monthly access.",
+              "id": "c"
+            },
+            {
+              "text": "Archive storage",
+              "correct": false,
+              "explanation": "Wrong. Archive targets yearly-or-less access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/storage-classes",
+          "id": "gcpace-s2-q34"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command opens an SSH session to a Compute Engine VM?",
+          "options": [
+            {
+              "text": "gcloud compute ssh",
+              "correct": true,
+              "explanation": "Correct. gcloud compute ssh connects to a VM.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud run deploy",
+              "correct": false,
+              "explanation": "Wrong. That deploys to Cloud Run.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil cp",
+              "correct": false,
+              "explanation": "Wrong. That copies storage objects.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl exec",
+              "correct": false,
+              "explanation": "Wrong. That runs commands in a pod, not a GCE VM.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/compute/ssh",
+          "id": "gcpace-s2-q35"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature lets you run a startup script when a VM boots?",
+          "options": [
+            {
+              "text": "A startup script in instance metadata",
+              "correct": true,
+              "explanation": "Correct. Startup scripts run on boot via metadata.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/instances/startup-scripts",
+          "id": "gcpace-s2-q36"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you receive alerts via email, SMS, or webhook?",
+          "options": [
+            {
+              "text": "Notification channels in Cloud Monitoring",
+              "correct": true,
+              "explanation": "Correct. Notification channels deliver alerts through various methods.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/monitoring/support/notification-options",
+          "id": "gcpace-s2-q37"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which approach helps reduce noisy alerts from transient spikes?",
+          "options": [
+            {
+              "text": "Tune alert conditions with duration/aggregation windows",
+              "correct": true,
+              "explanation": "Correct. Duration and aggregation reduce false positives.",
+              "id": "a"
+            },
+            {
+              "text": "Delete all alerts",
+              "correct": false,
+              "explanation": "Wrong. That removes needed signal.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/monitoring/alerts/concepts-indepth",
+          "id": "gcpace-s2-q38"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which IAM best practice applies to the basic Owner role?",
+          "options": [
+            {
+              "text": "Avoid broad use; prefer predefined or custom roles",
+              "correct": true,
+              "explanation": "Correct. Owner is very broad; narrower roles follow least privilege.",
+              "id": "a"
+            },
+            {
+              "text": "Grant Owner to all team members",
+              "correct": false,
+              "explanation": "Wrong. That violates least privilege.",
+              "id": "b"
+            },
+            {
+              "text": "Use Owner for service accounts by default",
+              "correct": false,
+              "explanation": "Wrong. Workloads should get scoped roles.",
+              "id": "c"
+            },
+            {
+              "text": "Owner is the most secure choice",
+              "correct": false,
+              "explanation": "Wrong. Broad roles increase risk.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/using-iam-securely",
+          "id": "gcpace-s2-q39"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which mechanism lets workloads outside Google Cloud access resources without service account keys?",
+          "options": [
+            {
+              "text": "Workload Identity Federation",
+              "correct": true,
+              "explanation": "Correct. It lets external identities access Google Cloud without keys.",
+              "id": "a"
+            },
+            {
+              "text": "Sharing a service account key file",
+              "correct": false,
+              "explanation": "Wrong. Keys are a leak risk this feature avoids.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/workload-identity-federation",
+          "id": "gcpace-s2-q40"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature applies labels to resources to organize and break down billing?",
+          "options": [
+            {
+              "text": "Resource labels",
+              "correct": true,
+              "explanation": "Correct. Labels categorize resources, useful for billing breakdowns.",
+              "id": "a"
+            },
+            {
+              "text": "Firewall rules",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "Service accounts",
+              "correct": false,
+              "explanation": "Wrong. Those are identities.",
+              "id": "c"
+            },
+            {
+              "text": "Persistent disks",
+              "correct": false,
+              "explanation": "Wrong. That is block storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/resource-manager/docs/creating-managing-labels",
+          "id": "gcpace-s2-q41"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service provides an in-memory cache (Redis/Memcached) as a managed offering?",
+          "options": [
+            {
+              "text": "Memorystore",
+              "correct": true,
+              "explanation": "Correct. Memorystore is managed Redis/Memcached.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. Cloud SQL is relational, not an in-memory cache.",
+              "id": "b"
+            },
+            {
+              "text": "BigQuery",
+              "correct": false,
+              "explanation": "Wrong. BigQuery is analytics.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/memorystore/docs",
+          "id": "gcpace-s2-q42"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command shows the gcloud components and lets you update the SDK?",
+          "options": [
+            {
+              "text": "gcloud components update",
+              "correct": true,
+              "explanation": "Correct. That updates installed SDK components.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud config list",
+              "correct": false,
+              "explanation": "Wrong. That shows configuration.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil ls",
+              "correct": false,
+              "explanation": "Wrong. That lists storage.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl version",
+              "correct": false,
+              "explanation": "Wrong. That shows Kubernetes versions.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/components/update",
+          "id": "gcpace-s2-q43"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature retains logs longer by routing them to a dedicated log bucket?",
+          "options": [
+            {
+              "text": "Log buckets with custom retention",
+              "correct": true,
+              "explanation": "Correct. Log buckets let you set retention periods.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A persistent disk",
+              "correct": false,
+              "explanation": "Wrong. That is block storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/logging/docs/buckets",
+          "id": "gcpace-s2-q44"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you audit who accessed or changed resources?",
+          "options": [
+            {
+              "text": "Cloud Audit Logs",
+              "correct": true,
+              "explanation": "Correct. Audit Logs record admin and data access activity.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/logging/docs/audit",
+          "id": "gcpace-s2-q45"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which service provides a global, autoscaling HTTP backend without managing servers, billing per request?",
+          "options": [
+            {
+              "text": "Cloud Run (or App Engine standard)",
+              "correct": true,
+              "explanation": "Correct. These serverless platforms autoscale and bill per use.",
+              "id": "a"
+            },
+            {
+              "text": "Compute Engine VMs",
+              "correct": false,
+              "explanation": "Wrong. VMs are always-on and not per-request billed.",
+              "id": "b"
+            },
+            {
+              "text": "Persistent Disk",
+              "correct": false,
+              "explanation": "Wrong. That is block storage.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/run/docs",
+          "id": "gcpace-s2-q46"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command grants an IAM role to a principal on a project?",
+          "options": [
+            {
+              "text": "gcloud projects add-iam-policy-binding",
+              "correct": true,
+              "explanation": "Correct. That binds a role to a member on the project.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud projects create",
+              "correct": false,
+              "explanation": "Wrong. That creates a project.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil mb",
+              "correct": false,
+              "explanation": "Wrong. That creates a bucket.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl apply",
+              "correct": false,
+              "explanation": "Wrong. That applies Kubernetes manifests.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/projects/add-iam-policy-binding",
+          "id": "gcpace-s2-q47"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which design improves reliability by spreading a managed instance group across zones?",
+          "options": [
+            {
+              "text": "A regional (multi-zone) managed instance group",
+              "correct": true,
+              "explanation": "Correct. Regional MIGs distribute instances across zones for resilience.",
+              "id": "a"
+            },
+            {
+              "text": "A single-zone group only",
+              "correct": false,
+              "explanation": "Wrong. One zone is a single point of failure.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/instance-groups/distributing-instances-with-regional-instance-groups",
+          "id": "gcpace-s2-q48"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you require multi-factor verification for Google Cloud sign-in?",
+          "options": [
+            {
+              "text": "2-Step Verification / MFA on the Google identity",
+              "correct": true,
+              "explanation": "Correct. 2SV/MFA strengthens account sign-in.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Firewall rules filter traffic.",
+              "id": "b"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets store objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/identity/docs",
+          "id": "gcpace-s2-q49"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command displays the IAM policy currently set on a project?",
+          "options": [
+            {
+              "text": "gcloud projects get-iam-policy",
+              "correct": true,
+              "explanation": "Correct. That returns the project's IAM allow policy.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud projects create",
+              "correct": false,
+              "explanation": "Wrong. That creates a project.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil ls",
+              "correct": false,
+              "explanation": "Wrong. That lists storage.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl get pods",
+              "correct": false,
+              "explanation": "Wrong. That lists Kubernetes pods.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud/reference/projects/get-iam-policy",
+          "id": "gcpace-s2-q50"
         }
       ]
     }
