@@ -1,0 +1,144 @@
+{
+  "certId": "terraform-004",
+  "title": "HashiCorp Certified: Terraform Associate (004)",
+  "vendor": "HashiCorp",
+  "examVersion": "004",
+  "lastUpdated": "2026-06-11",
+  "passScore": 70,
+  "domains": [
+    { "id": "d1", "name": "IaC with Terraform" },
+    { "id": "d2", "name": "Terraform fundamentals" },
+    { "id": "d3", "name": "Core Terraform workflow" },
+    { "id": "d4", "name": "Terraform configuration" },
+    { "id": "d5", "name": "Terraform modules" },
+    { "id": "d6", "name": "State management" },
+    { "id": "d7", "name": "Maintain infrastructure" },
+    { "id": "d8", "name": "HCP Terraform" }
+  ],
+  "sets": [
+    {
+      "setId": "set-1",
+      "name": "Practice Exam 1",
+      "timeLimitMin": 60,
+      "questions": [
+        {
+          "id": "tf004-s1-q1",
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An interrupted <code>terraform apply</code> left a lock held in the backend, and teammates now get lock-acquisition errors. What clears it safely?",
+          "options": [
+            { "id": "a", "text": "terraform force-unlock <LOCK_ID> after confirming no apply is running", "correct": true, "explanation": "Correct. force-unlock releases a stale lock; only do it once you've verified no other apply holds it." },
+            { "id": "b", "text": "Delete the state file and re-run init", "correct": false, "explanation": "Wrong. Deleting state destroys the record of managed resources — drastic and unnecessary for a lock." },
+            { "id": "c", "text": "Switch to the local backend", "correct": false, "explanation": "Wrong. That abandons shared state and locking; it doesn't clear the existing lock." },
+            { "id": "d", "text": "Run terraform refresh", "correct": false, "explanation": "Wrong. refresh reconciles state with real infra; it does not touch locks." }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/locking"
+        },
+        {
+          "id": "tf004-s1-q2",
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "In HCP Terraform, which feature lets you group related workspaces and apply shared variable sets and access at that grouping level?",
+          "options": [
+            { "id": "a", "text": "Projects", "correct": true, "explanation": "Correct. Projects organize workspaces and let you manage variable sets and team access at the project level." },
+            { "id": "b", "text": "Run triggers", "correct": false, "explanation": "Wrong. Run triggers chain a run in one workspace off another's apply — they don't group workspaces for access control." },
+            { "id": "c", "text": "Policy sets", "correct": false, "explanation": "Wrong. Policy sets enforce Sentinel/OPA governance, not workspace grouping." },
+            { "id": "d", "text": "The Explorer", "correct": false, "explanation": "Wrong. Explorer is a cross-workspace query/visibility view, not an organizational container." }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/projects"
+        },
+        {
+          "id": "tf004-s1-q3",
+          "domainId": "d4",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "What is the purpose of a <code>data</code> block?",
+          "options": [
+            { "id": "a", "text": "To read information about existing infrastructure not managed by this configuration", "correct": true, "explanation": "Correct. Data sources fetch read-only info (e.g. an existing AMI or VPC) for use elsewhere in config." },
+            { "id": "b", "text": "To create and manage a new resource", "correct": false, "explanation": "Wrong. Creating/managing resources is the job of a resource block, not a data block." },
+            { "id": "c", "text": "To declare an input variable", "correct": false, "explanation": "Wrong. Inputs are declared with variable blocks." },
+            { "id": "d", "text": "To store state remotely", "correct": false, "explanation": "Wrong. Remote state is configured with a backend block." }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/data-sources"
+        },
+        {
+          "id": "tf004-s1-q4",
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "True or false: usernames and passwords referenced in Terraform code, even as variables, can end up in plaintext in the state file.",
+          "options": [
+            { "id": "a", "text": "True", "correct": true, "explanation": "Correct. Sensitive values can persist in state in plaintext, which is why state must be stored securely and access restricted." },
+            { "id": "b", "text": "False", "correct": false, "explanation": "Wrong. Marking a variable sensitive hides it from CLI output but does not encrypt it within the state file." }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/sensitive-data"
+        },
+        {
+          "id": "tf004-s1-q5",
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to bring a manually-created cloud resource under Terraform management without recreating it. Which approach fits the modern workflow?",
+          "options": [
+            { "id": "a", "text": "An import block in configuration, then terraform plan/apply", "correct": true, "explanation": "Correct. Config-driven import blocks let you declare imports and bring resources in via the normal plan/apply flow." },
+            { "id": "b", "text": "terraform destroy then re-apply", "correct": false, "explanation": "Wrong. That deletes the resource — the opposite of importing it intact." },
+            { "id": "c", "text": "Manually edit the state JSON by hand", "correct": false, "explanation": "Wrong. Hand-editing state is error-prone and unsupported; use import." },
+            { "id": "d", "text": "terraform refresh", "correct": false, "explanation": "Wrong. refresh updates known resources; it can't adopt an unmanaged one." }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/import"
+        }
+      ]
+    },
+    {
+      "setId": "set-2",
+      "name": "Practice Exam 2",
+      "timeLimitMin": 60,
+      "questions": [
+        {
+          "id": "tf004-s2-q1",
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "multi",
+          "stem": "Which commands are part of the core Terraform workflow? (Select TWO)",
+          "options": [
+            { "id": "a", "text": "terraform plan", "correct": true, "explanation": "Correct. plan previews changes — a core step (write, plan, apply)." },
+            { "id": "b", "text": "terraform apply", "correct": true, "explanation": "Correct. apply executes the planned changes — the final core step." },
+            { "id": "c", "text": "terraform deploy", "correct": false, "explanation": "Wrong. There is no deploy subcommand; apply performs deployment." },
+            { "id": "d", "text": "terraform lint", "correct": false, "explanation": "Wrong. No lint subcommand; use fmt and validate." }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/intro/core-workflow"
+        },
+        {
+          "id": "tf004-s2-q2",
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "How do you pin a public registry module to a specific version?",
+          "options": [
+            { "id": "a", "text": "Set the version argument in the module block", "correct": true, "explanation": "Correct. Registry sources accept a version constraint via the version argument in the module block." },
+            { "id": "b", "text": "Append ?ref=v1.0.0 to the source", "correct": false, "explanation": "Wrong. ?ref= pins Git sources, not registry sources." },
+            { "id": "c", "text": "Use a module_version argument", "correct": false, "explanation": "Wrong. No such argument exists." },
+            { "id": "d", "text": "Versions can't be pinned for registry modules", "correct": false, "explanation": "Wrong. Version pinning is a core feature of registry modules." }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/block/module#version"
+        },
+        {
+          "id": "tf004-s2-q3",
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which HCP Terraform capability automatically detects when real infrastructure no longer matches recorded state?",
+          "options": [
+            { "id": "a", "text": "Drift detection", "correct": true, "explanation": "Correct. HCP Terraform's health/drift detection periodically checks for divergence between state and real resources." },
+            { "id": "b", "text": "Run triggers", "correct": false, "explanation": "Wrong. Run triggers chain runs across workspaces; they don't detect drift." },
+            { "id": "c", "text": "Sentinel", "correct": false, "explanation": "Wrong. Sentinel is policy-as-code enforcement, not drift detection." },
+            { "id": "d", "text": "Variable sets", "correct": false, "explanation": "Wrong. Variable sets share variables across workspaces; unrelated to drift." }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/tutorials/cloud/drift-detection"
+        }
+      ]
+    }
+  ]
+}

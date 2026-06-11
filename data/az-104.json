@@ -1,0 +1,115 @@
+{
+  "certId": "az-104",
+  "title": "Microsoft Certified: Azure Administrator Associate (AZ-104)",
+  "vendor": "Microsoft",
+  "examVersion": "AZ-104",
+  "lastUpdated": "2026-06-11",
+  "passScore": 70,
+  "domains": [
+    { "id": "d1", "name": "Manage Azure Identities & Governance" },
+    { "id": "d2", "name": "Implement & Manage Storage" },
+    { "id": "d3", "name": "Deploy & Manage Compute Resources" },
+    { "id": "d4", "name": "Implement & Manage Virtual Networking" },
+    { "id": "d5", "name": "Monitor & Maintain Azure Resources" }
+  ],
+  "sets": [
+    {
+      "setId": "set-1",
+      "name": "Practice Exam 1",
+      "timeLimitMin": 60,
+      "questions": [
+        {
+          "id": "az104-s1-q1",
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must grant a user permission to manage VMs in one resource group without giving broader access. What is the best approach?",
+          "options": [
+            { "id": "a", "text": "Assign a built-in RBAC role scoped to that resource group", "correct": true, "explanation": "Correct. RBAC at resource-group scope follows least privilege, limiting access to exactly what's needed." },
+            { "id": "b", "text": "Add the user to the Global Administrator role", "correct": false, "explanation": "Wrong. Global Admin is a broad Entra ID role — vastly more access than required." },
+            { "id": "c", "text": "Assign Owner at the subscription scope", "correct": false, "explanation": "Wrong. Owner at subscription scope grants control over everything — the opposite of least privilege." },
+            { "id": "d", "text": "Share the service principal secret", "correct": false, "explanation": "Wrong. Sharing credentials bypasses RBAC and is a security risk." }
+          ],
+          "reference": "https://learn.microsoft.com/azure/role-based-access-control/overview"
+        },
+        {
+          "id": "az104-s1-q2",
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to keep blob storage costs low for data accessed only a few times a year but must remain instantly retrievable. Which access tier fits?",
+          "options": [
+            { "id": "a", "text": "Cool tier", "correct": true, "explanation": "Correct. Cool suits infrequently accessed data kept at least 30 days, with lower storage cost and instant access." },
+            { "id": "b", "text": "Hot tier", "correct": false, "explanation": "Wrong. Hot optimizes for frequent access at higher storage cost — not cost-efficient here." },
+            { "id": "c", "text": "Archive tier", "correct": false, "explanation": "Wrong. Archive is cheapest but offline; retrieval (rehydration) takes hours, failing the instant-access need." },
+            { "id": "d", "text": "Premium block blob", "correct": false, "explanation": "Wrong. Premium targets high-transaction, low-latency workloads at premium price." }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview"
+        },
+        {
+          "id": "az104-s1-q3",
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Two VNets in the same region must communicate privately over the Azure backbone with low latency. What do you configure?",
+          "options": [
+            { "id": "a", "text": "VNet peering", "correct": true, "explanation": "Correct. Peering connects VNets over Microsoft's backbone with low latency and private addressing." },
+            { "id": "b", "text": "A public load balancer", "correct": false, "explanation": "Wrong. A public LB exposes traffic to the internet; not a private VNet-to-VNet link." },
+            { "id": "c", "text": "A NAT gateway", "correct": false, "explanation": "Wrong. NAT gateway handles outbound internet egress, not inter-VNet connectivity." },
+            { "id": "d", "text": "An ExpressRoute circuit", "correct": false, "explanation": "Wrong. ExpressRoute links on-premises to Azure, overkill for two VNets in one region." }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-peering-overview"
+        },
+        {
+          "id": "az104-s1-q4",
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which feature automatically adds or removes VM instances based on demand?",
+          "options": [
+            { "id": "a", "text": "Virtual Machine Scale Sets with autoscale", "correct": true, "explanation": "Correct. VMSS with autoscale rules adds/removes instances based on metrics like CPU." },
+            { "id": "b", "text": "Availability Set", "correct": false, "explanation": "Wrong. Availability Sets improve resilience via fault/update domains; they don't autoscale." },
+            { "id": "c", "text": "Azure Bastion", "correct": false, "explanation": "Wrong. Bastion provides secure RDP/SSH access; nothing to do with scaling." },
+            { "id": "d", "text": "Resource lock", "correct": false, "explanation": "Wrong. Locks prevent accidental change/deletion; unrelated to scaling." }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machine-scale-sets/overview"
+        }
+      ]
+    },
+    {
+      "setId": "set-2",
+      "name": "Practice Exam 2",
+      "timeLimitMin": 60,
+      "questions": [
+        {
+          "id": "az104-s2-q1",
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You want to be alerted when a VM's average CPU exceeds 80% for 5 minutes. Which Azure feature do you use?",
+          "options": [
+            { "id": "a", "text": "Azure Monitor metric alert", "correct": true, "explanation": "Correct. Metric alerts in Azure Monitor evaluate metrics like CPU against a threshold and notify via action groups." },
+            { "id": "b", "text": "Azure Policy", "correct": false, "explanation": "Wrong. Policy enforces governance/compliance rules, not metric-based alerting." },
+            { "id": "c", "text": "Network Watcher", "correct": false, "explanation": "Wrong. Network Watcher diagnoses networking, not VM CPU alerts." },
+            { "id": "d", "text": "Resource lock", "correct": false, "explanation": "Wrong. Locks protect resources from change; they don't alert." }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/alerts/alerts-metric-overview"
+        },
+        {
+          "id": "az104-s2-q2",
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "multi",
+          "stem": "Which mechanisms enforce organizational standards across subscriptions? (Select TWO)",
+          "options": [
+            { "id": "a", "text": "Azure Policy", "correct": true, "explanation": "Correct. Policy audits and enforces rules (allowed regions, required tags) across scopes." },
+            { "id": "b", "text": "Management groups", "correct": true, "explanation": "Correct. Management groups let you apply governance and RBAC across many subscriptions at once." },
+            { "id": "c", "text": "Availability Zones", "correct": false, "explanation": "Wrong. AZs are datacenter-resilience constructs, not governance tools." },
+            { "id": "d", "text": "Blob lifecycle rules", "correct": false, "explanation": "Wrong. Lifecycle rules manage storage tiering/expiry, not org-wide governance." }
+          ],
+          "reference": "https://learn.microsoft.com/azure/governance/management-groups/overview"
+        }
+      ]
+    }
+  ]
+}
