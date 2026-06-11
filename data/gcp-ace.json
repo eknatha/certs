@@ -1,0 +1,115 @@
+{
+  "certId": "gcp-ace",
+  "title": "Google Cloud Associate Cloud Engineer (ACE)",
+  "vendor": "Google",
+  "examVersion": "2026",
+  "lastUpdated": "2026-06-11",
+  "passScore": 70,
+  "domains": [
+    { "id": "d1", "name": "Setting up a Cloud Environment" },
+    { "id": "d2", "name": "Planning & Configuring a Cloud Solution" },
+    { "id": "d3", "name": "Deploying & Implementing a Cloud Solution" },
+    { "id": "d4", "name": "Ensuring Successful Operation" },
+    { "id": "d5", "name": "Configuring Access & Security" }
+  ],
+  "sets": [
+    {
+      "setId": "set-1",
+      "name": "Practice Exam 1",
+      "timeLimitMin": 60,
+      "questions": [
+        {
+          "id": "ace-s1-q1",
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An application running on a Compute Engine VM needs to read objects from a Cloud Storage bucket. What is the recommended way to grant access?",
+          "options": [
+            { "id": "a", "text": "Attach a service account with the Storage Object Viewer role to the VM", "correct": true, "explanation": "Correct. Attaching a least-privilege service account lets the VM authenticate with rotated, short-lived credentials and no embedded keys." },
+            { "id": "b", "text": "Download a service account JSON key and place it on the VM", "correct": false, "explanation": "Wrong. Long-lived key files are a leak risk; attached service accounts avoid storing keys at all." },
+            { "id": "c", "text": "Make the bucket public", "correct": false, "explanation": "Wrong. Public buckets expose data to everyone — a serious misconfiguration." },
+            { "id": "d", "text": "Use the project Owner role on the VM's service account", "correct": false, "explanation": "Wrong. Owner is far too broad; it violates least privilege." }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/service-account-overview"
+        },
+        {
+          "id": "ace-s1-q2",
+          "domainId": "d1",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which resource container sits directly above projects and lets you apply IAM policies and org policies to groups of projects?",
+          "options": [
+            { "id": "a", "text": "Folders", "correct": true, "explanation": "Correct. Folders group projects under the organization and allow inherited IAM and org policies." },
+            { "id": "b", "text": "Billing accounts", "correct": false, "explanation": "Wrong. Billing accounts handle payment, not resource hierarchy or IAM grouping." },
+            { "id": "c", "text": "VPC networks", "correct": false, "explanation": "Wrong. VPCs are networking constructs, not hierarchy containers." },
+            { "id": "d", "text": "Resource labels", "correct": false, "explanation": "Wrong. Labels are metadata key-values for organization/billing breakdowns, not IAM containers." }
+          ],
+          "reference": "https://cloud.google.com/resource-manager/docs/cloud-platform-resource-hierarchy"
+        },
+        {
+          "id": "ace-s1-q3",
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to run a stateless containerized web app that scales to zero when idle and requires minimal infrastructure management. Which service fits best?",
+          "options": [
+            { "id": "a", "text": "Cloud Run", "correct": true, "explanation": "Correct. Cloud Run runs stateless containers, scales to zero, and is fully managed — ideal for this profile." },
+            { "id": "b", "text": "Compute Engine managed instance group", "correct": false, "explanation": "Wrong. MIGs run VMs you manage and don't scale to zero as cleanly; more overhead than needed." },
+            { "id": "c", "text": "GKE Standard", "correct": false, "explanation": "Wrong. GKE Standard means managing a cluster — heavier than required for one stateless app." },
+            { "id": "d", "text": "Cloud Functions (1st gen) with HTTP only", "correct": false, "explanation": "Wrong. Functions suit event/function units, not arbitrary containerized web apps; Cloud Run is the container-native fit." }
+          ],
+          "reference": "https://cloud.google.com/run/docs/overview/what-is-cloud-run"
+        },
+        {
+          "id": "ace-s1-q4",
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A workload is fault-tolerant and can be interrupted, and you want the lowest VM cost. Which Compute Engine option fits?",
+          "options": [
+            { "id": "a", "text": "Spot VMs", "correct": true, "explanation": "Correct. Spot VMs offer the deepest discount for interruptible, fault-tolerant workloads." },
+            { "id": "b", "text": "Committed use discounts on on-demand VMs", "correct": false, "explanation": "Wrong. CUDs save on steady long-term usage, not short interruptible jobs." },
+            { "id": "c", "text": "Sole-tenant nodes", "correct": false, "explanation": "Wrong. Sole-tenant targets compliance/licensing at premium cost." },
+            { "id": "d", "text": "On-demand standard VMs", "correct": false, "explanation": "Wrong. On-demand is the baseline price, not the cheapest for interruptible work." }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/instances/spot"
+        }
+      ]
+    },
+    {
+      "setId": "set-2",
+      "name": "Practice Exam 2",
+      "timeLimitMin": 60,
+      "questions": [
+        {
+          "id": "ace-s2-q1",
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service collects, queries, and alerts on logs from GCP resources?",
+          "options": [
+            { "id": "a", "text": "Cloud Logging", "correct": true, "explanation": "Correct. Cloud Logging ingests and stores logs, supports queries, and feeds log-based metrics and alerts." },
+            { "id": "b", "text": "Cloud Trace", "correct": false, "explanation": "Wrong. Trace handles distributed latency tracing, not general log collection." },
+            { "id": "c", "text": "Cloud Storage", "correct": false, "explanation": "Wrong. Storage holds objects; it's not a logging/alerting platform (though logs can be exported there)." },
+            { "id": "d", "text": "Pub/Sub", "correct": false, "explanation": "Wrong. Pub/Sub is messaging; it can carry log exports but doesn't query or alert on them itself." }
+          ],
+          "reference": "https://cloud.google.com/logging/docs/overview"
+        },
+        {
+          "id": "ace-s2-q2",
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "multi",
+          "stem": "Which commands/tools can deploy resources to GCP in a repeatable, scriptable way? (Select TWO)",
+          "options": [
+            { "id": "a", "text": "gcloud CLI commands in a script", "correct": true, "explanation": "Correct. The gcloud CLI is scriptable and repeatable for provisioning and management." },
+            { "id": "b", "text": "Terraform with the Google provider", "correct": true, "explanation": "Correct. Terraform declaratively provisions GCP resources and is fully repeatable." },
+            { "id": "c", "text": "Manually clicking through the Cloud Console", "correct": false, "explanation": "Wrong. Console clicks aren't repeatable or version-controlled." },
+            { "id": "d", "text": "Editing resources directly in the billing report", "correct": false, "explanation": "Wrong. Billing reports are read-only cost views; you can't deploy from them." }
+          ],
+          "reference": "https://cloud.google.com/sdk/gcloud"
+        }
+      ]
+    }
+  ]
+}
