@@ -2,16 +2,31 @@
   "certId": "cka",
   "title": "Certified Kubernetes Administrator (CKA)",
   "vendor": "CNCF",
-  "examVersion": "2025",
+  "examVersion": "2026",
   "lastUpdated": "2026-06-11",
   "passScore": 66,
-  "note": "The real CKA is a hands-on, performance-based exam (live cluster tasks), not multiple choice. These MCQ sets build conceptual recall and command knowledge — pair them with actual kubectl practice on a cluster.",
+  "note": "The real CKA is a hands-on, performance-based exam (live cluster tasks), not multiple choice. These MCQ sets build conceptual recall and command knowledge — pair them with real kubectl practice on a cluster.",
   "domains": [
-    { "id": "d1", "name": "Cluster Architecture, Installation & Config" },
-    { "id": "d2", "name": "Workloads & Scheduling" },
-    { "id": "d3", "name": "Services & Networking" },
-    { "id": "d4", "name": "Storage" },
-    { "id": "d5", "name": "Troubleshooting" }
+    {
+      "id": "d1",
+      "name": "Cluster Architecture, Install & Config"
+    },
+    {
+      "id": "d2",
+      "name": "Workloads & Scheduling"
+    },
+    {
+      "id": "d3",
+      "name": "Services & Networking"
+    },
+    {
+      "id": "d4",
+      "name": "Storage"
+    },
+    {
+      "id": "d5",
+      "name": "Troubleshooting"
+    }
   ],
   "sets": [
     {
@@ -20,60 +35,1704 @@
       "timeLimitMin": 30,
       "questions": [
         {
-          "id": "cka-s1-q1",
-          "domainId": "d5",
-          "difficulty": "medium",
+          "domainId": "d1",
+          "difficulty": "easy",
           "type": "single",
-          "stem": "A node shows <code>NotReady</code>. Which command first confirms whether the kubelet is the cause?",
+          "stem": "Which component stores all cluster state as the source of truth?",
           "options": [
-            { "id": "a", "text": "systemctl status kubelet on the affected node", "correct": true, "explanation": "Correct. NotReady usually traces to the kubelet; checking its service status on the node is the first diagnostic step." },
-            { "id": "b", "text": "kubectl delete node <name>", "correct": false, "explanation": "Wrong. Deleting the node removes it from the API without diagnosing anything — destructive and premature." },
-            { "id": "c", "text": "kubectl rollout restart deployment", "correct": false, "explanation": "Wrong. That restarts app pods, unrelated to node readiness." },
-            { "id": "d", "text": "kubectl drain <name> --force", "correct": false, "explanation": "Wrong. Draining evicts workloads; it's a remediation step, not a diagnosis, and shouldn't be first." }
+            {
+              "text": "etcd",
+              "correct": true,
+              "explanation": "Correct. etcd is the consistent key-value store backing cluster state.",
+              "id": "a"
+            },
+            {
+              "text": "kube-scheduler",
+              "correct": false,
+              "explanation": "Wrong. The scheduler places pods; it stores nothing persistently.",
+              "id": "b"
+            },
+            {
+              "text": "kubelet",
+              "correct": false,
+              "explanation": "Wrong. The kubelet runs pods on nodes.",
+              "id": "c"
+            },
+            {
+              "text": "kube-proxy",
+              "correct": false,
+              "explanation": "Wrong. kube-proxy programs service networking.",
+              "id": "d"
+            }
           ],
-          "reference": "https://kubernetes.io/docs/tasks/debug/debug-cluster/"
+          "reference": "https://kubernetes.io/docs/concepts/overview/components/",
+          "id": "cka-s1-q1"
         },
         {
-          "id": "cka-s1-q2",
+          "domainId": "d1",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which component schedules pods onto nodes?",
+          "options": [
+            {
+              "text": "kube-scheduler",
+              "correct": true,
+              "explanation": "Correct. The scheduler assigns pods to suitable nodes.",
+              "id": "a"
+            },
+            {
+              "text": "kubelet",
+              "correct": false,
+              "explanation": "Wrong. The kubelet runs assigned pods, it does not schedule them.",
+              "id": "b"
+            },
+            {
+              "text": "etcd",
+              "correct": false,
+              "explanation": "Wrong. etcd stores state.",
+              "id": "c"
+            },
+            {
+              "text": "kube-proxy",
+              "correct": false,
+              "explanation": "Wrong. kube-proxy handles service traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/",
+          "id": "cka-s1-q2"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which agent runs on each node and manages the pods there?",
+          "options": [
+            {
+              "text": "kubelet",
+              "correct": true,
+              "explanation": "Correct. The kubelet ensures containers described in PodSpecs run.",
+              "id": "a"
+            },
+            {
+              "text": "kube-apiserver",
+              "correct": false,
+              "explanation": "Wrong. The API server is the control-plane front end.",
+              "id": "b"
+            },
+            {
+              "text": "controller-manager",
+              "correct": false,
+              "explanation": "Wrong. It runs control loops, not node pods.",
+              "id": "c"
+            },
+            {
+              "text": "etcd",
+              "correct": false,
+              "explanation": "Wrong. etcd stores state.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/overview/components/",
+          "id": "cka-s1-q3"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which control-plane component exposes the Kubernetes API?",
+          "options": [
+            {
+              "text": "kube-apiserver",
+              "correct": true,
+              "explanation": "Correct. The API server is the front end for the control plane.",
+              "id": "a"
+            },
+            {
+              "text": "kube-scheduler",
+              "correct": false,
+              "explanation": "Wrong. It only schedules pods.",
+              "id": "b"
+            },
+            {
+              "text": "kubelet",
+              "correct": false,
+              "explanation": "Wrong. The kubelet is a node agent.",
+              "id": "c"
+            },
+            {
+              "text": "kube-proxy",
+              "correct": false,
+              "explanation": "Wrong. It handles service networking.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/overview/components/",
+          "id": "cka-s1-q4"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which tool bootstraps a conformant cluster control plane and joins nodes?",
+          "options": [
+            {
+              "text": "kubeadm",
+              "correct": true,
+              "explanation": "Correct. kubeadm initializes the control plane and joins workers.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl",
+              "correct": false,
+              "explanation": "Wrong. kubectl is the API client, not a bootstrapper.",
+              "id": "b"
+            },
+            {
+              "text": "kubelet",
+              "correct": false,
+              "explanation": "Wrong. The kubelet is the node agent.",
+              "id": "c"
+            },
+            {
+              "text": "etcdctl",
+              "correct": false,
+              "explanation": "Wrong. etcdctl manages etcd directly.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/setup-tools/kubeadm/",
+          "id": "cka-s1-q5"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "To back up cluster state, what should you snapshot?",
+          "options": [
+            {
+              "text": "etcd",
+              "correct": true,
+              "explanation": "Correct. Backing up etcd captures all cluster objects.",
+              "id": "a"
+            },
+            {
+              "text": "The kubelet config",
+              "correct": false,
+              "explanation": "Wrong. That does not contain cluster object state.",
+              "id": "b"
+            },
+            {
+              "text": "kube-proxy rules",
+              "correct": false,
+              "explanation": "Wrong. Those are derived, not the source of truth.",
+              "id": "c"
+            },
+            {
+              "text": "The CNI plugin",
+              "correct": false,
+              "explanation": "Wrong. The CNI is networking, not state storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/administer-cluster/configure-upgrade-etcd/",
+          "id": "cka-s1-q6"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which object manages a stateless replicated set of pods with rolling updates?",
+          "options": [
+            {
+              "text": "Deployment",
+              "correct": true,
+              "explanation": "Correct. Deployments manage ReplicaSets and rolling updates.",
+              "id": "a"
+            },
+            {
+              "text": "DaemonSet",
+              "correct": false,
+              "explanation": "Wrong. DaemonSets run one pod per node.",
+              "id": "b"
+            },
+            {
+              "text": "StatefulSet",
+              "correct": false,
+              "explanation": "Wrong. StatefulSets are for stable identity/storage.",
+              "id": "c"
+            },
+            {
+              "text": "Job",
+              "correct": false,
+              "explanation": "Wrong. Jobs run to completion.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+          "id": "cka-s1-q7"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which object ensures a copy of a pod runs on every (matching) node?",
+          "options": [
+            {
+              "text": "DaemonSet",
+              "correct": true,
+              "explanation": "Correct. DaemonSets place one pod per eligible node.",
+              "id": "a"
+            },
+            {
+              "text": "Deployment",
+              "correct": false,
+              "explanation": "Wrong. Deployments do not guarantee one-per-node.",
+              "id": "b"
+            },
+            {
+              "text": "Job",
+              "correct": false,
+              "explanation": "Wrong. Jobs run to completion.",
+              "id": "c"
+            },
+            {
+              "text": "ReplicaSet",
+              "correct": false,
+              "explanation": "Wrong. ReplicaSets keep a count, not per-node placement.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/",
+          "id": "cka-s1-q8"
+        },
+        {
           "domainId": "d2",
           "difficulty": "medium",
           "type": "single",
-          "stem": "Which field keeps a pod from being scheduled onto a node unless the pod explicitly tolerates a condition the node advertises?",
+          "stem": "Which object provides stable network identity and ordered, persistent storage?",
           "options": [
-            { "id": "a", "text": "A taint on the node", "correct": true, "explanation": "Correct. Taints repel pods that lack a matching toleration, controlling what may land on a node." },
-            { "id": "b", "text": "A nodeSelector on the node", "correct": false, "explanation": "Wrong. nodeSelector is set on the pod, and it attracts rather than repels." },
-            { "id": "c", "text": "A resource limit", "correct": false, "explanation": "Wrong. Limits cap usage; they don't gate scheduling by node condition." },
-            { "id": "d", "text": "A PodDisruptionBudget", "correct": false, "explanation": "Wrong. PDBs constrain voluntary disruptions, not scheduling placement." }
+            {
+              "text": "StatefulSet",
+              "correct": true,
+              "explanation": "Correct. StatefulSets give stable identities and per-pod volumes.",
+              "id": "a"
+            },
+            {
+              "text": "Deployment",
+              "correct": false,
+              "explanation": "Wrong. Deployment pods are interchangeable.",
+              "id": "b"
+            },
+            {
+              "text": "DaemonSet",
+              "correct": false,
+              "explanation": "Wrong. DaemonSets are per-node, not identity-stable sets.",
+              "id": "c"
+            },
+            {
+              "text": "Job",
+              "correct": false,
+              "explanation": "Wrong. Jobs are run-to-completion.",
+              "id": "d"
+            }
           ],
-          "reference": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/"
+          "reference": "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/",
+          "id": "cka-s1-q9"
         },
         {
-          "id": "cka-s1-q3",
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which mechanism repels pods from a node unless they tolerate it?",
+          "options": [
+            {
+              "text": "A taint on the node",
+              "correct": true,
+              "explanation": "Correct. Taints repel pods lacking a matching toleration.",
+              "id": "a"
+            },
+            {
+              "text": "A nodeSelector",
+              "correct": false,
+              "explanation": "Wrong. nodeSelector attracts; it is set on the pod.",
+              "id": "b"
+            },
+            {
+              "text": "A resource limit",
+              "correct": false,
+              "explanation": "Wrong. Limits cap usage, not placement by condition.",
+              "id": "c"
+            },
+            {
+              "text": "A PodDisruptionBudget",
+              "correct": false,
+              "explanation": "Wrong. PDBs limit voluntary disruptions.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/",
+          "id": "cka-s1-q10"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which pod field requests that a pod land only on nodes with a given label?",
+          "options": [
+            {
+              "text": "nodeSelector",
+              "correct": true,
+              "explanation": "Correct. nodeSelector constrains scheduling to labeled nodes.",
+              "id": "a"
+            },
+            {
+              "text": "taint",
+              "correct": false,
+              "explanation": "Wrong. Taints are on nodes and repel pods.",
+              "id": "b"
+            },
+            {
+              "text": "toleration",
+              "correct": false,
+              "explanation": "Wrong. Tolerations allow scheduling onto tainted nodes.",
+              "id": "c"
+            },
+            {
+              "text": "resources.limits",
+              "correct": false,
+              "explanation": "Wrong. Limits cap usage, not target labels.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/",
+          "id": "cka-s1-q11"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "multi",
+          "stem": "Which TWO actions prepare a node for maintenance safely?",
+          "options": [
+            {
+              "text": "kubectl cordon <node>",
+              "correct": true,
+              "explanation": "Correct. cordon marks the node unschedulable.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl drain <node> --ignore-daemonsets",
+              "correct": true,
+              "explanation": "Correct. drain evicts pods (respecting PDBs), skipping DaemonSets.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl delete node <node>",
+              "correct": false,
+              "explanation": "Wrong. Deleting removes the node object entirely.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl taint <node> k=v:PreferNoSchedule",
+              "correct": false,
+              "explanation": "Wrong. PreferNoSchedule is a soft hint, not a guarantee.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "id": "cka-s1-q12"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does a readiness probe control?",
+          "options": [
+            {
+              "text": "Whether a pod receives traffic from Services",
+              "correct": true,
+              "explanation": "Correct. Failing readiness removes the pod from Service endpoints.",
+              "id": "a"
+            },
+            {
+              "text": "Whether the container is restarted",
+              "correct": false,
+              "explanation": "Wrong. That is the liveness probe.",
+              "id": "b"
+            },
+            {
+              "text": "Whether the pod is scheduled",
+              "correct": false,
+              "explanation": "Wrong. Probes run after scheduling.",
+              "id": "c"
+            },
+            {
+              "text": "Whether the image is pulled",
+              "correct": false,
+              "explanation": "Wrong. Probes do not control image pulls.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/",
+          "id": "cka-s1-q13"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does a liveness probe failure cause?",
+          "options": [
+            {
+              "text": "The kubelet restarts the container",
+              "correct": true,
+              "explanation": "Correct. Liveness failures trigger a container restart.",
+              "id": "a"
+            },
+            {
+              "text": "The pod is removed from Service endpoints",
+              "correct": false,
+              "explanation": "Wrong. That is readiness.",
+              "id": "b"
+            },
+            {
+              "text": "The node is cordoned",
+              "correct": false,
+              "explanation": "Wrong. Probes do not cordon nodes.",
+              "id": "c"
+            },
+            {
+              "text": "The Deployment scales up",
+              "correct": false,
+              "explanation": "Wrong. Probes do not scale workloads.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/",
+          "id": "cka-s1-q14"
+        },
+        {
           "domainId": "d3",
           "difficulty": "easy",
           "type": "single",
-          "stem": "Which Service type exposes a pod on a static port on every node's IP?",
+          "stem": "Which Service type exposes a pod on a static port across every node's IP?",
           "options": [
-            { "id": "a", "text": "NodePort", "correct": true, "explanation": "Correct. NodePort opens the same port across all nodes, routing to the Service." },
-            { "id": "b", "text": "ClusterIP", "correct": false, "explanation": "Wrong. ClusterIP is internal-only with no node port exposure." },
-            { "id": "c", "text": "ExternalName", "correct": false, "explanation": "Wrong. ExternalName maps to a DNS name via CNAME; no ports involved." },
-            { "id": "d", "text": "Headless", "correct": false, "explanation": "Wrong. A headless service (clusterIP: None) returns pod IPs directly; it doesn't expose a node port." }
+            {
+              "text": "NodePort",
+              "correct": true,
+              "explanation": "Correct. NodePort opens the same port on all nodes.",
+              "id": "a"
+            },
+            {
+              "text": "ClusterIP",
+              "correct": false,
+              "explanation": "Wrong. ClusterIP is internal-only.",
+              "id": "b"
+            },
+            {
+              "text": "ExternalName",
+              "correct": false,
+              "explanation": "Wrong. It maps to a DNS name via CNAME.",
+              "id": "c"
+            },
+            {
+              "text": "Headless",
+              "correct": false,
+              "explanation": "Wrong. Headless returns pod IPs directly.",
+              "id": "d"
+            }
           ],
-          "reference": "https://kubernetes.io/docs/concepts/services-networking/service/"
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/service/",
+          "id": "cka-s1-q15"
         },
         {
-          "id": "cka-s1-q4",
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which Service type is the default and internal-only?",
+          "options": [
+            {
+              "text": "ClusterIP",
+              "correct": true,
+              "explanation": "Correct. ClusterIP exposes the Service within the cluster only.",
+              "id": "a"
+            },
+            {
+              "text": "NodePort",
+              "correct": false,
+              "explanation": "Wrong. NodePort exposes on nodes externally.",
+              "id": "b"
+            },
+            {
+              "text": "LoadBalancer",
+              "correct": false,
+              "explanation": "Wrong. LoadBalancer provisions an external LB.",
+              "id": "c"
+            },
+            {
+              "text": "ExternalName",
+              "correct": false,
+              "explanation": "Wrong. It is a DNS alias.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/service/",
+          "id": "cka-s1-q16"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which object routes external HTTP(S) traffic to Services by host/path rules?",
+          "options": [
+            {
+              "text": "Ingress",
+              "correct": true,
+              "explanation": "Correct. Ingress provides L7 host/path routing to Services.",
+              "id": "a"
+            },
+            {
+              "text": "NodePort Service",
+              "correct": false,
+              "explanation": "Wrong. NodePort is L4 per-node port exposure.",
+              "id": "b"
+            },
+            {
+              "text": "ConfigMap",
+              "correct": false,
+              "explanation": "Wrong. ConfigMaps hold configuration data.",
+              "id": "c"
+            },
+            {
+              "text": "PersistentVolume",
+              "correct": false,
+              "explanation": "Wrong. PVs are storage, not routing.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/ingress/",
+          "id": "cka-s1-q17"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does a NetworkPolicy control?",
+          "options": [
+            {
+              "text": "Allowed ingress/egress traffic between pods",
+              "correct": true,
+              "explanation": "Correct. NetworkPolicies restrict pod-to-pod traffic.",
+              "id": "a"
+            },
+            {
+              "text": "Pod scheduling decisions",
+              "correct": false,
+              "explanation": "Wrong. That is the scheduler/affinity.",
+              "id": "b"
+            },
+            {
+              "text": "Volume mounts",
+              "correct": false,
+              "explanation": "Wrong. Storage is unrelated to NetworkPolicy.",
+              "id": "c"
+            },
+            {
+              "text": "Container restarts",
+              "correct": false,
+              "explanation": "Wrong. That is liveness probes.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/network-policies/",
+          "id": "cka-s1-q18"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which add-on provides pod networking (the CNI's role)?",
+          "options": [
+            {
+              "text": "A CNI plugin such as Calico or Cilium",
+              "correct": true,
+              "explanation": "Correct. CNI plugins implement the pod network.",
+              "id": "a"
+            },
+            {
+              "text": "kube-proxy alone",
+              "correct": false,
+              "explanation": "Wrong. kube-proxy handles Services, not the pod network fabric.",
+              "id": "b"
+            },
+            {
+              "text": "CoreDNS",
+              "correct": false,
+              "explanation": "Wrong. CoreDNS provides DNS, not the network fabric.",
+              "id": "c"
+            },
+            {
+              "text": "etcd",
+              "correct": false,
+              "explanation": "Wrong. etcd stores state.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/",
+          "id": "cka-s1-q19"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "In-cluster DNS for Services is typically provided by which component?",
+          "options": [
+            {
+              "text": "CoreDNS",
+              "correct": true,
+              "explanation": "Correct. CoreDNS resolves Service and pod DNS names.",
+              "id": "a"
+            },
+            {
+              "text": "kube-scheduler",
+              "correct": false,
+              "explanation": "Wrong. The scheduler does not do DNS.",
+              "id": "b"
+            },
+            {
+              "text": "etcd",
+              "correct": false,
+              "explanation": "Wrong. etcd stores state, not DNS.",
+              "id": "c"
+            },
+            {
+              "text": "kubelet",
+              "correct": false,
+              "explanation": "Wrong. The kubelet runs pods.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/",
+          "id": "cka-s1-q20"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "What does a PersistentVolumeClaim (PVC) do?",
+          "options": [
+            {
+              "text": "Requests storage that binds to a PersistentVolume",
+              "correct": true,
+              "explanation": "Correct. A PVC is a user's request for storage.",
+              "id": "a"
+            },
+            {
+              "text": "Defines a container image",
+              "correct": false,
+              "explanation": "Wrong. Images are set in the pod spec.",
+              "id": "b"
+            },
+            {
+              "text": "Routes network traffic",
+              "correct": false,
+              "explanation": "Wrong. That is a Service/Ingress.",
+              "id": "c"
+            },
+            {
+              "text": "Schedules pods",
+              "correct": false,
+              "explanation": "Wrong. That is the scheduler.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/",
+          "id": "cka-s1-q21"
+        },
+        {
           "domainId": "d4",
           "difficulty": "medium",
           "type": "single",
-          "stem": "A PersistentVolumeClaim stays <code>Pending</code>. Which is the most likely cause?",
+          "stem": "A PVC stays Pending. What is the most likely cause?",
           "options": [
-            { "id": "a", "text": "No PV or StorageClass satisfies the claim's size/access mode", "correct": true, "explanation": "Correct. A PVC binds only when a matching PV exists or a StorageClass can dynamically provision one; otherwise it stays Pending." },
-            { "id": "b", "text": "The pod has too many replicas", "correct": false, "explanation": "Wrong. Replica count doesn't affect PVC binding." },
-            { "id": "c", "text": "The namespace lacks a NetworkPolicy", "correct": false, "explanation": "Wrong. Network policies govern traffic, not volume binding." },
-            { "id": "d", "text": "kube-proxy is down", "correct": false, "explanation": "Wrong. kube-proxy handles service networking, unrelated to PVC binding." }
+            {
+              "text": "No PV or StorageClass satisfies its size/access mode",
+              "correct": true,
+              "explanation": "Correct. Without a matching PV or dynamic provisioner the PVC stays Pending.",
+              "id": "a"
+            },
+            {
+              "text": "Too many pod replicas",
+              "correct": false,
+              "explanation": "Wrong. Replica count does not affect binding.",
+              "id": "b"
+            },
+            {
+              "text": "Missing NetworkPolicy",
+              "correct": false,
+              "explanation": "Wrong. Network policy is unrelated to PVC binding.",
+              "id": "c"
+            },
+            {
+              "text": "kube-proxy is down",
+              "correct": false,
+              "explanation": "Wrong. kube-proxy is service networking.",
+              "id": "d"
+            }
           ],
-          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/"
+          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/",
+          "id": "cka-s1-q22"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does a StorageClass enable?",
+          "options": [
+            {
+              "text": "Dynamic provisioning of PersistentVolumes on demand",
+              "correct": true,
+              "explanation": "Correct. StorageClasses let PVs be created automatically.",
+              "id": "a"
+            },
+            {
+              "text": "Static IP assignment",
+              "correct": false,
+              "explanation": "Wrong. Storage classes are not networking.",
+              "id": "b"
+            },
+            {
+              "text": "Pod scheduling rules",
+              "correct": false,
+              "explanation": "Wrong. That is affinity/taints.",
+              "id": "c"
+            },
+            {
+              "text": "Container logging",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to storage classes.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/storage-classes/",
+          "id": "cka-s1-q23"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which access mode allows a volume to be mounted read-write by a single node?",
+          "options": [
+            {
+              "text": "ReadWriteOnce",
+              "correct": true,
+              "explanation": "Correct. RWO mounts read-write by one node.",
+              "id": "a"
+            },
+            {
+              "text": "ReadOnlyMany",
+              "correct": false,
+              "explanation": "Wrong. ROX is read-only by many nodes.",
+              "id": "b"
+            },
+            {
+              "text": "ReadWriteMany",
+              "correct": false,
+              "explanation": "Wrong. RWX is read-write by many nodes.",
+              "id": "c"
+            },
+            {
+              "text": "WriteOnlyOnce",
+              "correct": false,
+              "explanation": "Wrong. No such access mode.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes",
+          "id": "cka-s1-q24"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "What happens to a PV with reclaim policy Retain when its PVC is deleted?",
+          "options": [
+            {
+              "text": "The PV and its data are kept for manual handling",
+              "correct": true,
+              "explanation": "Correct. Retain preserves the volume and data after the claim is gone.",
+              "id": "a"
+            },
+            {
+              "text": "The PV is deleted immediately",
+              "correct": false,
+              "explanation": "Wrong. That is the Delete policy.",
+              "id": "b"
+            },
+            {
+              "text": "The PV is recycled and wiped",
+              "correct": false,
+              "explanation": "Wrong. Recycle (deprecated) wipes; Retain keeps.",
+              "id": "c"
+            },
+            {
+              "text": "The pod is rescheduled",
+              "correct": false,
+              "explanation": "Wrong. Reclaim policy is about the volume, not pods.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/#reclaiming",
+          "id": "cka-s1-q25"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "A node shows NotReady. Which check comes first?",
+          "options": [
+            {
+              "text": "systemctl status kubelet on that node",
+              "correct": true,
+              "explanation": "Correct. NotReady usually traces to the kubelet.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl delete node",
+              "correct": false,
+              "explanation": "Wrong. Deleting diagnoses nothing and is destructive.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl rollout restart deployment",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to node readiness.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl drain --force",
+              "correct": false,
+              "explanation": "Wrong. That is remediation, not first diagnosis.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/debug/debug-cluster/",
+          "id": "cka-s1-q26"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A pod is stuck in Pending. Which is a common cause?",
+          "options": [
+            {
+              "text": "Insufficient cluster resources or unschedulable constraints",
+              "correct": true,
+              "explanation": "Correct. Pending often means the scheduler cannot place the pod.",
+              "id": "a"
+            },
+            {
+              "text": "The container exited successfully",
+              "correct": false,
+              "explanation": "Wrong. That would be Completed, not Pending.",
+              "id": "b"
+            },
+            {
+              "text": "A failed liveness probe",
+              "correct": false,
+              "explanation": "Wrong. Liveness affects running pods, not scheduling.",
+              "id": "c"
+            },
+            {
+              "text": "A Service misconfiguration",
+              "correct": false,
+              "explanation": "Wrong. Services do not block scheduling.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+          "id": "cka-s1-q27"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command shows recent events to help diagnose a failing pod?",
+          "options": [
+            {
+              "text": "kubectl describe pod <name>",
+              "correct": true,
+              "explanation": "Correct. describe surfaces events and state for the pod.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl config view",
+              "correct": false,
+              "explanation": "Wrong. That shows kubeconfig, not pod events.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl api-resources",
+              "correct": false,
+              "explanation": "Wrong. That lists resource types.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl version",
+              "correct": false,
+              "explanation": "Wrong. That prints versions.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/debug/debug-application/",
+          "id": "cka-s1-q28"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A pod shows CrashLoopBackOff. What does this indicate?",
+          "options": [
+            {
+              "text": "The container repeatedly starts and exits, so restarts are backing off",
+              "correct": true,
+              "explanation": "Correct. The kubelet delays restarts after repeated crashes.",
+              "id": "a"
+            },
+            {
+              "text": "The image cannot be pulled",
+              "correct": false,
+              "explanation": "Wrong. That is ImagePullBackOff.",
+              "id": "b"
+            },
+            {
+              "text": "The pod cannot be scheduled",
+              "correct": false,
+              "explanation": "Wrong. That is Pending.",
+              "id": "c"
+            },
+            {
+              "text": "The node is cordoned",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to crash loops.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+          "id": "cka-s1-q29"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A pod shows ImagePullBackOff. What is the likely cause?",
+          "options": [
+            {
+              "text": "The image name/tag is wrong or registry auth is missing",
+              "correct": true,
+              "explanation": "Correct. Pull failures stem from bad references or missing credentials.",
+              "id": "a"
+            },
+            {
+              "text": "The liveness probe failed",
+              "correct": false,
+              "explanation": "Wrong. That causes restarts, not pull errors.",
+              "id": "b"
+            },
+            {
+              "text": "The PVC is unbound",
+              "correct": false,
+              "explanation": "Wrong. Storage issues differ from image pulls.",
+              "id": "c"
+            },
+            {
+              "text": "kube-proxy is misconfigured",
+              "correct": false,
+              "explanation": "Wrong. Service networking is unrelated.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+          "id": "cka-s1-q30"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command streams logs from a running container?",
+          "options": [
+            {
+              "text": "kubectl logs -f <pod>",
+              "correct": true,
+              "explanation": "Correct. logs -f follows container output.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl get logs",
+              "correct": false,
+              "explanation": "Wrong. Not a valid form.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl describe logs",
+              "correct": false,
+              "explanation": "Wrong. describe shows events, not logs.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl exec logs",
+              "correct": false,
+              "explanation": "Wrong. exec runs commands, not log streaming.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/kubectl/",
+          "id": "cka-s1-q31"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What is the role of the controller-manager?",
+          "options": [
+            {
+              "text": "Runs control loops that drive actual state toward desired state",
+              "correct": true,
+              "explanation": "Correct. Controllers reconcile state continuously.",
+              "id": "a"
+            },
+            {
+              "text": "Stores cluster state",
+              "correct": false,
+              "explanation": "Wrong. etcd stores state.",
+              "id": "b"
+            },
+            {
+              "text": "Schedules pods directly",
+              "correct": false,
+              "explanation": "Wrong. That is the scheduler.",
+              "id": "c"
+            },
+            {
+              "text": "Provides the pod network",
+              "correct": false,
+              "explanation": "Wrong. That is the CNI.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/overview/components/",
+          "id": "cka-s1-q32"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does a HorizontalPodAutoscaler adjust?",
+          "options": [
+            {
+              "text": "The number of pod replicas based on metrics",
+              "correct": true,
+              "explanation": "Correct. The HPA scales replicas using metrics like CPU.",
+              "id": "a"
+            },
+            {
+              "text": "The CPU limit of a container",
+              "correct": false,
+              "explanation": "Wrong. That is a vertical concern.",
+              "id": "b"
+            },
+            {
+              "text": "The node count",
+              "correct": false,
+              "explanation": "Wrong. That is the cluster autoscaler.",
+              "id": "c"
+            },
+            {
+              "text": "The Service type",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to autoscaling.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/",
+          "id": "cka-s1-q33"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which field on a Service selects the pods it targets?",
+          "options": [
+            {
+              "text": "selector",
+              "correct": true,
+              "explanation": "Correct. The selector matches pod labels to endpoints.",
+              "id": "a"
+            },
+            {
+              "text": "nodeName",
+              "correct": false,
+              "explanation": "Wrong. That pins a pod to a node.",
+              "id": "b"
+            },
+            {
+              "text": "clusterIP",
+              "correct": false,
+              "explanation": "Wrong. That is the virtual IP, not selection.",
+              "id": "c"
+            },
+            {
+              "text": "affinity",
+              "correct": false,
+              "explanation": "Wrong. Affinity influences scheduling, not Service targets.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/service/",
+          "id": "cka-s1-q34"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which volume type injects key-value configuration into a pod?",
+          "options": [
+            {
+              "text": "ConfigMap volume",
+              "correct": true,
+              "explanation": "Correct. ConfigMaps provide non-secret configuration.",
+              "id": "a"
+            },
+            {
+              "text": "PersistentVolume",
+              "correct": false,
+              "explanation": "Wrong. PVs are durable storage, not config.",
+              "id": "b"
+            },
+            {
+              "text": "emptyDir",
+              "correct": false,
+              "explanation": "Wrong. emptyDir is scratch space.",
+              "id": "c"
+            },
+            {
+              "text": "hostPath",
+              "correct": false,
+              "explanation": "Wrong. hostPath mounts a node directory.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/volumes/",
+          "id": "cka-s1-q35"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which object stores sensitive data like passwords for pods?",
+          "options": [
+            {
+              "text": "Secret",
+              "correct": true,
+              "explanation": "Correct. Secrets hold sensitive data, base64-encoded by default.",
+              "id": "a"
+            },
+            {
+              "text": "ConfigMap",
+              "correct": false,
+              "explanation": "Wrong. ConfigMaps are for non-sensitive config.",
+              "id": "b"
+            },
+            {
+              "text": "PersistentVolume",
+              "correct": false,
+              "explanation": "Wrong. PVs are storage volumes.",
+              "id": "c"
+            },
+            {
+              "text": "ServiceAccount",
+              "correct": false,
+              "explanation": "Wrong. SAs provide identity, not arbitrary secrets storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/configuration/secret/",
+          "id": "cka-s1-q36"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "During a kubeadm upgrade, which component is typically upgraded first?",
+          "options": [
+            {
+              "text": "The control plane (kubeadm, then control-plane components)",
+              "correct": true,
+              "explanation": "Correct. Upgrade the control plane before worker nodes.",
+              "id": "a"
+            },
+            {
+              "text": "All worker kubelets simultaneously",
+              "correct": false,
+              "explanation": "Wrong. Workers are upgraded after the control plane.",
+              "id": "b"
+            },
+            {
+              "text": "The CNI before anything else",
+              "correct": false,
+              "explanation": "Wrong. CNI follows the documented order, not first.",
+              "id": "c"
+            },
+            {
+              "text": "etcd is never upgraded",
+              "correct": false,
+              "explanation": "Wrong. etcd may be upgraded as part of the process.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-upgrade/",
+          "id": "cka-s1-q37"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command checks node resource usage (requires metrics-server)?",
+          "options": [
+            {
+              "text": "kubectl top nodes",
+              "correct": true,
+              "explanation": "Correct. top nodes shows CPU/memory usage via metrics-server.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl get usage",
+              "correct": false,
+              "explanation": "Wrong. No such command.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl describe metrics",
+              "correct": false,
+              "explanation": "Wrong. Not valid.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl node-stats",
+              "correct": false,
+              "explanation": "Wrong. Not a kubectl command.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/kubectl/",
+          "id": "cka-s1-q38"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does a Job do?",
+          "options": [
+            {
+              "text": "Runs one or more pods to successful completion",
+              "correct": true,
+              "explanation": "Correct. Jobs run tasks to completion.",
+              "id": "a"
+            },
+            {
+              "text": "Keeps a pod running indefinitely",
+              "correct": false,
+              "explanation": "Wrong. That is a Deployment/long-running workload.",
+              "id": "b"
+            },
+            {
+              "text": "Runs one pod per node",
+              "correct": false,
+              "explanation": "Wrong. That is a DaemonSet.",
+              "id": "c"
+            },
+            {
+              "text": "Routes traffic",
+              "correct": false,
+              "explanation": "Wrong. That is a Service.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/workloads/controllers/job/",
+          "id": "cka-s1-q39"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does a CronJob do?",
+          "options": [
+            {
+              "text": "Creates Jobs on a time-based schedule",
+              "correct": true,
+              "explanation": "Correct. CronJobs schedule Jobs like cron.",
+              "id": "a"
+            },
+            {
+              "text": "Runs a Job once immediately only",
+              "correct": false,
+              "explanation": "Wrong. That is a plain Job.",
+              "id": "b"
+            },
+            {
+              "text": "Balances Service traffic",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "c"
+            },
+            {
+              "text": "Provisions storage",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/",
+          "id": "cka-s1-q40"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "kube-proxy is responsible for what?",
+          "options": [
+            {
+              "text": "Implementing Service virtual IPs and routing to pod endpoints",
+              "correct": true,
+              "explanation": "Correct. kube-proxy programs node networking for Services.",
+              "id": "a"
+            },
+            {
+              "text": "Storing cluster state",
+              "correct": false,
+              "explanation": "Wrong. That is etcd.",
+              "id": "b"
+            },
+            {
+              "text": "Scheduling pods",
+              "correct": false,
+              "explanation": "Wrong. That is the scheduler.",
+              "id": "c"
+            },
+            {
+              "text": "Pulling container images",
+              "correct": false,
+              "explanation": "Wrong. That is the kubelet/runtime.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/service/",
+          "id": "cka-s1-q41"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which storage option is ephemeral and shares the pod's lifecycle?",
+          "options": [
+            {
+              "text": "emptyDir",
+              "correct": true,
+              "explanation": "Correct. emptyDir lives and dies with the pod.",
+              "id": "a"
+            },
+            {
+              "text": "PersistentVolume",
+              "correct": false,
+              "explanation": "Wrong. PVs outlive pods.",
+              "id": "b"
+            },
+            {
+              "text": "StorageClass",
+              "correct": false,
+              "explanation": "Wrong. That provisions persistent storage.",
+              "id": "c"
+            },
+            {
+              "text": "Secret",
+              "correct": false,
+              "explanation": "Wrong. Secrets are config data, not scratch storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/volumes/#emptydir",
+          "id": "cka-s1-q42"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command applies a manifest declaratively?",
+          "options": [
+            {
+              "text": "kubectl apply -f <file>",
+              "correct": true,
+              "explanation": "Correct. apply reconciles resources to the manifest.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl run -f",
+              "correct": false,
+              "explanation": "Wrong. run creates a single pod, not from -f in this sense.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl exec -f",
+              "correct": false,
+              "explanation": "Wrong. exec runs commands in a container.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl describe -f",
+              "correct": false,
+              "explanation": "Wrong. describe shows details, not applies.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/kubectl/",
+          "id": "cka-s1-q43"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Where does the kubelet get the desired pod configuration from?",
+          "options": [
+            {
+              "text": "The API server (PodSpecs)",
+              "correct": true,
+              "explanation": "Correct. The kubelet watches the API server for assigned pods.",
+              "id": "a"
+            },
+            {
+              "text": "Directly from etcd",
+              "correct": false,
+              "explanation": "Wrong. Components go through the API server, not etcd directly.",
+              "id": "b"
+            },
+            {
+              "text": "From kube-proxy",
+              "correct": false,
+              "explanation": "Wrong. kube-proxy handles Services.",
+              "id": "c"
+            },
+            {
+              "text": "From CoreDNS",
+              "correct": false,
+              "explanation": "Wrong. CoreDNS provides DNS.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/overview/components/",
+          "id": "cka-s1-q44"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which field guarantees a minimum number of pods stay available during voluntary disruptions?",
+          "options": [
+            {
+              "text": "A PodDisruptionBudget",
+              "correct": true,
+              "explanation": "Correct. PDBs cap voluntary disruptions to protect availability.",
+              "id": "a"
+            },
+            {
+              "text": "A resource request",
+              "correct": false,
+              "explanation": "Wrong. Requests reserve resources, not availability.",
+              "id": "b"
+            },
+            {
+              "text": "A nodeSelector",
+              "correct": false,
+              "explanation": "Wrong. That constrains placement.",
+              "id": "c"
+            },
+            {
+              "text": "A readiness probe",
+              "correct": false,
+              "explanation": "Wrong. Probes gate traffic, not disruption budgets.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/run-application/configure-pdb/",
+          "id": "cka-s1-q45"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What DNS name format resolves a Service in another namespace?",
+          "options": [
+            {
+              "text": "<service>.<namespace>.svc.cluster.local",
+              "correct": true,
+              "explanation": "Correct. That fully qualified name resolves cross-namespace.",
+              "id": "a"
+            },
+            {
+              "text": "<service>@<namespace>",
+              "correct": false,
+              "explanation": "Wrong. Not a valid DNS format.",
+              "id": "b"
+            },
+            {
+              "text": "<namespace>/<service>",
+              "correct": false,
+              "explanation": "Wrong. That is a path, not DNS.",
+              "id": "c"
+            },
+            {
+              "text": "<service>.local only",
+              "correct": false,
+              "explanation": "Wrong. Missing namespace and svc segments.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/",
+          "id": "cka-s1-q46"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which field in a pod mounts a volume into a container?",
+          "options": [
+            {
+              "text": "volumeMounts",
+              "correct": true,
+              "explanation": "Correct. volumeMounts attach a declared volume into the container.",
+              "id": "a"
+            },
+            {
+              "text": "volumeClaims",
+              "correct": false,
+              "explanation": "Wrong. PVCs are referenced under volumes, not as the mount field.",
+              "id": "b"
+            },
+            {
+              "text": "mountPolicy",
+              "correct": false,
+              "explanation": "Wrong. No such field.",
+              "id": "c"
+            },
+            {
+              "text": "storageMounts",
+              "correct": false,
+              "explanation": "Wrong. No such field.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/volumes/",
+          "id": "cka-s1-q47"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Two pods cannot reach each other though both are Running. What is a likely culprit?",
+          "options": [
+            {
+              "text": "A NetworkPolicy is blocking the traffic",
+              "correct": true,
+              "explanation": "Correct. Restrictive NetworkPolicies can deny pod-to-pod traffic.",
+              "id": "a"
+            },
+            {
+              "text": "A failed liveness probe",
+              "correct": false,
+              "explanation": "Wrong. That restarts containers, it does not block peers.",
+              "id": "b"
+            },
+            {
+              "text": "An unbound PVC",
+              "correct": false,
+              "explanation": "Wrong. Storage is unrelated to pod connectivity.",
+              "id": "c"
+            },
+            {
+              "text": "A missing StorageClass",
+              "correct": false,
+              "explanation": "Wrong. Storage classes do not affect networking.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/network-policies/",
+          "id": "cka-s1-q48"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which command lists all nodes and their status?",
+          "options": [
+            {
+              "text": "kubectl get nodes",
+              "correct": true,
+              "explanation": "Correct. get nodes lists nodes and Ready status.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl get pods -A",
+              "correct": false,
+              "explanation": "Wrong. That lists pods, not node status.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl cluster-info dump only",
+              "correct": false,
+              "explanation": "Wrong. That dumps debug info, not a node list.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl describe cluster",
+              "correct": false,
+              "explanation": "Wrong. No such resource.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/kubectl/",
+          "id": "cka-s1-q49"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which component must agree with the Service's selector for traffic to flow to a pod?",
+          "options": [
+            {
+              "text": "The pod's labels",
+              "correct": true,
+              "explanation": "Correct. A Service routes to pods whose labels match its selector.",
+              "id": "a"
+            },
+            {
+              "text": "The pod's node name",
+              "correct": false,
+              "explanation": "Wrong. Node name does not affect Service selection.",
+              "id": "b"
+            },
+            {
+              "text": "The pod's restart policy",
+              "correct": false,
+              "explanation": "Wrong. Restart policy is unrelated to selection.",
+              "id": "c"
+            },
+            {
+              "text": "The StorageClass",
+              "correct": false,
+              "explanation": "Wrong. Storage is unrelated to Service selection.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/service/",
+          "id": "cka-s1-q50"
         }
       ]
     },
@@ -83,32 +1742,1704 @@
       "timeLimitMin": 30,
       "questions": [
         {
-          "id": "cka-s2-q1",
           "domainId": "d1",
           "difficulty": "medium",
           "type": "single",
-          "stem": "Which component is the cluster's source of truth, storing all API objects?",
+          "stem": "What is the purpose of a namespace?",
           "options": [
-            { "id": "a", "text": "etcd", "correct": true, "explanation": "Correct. etcd is the consistent key-value store backing the entire cluster state." },
-            { "id": "b", "text": "kube-scheduler", "correct": false, "explanation": "Wrong. The scheduler places pods; it stores nothing persistently." },
-            { "id": "c", "text": "kubelet", "correct": false, "explanation": "Wrong. The kubelet runs on nodes and manages pods locally; it isn't the state store." },
-            { "id": "d", "text": "kube-proxy", "correct": false, "explanation": "Wrong. kube-proxy programs service networking rules, not state storage." }
+            {
+              "text": "To logically partition cluster resources for isolation and quotas",
+              "correct": true,
+              "explanation": "Correct. Namespaces scope and isolate resources.",
+              "id": "a"
+            },
+            {
+              "text": "To assign pods to specific nodes",
+              "correct": false,
+              "explanation": "Wrong. That is scheduling/affinity.",
+              "id": "b"
+            },
+            {
+              "text": "To provide pod networking",
+              "correct": false,
+              "explanation": "Wrong. That is the CNI.",
+              "id": "c"
+            },
+            {
+              "text": "To store secrets only",
+              "correct": false,
+              "explanation": "Wrong. Namespaces hold many resource types.",
+              "id": "d"
+            }
           ],
-          "reference": "https://kubernetes.io/docs/concepts/overview/components/"
+          "reference": "https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/",
+          "id": "cka-s2-q1"
         },
         {
-          "id": "cka-s2-q2",
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which file does kubectl use to find cluster connection details?",
+          "options": [
+            {
+              "text": "The kubeconfig file",
+              "correct": true,
+              "explanation": "Correct. kubeconfig holds clusters, users, and contexts.",
+              "id": "a"
+            },
+            {
+              "text": "The kubelet config",
+              "correct": false,
+              "explanation": "Wrong. That configures the node agent.",
+              "id": "b"
+            },
+            {
+              "text": "etcd.conf",
+              "correct": false,
+              "explanation": "Wrong. No such standard kubectl file.",
+              "id": "c"
+            },
+            {
+              "text": "The CNI config",
+              "correct": false,
+              "explanation": "Wrong. That configures networking.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+          "id": "cka-s2-q2"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which RBAC objects grant namespaced permissions to a subject?",
+          "options": [
+            {
+              "text": "Role and RoleBinding",
+              "correct": true,
+              "explanation": "Correct. Role defines permissions; RoleBinding grants them in a namespace.",
+              "id": "a"
+            },
+            {
+              "text": "ClusterRole and Namespace",
+              "correct": false,
+              "explanation": "Wrong. A Namespace is not a binding object.",
+              "id": "b"
+            },
+            {
+              "text": "ServiceAccount and Secret",
+              "correct": false,
+              "explanation": "Wrong. Those provide identity/credentials, not permission grants.",
+              "id": "c"
+            },
+            {
+              "text": "PodSecurityPolicy and Quota",
+              "correct": false,
+              "explanation": "Wrong. Those are different controls.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/access-authn-authz/rbac/",
+          "id": "cka-s2-q3"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which RBAC object grants permissions cluster-wide or across namespaces?",
+          "options": [
+            {
+              "text": "ClusterRole (with ClusterRoleBinding)",
+              "correct": true,
+              "explanation": "Correct. ClusterRoles apply cluster-wide when bound with a ClusterRoleBinding.",
+              "id": "a"
+            },
+            {
+              "text": "Role",
+              "correct": false,
+              "explanation": "Wrong. Role is namespaced only.",
+              "id": "b"
+            },
+            {
+              "text": "Namespace",
+              "correct": false,
+              "explanation": "Wrong. Namespaces are not RBAC grants.",
+              "id": "c"
+            },
+            {
+              "text": "ConfigMap",
+              "correct": false,
+              "explanation": "Wrong. ConfigMaps hold config data.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/access-authn-authz/rbac/",
+          "id": "cka-s2-q4"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does a ServiceAccount provide?",
+          "options": [
+            {
+              "text": "An identity for processes running in pods to call the API",
+              "correct": true,
+              "explanation": "Correct. ServiceAccounts authenticate in-cluster workloads.",
+              "id": "a"
+            },
+            {
+              "text": "Persistent storage",
+              "correct": false,
+              "explanation": "Wrong. That is PVs/PVCs.",
+              "id": "b"
+            },
+            {
+              "text": "Pod scheduling rules",
+              "correct": false,
+              "explanation": "Wrong. That is affinity/taints.",
+              "id": "c"
+            },
+            {
+              "text": "Service networking",
+              "correct": false,
+              "explanation": "Wrong. That is Services/kube-proxy.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/security/service-accounts/",
+          "id": "cka-s2-q5"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "How do you scale a Deployment to 5 replicas imperatively?",
+          "options": [
+            {
+              "text": "kubectl scale deployment <name> --replicas=5",
+              "correct": true,
+              "explanation": "Correct. scale sets the desired replica count.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl resize deployment <name> 5",
+              "correct": false,
+              "explanation": "Wrong. No resize subcommand.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl set replicas 5",
+              "correct": false,
+              "explanation": "Wrong. Not the correct form.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl apply --replicas=5",
+              "correct": false,
+              "explanation": "Wrong. apply takes a manifest, not that flag.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/kubectl/",
+          "id": "cka-s2-q6"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does kubectl rollout undo do?",
+          "options": [
+            {
+              "text": "Reverts a Deployment to a previous revision",
+              "correct": true,
+              "explanation": "Correct. rollout undo rolls back to a prior ReplicaSet.",
+              "id": "a"
+            },
+            {
+              "text": "Deletes the Deployment",
+              "correct": false,
+              "explanation": "Wrong. It reverts, not deletes.",
+              "id": "b"
+            },
+            {
+              "text": "Pauses the rollout",
+              "correct": false,
+              "explanation": "Wrong. That is rollout pause.",
+              "id": "c"
+            },
+            {
+              "text": "Scales to zero",
+              "correct": false,
+              "explanation": "Wrong. That is a scale operation.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+          "id": "cka-s2-q7"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which strategy updates pods gradually to avoid downtime?",
+          "options": [
+            {
+              "text": "RollingUpdate",
+              "correct": true,
+              "explanation": "Correct. RollingUpdate replaces pods incrementally.",
+              "id": "a"
+            },
+            {
+              "text": "Recreate",
+              "correct": false,
+              "explanation": "Wrong. Recreate terminates all old pods first, causing downtime.",
+              "id": "b"
+            },
+            {
+              "text": "Canary is a built-in strategy field",
+              "correct": false,
+              "explanation": "Wrong. Canary is a pattern, not a strategy enum value.",
+              "id": "c"
+            },
+            {
+              "text": "BlueGreen is a built-in strategy field",
+              "correct": false,
+              "explanation": "Wrong. Not a built-in Deployment strategy.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#strategy",
+          "id": "cka-s2-q8"
+        },
+        {
           "domainId": "d2",
           "difficulty": "hard",
-          "type": "multi",
-          "stem": "Which actions can safely free a node for maintenance? (Select TWO)",
+          "type": "single",
+          "stem": "Which scheduling feature co-locates or spreads pods relative to other pods?",
           "options": [
-            { "id": "a", "text": "kubectl cordon <node>", "correct": true, "explanation": "Correct. cordon marks the node unschedulable so no new pods land on it." },
-            { "id": "b", "text": "kubectl drain <node> --ignore-daemonsets", "correct": true, "explanation": "Correct. drain evicts pods (respecting PDBs) while skipping DaemonSet pods, readying the node for maintenance." },
-            { "id": "c", "text": "kubectl delete node <node>", "correct": false, "explanation": "Wrong. Deleting removes the node object entirely — not a maintenance prep step." },
-            { "id": "d", "text": "kubectl taint nodes <node> key=value:PreferNoSchedule", "correct": false, "explanation": "Wrong. PreferNoSchedule is a soft hint, not a guarantee, so pods may still schedule there." }
+            {
+              "text": "Pod affinity / anti-affinity",
+              "correct": true,
+              "explanation": "Correct. Pod (anti-)affinity places pods relative to others.",
+              "id": "a"
+            },
+            {
+              "text": "Taints",
+              "correct": false,
+              "explanation": "Wrong. Taints repel based on node conditions.",
+              "id": "b"
+            },
+            {
+              "text": "Resource limits",
+              "correct": false,
+              "explanation": "Wrong. Limits cap usage.",
+              "id": "c"
+            },
+            {
+              "text": "PodDisruptionBudget",
+              "correct": false,
+              "explanation": "Wrong. PDBs manage disruptions.",
+              "id": "d"
+            }
           ],
-          "reference": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/"
+          "reference": "https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/",
+          "id": "cka-s2-q9"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does a resource request influence?",
+          "options": [
+            {
+              "text": "Scheduling decisions and guaranteed minimum resources",
+              "correct": true,
+              "explanation": "Correct. Requests reserve capacity and guide the scheduler.",
+              "id": "a"
+            },
+            {
+              "text": "The maximum a container may use",
+              "correct": false,
+              "explanation": "Wrong. That is a limit.",
+              "id": "b"
+            },
+            {
+              "text": "Pod DNS resolution",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "c"
+            },
+            {
+              "text": "Service selection",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to requests.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/",
+          "id": "cka-s2-q10"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which Service type provisions an external cloud load balancer?",
+          "options": [
+            {
+              "text": "LoadBalancer",
+              "correct": true,
+              "explanation": "Correct. LoadBalancer requests an external LB from the cloud.",
+              "id": "a"
+            },
+            {
+              "text": "ClusterIP",
+              "correct": false,
+              "explanation": "Wrong. ClusterIP is internal-only.",
+              "id": "b"
+            },
+            {
+              "text": "NodePort",
+              "correct": false,
+              "explanation": "Wrong. NodePort exposes node ports, not a cloud LB.",
+              "id": "c"
+            },
+            {
+              "text": "Headless",
+              "correct": false,
+              "explanation": "Wrong. Headless returns pod IPs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/service/",
+          "id": "cka-s2-q11"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What is a headless Service (clusterIP: None) used for?",
+          "options": [
+            {
+              "text": "Returning individual pod IPs, often for StatefulSets",
+              "correct": true,
+              "explanation": "Correct. Headless Services expose pod IPs directly via DNS.",
+              "id": "a"
+            },
+            {
+              "text": "Provisioning an external LB",
+              "correct": false,
+              "explanation": "Wrong. That is LoadBalancer.",
+              "id": "b"
+            },
+            {
+              "text": "Blocking all traffic",
+              "correct": false,
+              "explanation": "Wrong. That is a NetworkPolicy concern.",
+              "id": "c"
+            },
+            {
+              "text": "Storing configuration",
+              "correct": false,
+              "explanation": "Wrong. That is a ConfigMap.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/service/#headless-services",
+          "id": "cka-s2-q12"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which controller must be running for Ingress resources to take effect?",
+          "options": [
+            {
+              "text": "An Ingress controller (e.g. NGINX, Traefik)",
+              "correct": true,
+              "explanation": "Correct. Ingress objects need a controller to fulfill them.",
+              "id": "a"
+            },
+            {
+              "text": "kube-scheduler",
+              "correct": false,
+              "explanation": "Wrong. The scheduler does not handle Ingress.",
+              "id": "b"
+            },
+            {
+              "text": "etcd",
+              "correct": false,
+              "explanation": "Wrong. etcd stores state.",
+              "id": "c"
+            },
+            {
+              "text": "The metrics-server",
+              "correct": false,
+              "explanation": "Wrong. That serves metrics, not Ingress.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/",
+          "id": "cka-s2-q13"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A NodePort Service uses which default port range?",
+          "options": [
+            {
+              "text": "30000–32767",
+              "correct": true,
+              "explanation": "Correct. NodePort defaults to the 30000–32767 range.",
+              "id": "a"
+            },
+            {
+              "text": "1–1024",
+              "correct": false,
+              "explanation": "Wrong. That is the privileged range, not NodePort.",
+              "id": "b"
+            },
+            {
+              "text": "8080–9090",
+              "correct": false,
+              "explanation": "Wrong. Not the NodePort default.",
+              "id": "c"
+            },
+            {
+              "text": "40000–50000",
+              "correct": false,
+              "explanation": "Wrong. Outside the default range.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/service/",
+          "id": "cka-s2-q14"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which command shows PersistentVolumes in the cluster?",
+          "options": [
+            {
+              "text": "kubectl get pv",
+              "correct": true,
+              "explanation": "Correct. get pv lists PersistentVolumes.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl get volumes",
+              "correct": false,
+              "explanation": "Wrong. Not a valid resource name.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl describe storage",
+              "correct": false,
+              "explanation": "Wrong. Not a resource.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl get disks",
+              "correct": false,
+              "explanation": "Wrong. Not a Kubernetes resource.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/",
+          "id": "cka-s2-q15"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which field links a pod to a PVC?",
+          "options": [
+            {
+              "text": "volumes with persistentVolumeClaim.claimName",
+              "correct": true,
+              "explanation": "Correct. Pods reference a PVC by claimName under volumes.",
+              "id": "a"
+            },
+            {
+              "text": "storageClassName on the container",
+              "correct": false,
+              "explanation": "Wrong. StorageClass is on the PVC, not the container.",
+              "id": "b"
+            },
+            {
+              "text": "pvcRef in the Service",
+              "correct": false,
+              "explanation": "Wrong. Services do not reference PVCs.",
+              "id": "c"
+            },
+            {
+              "text": "claim in the node spec",
+              "correct": false,
+              "explanation": "Wrong. Nodes do not claim PVCs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/",
+          "id": "cka-s2-q16"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does the Delete reclaim policy do when a PVC is removed?",
+          "options": [
+            {
+              "text": "Deletes the PV and its backing storage",
+              "correct": true,
+              "explanation": "Correct. Delete removes the volume and underlying storage.",
+              "id": "a"
+            },
+            {
+              "text": "Keeps the PV for manual reuse",
+              "correct": false,
+              "explanation": "Wrong. That is Retain.",
+              "id": "b"
+            },
+            {
+              "text": "Recreates the pod",
+              "correct": false,
+              "explanation": "Wrong. Reclaim policy concerns volumes, not pods.",
+              "id": "c"
+            },
+            {
+              "text": "Cordons the node",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/#reclaiming",
+          "id": "cka-s2-q17"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which access mode allows read-write mounting by many nodes simultaneously?",
+          "options": [
+            {
+              "text": "ReadWriteMany",
+              "correct": true,
+              "explanation": "Correct. RWX supports concurrent read-write across nodes.",
+              "id": "a"
+            },
+            {
+              "text": "ReadWriteOnce",
+              "correct": false,
+              "explanation": "Wrong. RWO is single-node read-write.",
+              "id": "b"
+            },
+            {
+              "text": "ReadOnlyMany",
+              "correct": false,
+              "explanation": "Wrong. ROX is read-only by many.",
+              "id": "c"
+            },
+            {
+              "text": "ReadWriteOncePod",
+              "correct": false,
+              "explanation": "Wrong. That restricts to a single pod, not many nodes.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes",
+          "id": "cka-s2-q18"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which command runs a shell inside a running pod's container?",
+          "options": [
+            {
+              "text": "kubectl exec -it <pod> -- sh",
+              "correct": true,
+              "explanation": "Correct. exec -it opens an interactive shell.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl run -it <pod> -- sh",
+              "correct": false,
+              "explanation": "Wrong. run creates a new pod, it does not exec into one.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl attach shell",
+              "correct": false,
+              "explanation": "Wrong. Not the standard exec form.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl shell <pod>",
+              "correct": false,
+              "explanation": "Wrong. No such subcommand.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/kubectl/",
+          "id": "cka-s2-q19"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "kubectl get pods shows a pod in Terminating for a long time. A common cause is?",
+          "options": [
+            {
+              "text": "A finalizer or stuck volume detach preventing deletion",
+              "correct": true,
+              "explanation": "Correct. Finalizers or detach issues can stall termination.",
+              "id": "a"
+            },
+            {
+              "text": "The pod is Pending",
+              "correct": false,
+              "explanation": "Wrong. Pending and Terminating are different phases.",
+              "id": "b"
+            },
+            {
+              "text": "The image is being pulled",
+              "correct": false,
+              "explanation": "Wrong. That is start-up, not termination.",
+              "id": "c"
+            },
+            {
+              "text": "The Service was deleted",
+              "correct": false,
+              "explanation": "Wrong. Service deletion does not hold pods in Terminating.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+          "id": "cka-s2-q20"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command helps diagnose API server connectivity from kubectl?",
+          "options": [
+            {
+              "text": "kubectl cluster-info",
+              "correct": true,
+              "explanation": "Correct. cluster-info reports control-plane endpoints.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl get logs",
+              "correct": false,
+              "explanation": "Wrong. Not a valid form.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl top api",
+              "correct": false,
+              "explanation": "Wrong. Not a valid command.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl describe apiserver",
+              "correct": false,
+              "explanation": "Wrong. Not a resource.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/kubectl/",
+          "id": "cka-s2-q21"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Static pods are managed by which component, not the scheduler?",
+          "options": [
+            {
+              "text": "The kubelet (from a manifest path on the node)",
+              "correct": true,
+              "explanation": "Correct. The kubelet runs static pods directly from manifests.",
+              "id": "a"
+            },
+            {
+              "text": "The scheduler",
+              "correct": false,
+              "explanation": "Wrong. Static pods bypass the scheduler.",
+              "id": "b"
+            },
+            {
+              "text": "etcd",
+              "correct": false,
+              "explanation": "Wrong. etcd stores state.",
+              "id": "c"
+            },
+            {
+              "text": "kube-proxy",
+              "correct": false,
+              "explanation": "Wrong. kube-proxy handles Services.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/",
+          "id": "cka-s2-q22"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Where are static pod manifests typically located on a kubeadm node?",
+          "options": [
+            {
+              "text": "/etc/kubernetes/manifests",
+              "correct": true,
+              "explanation": "Correct. The kubelet watches that directory for static pods.",
+              "id": "a"
+            },
+            {
+              "text": "/var/lib/kubelet/pods",
+              "correct": false,
+              "explanation": "Wrong. That holds pod runtime data, not manifests.",
+              "id": "b"
+            },
+            {
+              "text": "/etc/cni/net.d",
+              "correct": false,
+              "explanation": "Wrong. That is CNI config.",
+              "id": "c"
+            },
+            {
+              "text": "/var/log/pods",
+              "correct": false,
+              "explanation": "Wrong. That holds logs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/configure-pod-container/static-pod/",
+          "id": "cka-s2-q23"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command drains a node while respecting PodDisruptionBudgets?",
+          "options": [
+            {
+              "text": "kubectl drain <node>",
+              "correct": true,
+              "explanation": "Correct. drain evicts pods honoring PDBs.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl delete node <node>",
+              "correct": false,
+              "explanation": "Wrong. That removes the node object without graceful eviction.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl cordon <node> only",
+              "correct": false,
+              "explanation": "Wrong. cordon stops new scheduling but does not evict.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl taint <node>",
+              "correct": false,
+              "explanation": "Wrong. Tainting alone does not drain.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "id": "cka-s2-q24"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "After draining and maintaining a node, how do you allow scheduling again?",
+          "options": [
+            {
+              "text": "kubectl uncordon <node>",
+              "correct": true,
+              "explanation": "Correct. uncordon makes the node schedulable again.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl drain <node>",
+              "correct": false,
+              "explanation": "Wrong. drain evicts pods; it does not re-enable scheduling.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl delete node <node>",
+              "correct": false,
+              "explanation": "Wrong. That removes the node.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl taint <node> k=v:NoSchedule-",
+              "correct": false,
+              "explanation": "Wrong. That removes a taint, not the cordon.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/",
+          "id": "cka-s2-q25"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does kubectl rollout status deployment/<name> show?",
+          "options": [
+            {
+              "text": "Whether the rollout has completed successfully",
+              "correct": true,
+              "explanation": "Correct. rollout status reports progress/completion.",
+              "id": "a"
+            },
+            {
+              "text": "The pod logs",
+              "correct": false,
+              "explanation": "Wrong. That is kubectl logs.",
+              "id": "b"
+            },
+            {
+              "text": "The node list",
+              "correct": false,
+              "explanation": "Wrong. That is get nodes.",
+              "id": "c"
+            },
+            {
+              "text": "The Service endpoints",
+              "correct": false,
+              "explanation": "Wrong. That is get endpoints.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+          "id": "cka-s2-q26"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which object lets you run a pod with elevated, time-bound debugging tools attached to a running pod?",
+          "options": [
+            {
+              "text": "An ephemeral debug container (kubectl debug)",
+              "correct": true,
+              "explanation": "Correct. kubectl debug attaches ephemeral containers for troubleshooting.",
+              "id": "a"
+            },
+            {
+              "text": "A second Deployment",
+              "correct": false,
+              "explanation": "Wrong. That does not attach to an existing pod.",
+              "id": "b"
+            },
+            {
+              "text": "A DaemonSet",
+              "correct": false,
+              "explanation": "Wrong. DaemonSets run per node, not attached to a pod.",
+              "id": "c"
+            },
+            {
+              "text": "A Job",
+              "correct": false,
+              "explanation": "Wrong. Jobs run separate pods to completion.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-running-pod/",
+          "id": "cka-s2-q27"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which resource defines a set of endpoints for a Service automatically?",
+          "options": [
+            {
+              "text": "EndpointSlice (managed by the endpoints controller)",
+              "correct": true,
+              "explanation": "Correct. EndpointSlices track the pod endpoints for a Service.",
+              "id": "a"
+            },
+            {
+              "text": "A ConfigMap",
+              "correct": false,
+              "explanation": "Wrong. ConfigMaps hold config, not endpoints.",
+              "id": "b"
+            },
+            {
+              "text": "A PersistentVolume",
+              "correct": false,
+              "explanation": "Wrong. PVs are storage.",
+              "id": "c"
+            },
+            {
+              "text": "A ResourceQuota",
+              "correct": false,
+              "explanation": "Wrong. Quotas limit usage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/endpoint-slices/",
+          "id": "cka-s2-q28"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Pods can reach external internet but not each other across nodes. What should you check first?",
+          "options": [
+            {
+              "text": "The CNI plugin / pod network configuration",
+              "correct": true,
+              "explanation": "Correct. Cross-node pod traffic depends on a healthy CNI.",
+              "id": "a"
+            },
+            {
+              "text": "The Deployment replica count",
+              "correct": false,
+              "explanation": "Wrong. Replicas do not affect connectivity.",
+              "id": "b"
+            },
+            {
+              "text": "The StorageClass",
+              "correct": false,
+              "explanation": "Wrong. Storage is unrelated.",
+              "id": "c"
+            },
+            {
+              "text": "The readiness probe",
+              "correct": false,
+              "explanation": "Wrong. Probes gate Service traffic, not raw pod-to-pod routing.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/",
+          "id": "cka-s2-q29"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command shows PVCs and their bound status?",
+          "options": [
+            {
+              "text": "kubectl get pvc",
+              "correct": true,
+              "explanation": "Correct. get pvc lists claims and binding status.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl get claims",
+              "correct": false,
+              "explanation": "Wrong. Not a valid resource name.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl describe storageclass",
+              "correct": false,
+              "explanation": "Wrong. That shows the class, not claims.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl get volumes",
+              "correct": false,
+              "explanation": "Wrong. Not a valid resource.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/",
+          "id": "cka-s2-q30"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "What does the ReadWriteOncePod access mode guarantee?",
+          "options": [
+            {
+              "text": "The volume is mounted read-write by a single pod only",
+              "correct": true,
+              "explanation": "Correct. RWOP restricts access to exactly one pod.",
+              "id": "a"
+            },
+            {
+              "text": "Many nodes can write simultaneously",
+              "correct": false,
+              "explanation": "Wrong. That is ReadWriteMany.",
+              "id": "b"
+            },
+            {
+              "text": "Read-only by many pods",
+              "correct": false,
+              "explanation": "Wrong. That is ReadOnlyMany.",
+              "id": "c"
+            },
+            {
+              "text": "No pod can mount it",
+              "correct": false,
+              "explanation": "Wrong. RWOP allows exactly one pod.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes",
+          "id": "cka-s2-q31"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which command lists pods across all namespaces?",
+          "options": [
+            {
+              "text": "kubectl get pods -A",
+              "correct": true,
+              "explanation": "Correct. -A (or --all-namespaces) lists pods everywhere.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl get pods --global",
+              "correct": false,
+              "explanation": "Wrong. No such flag.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl get pods --cluster",
+              "correct": false,
+              "explanation": "Wrong. No such flag for all namespaces.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl pods all",
+              "correct": false,
+              "explanation": "Wrong. Not valid syntax.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/kubectl/",
+          "id": "cka-s2-q32"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A container is OOMKilled. What does this mean?",
+          "options": [
+            {
+              "text": "It exceeded its memory limit and was terminated",
+              "correct": true,
+              "explanation": "Correct. OOMKilled means the container hit its memory cap.",
+              "id": "a"
+            },
+            {
+              "text": "Its image failed to pull",
+              "correct": false,
+              "explanation": "Wrong. That is ImagePullBackOff.",
+              "id": "b"
+            },
+            {
+              "text": "It failed a readiness probe",
+              "correct": false,
+              "explanation": "Wrong. That removes it from endpoints.",
+              "id": "c"
+            },
+            {
+              "text": "The node ran out of disk",
+              "correct": false,
+              "explanation": "Wrong. That is disk pressure, not OOMKilled.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/configure-pod-container/assign-memory-resource/",
+          "id": "cka-s2-q33"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "kubectl reports 'Unable to connect to the server'. Which is the most likely first check?",
+          "options": [
+            {
+              "text": "The kubeconfig context and API server endpoint",
+              "correct": true,
+              "explanation": "Correct. Connection errors often stem from wrong context/endpoint.",
+              "id": "a"
+            },
+            {
+              "text": "The pod readiness probes",
+              "correct": false,
+              "explanation": "Wrong. Probes do not affect kubectl connectivity.",
+              "id": "b"
+            },
+            {
+              "text": "The StorageClass",
+              "correct": false,
+              "explanation": "Wrong. Storage is unrelated to API connectivity.",
+              "id": "c"
+            },
+            {
+              "text": "The Service selector",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to control-plane reachability.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/",
+          "id": "cka-s2-q34"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does kubectl config use-context do?",
+          "options": [
+            {
+              "text": "Switches the active cluster/user/namespace context",
+              "correct": true,
+              "explanation": "Correct. use-context changes which context kubectl targets.",
+              "id": "a"
+            },
+            {
+              "text": "Creates a new cluster",
+              "correct": false,
+              "explanation": "Wrong. It only switches context.",
+              "id": "b"
+            },
+            {
+              "text": "Restarts the API server",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "c"
+            },
+            {
+              "text": "Deletes a namespace",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/kubectl/",
+          "id": "cka-s2-q35"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which probe delays liveness/readiness checks until an app has started?",
+          "options": [
+            {
+              "text": "startupProbe",
+              "correct": true,
+              "explanation": "Correct. The startup probe protects slow-starting apps.",
+              "id": "a"
+            },
+            {
+              "text": "livenessProbe",
+              "correct": false,
+              "explanation": "Wrong. Liveness restarts unhealthy containers.",
+              "id": "b"
+            },
+            {
+              "text": "readinessProbe",
+              "correct": false,
+              "explanation": "Wrong. Readiness gates traffic.",
+              "id": "c"
+            },
+            {
+              "text": "initProbe",
+              "correct": false,
+              "explanation": "Wrong. No such probe.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/configuration/liveness-readiness-startup-probes/",
+          "id": "cka-s2-q36"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "What runs before app containers and must complete successfully first?",
+          "options": [
+            {
+              "text": "initContainers",
+              "correct": true,
+              "explanation": "Correct. Init containers run to completion before app containers start.",
+              "id": "a"
+            },
+            {
+              "text": "sidecar containers",
+              "correct": false,
+              "explanation": "Wrong. Sidecars run alongside, not strictly before.",
+              "id": "b"
+            },
+            {
+              "text": "ephemeral containers",
+              "correct": false,
+              "explanation": "Wrong. Those are for debugging running pods.",
+              "id": "c"
+            },
+            {
+              "text": "static pods",
+              "correct": false,
+              "explanation": "Wrong. Unrelated concept.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/workloads/pods/init-containers/",
+          "id": "cka-s2-q37"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which object limits aggregate resource consumption in a namespace?",
+          "options": [
+            {
+              "text": "ResourceQuota",
+              "correct": true,
+              "explanation": "Correct. ResourceQuotas cap total usage per namespace.",
+              "id": "a"
+            },
+            {
+              "text": "LimitRange only sets per-pod defaults",
+              "correct": false,
+              "explanation": "Wrong. LimitRange sets defaults/bounds, not namespace totals.",
+              "id": "b"
+            },
+            {
+              "text": "NetworkPolicy",
+              "correct": false,
+              "explanation": "Wrong. That governs traffic.",
+              "id": "c"
+            },
+            {
+              "text": "PriorityClass",
+              "correct": false,
+              "explanation": "Wrong. That influences scheduling priority.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/policy/resource-quotas/",
+          "id": "cka-s2-q38"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "What does a LimitRange do?",
+          "options": [
+            {
+              "text": "Sets default and min/max resource constraints for pods/containers in a namespace",
+              "correct": true,
+              "explanation": "Correct. LimitRange enforces per-object resource bounds.",
+              "id": "a"
+            },
+            {
+              "text": "Caps total namespace usage",
+              "correct": false,
+              "explanation": "Wrong. That is ResourceQuota.",
+              "id": "b"
+            },
+            {
+              "text": "Routes external traffic",
+              "correct": false,
+              "explanation": "Wrong. That is Ingress.",
+              "id": "c"
+            },
+            {
+              "text": "Stores secrets",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/policy/limit-range/",
+          "id": "cka-s2-q39"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which controller dynamically provisions volumes for matching PVCs?",
+          "options": [
+            {
+              "text": "The CSI driver / external provisioner for the StorageClass",
+              "correct": true,
+              "explanation": "Correct. CSI provisioners create PVs on demand.",
+              "id": "a"
+            },
+            {
+              "text": "kube-proxy",
+              "correct": false,
+              "explanation": "Wrong. That handles Services.",
+              "id": "b"
+            },
+            {
+              "text": "CoreDNS",
+              "correct": false,
+              "explanation": "Wrong. That handles DNS.",
+              "id": "c"
+            },
+            {
+              "text": "The scheduler",
+              "correct": false,
+              "explanation": "Wrong. It places pods, not volumes.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/dynamic-provisioning/",
+          "id": "cka-s2-q40"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which object expands a PVC's size when the StorageClass allows it?",
+          "options": [
+            {
+              "text": "Editing the PVC's requested storage with allowVolumeExpansion enabled",
+              "correct": true,
+              "explanation": "Correct. Volume expansion requires allowVolumeExpansion on the class.",
+              "id": "a"
+            },
+            {
+              "text": "Recreating the pod",
+              "correct": false,
+              "explanation": "Wrong. Pod recreation does not resize the volume.",
+              "id": "b"
+            },
+            {
+              "text": "Editing the node spec",
+              "correct": false,
+              "explanation": "Wrong. Nodes do not resize PVCs.",
+              "id": "c"
+            },
+            {
+              "text": "Changing the Service",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/#expanding-persistent-volumes-claims",
+          "id": "cka-s2-q41"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command shows resource usage of pods (with metrics-server)?",
+          "options": [
+            {
+              "text": "kubectl top pods",
+              "correct": true,
+              "explanation": "Correct. top pods reports per-pod CPU/memory.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl usage pods",
+              "correct": false,
+              "explanation": "Wrong. No such command.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl metrics pods",
+              "correct": false,
+              "explanation": "Wrong. Not valid.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl describe usage",
+              "correct": false,
+              "explanation": "Wrong. Not valid.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/kubectl/",
+          "id": "cka-s2-q42"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "The scheduler leaves a pod Pending with 'Insufficient cpu'. What resolves it?",
+          "options": [
+            {
+              "text": "Free capacity, lower the request, or add nodes",
+              "correct": true,
+              "explanation": "Correct. The pod needs schedulable CPU to be placed.",
+              "id": "a"
+            },
+            {
+              "text": "Add a readiness probe",
+              "correct": false,
+              "explanation": "Wrong. Probes do not affect scheduling capacity.",
+              "id": "b"
+            },
+            {
+              "text": "Create a Service",
+              "correct": false,
+              "explanation": "Wrong. Services do not provide CPU.",
+              "id": "c"
+            },
+            {
+              "text": "Delete the namespace quota only blindly",
+              "correct": false,
+              "explanation": "Wrong. Quota may not be the cause; capacity is.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/debug/debug-application/debug-pods/",
+          "id": "cka-s2-q43"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which command outputs a resource definition you can edit and re-apply?",
+          "options": [
+            {
+              "text": "kubectl get <res> <name> -o yaml",
+              "correct": true,
+              "explanation": "Correct. -o yaml emits the manifest for editing.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl describe <res>",
+              "correct": false,
+              "explanation": "Wrong. describe is human-readable, not re-appliable YAML.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl logs <res>",
+              "correct": false,
+              "explanation": "Wrong. logs shows container output.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl top <res>",
+              "correct": false,
+              "explanation": "Wrong. top shows metrics.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/kubectl/",
+          "id": "cka-s2-q44"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which field sets the container image for a pod?",
+          "options": [
+            {
+              "text": "spec.containers[].image",
+              "correct": true,
+              "explanation": "Correct. The image field names the container image.",
+              "id": "a"
+            },
+            {
+              "text": "spec.image",
+              "correct": false,
+              "explanation": "Wrong. image lives under containers, not the pod spec root.",
+              "id": "b"
+            },
+            {
+              "text": "metadata.image",
+              "correct": false,
+              "explanation": "Wrong. metadata holds names/labels, not images.",
+              "id": "c"
+            },
+            {
+              "text": "status.image",
+              "correct": false,
+              "explanation": "Wrong. status is read-only state.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/workloads/pods/",
+          "id": "cka-s2-q45"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command shows the endpoints backing a Service?",
+          "options": [
+            {
+              "text": "kubectl get endpoints <service>",
+              "correct": true,
+              "explanation": "Correct. get endpoints lists the pod IPs behind a Service.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl get routes",
+              "correct": false,
+              "explanation": "Wrong. routes is not a core resource.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl describe dns",
+              "correct": false,
+              "explanation": "Wrong. Not a resource.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl get ingress only",
+              "correct": false,
+              "explanation": "Wrong. Ingress is separate from Service endpoints.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/service/",
+          "id": "cka-s2-q46"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which command shows storage classes?",
+          "options": [
+            {
+              "text": "kubectl get storageclass",
+              "correct": true,
+              "explanation": "Correct. get storageclass lists available classes.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl get sc-list",
+              "correct": false,
+              "explanation": "Wrong. Not valid.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl describe storage",
+              "correct": false,
+              "explanation": "Wrong. Not a resource.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl get classes",
+              "correct": false,
+              "explanation": "Wrong. Not a valid resource name.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/storage-classes/",
+          "id": "cka-s2-q47"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which approach gives a quick health view of all control-plane pods on a kubeadm cluster?",
+          "options": [
+            {
+              "text": "kubectl get pods -n kube-system",
+              "correct": true,
+              "explanation": "Correct. Control-plane components run as pods in kube-system.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl get pods -n default",
+              "correct": false,
+              "explanation": "Wrong. Control-plane pods are in kube-system.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl top nodes only",
+              "correct": false,
+              "explanation": "Wrong. That shows usage, not component health.",
+              "id": "c"
+            },
+            {
+              "text": "kubectl describe cluster",
+              "correct": false,
+              "explanation": "Wrong. No such resource.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/overview/components/",
+          "id": "cka-s2-q48"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does kubectl apply --dry-run=client do?",
+          "options": [
+            {
+              "text": "Validates and renders the manifest without sending it to the server",
+              "correct": true,
+              "explanation": "Correct. Client dry-run previews changes locally without applying.",
+              "id": "a"
+            },
+            {
+              "text": "Applies the change but skips logging",
+              "correct": false,
+              "explanation": "Wrong. Dry-run does not apply changes.",
+              "id": "b"
+            },
+            {
+              "text": "Deletes the resource safely",
+              "correct": false,
+              "explanation": "Wrong. Dry-run does not delete.",
+              "id": "c"
+            },
+            {
+              "text": "Restarts the pod",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to dry-run.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/reference/kubectl/",
+          "id": "cka-s2-q49"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which field controls how a pod responds to restarts after completion or failure?",
+          "options": [
+            {
+              "text": "spec.restartPolicy",
+              "correct": true,
+              "explanation": "Correct. restartPolicy (Always/OnFailure/Never) governs restarts.",
+              "id": "a"
+            },
+            {
+              "text": "spec.schedulerName",
+              "correct": false,
+              "explanation": "Wrong. That selects the scheduler, not restart behavior.",
+              "id": "b"
+            },
+            {
+              "text": "spec.priorityClassName",
+              "correct": false,
+              "explanation": "Wrong. That sets scheduling priority.",
+              "id": "c"
+            },
+            {
+              "text": "spec.serviceAccountName",
+              "correct": false,
+              "explanation": "Wrong. That sets identity.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/",
+          "id": "cka-s2-q50"
         }
       ]
     }
