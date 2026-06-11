@@ -6,14 +6,38 @@
   "lastUpdated": "2026-06-11",
   "passScore": 70,
   "domains": [
-    { "id": "d1", "name": "IaC with Terraform" },
-    { "id": "d2", "name": "Terraform fundamentals" },
-    { "id": "d3", "name": "Core Terraform workflow" },
-    { "id": "d4", "name": "Terraform configuration" },
-    { "id": "d5", "name": "Terraform modules" },
-    { "id": "d6", "name": "State management" },
-    { "id": "d7", "name": "Maintain infrastructure" },
-    { "id": "d8", "name": "HCP Terraform" }
+    {
+      "id": "d1",
+      "name": "IaC with Terraform"
+    },
+    {
+      "id": "d2",
+      "name": "Terraform fundamentals"
+    },
+    {
+      "id": "d3",
+      "name": "Core Terraform workflow"
+    },
+    {
+      "id": "d4",
+      "name": "Terraform configuration"
+    },
+    {
+      "id": "d5",
+      "name": "Terraform modules"
+    },
+    {
+      "id": "d6",
+      "name": "State management"
+    },
+    {
+      "id": "d7",
+      "name": "Maintain infrastructure"
+    },
+    {
+      "id": "d8",
+      "name": "HCP Terraform"
+    }
   ],
   "sets": [
     {
@@ -22,72 +46,1692 @@
       "timeLimitMin": 60,
       "questions": [
         {
-          "id": "tf004-s1-q1",
-          "domainId": "d6",
-          "difficulty": "medium",
-          "type": "single",
-          "stem": "An interrupted <code>terraform apply</code> left a lock held in the backend, and teammates now get lock-acquisition errors. What clears it safely?",
-          "options": [
-            { "id": "a", "text": "terraform force-unlock <LOCK_ID> after confirming no apply is running", "correct": true, "explanation": "Correct. force-unlock releases a stale lock; only do it once you've verified no other apply holds it." },
-            { "id": "b", "text": "Delete the state file and re-run init", "correct": false, "explanation": "Wrong. Deleting state destroys the record of managed resources — drastic and unnecessary for a lock." },
-            { "id": "c", "text": "Switch to the local backend", "correct": false, "explanation": "Wrong. That abandons shared state and locking; it doesn't clear the existing lock." },
-            { "id": "d", "text": "Run terraform refresh", "correct": false, "explanation": "Wrong. refresh reconciles state with real infra; it does not touch locks." }
-          ],
-          "reference": "https://developer.hashicorp.com/terraform/language/state/locking"
-        },
-        {
-          "id": "tf004-s1-q2",
-          "domainId": "d8",
-          "difficulty": "medium",
-          "type": "single",
-          "stem": "In HCP Terraform, which feature lets you group related workspaces and apply shared variable sets and access at that grouping level?",
-          "options": [
-            { "id": "a", "text": "Projects", "correct": true, "explanation": "Correct. Projects organize workspaces and let you manage variable sets and team access at the project level." },
-            { "id": "b", "text": "Run triggers", "correct": false, "explanation": "Wrong. Run triggers chain a run in one workspace off another's apply — they don't group workspaces for access control." },
-            { "id": "c", "text": "Policy sets", "correct": false, "explanation": "Wrong. Policy sets enforce Sentinel/OPA governance, not workspace grouping." },
-            { "id": "d", "text": "The Explorer", "correct": false, "explanation": "Wrong. Explorer is a cross-workspace query/visibility view, not an organizational container." }
-          ],
-          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/projects"
-        },
-        {
-          "id": "tf004-s1-q3",
-          "domainId": "d4",
+          "domainId": "d1",
           "difficulty": "easy",
           "type": "single",
-          "stem": "What is the purpose of a <code>data</code> block?",
+          "stem": "What best describes Infrastructure as Code (IaC)?",
           "options": [
-            { "id": "a", "text": "To read information about existing infrastructure not managed by this configuration", "correct": true, "explanation": "Correct. Data sources fetch read-only info (e.g. an existing AMI or VPC) for use elsewhere in config." },
-            { "id": "b", "text": "To create and manage a new resource", "correct": false, "explanation": "Wrong. Creating/managing resources is the job of a resource block, not a data block." },
-            { "id": "c", "text": "To declare an input variable", "correct": false, "explanation": "Wrong. Inputs are declared with variable blocks." },
-            { "id": "d", "text": "To store state remotely", "correct": false, "explanation": "Wrong. Remote state is configured with a backend block." }
+            {
+              "text": "Provisioning infrastructure through versioned, machine-readable configuration files",
+              "correct": true,
+              "explanation": "Correct. IaC codifies infra so it is repeatable, reviewable, and version-controlled.",
+              "id": "a"
+            },
+            {
+              "text": "Manually provisioning servers through a cloud console",
+              "correct": false,
+              "explanation": "Wrong. Console clicks are not codified — the opposite of IaC.",
+              "id": "b"
+            },
+            {
+              "text": "Writing application business logic",
+              "correct": false,
+              "explanation": "Wrong. That is application code, not infrastructure definition.",
+              "id": "c"
+            },
+            {
+              "text": "Storing architecture diagrams in a wiki",
+              "correct": false,
+              "explanation": "Wrong. Diagrams document intent but provision nothing.",
+              "id": "d"
+            }
           ],
-          "reference": "https://developer.hashicorp.com/terraform/language/data-sources"
+          "reference": "https://developer.hashicorp.com/terraform/intro",
+          "id": "terraform004-s1-q1"
         },
         {
-          "id": "tf004-s1-q4",
+          "domainId": "d1",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which is a key advantage of IaC patterns?",
+          "options": [
+            {
+              "text": "Changes become repeatable, reviewable, and auditable",
+              "correct": true,
+              "explanation": "Correct. Codified infra can be peer-reviewed and reproduced reliably.",
+              "id": "a"
+            },
+            {
+              "text": "It makes all cloud resources free",
+              "correct": false,
+              "explanation": "Wrong. IaC manages resources but does not remove cost.",
+              "id": "b"
+            },
+            {
+              "text": "It removes the need for a provider account",
+              "correct": false,
+              "explanation": "Wrong. You still need accounts to create real resources.",
+              "id": "c"
+            },
+            {
+              "text": "It eliminates the need to understand the platform",
+              "correct": false,
+              "explanation": "Wrong. You still must understand declared resources.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/intro",
+          "id": "terraform004-s1-q2"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "How does Terraform enable multi-cloud workflows?",
+          "options": [
+            {
+              "text": "Provider plugins let one workflow manage many platforms",
+              "correct": true,
+              "explanation": "Correct. Providers abstract each platform behind a consistent plan/apply workflow.",
+              "id": "a"
+            },
+            {
+              "text": "It translates one cloud's resources into another's",
+              "correct": false,
+              "explanation": "Wrong. Terraform does not convert resources between clouds.",
+              "id": "b"
+            },
+            {
+              "text": "It only manages one cloud at a time",
+              "correct": false,
+              "explanation": "Wrong. A config can declare multiple providers.",
+              "id": "c"
+            },
+            {
+              "text": "It requires a separate binary per cloud",
+              "correct": false,
+              "explanation": "Wrong. One binary uses pluggable providers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/intro/use-cases",
+          "id": "terraform004-s1-q3"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Why is Terraform considered declarative?",
+          "options": [
+            {
+              "text": "You describe the desired end state and Terraform plans how to reach it",
+              "correct": true,
+              "explanation": "Correct. Declarative means specifying what, not the step-by-step how.",
+              "id": "a"
+            },
+            {
+              "text": "You must script each API call in sequence",
+              "correct": false,
+              "explanation": "Wrong. That is imperative.",
+              "id": "b"
+            },
+            {
+              "text": "It only allows one resource per file",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to being declarative.",
+              "id": "c"
+            },
+            {
+              "text": "Every attribute needs manual approval",
+              "correct": false,
+              "explanation": "Wrong. Not what declarative means.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/intro",
+          "id": "terraform004-s1-q4"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "What does `terraform init` do?",
+          "options": [
+            {
+              "text": "Initializes the directory, downloads providers, configures the backend",
+              "correct": true,
+              "explanation": "Correct. init prepares providers, modules, and backend.",
+              "id": "a"
+            },
+            {
+              "text": "Applies the configuration",
+              "correct": false,
+              "explanation": "Wrong. That is apply.",
+              "id": "b"
+            },
+            {
+              "text": "Generates an execution plan",
+              "correct": false,
+              "explanation": "Wrong. That is plan.",
+              "id": "c"
+            },
+            {
+              "text": "Destroys managed infrastructure",
+              "correct": false,
+              "explanation": "Wrong. That is destroy.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "id": "terraform004-s1-q5"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "What is a Terraform provider?",
+          "options": [
+            {
+              "text": "A plugin that manages a specific platform's API resources",
+              "correct": true,
+              "explanation": "Correct. Providers translate config into platform API calls.",
+              "id": "a"
+            },
+            {
+              "text": "A location where state is stored",
+              "correct": false,
+              "explanation": "Wrong. That is a backend.",
+              "id": "b"
+            },
+            {
+              "text": "A reusable bundle of configuration",
+              "correct": false,
+              "explanation": "Wrong. That is a module.",
+              "id": "c"
+            },
+            {
+              "text": "A code formatter",
+              "correct": false,
+              "explanation": "Wrong. That is fmt.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/providers",
+          "id": "terraform004-s1-q6"
+        },
+        {
           "domainId": "d2",
           "difficulty": "medium",
           "type": "single",
-          "stem": "True or false: usernames and passwords referenced in Terraform code, even as variables, can end up in plaintext in the state file.",
+          "stem": "Where are provider version constraints best specified?",
           "options": [
-            { "id": "a", "text": "True", "correct": true, "explanation": "Correct. Sensitive values can persist in state in plaintext, which is why state must be stored securely and access restricted." },
-            { "id": "b", "text": "False", "correct": false, "explanation": "Wrong. Marking a variable sensitive hides it from CLI output but does not encrypt it within the state file." }
+            {
+              "text": "In a required_providers block inside terraform {}",
+              "correct": true,
+              "explanation": "Correct. required_providers pins source and version.",
+              "id": "a"
+            },
+            {
+              "text": "In a variables file as a string",
+              "correct": false,
+              "explanation": "Wrong. Version constraints are not input variables.",
+              "id": "b"
+            },
+            {
+              "text": "In the backend block",
+              "correct": false,
+              "explanation": "Wrong. Backend configures state storage.",
+              "id": "c"
+            },
+            {
+              "text": "In an output block",
+              "correct": false,
+              "explanation": "Wrong. Outputs expose values.",
+              "id": "d"
+            }
           ],
-          "reference": "https://developer.hashicorp.com/terraform/language/state/sensitive-data"
+          "reference": "https://developer.hashicorp.com/terraform/language/providers/requirements",
+          "id": "terraform004-s1-q7"
         },
         {
-          "id": "tf004-s1-q5",
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What is the purpose of the dependency lock file?",
+          "options": [
+            {
+              "text": "Records exact provider versions for consistency across runs",
+              "correct": true,
+              "explanation": "Correct. The lock file pins resolved provider versions.",
+              "id": "a"
+            },
+            {
+              "text": "Stores resource state",
+              "correct": false,
+              "explanation": "Wrong. State is stored separately.",
+              "id": "b"
+            },
+            {
+              "text": "Holds sensitive values",
+              "correct": false,
+              "explanation": "Wrong. It contains no secrets.",
+              "id": "c"
+            },
+            {
+              "text": "Configures the backend",
+              "correct": false,
+              "explanation": "Wrong. Backend config lives in the terraform block.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/files/dependency-lock",
+          "id": "terraform004-s1-q8"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command upgrades providers within constraints and updates the lock file?",
+          "options": [
+            {
+              "text": "terraform init -upgrade",
+              "correct": true,
+              "explanation": "Correct. init -upgrade re-selects providers and updates the lock.",
+              "id": "a"
+            },
+            {
+              "text": "terraform upgrade",
+              "correct": false,
+              "explanation": "Wrong. No such subcommand.",
+              "id": "b"
+            },
+            {
+              "text": "terraform plan -upgrade",
+              "correct": false,
+              "explanation": "Wrong. plan has no -upgrade flag.",
+              "id": "c"
+            },
+            {
+              "text": "terraform providers upgrade",
+              "correct": false,
+              "explanation": "Wrong. Not a valid command.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "id": "terraform004-s1-q9"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "True or false: sensitive variables can still appear in plaintext in state.",
+          "options": [
+            {
+              "text": "True",
+              "correct": true,
+              "explanation": "Correct. State can contain sensitive values in plaintext; store it securely.",
+              "id": "a"
+            },
+            {
+              "text": "False",
+              "correct": false,
+              "explanation": "Wrong. Marking sensitive hides CLI output but does not encrypt state.",
+              "id": "b"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/sensitive-data",
+          "id": "terraform004-s1-q10"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "multi",
+          "stem": "Which TWO commands form the heart of the core workflow?",
+          "options": [
+            {
+              "text": "terraform plan",
+              "correct": true,
+              "explanation": "Correct. plan previews the changes.",
+              "id": "a"
+            },
+            {
+              "text": "terraform apply",
+              "correct": true,
+              "explanation": "Correct. apply executes the changes.",
+              "id": "b"
+            },
+            {
+              "text": "terraform deploy",
+              "correct": false,
+              "explanation": "Wrong. No deploy subcommand.",
+              "id": "c"
+            },
+            {
+              "text": "terraform build",
+              "correct": false,
+              "explanation": "Wrong. No build subcommand.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/intro/core-workflow",
+          "id": "terraform004-s1-q11"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which command checks syntax and consistency locally without creating resources?",
+          "options": [
+            {
+              "text": "terraform validate",
+              "correct": true,
+              "explanation": "Correct. validate checks correctness locally.",
+              "id": "a"
+            },
+            {
+              "text": "terraform apply",
+              "correct": false,
+              "explanation": "Wrong. apply creates resources.",
+              "id": "b"
+            },
+            {
+              "text": "terraform output",
+              "correct": false,
+              "explanation": "Wrong. output prints values.",
+              "id": "c"
+            },
+            {
+              "text": "terraform import",
+              "correct": false,
+              "explanation": "Wrong. import adopts existing resources.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/validate",
+          "id": "terraform004-s1-q12"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which command rewrites files to canonical formatting?",
+          "options": [
+            {
+              "text": "terraform fmt",
+              "correct": true,
+              "explanation": "Correct. fmt applies canonical HCL formatting.",
+              "id": "a"
+            },
+            {
+              "text": "terraform validate",
+              "correct": false,
+              "explanation": "Wrong. validate checks correctness.",
+              "id": "b"
+            },
+            {
+              "text": "terraform plan",
+              "correct": false,
+              "explanation": "Wrong. plan previews changes.",
+              "id": "c"
+            },
+            {
+              "text": "terraform style",
+              "correct": false,
+              "explanation": "Wrong. No such subcommand.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/fmt",
+          "id": "terraform004-s1-q13"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does `terraform plan` produce?",
+          "options": [
+            {
+              "text": "A preview of actions to reach the desired state",
+              "correct": true,
+              "explanation": "Correct. plan diffs desired vs current state.",
+              "id": "a"
+            },
+            {
+              "text": "A permanent infrastructure change",
+              "correct": false,
+              "explanation": "Wrong. plan makes no changes.",
+              "id": "b"
+            },
+            {
+              "text": "A new provider plugin",
+              "correct": false,
+              "explanation": "Wrong. Providers come from init.",
+              "id": "c"
+            },
+            {
+              "text": "A backend migration",
+              "correct": false,
+              "explanation": "Wrong. That happens during init.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "id": "terraform004-s1-q14"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "How do you remove all resources managed by a configuration?",
+          "options": [
+            {
+              "text": "terraform destroy",
+              "correct": true,
+              "explanation": "Correct. destroy removes all managed infrastructure.",
+              "id": "a"
+            },
+            {
+              "text": "terraform delete",
+              "correct": false,
+              "explanation": "Wrong. No delete subcommand.",
+              "id": "b"
+            },
+            {
+              "text": "terraform remove",
+              "correct": false,
+              "explanation": "Wrong. No remove subcommand.",
+              "id": "c"
+            },
+            {
+              "text": "terraform apply --remove",
+              "correct": false,
+              "explanation": "Wrong. No such flag.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/destroy",
+          "id": "terraform004-s1-q15"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does the -target flag do?",
+          "options": [
+            {
+              "text": "Limits the operation to specific resource addresses",
+              "correct": true,
+              "explanation": "Correct. -target scopes the run for exceptional cases.",
+              "id": "a"
+            },
+            {
+              "text": "Selects a remote backend",
+              "correct": false,
+              "explanation": "Wrong. Backends are set at init.",
+              "id": "b"
+            },
+            {
+              "text": "Sets the provider region",
+              "correct": false,
+              "explanation": "Wrong. Region is a provider arg.",
+              "id": "c"
+            },
+            {
+              "text": "Targets a Terraform version",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to -target.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "id": "terraform004-s1-q16"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command shows output values after apply?",
+          "options": [
+            {
+              "text": "terraform output",
+              "correct": true,
+              "explanation": "Correct. output prints declared output values.",
+              "id": "a"
+            },
+            {
+              "text": "terraform show -outputs",
+              "correct": false,
+              "explanation": "Wrong. Not the standard way to list outputs.",
+              "id": "b"
+            },
+            {
+              "text": "terraform plan",
+              "correct": false,
+              "explanation": "Wrong. plan previews changes.",
+              "id": "c"
+            },
+            {
+              "text": "terraform state show",
+              "correct": false,
+              "explanation": "Wrong. That inspects a single resource's state.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/output",
+          "id": "terraform004-s1-q17"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "What is the role of a `resource` block?",
+          "options": [
+            {
+              "text": "Declares an infrastructure object Terraform creates and manages",
+              "correct": true,
+              "explanation": "Correct. resource blocks define managed infrastructure.",
+              "id": "a"
+            },
+            {
+              "text": "Reads existing unmanaged infrastructure",
+              "correct": false,
+              "explanation": "Wrong. That is a data block.",
+              "id": "b"
+            },
+            {
+              "text": "Declares an input variable",
+              "correct": false,
+              "explanation": "Wrong. That is a variable block.",
+              "id": "c"
+            },
+            {
+              "text": "Exposes a value to the caller",
+              "correct": false,
+              "explanation": "Wrong. That is an output block.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/resources",
+          "id": "terraform004-s1-q18"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "What is the role of a `data` block?",
+          "options": [
+            {
+              "text": "Fetches read-only info about existing infrastructure",
+              "correct": true,
+              "explanation": "Correct. Data sources query without managing.",
+              "id": "a"
+            },
+            {
+              "text": "Creates a new managed resource",
+              "correct": false,
+              "explanation": "Wrong. That is a resource block.",
+              "id": "b"
+            },
+            {
+              "text": "Stores remote state",
+              "correct": false,
+              "explanation": "Wrong. That is the backend.",
+              "id": "c"
+            },
+            {
+              "text": "Defines a reusable module",
+              "correct": false,
+              "explanation": "Wrong. Modules use module blocks.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/data-sources",
+          "id": "terraform004-s1-q19"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "How do you reference one resource's attribute from another?",
+          "options": [
+            {
+              "text": "Using resource_type.name.attribute",
+              "correct": true,
+              "explanation": "Correct. Cross-resource references use typed addresses.",
+              "id": "a"
+            },
+            {
+              "text": "Using a GET_ATTR() function",
+              "correct": false,
+              "explanation": "Wrong. No such function.",
+              "id": "b"
+            },
+            {
+              "text": "By hardcoding the value after first apply",
+              "correct": false,
+              "explanation": "Wrong. Breaks the dependency graph.",
+              "id": "c"
+            },
+            {
+              "text": "Only via output variables",
+              "correct": false,
+              "explanation": "Wrong. Direct references work within a module.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/references",
+          "id": "terraform004-s1-q20"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which type constraint is an ordered same-typed collection?",
+          "options": [
+            {
+              "text": "list(type)",
+              "correct": true,
+              "explanation": "Correct. A list is ordered with same-typed elements.",
+              "id": "a"
+            },
+            {
+              "text": "map(type)",
+              "correct": false,
+              "explanation": "Wrong. A map is key-value pairs.",
+              "id": "b"
+            },
+            {
+              "text": "object({...})",
+              "correct": false,
+              "explanation": "Wrong. An object has named, differently-typed attributes.",
+              "id": "c"
+            },
+            {
+              "text": "bool",
+              "correct": false,
+              "explanation": "Wrong. bool is a single true/false.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/type-constraints",
+          "id": "terraform004-s1-q21"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which block enables custom validation of an input variable?",
+          "options": [
+            {
+              "text": "A validation block inside the variable",
+              "correct": true,
+              "explanation": "Correct. validation enforces custom conditions.",
+              "id": "a"
+            },
+            {
+              "text": "A lifecycle block",
+              "correct": false,
+              "explanation": "Wrong. lifecycle controls create/destroy.",
+              "id": "b"
+            },
+            {
+              "text": "A provisioner",
+              "correct": false,
+              "explanation": "Wrong. Provisioners run scripts.",
+              "id": "c"
+            },
+            {
+              "text": "A backend block",
+              "correct": false,
+              "explanation": "Wrong. Backends configure state.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/custom-conditions",
+          "id": "terraform004-s1-q22"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "What does `sensitive = true` on an output do?",
+          "options": [
+            {
+              "text": "Redacts the value from CLI plan/apply output",
+              "correct": true,
+              "explanation": "Correct. It hides the value in console output.",
+              "id": "a"
+            },
+            {
+              "text": "Encrypts the value in state",
+              "correct": false,
+              "explanation": "Wrong. It does not encrypt state.",
+              "id": "b"
+            },
+            {
+              "text": "Stops the value being stored",
+              "correct": false,
+              "explanation": "Wrong. It is still recorded in state.",
+              "id": "c"
+            },
+            {
+              "text": "Makes the output required",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to existence.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/values/outputs",
+          "id": "terraform004-s1-q23"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which meta-argument creates instances from a map or set?",
+          "options": [
+            {
+              "text": "for_each",
+              "correct": true,
+              "explanation": "Correct. for_each instantiates resources keyed by a map/set.",
+              "id": "a"
+            },
+            {
+              "text": "count with a string",
+              "correct": false,
+              "explanation": "Wrong. count takes a number.",
+              "id": "b"
+            },
+            {
+              "text": "depends_on",
+              "correct": false,
+              "explanation": "Wrong. depends_on orders resources.",
+              "id": "c"
+            },
+            {
+              "text": "provider",
+              "correct": false,
+              "explanation": "Wrong. provider selects a provider config.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/meta-arguments/for_each",
+          "id": "terraform004-s1-q24"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which meta-argument forces explicit ordering between resources?",
+          "options": [
+            {
+              "text": "depends_on",
+              "correct": true,
+              "explanation": "Correct. depends_on declares an explicit dependency.",
+              "id": "a"
+            },
+            {
+              "text": "for_each",
+              "correct": false,
+              "explanation": "Wrong. for_each creates instances.",
+              "id": "b"
+            },
+            {
+              "text": "lifecycle",
+              "correct": false,
+              "explanation": "Wrong. lifecycle controls behavior.",
+              "id": "c"
+            },
+            {
+              "text": "count",
+              "correct": false,
+              "explanation": "Wrong. count sets instance number.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/meta-arguments/depends_on",
+          "id": "terraform004-s1-q25"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "What does create_before_destroy achieve?",
+          "options": [
+            {
+              "text": "Creates the replacement before destroying the old resource",
+              "correct": true,
+              "explanation": "Correct. It reduces downtime during replacement.",
+              "id": "a"
+            },
+            {
+              "text": "Destroys and never recreates",
+              "correct": false,
+              "explanation": "Wrong. That is not this setting.",
+              "id": "b"
+            },
+            {
+              "text": "Prevents all changes",
+              "correct": false,
+              "explanation": "Wrong. That is prevent_destroy/ignore_changes.",
+              "id": "c"
+            },
+            {
+              "text": "Skips the plan stage",
+              "correct": false,
+              "explanation": "Wrong. lifecycle does not skip planning.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle",
+          "id": "terraform004-s1-q26"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which function parses a JSON string into a Terraform value?",
+          "options": [
+            {
+              "text": "jsondecode()",
+              "correct": true,
+              "explanation": "Correct. jsondecode converts JSON text to a value.",
+              "id": "a"
+            },
+            {
+              "text": "jsonencode()",
+              "correct": false,
+              "explanation": "Wrong. That does the reverse.",
+              "id": "b"
+            },
+            {
+              "text": "file()",
+              "correct": false,
+              "explanation": "Wrong. file() reads raw text only.",
+              "id": "c"
+            },
+            {
+              "text": "templatefile()",
+              "correct": false,
+              "explanation": "Wrong. templatefile renders a template.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/jsondecode",
+          "id": "terraform004-s1-q27"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "How does Terraform source a public registry module?",
+          "options": [
+            {
+              "text": "Using NAMESPACE/NAME/PROVIDER in source",
+              "correct": true,
+              "explanation": "Correct. Registry modules use three-part addressing.",
+              "id": "a"
+            },
+            {
+              "text": "Using a URL ending in .zip",
+              "correct": false,
+              "explanation": "Wrong. Not the registry format.",
+              "id": "b"
+            },
+            {
+              "text": "By copying it into state",
+              "correct": false,
+              "explanation": "Wrong. State does not hold module source.",
+              "id": "c"
+            },
+            {
+              "text": "Through an environment variable",
+              "correct": false,
+              "explanation": "Wrong. source is set in the module block.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/sources",
+          "id": "terraform004-s1-q28"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "How do you pin a registry module to a version?",
+          "options": [
+            {
+              "text": "Set the version argument in the module block",
+              "correct": true,
+              "explanation": "Correct. Registry sources accept a version constraint.",
+              "id": "a"
+            },
+            {
+              "text": "Append ?ref= to source",
+              "correct": false,
+              "explanation": "Wrong. ?ref= pins Git sources.",
+              "id": "b"
+            },
+            {
+              "text": "Use module_version",
+              "correct": false,
+              "explanation": "Wrong. No such argument.",
+              "id": "c"
+            },
+            {
+              "text": "Edit the lock file",
+              "correct": false,
+              "explanation": "Wrong. The lock file pins providers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/syntax",
+          "id": "terraform004-s1-q29"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "How does a child module return values to its caller?",
+          "options": [
+            {
+              "text": "Through output blocks in the child module",
+              "correct": true,
+              "explanation": "Correct. Module outputs expose values to callers.",
+              "id": "a"
+            },
+            {
+              "text": "By writing to state directly",
+              "correct": false,
+              "explanation": "Wrong. Modules use inputs/outputs.",
+              "id": "b"
+            },
+            {
+              "text": "Through global variables",
+              "correct": false,
+              "explanation": "Wrong. No global namespace.",
+              "id": "c"
+            },
+            {
+              "text": "Via environment variables only",
+              "correct": false,
+              "explanation": "Wrong. Outputs are standard.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/values/outputs",
+          "id": "terraform004-s1-q30"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What is variable scope within a module?",
+          "options": [
+            {
+              "text": "Variables are local unless passed in or exposed as outputs",
+              "correct": true,
+              "explanation": "Correct. Modules encapsulate values.",
+              "id": "a"
+            },
+            {
+              "text": "All module variables are global",
+              "correct": false,
+              "explanation": "Wrong. No global namespace.",
+              "id": "b"
+            },
+            {
+              "text": "Siblings share variables automatically",
+              "correct": false,
+              "explanation": "Wrong. Only via inputs/outputs.",
+              "id": "c"
+            },
+            {
+              "text": "Module vars override root vars silently",
+              "correct": false,
+              "explanation": "Wrong. No silent override.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules",
+          "id": "terraform004-s1-q31"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "What is the purpose of Terraform state?",
+          "options": [
+            {
+              "text": "Maps real resources to configuration and tracks metadata",
+              "correct": true,
+              "explanation": "Correct. State binds config to real resources.",
+              "id": "a"
+            },
+            {
+              "text": "Stores provider plugins",
+              "correct": false,
+              "explanation": "Wrong. Plugins live in .terraform.",
+              "id": "b"
+            },
+            {
+              "text": "Holds formatting preferences",
+              "correct": false,
+              "explanation": "Wrong. fmt handles formatting.",
+              "id": "c"
+            },
+            {
+              "text": "Compiles the configuration",
+              "correct": false,
+              "explanation": "Wrong. Terraform does not compile config.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state",
+          "id": "terraform004-s1-q32"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does state locking prevent?",
+          "options": [
+            {
+              "text": "Concurrent operations from corrupting state",
+              "correct": true,
+              "explanation": "Correct. Locking serializes writes.",
+              "id": "a"
+            },
+            {
+              "text": "Users from reading outputs",
+              "correct": false,
+              "explanation": "Wrong. Locking does not block reads.",
+              "id": "b"
+            },
+            {
+              "text": "Providers from upgrading",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to provider upgrades.",
+              "id": "c"
+            },
+            {
+              "text": "Variables from changing",
+              "correct": false,
+              "explanation": "Wrong. Locking governs state writes.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/locking",
+          "id": "terraform004-s1-q33"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which backend stores state locally by default?",
+          "options": [
+            {
+              "text": "The local backend",
+              "correct": true,
+              "explanation": "Correct. Without config, Terraform uses local.",
+              "id": "a"
+            },
+            {
+              "text": "The s3 backend",
+              "correct": false,
+              "explanation": "Wrong. s3 must be configured.",
+              "id": "b"
+            },
+            {
+              "text": "The remote backend",
+              "correct": false,
+              "explanation": "Wrong. remote needs explicit config.",
+              "id": "c"
+            },
+            {
+              "text": "The consul backend",
+              "correct": false,
+              "explanation": "Wrong. consul must be configured.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/backend/local",
+          "id": "terraform004-s1-q34"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "An interrupted apply left a stale lock. What clears it safely?",
+          "options": [
+            {
+              "text": "terraform force-unlock <ID> after confirming none is running",
+              "correct": true,
+              "explanation": "Correct. force-unlock releases a verified-stale lock.",
+              "id": "a"
+            },
+            {
+              "text": "Deleting the state file",
+              "correct": false,
+              "explanation": "Wrong. That destroys the resource record.",
+              "id": "b"
+            },
+            {
+              "text": "terraform refresh",
+              "correct": false,
+              "explanation": "Wrong. refresh does not touch locks.",
+              "id": "c"
+            },
+            {
+              "text": "Reinstalling Terraform",
+              "correct": false,
+              "explanation": "Wrong. The lock lives in the backend.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/locking",
+          "id": "terraform004-s1-q35"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which blocks refactor state addresses without recreating resources?",
+          "options": [
+            {
+              "text": "moved and removed blocks",
+              "correct": true,
+              "explanation": "Correct. They express refactors declaratively.",
+              "id": "a"
+            },
+            {
+              "text": "lifecycle and provisioner",
+              "correct": false,
+              "explanation": "Wrong. Those control behavior/scripts.",
+              "id": "b"
+            },
+            {
+              "text": "backend and provider",
+              "correct": false,
+              "explanation": "Wrong. Those configure storage/plugins.",
+              "id": "c"
+            },
+            {
+              "text": "output and variable",
+              "correct": false,
+              "explanation": "Wrong. Those expose/accept values.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/develop/refactoring",
+          "id": "terraform004-s1-q36"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which AWS service combo commonly backs remote state with locking?",
+          "options": [
+            {
+              "text": "S3 for storage with native state locking",
+              "correct": true,
+              "explanation": "Correct. S3 stores state and supports locking.",
+              "id": "a"
+            },
+            {
+              "text": "EC2 local disk",
+              "correct": false,
+              "explanation": "Wrong. Not a managed remote backend.",
+              "id": "b"
+            },
+            {
+              "text": "CloudFront",
+              "correct": false,
+              "explanation": "Wrong. CloudFront is a CDN.",
+              "id": "c"
+            },
+            {
+              "text": "Route 53",
+              "correct": false,
+              "explanation": "Wrong. Route 53 is DNS.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/backend/s3",
+          "id": "terraform004-s1-q37"
+        },
+        {
           "domainId": "d7",
           "difficulty": "medium",
           "type": "single",
-          "stem": "You need to bring a manually-created cloud resource under Terraform management without recreating it. Which approach fits the modern workflow?",
+          "stem": "How do you adopt a manually-created resource without recreating it?",
           "options": [
-            { "id": "a", "text": "An import block in configuration, then terraform plan/apply", "correct": true, "explanation": "Correct. Config-driven import blocks let you declare imports and bring resources in via the normal plan/apply flow." },
-            { "id": "b", "text": "terraform destroy then re-apply", "correct": false, "explanation": "Wrong. That deletes the resource — the opposite of importing it intact." },
-            { "id": "c", "text": "Manually edit the state JSON by hand", "correct": false, "explanation": "Wrong. Hand-editing state is error-prone and unsupported; use import." },
-            { "id": "d", "text": "terraform refresh", "correct": false, "explanation": "Wrong. refresh updates known resources; it can't adopt an unmanaged one." }
+            {
+              "text": "An import block, then plan/apply",
+              "correct": true,
+              "explanation": "Correct. Config-driven import adopts existing resources.",
+              "id": "a"
+            },
+            {
+              "text": "destroy then apply",
+              "correct": false,
+              "explanation": "Wrong. That deletes the resource.",
+              "id": "b"
+            },
+            {
+              "text": "Editing state JSON by hand",
+              "correct": false,
+              "explanation": "Wrong. Error-prone and unsupported.",
+              "id": "c"
+            },
+            {
+              "text": "terraform refresh",
+              "correct": false,
+              "explanation": "Wrong. refresh cannot adopt unmanaged resources.",
+              "id": "d"
+            }
           ],
-          "reference": "https://developer.hashicorp.com/terraform/language/import"
+          "reference": "https://developer.hashicorp.com/terraform/language/import",
+          "id": "terraform004-s1-q38"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command lists resources tracked in state?",
+          "options": [
+            {
+              "text": "terraform state list",
+              "correct": true,
+              "explanation": "Correct. state list enumerates tracked addresses.",
+              "id": "a"
+            },
+            {
+              "text": "terraform plan",
+              "correct": false,
+              "explanation": "Wrong. plan diffs but does not list state.",
+              "id": "b"
+            },
+            {
+              "text": "terraform fmt",
+              "correct": false,
+              "explanation": "Wrong. fmt formats files.",
+              "id": "c"
+            },
+            {
+              "text": "terraform output",
+              "correct": false,
+              "explanation": "Wrong. output prints output values.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+          "id": "terraform004-s1-q39"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "How do you enable verbose internal logging?",
+          "options": [
+            {
+              "text": "Set TF_LOG (e.g. TF_LOG=DEBUG)",
+              "correct": true,
+              "explanation": "Correct. TF_LOG controls log verbosity.",
+              "id": "a"
+            },
+            {
+              "text": "Pass --debug to every command",
+              "correct": false,
+              "explanation": "Wrong. No universal --debug flag.",
+              "id": "b"
+            },
+            {
+              "text": "Edit the lock file",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to logging.",
+              "id": "c"
+            },
+            {
+              "text": "Enable it in the backend block",
+              "correct": false,
+              "explanation": "Wrong. Logging is set via environment.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/internals/debugging",
+          "id": "terraform004-s1-q40"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which command reconciles state with reality without other changes?",
+          "options": [
+            {
+              "text": "terraform apply -refresh-only",
+              "correct": true,
+              "explanation": "Correct. refresh-only updates state to match reality.",
+              "id": "a"
+            },
+            {
+              "text": "terraform destroy",
+              "correct": false,
+              "explanation": "Wrong. destroy removes resources.",
+              "id": "b"
+            },
+            {
+              "text": "terraform fmt",
+              "correct": false,
+              "explanation": "Wrong. fmt only formats.",
+              "id": "c"
+            },
+            {
+              "text": "terraform init",
+              "correct": false,
+              "explanation": "Wrong. init prepares the directory.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/refresh",
+          "id": "terraform004-s1-q41"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "In HCP Terraform, what groups workspaces for shared variable sets and access?",
+          "options": [
+            {
+              "text": "Projects",
+              "correct": true,
+              "explanation": "Correct. Projects organize workspaces and shared access.",
+              "id": "a"
+            },
+            {
+              "text": "Run triggers",
+              "correct": false,
+              "explanation": "Wrong. Run triggers chain runs.",
+              "id": "b"
+            },
+            {
+              "text": "Policy sets",
+              "correct": false,
+              "explanation": "Wrong. Policy sets enforce governance.",
+              "id": "c"
+            },
+            {
+              "text": "The Explorer",
+              "correct": false,
+              "explanation": "Wrong. Explorer is a query view.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/projects",
+          "id": "terraform004-s1-q42"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which HCP Terraform feature detects state-vs-reality divergence?",
+          "options": [
+            {
+              "text": "Drift detection",
+              "correct": true,
+              "explanation": "Correct. HCP Terraform checks for drift periodically.",
+              "id": "a"
+            },
+            {
+              "text": "Run triggers",
+              "correct": false,
+              "explanation": "Wrong. They chain runs.",
+              "id": "b"
+            },
+            {
+              "text": "Variable sets",
+              "correct": false,
+              "explanation": "Wrong. They share variables.",
+              "id": "c"
+            },
+            {
+              "text": "The private registry",
+              "correct": false,
+              "explanation": "Wrong. It hosts modules/providers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/workspaces/health",
+          "id": "terraform004-s1-q43"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What do run triggers do?",
+          "options": [
+            {
+              "text": "Start a run after another workspace applies",
+              "correct": true,
+              "explanation": "Correct. Run triggers create workspace dependencies.",
+              "id": "a"
+            },
+            {
+              "text": "Group workspaces for access",
+              "correct": false,
+              "explanation": "Wrong. That is Projects.",
+              "id": "b"
+            },
+            {
+              "text": "Enforce policy as code",
+              "correct": false,
+              "explanation": "Wrong. That is policy sets.",
+              "id": "c"
+            },
+            {
+              "text": "Detect drift",
+              "correct": false,
+              "explanation": "Wrong. That is drift detection.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/workspaces/settings/run-triggers",
+          "id": "terraform004-s1-q44"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which HCP Terraform feature enforces governance before apply?",
+          "options": [
+            {
+              "text": "Policy enforcement with Sentinel or OPA",
+              "correct": true,
+              "explanation": "Correct. Policy sets gate runs against codified rules.",
+              "id": "a"
+            },
+            {
+              "text": "The dependency lock file",
+              "correct": false,
+              "explanation": "Wrong. It pins providers.",
+              "id": "b"
+            },
+            {
+              "text": "Workspace variables",
+              "correct": false,
+              "explanation": "Wrong. They supply values.",
+              "id": "c"
+            },
+            {
+              "text": "Remote state data sources",
+              "correct": false,
+              "explanation": "Wrong. Those read outputs across configs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/policy-enforcement",
+          "id": "terraform004-s1-q45"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which block connects the CLI to HCP Terraform?",
+          "options": [
+            {
+              "text": "The cloud block",
+              "correct": true,
+              "explanation": "Correct. The cloud block configures CLI integration.",
+              "id": "a"
+            },
+            {
+              "text": "The provider block",
+              "correct": false,
+              "explanation": "Wrong. Providers manage resources.",
+              "id": "b"
+            },
+            {
+              "text": "The output block",
+              "correct": false,
+              "explanation": "Wrong. Outputs expose values.",
+              "id": "c"
+            },
+            {
+              "text": "The variable block",
+              "correct": false,
+              "explanation": "Wrong. Variables accept inputs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/cloud/settings",
+          "id": "terraform004-s1-q46"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What is an HCP Terraform workspace?",
+          "options": [
+            {
+              "text": "An isolated environment with its own state, variables, and runs",
+              "correct": true,
+              "explanation": "Correct. Workspaces isolate state and config per environment.",
+              "id": "a"
+            },
+            {
+              "text": "A local folder on disk",
+              "correct": false,
+              "explanation": "Wrong. That is a working directory.",
+              "id": "b"
+            },
+            {
+              "text": "A provider plugin",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "c"
+            },
+            {
+              "text": "A formatting profile",
+              "correct": false,
+              "explanation": "Wrong. fmt handles formatting.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/workspaces",
+          "id": "terraform004-s1-q47"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which HCP Terraform feature shares variables across many workspaces?",
+          "options": [
+            {
+              "text": "Variable sets",
+              "correct": true,
+              "explanation": "Correct. Variable sets apply variables to multiple workspaces.",
+              "id": "a"
+            },
+            {
+              "text": "Run triggers",
+              "correct": false,
+              "explanation": "Wrong. They chain runs.",
+              "id": "b"
+            },
+            {
+              "text": "Projects only",
+              "correct": false,
+              "explanation": "Wrong. Projects group workspaces; variable sets share variables.",
+              "id": "c"
+            },
+            {
+              "text": "The Explorer",
+              "correct": false,
+              "explanation": "Wrong. Explorer queries data.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/workspaces/variables",
+          "id": "terraform004-s1-q48"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which file extension do Terraform configuration files use?",
+          "options": [
+            {
+              "text": ".tf (and .tf.json for JSON syntax)",
+              "correct": true,
+              "explanation": "Correct. HCL configs use .tf; JSON variant is .tf.json.",
+              "id": "a"
+            },
+            {
+              "text": ".yaml only",
+              "correct": false,
+              "explanation": "Wrong. Terraform does not use YAML for config.",
+              "id": "b"
+            },
+            {
+              "text": ".cfg",
+              "correct": false,
+              "explanation": "Wrong. Not a Terraform extension.",
+              "id": "c"
+            },
+            {
+              "text": ".hcl is required for all files",
+              "correct": false,
+              "explanation": "Wrong. Config files use .tf, not .hcl.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/files",
+          "id": "terraform004-s1-q49"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which function joins a list into a single string with a separator?",
+          "options": [
+            {
+              "text": "join()",
+              "correct": true,
+              "explanation": "Correct. join(sep, list) concatenates list elements.",
+              "id": "a"
+            },
+            {
+              "text": "split()",
+              "correct": false,
+              "explanation": "Wrong. split does the reverse.",
+              "id": "b"
+            },
+            {
+              "text": "concat()",
+              "correct": false,
+              "explanation": "Wrong. concat merges lists, not into a string.",
+              "id": "c"
+            },
+            {
+              "text": "format()",
+              "correct": false,
+              "explanation": "Wrong. format builds strings from a template, not list joining.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/join",
+          "id": "terraform004-s1-q50"
         }
       ]
     },
@@ -97,46 +1741,1704 @@
       "timeLimitMin": 60,
       "questions": [
         {
-          "id": "tf004-s2-q1",
-          "domainId": "d3",
-          "difficulty": "easy",
-          "type": "multi",
-          "stem": "Which commands are part of the core Terraform workflow? (Select TWO)",
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which statement about IaC version control is accurate?",
           "options": [
-            { "id": "a", "text": "terraform plan", "correct": true, "explanation": "Correct. plan previews changes — a core step (write, plan, apply)." },
-            { "id": "b", "text": "terraform apply", "correct": true, "explanation": "Correct. apply executes the planned changes — the final core step." },
-            { "id": "c", "text": "terraform deploy", "correct": false, "explanation": "Wrong. There is no deploy subcommand; apply performs deployment." },
-            { "id": "d", "text": "terraform lint", "correct": false, "explanation": "Wrong. No lint subcommand; use fmt and validate." }
+            {
+              "text": "Configuration in version control gives history, review, and rollback",
+              "correct": true,
+              "explanation": "Correct. VCS brings auditability and collaboration to infra.",
+              "id": "a"
+            },
+            {
+              "text": "Version control makes state files unnecessary",
+              "correct": false,
+              "explanation": "Wrong. State is still required to track resources.",
+              "id": "b"
+            },
+            {
+              "text": "It prevents any configuration drift entirely",
+              "correct": false,
+              "explanation": "Wrong. Drift can still occur from out-of-band changes.",
+              "id": "c"
+            },
+            {
+              "text": "It removes the need for providers",
+              "correct": false,
+              "explanation": "Wrong. Providers are still required.",
+              "id": "d"
+            }
           ],
-          "reference": "https://developer.hashicorp.com/terraform/intro/core-workflow"
+          "reference": "https://developer.hashicorp.com/terraform/intro",
+          "id": "terraform004-s2-q1"
         },
         {
-          "id": "tf004-s2-q2",
+          "domainId": "d1",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which is NOT a benefit typically associated with IaC?",
+          "options": [
+            {
+              "text": "Guaranteed zero cloud spend",
+              "correct": true,
+              "explanation": "Correct. IaC does not make infrastructure free.",
+              "id": "a"
+            },
+            {
+              "text": "Repeatable provisioning",
+              "correct": false,
+              "explanation": "Wrong. This IS a benefit.",
+              "id": "b"
+            },
+            {
+              "text": "Peer review of changes",
+              "correct": false,
+              "explanation": "Wrong. This IS a benefit.",
+              "id": "c"
+            },
+            {
+              "text": "Consistent environments",
+              "correct": false,
+              "explanation": "Wrong. This IS a benefit.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/intro",
+          "id": "terraform004-s2-q2"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What happens the first time you run init in a new directory?",
+          "options": [
+            {
+              "text": "Providers and modules are installed and the backend is set up",
+              "correct": true,
+              "explanation": "Correct. init bootstraps the directory.",
+              "id": "a"
+            },
+            {
+              "text": "Resources are immediately created",
+              "correct": false,
+              "explanation": "Wrong. apply creates resources.",
+              "id": "b"
+            },
+            {
+              "text": "State is destroyed",
+              "correct": false,
+              "explanation": "Wrong. init does not destroy state.",
+              "id": "c"
+            },
+            {
+              "text": "A plan is auto-applied",
+              "correct": false,
+              "explanation": "Wrong. init does not apply.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "id": "terraform004-s2-q3"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does a version constraint like \"~> 4.0\" allow?",
+          "options": [
+            {
+              "text": "4.x releases at or above 4.0 but below 5.0",
+              "correct": true,
+              "explanation": "Correct. The pessimistic operator allows rightmost-component increments.",
+              "id": "a"
+            },
+            {
+              "text": "Only exactly version 4.0",
+              "correct": false,
+              "explanation": "Wrong. That would be = 4.0.",
+              "id": "b"
+            },
+            {
+              "text": "Any version greater than 4.0 including 5.x",
+              "correct": false,
+              "explanation": "Wrong. ~> caps the major increment.",
+              "id": "c"
+            },
+            {
+              "text": "Versions below 4.0",
+              "correct": false,
+              "explanation": "Wrong. The constraint floors at 4.0.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/version-constraints",
+          "id": "terraform004-s2-q4"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which command shows the current Terraform version?",
+          "options": [
+            {
+              "text": "terraform version",
+              "correct": true,
+              "explanation": "Correct. version prints CLI and provider versions.",
+              "id": "a"
+            },
+            {
+              "text": "terraform -v only works in CI",
+              "correct": false,
+              "explanation": "Wrong. version/-v works anywhere.",
+              "id": "b"
+            },
+            {
+              "text": "terraform info",
+              "correct": false,
+              "explanation": "Wrong. No such subcommand.",
+              "id": "c"
+            },
+            {
+              "text": "terraform status",
+              "correct": false,
+              "explanation": "Wrong. No such subcommand.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/version",
+          "id": "terraform004-s2-q5"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does `terraform apply` do when given a saved plan file?",
+          "options": [
+            {
+              "text": "Executes exactly the actions captured in that plan",
+              "correct": true,
+              "explanation": "Correct. Applying a saved plan runs precisely those changes.",
+              "id": "a"
+            },
+            {
+              "text": "Generates a brand-new plan and ignores the file",
+              "correct": false,
+              "explanation": "Wrong. The saved plan is used as-is.",
+              "id": "b"
+            },
+            {
+              "text": "Only validates the plan",
+              "correct": false,
+              "explanation": "Wrong. apply executes, not just validates.",
+              "id": "c"
+            },
+            {
+              "text": "Destroys the listed resources",
+              "correct": false,
+              "explanation": "Wrong. It applies, not destroys.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+          "id": "terraform004-s2-q6"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which command produces a human-readable view of a plan or state file?",
+          "options": [
+            {
+              "text": "terraform show",
+              "correct": true,
+              "explanation": "Correct. show renders a plan or state in readable form.",
+              "id": "a"
+            },
+            {
+              "text": "terraform list",
+              "correct": false,
+              "explanation": "Wrong. No top-level list subcommand.",
+              "id": "b"
+            },
+            {
+              "text": "terraform read",
+              "correct": false,
+              "explanation": "Wrong. No such subcommand.",
+              "id": "c"
+            },
+            {
+              "text": "terraform print",
+              "correct": false,
+              "explanation": "Wrong. No such subcommand.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/show",
+          "id": "terraform004-s2-q7"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What is the recommended general approach to using -target?",
+          "options": [
+            {
+              "text": "Use it sparingly for exceptional recovery situations",
+              "correct": true,
+              "explanation": "Correct. -target is an escape hatch, not routine workflow.",
+              "id": "a"
+            },
+            {
+              "text": "Use it on every apply for speed",
+              "correct": false,
+              "explanation": "Wrong. Routine targeting can mask dependency issues.",
+              "id": "b"
+            },
+            {
+              "text": "It is required for modules",
+              "correct": false,
+              "explanation": "Wrong. Modules do not require -target.",
+              "id": "c"
+            },
+            {
+              "text": "It replaces the plan stage",
+              "correct": false,
+              "explanation": "Wrong. It scopes, not replaces, planning.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "id": "terraform004-s2-q8"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does a `locals` block provide?",
+          "options": [
+            {
+              "text": "Named local values to reuse expressions within a module",
+              "correct": true,
+              "explanation": "Correct. locals define reusable computed values.",
+              "id": "a"
+            },
+            {
+              "text": "Input variables from the caller",
+              "correct": false,
+              "explanation": "Wrong. Those are variable blocks.",
+              "id": "b"
+            },
+            {
+              "text": "Outputs to the caller",
+              "correct": false,
+              "explanation": "Wrong. Those are output blocks.",
+              "id": "c"
+            },
+            {
+              "text": "Remote state storage",
+              "correct": false,
+              "explanation": "Wrong. That is the backend.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/values/locals",
+          "id": "terraform004-s2-q9"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which expression type lets you build a list by transforming another collection?",
+          "options": [
+            {
+              "text": "A for expression",
+              "correct": true,
+              "explanation": "Correct. for expressions transform/filter collections.",
+              "id": "a"
+            },
+            {
+              "text": "A provisioner",
+              "correct": false,
+              "explanation": "Wrong. Provisioners run scripts.",
+              "id": "b"
+            },
+            {
+              "text": "A backend",
+              "correct": false,
+              "explanation": "Wrong. Backends store state.",
+              "id": "c"
+            },
+            {
+              "text": "A required_providers block",
+              "correct": false,
+              "explanation": "Wrong. That pins providers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/for",
+          "id": "terraform004-s2-q10"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "What does the `dynamic` block do?",
+          "options": [
+            {
+              "text": "Generates repeatable nested blocks from a collection",
+              "correct": true,
+              "explanation": "Correct. dynamic blocks build nested config dynamically.",
+              "id": "a"
+            },
+            {
+              "text": "Creates multiple top-level resources",
+              "correct": false,
+              "explanation": "Wrong. That is for_each/count on the resource.",
+              "id": "b"
+            },
+            {
+              "text": "Encrypts sensitive values",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to encryption.",
+              "id": "c"
+            },
+            {
+              "text": "Defines provider versions",
+              "correct": false,
+              "explanation": "Wrong. That is required_providers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks",
+          "id": "terraform004-s2-q11"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which is the correct way to mark an input variable as secret in CLI output?",
+          "options": [
+            {
+              "text": "Set sensitive = true on the variable",
+              "correct": true,
+              "explanation": "Correct. sensitive redacts the value from CLI output.",
+              "id": "a"
+            },
+            {
+              "text": "Prefix the name with an underscore",
+              "correct": false,
+              "explanation": "Wrong. Naming does not affect sensitivity.",
+              "id": "b"
+            },
+            {
+              "text": "Put it in the backend block",
+              "correct": false,
+              "explanation": "Wrong. Backends do not define variables.",
+              "id": "c"
+            },
+            {
+              "text": "Use jsonencode on it",
+              "correct": false,
+              "explanation": "Wrong. Encoding does not redact output.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/values/variables",
+          "id": "terraform004-s2-q12"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does the `count` meta-argument require?",
+          "options": [
+            {
+              "text": "A whole number of instances to create",
+              "correct": true,
+              "explanation": "Correct. count takes an integer.",
+              "id": "a"
+            },
+            {
+              "text": "A map of objects",
+              "correct": false,
+              "explanation": "Wrong. That is for_each.",
+              "id": "b"
+            },
+            {
+              "text": "A boolean only",
+              "correct": false,
+              "explanation": "Wrong. count takes a number, though it can derive from a condition.",
+              "id": "c"
+            },
+            {
+              "text": "A provider name",
+              "correct": false,
+              "explanation": "Wrong. provider is a separate argument.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/meta-arguments/count",
+          "id": "terraform004-s2-q13"
+        },
+        {
           "domainId": "d5",
           "difficulty": "medium",
           "type": "single",
-          "stem": "How do you pin a public registry module to a specific version?",
+          "stem": "What is the root module?",
           "options": [
-            { "id": "a", "text": "Set the version argument in the module block", "correct": true, "explanation": "Correct. Registry sources accept a version constraint via the version argument in the module block." },
-            { "id": "b", "text": "Append ?ref=v1.0.0 to the source", "correct": false, "explanation": "Wrong. ?ref= pins Git sources, not registry sources." },
-            { "id": "c", "text": "Use a module_version argument", "correct": false, "explanation": "Wrong. No such argument exists." },
-            { "id": "d", "text": "Versions can't be pinned for registry modules", "correct": false, "explanation": "Wrong. Version pinning is a core feature of registry modules." }
+            {
+              "text": "The directory where you run Terraform, holding the main configuration",
+              "correct": true,
+              "explanation": "Correct. The root module is the working directory's config.",
+              "id": "a"
+            },
+            {
+              "text": "A module published to the registry",
+              "correct": false,
+              "explanation": "Wrong. That is a published/child module.",
+              "id": "b"
+            },
+            {
+              "text": "The state backend",
+              "correct": false,
+              "explanation": "Wrong. The backend stores state.",
+              "id": "c"
+            },
+            {
+              "text": "The provider plugin directory",
+              "correct": false,
+              "explanation": "Wrong. That is .terraform.",
+              "id": "d"
+            }
           ],
-          "reference": "https://developer.hashicorp.com/terraform/language/block/module#version"
+          "reference": "https://developer.hashicorp.com/terraform/language/modules",
+          "id": "terraform004-s2-q14"
         },
         {
-          "id": "tf004-s2-q3",
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "How are inputs passed into a module block?",
+          "options": [
+            {
+              "text": "As arguments matching the module's declared variables",
+              "correct": true,
+              "explanation": "Correct. Callers set module variables as arguments.",
+              "id": "a"
+            },
+            {
+              "text": "Through environment variables only",
+              "correct": false,
+              "explanation": "Wrong. Inputs are set as arguments.",
+              "id": "b"
+            },
+            {
+              "text": "By editing the module's source files",
+              "correct": false,
+              "explanation": "Wrong. You pass inputs, not edit source.",
+              "id": "c"
+            },
+            {
+              "text": "Via the backend block",
+              "correct": false,
+              "explanation": "Wrong. Backends are unrelated.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/syntax",
+          "id": "terraform004-s2-q15"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which source pins a Git-hosted module to a specific commit or tag?",
+          "options": [
+            {
+              "text": "A git:: source with ?ref=",
+              "correct": true,
+              "explanation": "Correct. ?ref= pins Git sources to a ref.",
+              "id": "a"
+            },
+            {
+              "text": "The version argument",
+              "correct": false,
+              "explanation": "Wrong. version applies to registry sources.",
+              "id": "b"
+            },
+            {
+              "text": "A commit argument",
+              "correct": false,
+              "explanation": "Wrong. No such argument.",
+              "id": "c"
+            },
+            {
+              "text": "The lock file",
+              "correct": false,
+              "explanation": "Wrong. The lock file pins providers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/sources",
+          "id": "terraform004-s2-q16"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Why should state be stored remotely for a team?",
+          "options": [
+            {
+              "text": "To share a single source of truth with locking and access control",
+              "correct": true,
+              "explanation": "Correct. Remote state enables safe collaboration.",
+              "id": "a"
+            },
+            {
+              "text": "Because local state cannot store any resources",
+              "correct": false,
+              "explanation": "Wrong. Local state works; it just is not shareable safely.",
+              "id": "b"
+            },
+            {
+              "text": "To make applies run faster locally",
+              "correct": false,
+              "explanation": "Wrong. Speed is not the reason.",
+              "id": "c"
+            },
+            {
+              "text": "To avoid writing configuration",
+              "correct": false,
+              "explanation": "Wrong. Config is still required.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/remote",
+          "id": "terraform004-s2-q17"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does `terraform state mv` do?",
+          "options": [
+            {
+              "text": "Renames or moves a resource's address within state",
+              "correct": true,
+              "explanation": "Correct. state mv relocates an item in state.",
+              "id": "a"
+            },
+            {
+              "text": "Moves the state file to a new backend",
+              "correct": false,
+              "explanation": "Wrong. That is backend migration via init.",
+              "id": "b"
+            },
+            {
+              "text": "Deletes a resource from the cloud",
+              "correct": false,
+              "explanation": "Wrong. It edits state, not infrastructure.",
+              "id": "c"
+            },
+            {
+              "text": "Renames a provider",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to providers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+          "id": "terraform004-s2-q18"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "What does `terraform state rm` do?",
+          "options": [
+            {
+              "text": "Removes a resource from state without destroying it in the cloud",
+              "correct": true,
+              "explanation": "Correct. state rm stops tracking without deleting real infra.",
+              "id": "a"
+            },
+            {
+              "text": "Destroys the resource in the cloud",
+              "correct": false,
+              "explanation": "Wrong. It only edits state.",
+              "id": "b"
+            },
+            {
+              "text": "Removes a provider plugin",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "c"
+            },
+            {
+              "text": "Deletes the whole state file",
+              "correct": false,
+              "explanation": "Wrong. It removes one item, not the file.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/state/rm",
+          "id": "terraform004-s2-q19"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "When migrating backends, what does Terraform prompt to do with existing state?",
+          "options": [
+            {
+              "text": "Offer to copy existing state to the new backend",
+              "correct": true,
+              "explanation": "Correct. init detects backend change and offers migration.",
+              "id": "a"
+            },
+            {
+              "text": "Silently delete it",
+              "correct": false,
+              "explanation": "Wrong. Terraform does not silently delete state.",
+              "id": "b"
+            },
+            {
+              "text": "Ignore it entirely",
+              "correct": false,
+              "explanation": "Wrong. It handles existing state explicitly.",
+              "id": "c"
+            },
+            {
+              "text": "Convert it to JSON config",
+              "correct": false,
+              "explanation": "Wrong. State is not converted to config.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/backend",
+          "id": "terraform004-s2-q20"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does `terraform state show <addr>` display?",
+          "options": [
+            {
+              "text": "The attributes of a single resource as recorded in state",
+              "correct": true,
+              "explanation": "Correct. state show inspects one resource's state.",
+              "id": "a"
+            },
+            {
+              "text": "All resources in the configuration",
+              "correct": false,
+              "explanation": "Wrong. That is state list.",
+              "id": "b"
+            },
+            {
+              "text": "The execution plan",
+              "correct": false,
+              "explanation": "Wrong. That is plan.",
+              "id": "c"
+            },
+            {
+              "text": "Output values",
+              "correct": false,
+              "explanation": "Wrong. That is output.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+          "id": "terraform004-s2-q21"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which approach replaces a single resource on the next apply?",
+          "options": [
+            {
+              "text": "terraform apply -replace=<address>",
+              "correct": true,
+              "explanation": "Correct. -replace forces recreation of a specific resource.",
+              "id": "a"
+            },
+            {
+              "text": "terraform taint is the only modern way",
+              "correct": false,
+              "explanation": "Wrong. taint is deprecated in favor of -replace.",
+              "id": "b"
+            },
+            {
+              "text": "Deleting it from state",
+              "correct": false,
+              "explanation": "Wrong. That stops tracking, not replacement.",
+              "id": "c"
+            },
+            {
+              "text": "terraform destroy -replace",
+              "correct": false,
+              "explanation": "Wrong. destroy removes; -replace is used with apply.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "id": "terraform004-s2-q22"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which log level gives the most detailed TF_LOG output?",
+          "options": [
+            {
+              "text": "TRACE",
+              "correct": true,
+              "explanation": "Correct. TRACE is the most verbose level.",
+              "id": "a"
+            },
+            {
+              "text": "INFO",
+              "correct": false,
+              "explanation": "Wrong. INFO is less verbose than DEBUG/TRACE.",
+              "id": "b"
+            },
+            {
+              "text": "WARN",
+              "correct": false,
+              "explanation": "Wrong. WARN shows only warnings and above.",
+              "id": "c"
+            },
+            {
+              "text": "ERROR",
+              "correct": false,
+              "explanation": "Wrong. ERROR shows the least.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/internals/debugging",
+          "id": "terraform004-s2-q23"
+        },
+        {
           "domainId": "d8",
           "difficulty": "medium",
           "type": "single",
-          "stem": "Which HCP Terraform capability automatically detects when real infrastructure no longer matches recorded state?",
+          "stem": "What is the HCP Terraform private registry used for?",
           "options": [
-            { "id": "a", "text": "Drift detection", "correct": true, "explanation": "Correct. HCP Terraform's health/drift detection periodically checks for divergence between state and real resources." },
-            { "id": "b", "text": "Run triggers", "correct": false, "explanation": "Wrong. Run triggers chain runs across workspaces; they don't detect drift." },
-            { "id": "c", "text": "Sentinel", "correct": false, "explanation": "Wrong. Sentinel is policy-as-code enforcement, not drift detection." },
-            { "id": "d", "text": "Variable sets", "correct": false, "explanation": "Wrong. Variable sets share variables across workspaces; unrelated to drift." }
+            {
+              "text": "Sharing internal modules and providers within an organization",
+              "correct": true,
+              "explanation": "Correct. The private registry hosts org-internal modules/providers.",
+              "id": "a"
+            },
+            {
+              "text": "Detecting drift",
+              "correct": false,
+              "explanation": "Wrong. That is drift detection.",
+              "id": "b"
+            },
+            {
+              "text": "Chaining workspace runs",
+              "correct": false,
+              "explanation": "Wrong. That is run triggers.",
+              "id": "c"
+            },
+            {
+              "text": "Storing application logs",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to logging.",
+              "id": "d"
+            }
           ],
-          "reference": "https://developer.hashicorp.com/terraform/tutorials/cloud/drift-detection"
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/registry",
+          "id": "terraform004-s2-q24"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which HCP Terraform run mode applies changes without prompting in VCS-driven workflows after approval gates?",
+          "options": [
+            {
+              "text": "Remote operations execute plan/apply on HCP Terraform's infrastructure",
+              "correct": true,
+              "explanation": "Correct. Remote operations run on HCP Terraform, not your laptop.",
+              "id": "a"
+            },
+            {
+              "text": "Local-only mode with no remote runs",
+              "correct": false,
+              "explanation": "Wrong. That defeats remote operations.",
+              "id": "b"
+            },
+            {
+              "text": "Offline mode",
+              "correct": false,
+              "explanation": "Wrong. No such HCP mode.",
+              "id": "c"
+            },
+            {
+              "text": "Plan-only with no apply ever",
+              "correct": false,
+              "explanation": "Wrong. Apply still occurs after approval.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/run/remote-operations",
+          "id": "terraform004-s2-q25"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "What problem do dynamic provider credentials in HCP Terraform solve?",
+          "options": [
+            {
+              "text": "They avoid storing long-lived static cloud keys by issuing short-lived credentials",
+              "correct": true,
+              "explanation": "Correct. Dynamic credentials reduce secret-leak risk.",
+              "id": "a"
+            },
+            {
+              "text": "They speed up plan generation",
+              "correct": false,
+              "explanation": "Wrong. Not their purpose.",
+              "id": "b"
+            },
+            {
+              "text": "They format configuration files",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "c"
+            },
+            {
+              "text": "They detect drift",
+              "correct": false,
+              "explanation": "Wrong. That is drift detection.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/workspaces/dynamic-provider-credentials",
+          "id": "terraform004-s2-q26"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does the HCP Terraform Explorer provide?",
+          "options": [
+            {
+              "text": "Cross-workspace visibility and querying of resources and health",
+              "correct": true,
+              "explanation": "Correct. Explorer surfaces data across many workspaces.",
+              "id": "a"
+            },
+            {
+              "text": "A grouping container for access control",
+              "correct": false,
+              "explanation": "Wrong. That is Projects.",
+              "id": "b"
+            },
+            {
+              "text": "Policy enforcement",
+              "correct": false,
+              "explanation": "Wrong. That is policy sets.",
+              "id": "c"
+            },
+            {
+              "text": "A module source",
+              "correct": false,
+              "explanation": "Wrong. That is the registry.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/workspaces/explorer",
+          "id": "terraform004-s2-q27"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which command initializes and also reconfigures an existing backend?",
+          "options": [
+            {
+              "text": "terraform init -reconfigure",
+              "correct": true,
+              "explanation": "Correct. -reconfigure resets backend configuration.",
+              "id": "a"
+            },
+            {
+              "text": "terraform backend set",
+              "correct": false,
+              "explanation": "Wrong. No such subcommand.",
+              "id": "b"
+            },
+            {
+              "text": "terraform reconfigure",
+              "correct": false,
+              "explanation": "Wrong. No such subcommand.",
+              "id": "c"
+            },
+            {
+              "text": "terraform plan -reconfigure",
+              "correct": false,
+              "explanation": "Wrong. plan has no such flag.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "id": "terraform004-s2-q28"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which flag auto-approves an apply without interactive confirmation?",
+          "options": [
+            {
+              "text": "-auto-approve",
+              "correct": true,
+              "explanation": "Correct. -auto-approve skips the confirmation prompt.",
+              "id": "a"
+            },
+            {
+              "text": "-yes",
+              "correct": false,
+              "explanation": "Wrong. Not the correct flag.",
+              "id": "b"
+            },
+            {
+              "text": "-force",
+              "correct": false,
+              "explanation": "Wrong. Not the apply confirmation flag.",
+              "id": "c"
+            },
+            {
+              "text": "-confirm",
+              "correct": false,
+              "explanation": "Wrong. No such flag.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+          "id": "terraform004-s2-q29"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does the `templatefile()` function do?",
+          "options": [
+            {
+              "text": "Renders a template file using supplied variables",
+              "correct": true,
+              "explanation": "Correct. templatefile interpolates variables into a template.",
+              "id": "a"
+            },
+            {
+              "text": "Reads a file as raw bytes only",
+              "correct": false,
+              "explanation": "Wrong. That is closer to file().",
+              "id": "b"
+            },
+            {
+              "text": "Parses JSON",
+              "correct": false,
+              "explanation": "Wrong. That is jsondecode.",
+              "id": "c"
+            },
+            {
+              "text": "Encrypts a file",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to encryption.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/templatefile",
+          "id": "terraform004-s2-q30"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which value type holds named attributes of potentially different types?",
+          "options": [
+            {
+              "text": "object",
+              "correct": true,
+              "explanation": "Correct. An object groups named attributes of varied types.",
+              "id": "a"
+            },
+            {
+              "text": "list",
+              "correct": false,
+              "explanation": "Wrong. A list is ordered same-typed.",
+              "id": "b"
+            },
+            {
+              "text": "set",
+              "correct": false,
+              "explanation": "Wrong. A set is unordered same-typed unique values.",
+              "id": "c"
+            },
+            {
+              "text": "string",
+              "correct": false,
+              "explanation": "Wrong. A string is a single scalar.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/type-constraints",
+          "id": "terraform004-s2-q31"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "What does the `try()` function do?",
+          "options": [
+            {
+              "text": "Returns the first expression that evaluates without error",
+              "correct": true,
+              "explanation": "Correct. try() provides graceful fallbacks.",
+              "id": "a"
+            },
+            {
+              "text": "Retries a failed apply",
+              "correct": false,
+              "explanation": "Wrong. It is an expression function, not retry logic.",
+              "id": "b"
+            },
+            {
+              "text": "Catches provider API errors",
+              "correct": false,
+              "explanation": "Wrong. It evaluates expressions, not API calls.",
+              "id": "c"
+            },
+            {
+              "text": "Validates variables",
+              "correct": false,
+              "explanation": "Wrong. That is a validation block.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/try",
+          "id": "terraform004-s2-q32"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Why use modules?",
+          "options": [
+            {
+              "text": "To package and reuse configuration with clear inputs and outputs",
+              "correct": true,
+              "explanation": "Correct. Modules promote reuse and encapsulation.",
+              "id": "a"
+            },
+            {
+              "text": "To store state remotely",
+              "correct": false,
+              "explanation": "Wrong. That is the backend.",
+              "id": "b"
+            },
+            {
+              "text": "To pin provider versions",
+              "correct": false,
+              "explanation": "Wrong. That is required_providers.",
+              "id": "c"
+            },
+            {
+              "text": "To format files",
+              "correct": false,
+              "explanation": "Wrong. That is fmt.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules",
+          "id": "terraform004-s2-q33"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does module composition refer to?",
+          "options": [
+            {
+              "text": "Building larger configurations by combining smaller modules",
+              "correct": true,
+              "explanation": "Correct. Composition assembles modules into a system.",
+              "id": "a"
+            },
+            {
+              "text": "Compressing modules into archives",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to packaging format.",
+              "id": "b"
+            },
+            {
+              "text": "Encrypting module source",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "c"
+            },
+            {
+              "text": "Merging two state files",
+              "correct": false,
+              "explanation": "Wrong. That is state manipulation.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/develop/composition",
+          "id": "terraform004-s2-q34"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What is configuration drift?",
+          "options": [
+            {
+              "text": "When real infrastructure differs from what state records",
+              "correct": true,
+              "explanation": "Correct. Drift is divergence between state and reality.",
+              "id": "a"
+            },
+            {
+              "text": "When two modules share a name",
+              "correct": false,
+              "explanation": "Wrong. That is a naming collision.",
+              "id": "b"
+            },
+            {
+              "text": "When a provider version changes",
+              "correct": false,
+              "explanation": "Wrong. That is a version change, not drift.",
+              "id": "c"
+            },
+            {
+              "text": "When fmt reformats files",
+              "correct": false,
+              "explanation": "Wrong. Formatting is not drift.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state",
+          "id": "terraform004-s2-q35"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "How can you detect drift on the CLI?",
+          "options": [
+            {
+              "text": "Run a plan (or refresh-only) and review proposed changes",
+              "correct": true,
+              "explanation": "Correct. A plan reveals differences between state and reality.",
+              "id": "a"
+            },
+            {
+              "text": "Run terraform fmt",
+              "correct": false,
+              "explanation": "Wrong. fmt only formats.",
+              "id": "b"
+            },
+            {
+              "text": "Run terraform version",
+              "correct": false,
+              "explanation": "Wrong. version shows versions.",
+              "id": "c"
+            },
+            {
+              "text": "Delete the lock file",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to drift detection.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "id": "terraform004-s2-q36"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "After import, what should you do to fully manage the resource?",
+          "options": [
+            {
+              "text": "Write matching configuration so future plans show no changes",
+              "correct": true,
+              "explanation": "Correct. Config must match imported state to avoid drift.",
+              "id": "a"
+            },
+            {
+              "text": "Delete the resource and recreate it",
+              "correct": false,
+              "explanation": "Wrong. That defeats the import.",
+              "id": "b"
+            },
+            {
+              "text": "Remove it from state",
+              "correct": false,
+              "explanation": "Wrong. That stops tracking.",
+              "id": "c"
+            },
+            {
+              "text": "Nothing; import alone is sufficient",
+              "correct": false,
+              "explanation": "Wrong. You must add matching config.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/import",
+          "id": "terraform004-s2-q37"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which best describes a provisioner's role (and recommended use)?",
+          "options": [
+            {
+              "text": "Runs scripts on resources; recommended only as a last resort",
+              "correct": true,
+              "explanation": "Correct. Provisioners are an escape hatch, used sparingly.",
+              "id": "a"
+            },
+            {
+              "text": "The primary way to configure all resources",
+              "correct": false,
+              "explanation": "Wrong. They are discouraged for routine config.",
+              "id": "b"
+            },
+            {
+              "text": "A replacement for providers",
+              "correct": false,
+              "explanation": "Wrong. Providers manage resources, not provisioners.",
+              "id": "c"
+            },
+            {
+              "text": "A state storage mechanism",
+              "correct": false,
+              "explanation": "Wrong. That is the backend.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax",
+          "id": "terraform004-s2-q38"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "What does `terraform plan -out=plan.tfplan` do?",
+          "options": [
+            {
+              "text": "Saves the generated plan to a file for later apply",
+              "correct": true,
+              "explanation": "Correct. -out persists a plan for a deterministic apply.",
+              "id": "a"
+            },
+            {
+              "text": "Applies the plan immediately",
+              "correct": false,
+              "explanation": "Wrong. plan does not apply.",
+              "id": "b"
+            },
+            {
+              "text": "Deletes existing plans",
+              "correct": false,
+              "explanation": "Wrong. It writes, not deletes.",
+              "id": "c"
+            },
+            {
+              "text": "Formats the configuration",
+              "correct": false,
+              "explanation": "Wrong. That is fmt.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "id": "terraform004-s2-q39"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which construct checks assumptions about data/resources separate from input validation?",
+          "options": [
+            {
+              "text": "A check block",
+              "correct": true,
+              "explanation": "Correct. check blocks assert conditions during plan/apply.",
+              "id": "a"
+            },
+            {
+              "text": "A provider block",
+              "correct": false,
+              "explanation": "Wrong. Providers manage resources.",
+              "id": "b"
+            },
+            {
+              "text": "A backend block",
+              "correct": false,
+              "explanation": "Wrong. Backends store state.",
+              "id": "c"
+            },
+            {
+              "text": "An output block",
+              "correct": false,
+              "explanation": "Wrong. Outputs expose values.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/checks",
+          "id": "terraform004-s2-q40"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which environment variable sets a Terraform input variable named region?",
+          "options": [
+            {
+              "text": "TF_VAR_region",
+              "correct": true,
+              "explanation": "Correct. TF_VAR_<name> sets input variables.",
+              "id": "a"
+            },
+            {
+              "text": "TF_region",
+              "correct": false,
+              "explanation": "Wrong. The prefix is TF_VAR_.",
+              "id": "b"
+            },
+            {
+              "text": "TERRAFORM_region",
+              "correct": false,
+              "explanation": "Wrong. Not the correct prefix.",
+              "id": "c"
+            },
+            {
+              "text": "VAR_region",
+              "correct": false,
+              "explanation": "Wrong. Missing the TF_ prefix.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/values/variables",
+          "id": "terraform004-s2-q41"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does `coalesce()` return?",
+          "options": [
+            {
+              "text": "The first non-null, non-empty argument",
+              "correct": true,
+              "explanation": "Correct. coalesce picks the first usable value.",
+              "id": "a"
+            },
+            {
+              "text": "The sum of numeric arguments",
+              "correct": false,
+              "explanation": "Wrong. That is not coalesce.",
+              "id": "b"
+            },
+            {
+              "text": "A merged map",
+              "correct": false,
+              "explanation": "Wrong. That is merge().",
+              "id": "c"
+            },
+            {
+              "text": "A joined string",
+              "correct": false,
+              "explanation": "Wrong. That is join().",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/coalesce",
+          "id": "terraform004-s2-q42"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does the module `version` argument NOT work with?",
+          "options": [
+            {
+              "text": "Local path modules (./...)",
+              "correct": true,
+              "explanation": "Correct. version applies to registry sources, not local paths.",
+              "id": "a"
+            },
+            {
+              "text": "Public registry modules",
+              "correct": false,
+              "explanation": "Wrong. version works there.",
+              "id": "b"
+            },
+            {
+              "text": "Private registry modules",
+              "correct": false,
+              "explanation": "Wrong. version works there.",
+              "id": "c"
+            },
+            {
+              "text": "HCP Terraform registry modules",
+              "correct": false,
+              "explanation": "Wrong. version works there.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/sources",
+          "id": "terraform004-s2-q43"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which statement about the state file format is true?",
+          "options": [
+            {
+              "text": "It is JSON and should not be edited by hand",
+              "correct": true,
+              "explanation": "Correct. State is JSON; use state commands rather than manual edits.",
+              "id": "a"
+            },
+            {
+              "text": "It is HCL you edit like config",
+              "correct": false,
+              "explanation": "Wrong. State is JSON, not editable HCL.",
+              "id": "b"
+            },
+            {
+              "text": "It stores provider binaries",
+              "correct": false,
+              "explanation": "Wrong. Binaries live in .terraform.",
+              "id": "c"
+            },
+            {
+              "text": "It is encrypted by default locally",
+              "correct": false,
+              "explanation": "Wrong. Local state is not encrypted by default.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state",
+          "id": "terraform004-s2-q44"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What is a key benefit of running Terraform in HCP Terraform vs locally?",
+          "options": [
+            {
+              "text": "Centralized state, remote runs, and team governance",
+              "correct": true,
+              "explanation": "Correct. HCP Terraform adds collaboration and governance.",
+              "id": "a"
+            },
+            {
+              "text": "It removes the need to write configuration",
+              "correct": false,
+              "explanation": "Wrong. Config is still required.",
+              "id": "b"
+            },
+            {
+              "text": "It makes all resources free",
+              "correct": false,
+              "explanation": "Wrong. Resource cost is unchanged.",
+              "id": "c"
+            },
+            {
+              "text": "It eliminates providers",
+              "correct": false,
+              "explanation": "Wrong. Providers are still used.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs",
+          "id": "terraform004-s2-q45"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What is the correct order of the core workflow?",
+          "options": [
+            {
+              "text": "Write, then plan, then apply",
+              "correct": true,
+              "explanation": "Correct. The core loop is write -> plan -> apply.",
+              "id": "a"
+            },
+            {
+              "text": "Apply, then plan, then write",
+              "correct": false,
+              "explanation": "Wrong. That reverses the workflow.",
+              "id": "b"
+            },
+            {
+              "text": "Plan, then write, then destroy",
+              "correct": false,
+              "explanation": "Wrong. Not the core workflow.",
+              "id": "c"
+            },
+            {
+              "text": "Import, then fmt, then validate",
+              "correct": false,
+              "explanation": "Wrong. Those are auxiliary, not the core loop.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/intro/core-workflow",
+          "id": "terraform004-s2-q46"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "What does `merge()` do with two maps that share a key?",
+          "options": [
+            {
+              "text": "The later map's value overrides the earlier one for that key",
+              "correct": true,
+              "explanation": "Correct. merge gives precedence to later arguments.",
+              "id": "a"
+            },
+            {
+              "text": "It raises an error on key conflict",
+              "correct": false,
+              "explanation": "Wrong. merge resolves conflicts by precedence.",
+              "id": "b"
+            },
+            {
+              "text": "It sums the two values",
+              "correct": false,
+              "explanation": "Wrong. merge does not sum.",
+              "id": "c"
+            },
+            {
+              "text": "It keeps the earlier value",
+              "correct": false,
+              "explanation": "Wrong. Later arguments win.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/merge",
+          "id": "terraform004-s2-q47"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which is the safest way to rename a resource in configuration?",
+          "options": [
+            {
+              "text": "Use a moved block so state follows the rename",
+              "correct": true,
+              "explanation": "Correct. moved blocks preserve state across renames.",
+              "id": "a"
+            },
+            {
+              "text": "Just rename it and apply",
+              "correct": false,
+              "explanation": "Wrong. That destroys and recreates the resource.",
+              "id": "b"
+            },
+            {
+              "text": "Delete state and re-import",
+              "correct": false,
+              "explanation": "Wrong. Unnecessarily risky vs a moved block.",
+              "id": "c"
+            },
+            {
+              "text": "Edit the state JSON by hand",
+              "correct": false,
+              "explanation": "Wrong. Error-prone and unsupported.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/develop/refactoring",
+          "id": "terraform004-s2-q48"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "What does the special variable type `any` mean?",
+          "options": [
+            {
+              "text": "Terraform accepts a value of any type and infers it at runtime",
+              "correct": true,
+              "explanation": "Correct. any defers type checking, accepting any value.",
+              "id": "a"
+            },
+            {
+              "text": "Only string values are allowed",
+              "correct": false,
+              "explanation": "Wrong. any is not restricted to strings.",
+              "id": "b"
+            },
+            {
+              "text": "The variable becomes required",
+              "correct": false,
+              "explanation": "Wrong. any is about type, not requiredness.",
+              "id": "c"
+            },
+            {
+              "text": "It encrypts the value",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to encryption.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/type-constraints",
+          "id": "terraform004-s2-q49"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which HCP Terraform concept lets reviewers approve infrastructure changes via a structured request?",
+          "options": [
+            {
+              "text": "Change requests",
+              "correct": true,
+              "explanation": "Correct. Change requests provide a governed approval flow for changes.",
+              "id": "a"
+            },
+            {
+              "text": "Run triggers",
+              "correct": false,
+              "explanation": "Wrong. Those chain runs across workspaces.",
+              "id": "b"
+            },
+            {
+              "text": "Variable sets",
+              "correct": false,
+              "explanation": "Wrong. Those share variables.",
+              "id": "c"
+            },
+            {
+              "text": "The dependency lock file",
+              "correct": false,
+              "explanation": "Wrong. That pins providers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/workspaces/change-requests",
+          "id": "terraform004-s2-q50"
         }
       ]
     }
