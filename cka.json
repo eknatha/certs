@@ -1,0 +1,116 @@
+{
+  "certId": "cka",
+  "title": "Certified Kubernetes Administrator (CKA)",
+  "vendor": "CNCF",
+  "examVersion": "2025",
+  "lastUpdated": "2026-06-11",
+  "passScore": 66,
+  "note": "The real CKA is a hands-on, performance-based exam (live cluster tasks), not multiple choice. These MCQ sets build conceptual recall and command knowledge — pair them with actual kubectl practice on a cluster.",
+  "domains": [
+    { "id": "d1", "name": "Cluster Architecture, Installation & Config" },
+    { "id": "d2", "name": "Workloads & Scheduling" },
+    { "id": "d3", "name": "Services & Networking" },
+    { "id": "d4", "name": "Storage" },
+    { "id": "d5", "name": "Troubleshooting" }
+  ],
+  "sets": [
+    {
+      "setId": "set-1",
+      "name": "Practice Exam 1",
+      "timeLimitMin": 30,
+      "questions": [
+        {
+          "id": "cka-s1-q1",
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A node shows <code>NotReady</code>. Which command first confirms whether the kubelet is the cause?",
+          "options": [
+            { "id": "a", "text": "systemctl status kubelet on the affected node", "correct": true, "explanation": "Correct. NotReady usually traces to the kubelet; checking its service status on the node is the first diagnostic step." },
+            { "id": "b", "text": "kubectl delete node <name>", "correct": false, "explanation": "Wrong. Deleting the node removes it from the API without diagnosing anything — destructive and premature." },
+            { "id": "c", "text": "kubectl rollout restart deployment", "correct": false, "explanation": "Wrong. That restarts app pods, unrelated to node readiness." },
+            { "id": "d", "text": "kubectl drain <name> --force", "correct": false, "explanation": "Wrong. Draining evicts workloads; it's a remediation step, not a diagnosis, and shouldn't be first." }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/debug/debug-cluster/"
+        },
+        {
+          "id": "cka-s1-q2",
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which field keeps a pod from being scheduled onto a node unless the pod explicitly tolerates a condition the node advertises?",
+          "options": [
+            { "id": "a", "text": "A taint on the node", "correct": true, "explanation": "Correct. Taints repel pods that lack a matching toleration, controlling what may land on a node." },
+            { "id": "b", "text": "A nodeSelector on the node", "correct": false, "explanation": "Wrong. nodeSelector is set on the pod, and it attracts rather than repels." },
+            { "id": "c", "text": "A resource limit", "correct": false, "explanation": "Wrong. Limits cap usage; they don't gate scheduling by node condition." },
+            { "id": "d", "text": "A PodDisruptionBudget", "correct": false, "explanation": "Wrong. PDBs constrain voluntary disruptions, not scheduling placement." }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/"
+        },
+        {
+          "id": "cka-s1-q3",
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which Service type exposes a pod on a static port on every node's IP?",
+          "options": [
+            { "id": "a", "text": "NodePort", "correct": true, "explanation": "Correct. NodePort opens the same port across all nodes, routing to the Service." },
+            { "id": "b", "text": "ClusterIP", "correct": false, "explanation": "Wrong. ClusterIP is internal-only with no node port exposure." },
+            { "id": "c", "text": "ExternalName", "correct": false, "explanation": "Wrong. ExternalName maps to a DNS name via CNAME; no ports involved." },
+            { "id": "d", "text": "Headless", "correct": false, "explanation": "Wrong. A headless service (clusterIP: None) returns pod IPs directly; it doesn't expose a node port." }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/service/"
+        },
+        {
+          "id": "cka-s1-q4",
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A PersistentVolumeClaim stays <code>Pending</code>. Which is the most likely cause?",
+          "options": [
+            { "id": "a", "text": "No PV or StorageClass satisfies the claim's size/access mode", "correct": true, "explanation": "Correct. A PVC binds only when a matching PV exists or a StorageClass can dynamically provision one; otherwise it stays Pending." },
+            { "id": "b", "text": "The pod has too many replicas", "correct": false, "explanation": "Wrong. Replica count doesn't affect PVC binding." },
+            { "id": "c", "text": "The namespace lacks a NetworkPolicy", "correct": false, "explanation": "Wrong. Network policies govern traffic, not volume binding." },
+            { "id": "d", "text": "kube-proxy is down", "correct": false, "explanation": "Wrong. kube-proxy handles service networking, unrelated to PVC binding." }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/storage/persistent-volumes/"
+        }
+      ]
+    },
+    {
+      "setId": "set-2",
+      "name": "Practice Exam 2",
+      "timeLimitMin": 30,
+      "questions": [
+        {
+          "id": "cka-s2-q1",
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which component is the cluster's source of truth, storing all API objects?",
+          "options": [
+            { "id": "a", "text": "etcd", "correct": true, "explanation": "Correct. etcd is the consistent key-value store backing the entire cluster state." },
+            { "id": "b", "text": "kube-scheduler", "correct": false, "explanation": "Wrong. The scheduler places pods; it stores nothing persistently." },
+            { "id": "c", "text": "kubelet", "correct": false, "explanation": "Wrong. The kubelet runs on nodes and manages pods locally; it isn't the state store." },
+            { "id": "d", "text": "kube-proxy", "correct": false, "explanation": "Wrong. kube-proxy programs service networking rules, not state storage." }
+          ],
+          "reference": "https://kubernetes.io/docs/concepts/overview/components/"
+        },
+        {
+          "id": "cka-s2-q2",
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "multi",
+          "stem": "Which actions can safely free a node for maintenance? (Select TWO)",
+          "options": [
+            { "id": "a", "text": "kubectl cordon <node>", "correct": true, "explanation": "Correct. cordon marks the node unschedulable so no new pods land on it." },
+            { "id": "b", "text": "kubectl drain <node> --ignore-daemonsets", "correct": true, "explanation": "Correct. drain evicts pods (respecting PDBs) while skipping DaemonSet pods, readying the node for maintenance." },
+            { "id": "c", "text": "kubectl delete node <node>", "correct": false, "explanation": "Wrong. Deleting removes the node object entirely — not a maintenance prep step." },
+            { "id": "d", "text": "kubectl taint nodes <node> key=value:PreferNoSchedule", "correct": false, "explanation": "Wrong. PreferNoSchedule is a soft hint, not a guarantee, so pods may still schedule there." }
+          ],
+          "reference": "https://kubernetes.io/docs/tasks/administer-cluster/safely-drain-node/"
+        }
+      ]
+    }
+  ]
+}

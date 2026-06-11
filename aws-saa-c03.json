@@ -1,0 +1,114 @@
+{
+  "certId": "aws-saa-c03",
+  "title": "AWS Certified Solutions Architect – Associate (SAA-C03)",
+  "vendor": "AWS",
+  "examVersion": "SAA-C03",
+  "lastUpdated": "2026-06-11",
+  "passScore": 72,
+  "domains": [
+    { "id": "d1", "name": "Design Secure Architectures" },
+    { "id": "d2", "name": "Design Resilient Architectures" },
+    { "id": "d3", "name": "Design High-Performing Architectures" },
+    { "id": "d4", "name": "Design Cost-Optimized Architectures" }
+  ],
+  "sets": [
+    {
+      "setId": "set-1",
+      "name": "Practice Exam 1",
+      "timeLimitMin": 65,
+      "questions": [
+        {
+          "id": "saa-s1-q1",
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An app needs a database that survives an AZ failure with automatic failover and no application code changes. Which option fits best?",
+          "options": [
+            { "id": "a", "text": "Amazon RDS Multi-AZ deployment", "correct": true, "explanation": "Correct. Multi-AZ keeps a synchronous standby in another AZ and fails over automatically using the same endpoint." },
+            { "id": "b", "text": "RDS read replica in another AZ", "correct": false, "explanation": "Wrong. Read replicas serve reads and need manual promotion; failover isn't automatic." },
+            { "id": "c", "text": "A single-AZ RDS instance with daily snapshots", "correct": false, "explanation": "Wrong. Snapshots allow restore but not automatic failover, and an AZ outage causes downtime." },
+            { "id": "d", "text": "Storing the DB on an EBS volume with a backup", "correct": false, "explanation": "Wrong. EBS is AZ-scoped; an AZ failure takes the volume offline with no automatic failover." }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZ.html"
+        },
+        {
+          "id": "saa-s1-q2",
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An EC2 app must read from an S3 bucket. What is the most secure way to grant access?",
+          "options": [
+            { "id": "a", "text": "Attach an IAM role to the EC2 instance", "correct": true, "explanation": "Correct. Instance roles deliver temporary, rotated credentials with no long-lived keys to leak." },
+            { "id": "b", "text": "Store an access key and secret in the app config", "correct": false, "explanation": "Wrong. Long-lived static keys in config are a leading credential-leak risk." },
+            { "id": "c", "text": "Make the bucket public", "correct": false, "explanation": "Wrong. Public buckets expose data to everyone — a serious security misconfiguration." },
+            { "id": "d", "text": "Embed the root account credentials", "correct": false, "explanation": "Wrong. Root credentials should never be used by applications; they carry unrestricted access." }
+          ],
+          "reference": "https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html"
+        },
+        {
+          "id": "saa-s1-q3",
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A read-heavy web app sees repeated database queries for the same data. Which AWS service best reduces DB load with minimal changes?",
+          "options": [
+            { "id": "a", "text": "Amazon ElastiCache", "correct": true, "explanation": "Correct. An in-memory cache (Redis/Memcached) absorbs repeated reads and offloads the database." },
+            { "id": "b", "text": "Amazon Kinesis", "correct": false, "explanation": "Wrong. Kinesis handles streaming ingestion, not read caching." },
+            { "id": "c", "text": "AWS Glue", "correct": false, "explanation": "Wrong. Glue is ETL/data-catalog tooling, irrelevant to query caching." },
+            { "id": "d", "text": "Amazon SQS", "correct": false, "explanation": "Wrong. SQS decouples via queues; it doesn't cache read results." }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonElastiCache/latest/dg/WhatIs.html"
+        },
+        {
+          "id": "saa-s1-q4",
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A batch job is fault-tolerant and can restart if interrupted. Which purchase option minimizes compute cost?",
+          "options": [
+            { "id": "a", "text": "Spot Instances", "correct": true, "explanation": "Correct. Spot offers the deepest discount and suits interruptible, restartable workloads." },
+            { "id": "b", "text": "On-Demand Instances", "correct": false, "explanation": "Wrong. On-Demand is flexible but the most expensive per hour for steady batch use." },
+            { "id": "c", "text": "Dedicated Hosts", "correct": false, "explanation": "Wrong. Dedicated Hosts target licensing/compliance needs at premium cost." },
+            { "id": "d", "text": "Reserved Instances", "correct": false, "explanation": "Wrong. RIs save on steady long-term usage, not short interruptible batches." }
+          ],
+          "reference": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"
+        }
+      ]
+    },
+    {
+      "setId": "set-2",
+      "name": "Practice Exam 2",
+      "timeLimitMin": 65,
+      "questions": [
+        {
+          "id": "saa-s2-q1",
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must decouple a spike-prone front end from slower back-end processing so no requests are lost. Which service fits?",
+          "options": [
+            { "id": "a", "text": "Amazon SQS", "correct": true, "explanation": "Correct. SQS buffers messages so the back end consumes at its own pace without dropping requests." },
+            { "id": "b", "text": "Amazon Route 53", "correct": false, "explanation": "Wrong. Route 53 is DNS; it doesn't buffer workloads." },
+            { "id": "c", "text": "AWS WAF", "correct": false, "explanation": "Wrong. WAF filters web traffic for security; it isn't a decoupling buffer." },
+            { "id": "d", "text": "Amazon CloudFront", "correct": false, "explanation": "Wrong. CloudFront caches/edge-delivers content; it doesn't queue back-end work." }
+          ],
+          "reference": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html"
+        },
+        {
+          "id": "saa-s2-q2",
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "multi",
+          "stem": "Which measures help protect data at rest in S3? (Select TWO)",
+          "options": [
+            { "id": "a", "text": "Enable SSE-KMS encryption on the bucket", "correct": true, "explanation": "Correct. Server-side encryption with KMS encrypts objects at rest with managed keys." },
+            { "id": "b", "text": "Enable S3 Block Public Access", "correct": true, "explanation": "Correct. Block Public Access prevents accidental public exposure, protecting the data." },
+            { "id": "c", "text": "Put the bucket behind a NAT gateway", "correct": false, "explanation": "Wrong. NAT gateways route outbound VPC traffic; they don't apply to S3 object protection." },
+            { "id": "d", "text": "Attach a security group to the bucket", "correct": false, "explanation": "Wrong. S3 buckets don't use security groups; access is governed by policies and ACLs." }
+          ],
+          "reference": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingKMSEncryption.html"
+        }
+      ]
+    }
+  ]
+}
