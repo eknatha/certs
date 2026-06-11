@@ -1,16 +1,31 @@
 {
   "certId": "az-104",
-  "title": "Microsoft Certified: Azure Administrator Associate (AZ-104)",
+  "title": "Microsoft Azure Administrator (AZ-104)",
   "vendor": "Microsoft",
   "examVersion": "AZ-104",
   "lastUpdated": "2026-06-11",
   "passScore": 70,
   "domains": [
-    { "id": "d1", "name": "Manage Azure Identities & Governance" },
-    { "id": "d2", "name": "Implement & Manage Storage" },
-    { "id": "d3", "name": "Deploy & Manage Compute Resources" },
-    { "id": "d4", "name": "Implement & Manage Virtual Networking" },
-    { "id": "d5", "name": "Monitor & Maintain Azure Resources" }
+    {
+      "id": "d1",
+      "name": "Manage Identities & Governance"
+    },
+    {
+      "id": "d2",
+      "name": "Implement & Manage Storage"
+    },
+    {
+      "id": "d3",
+      "name": "Deploy & Manage Compute"
+    },
+    {
+      "id": "d4",
+      "name": "Implement & Manage Virtual Networking"
+    },
+    {
+      "id": "d5",
+      "name": "Monitor & Maintain Resources"
+    }
   ],
   "sets": [
     {
@@ -19,60 +34,1704 @@
       "timeLimitMin": 60,
       "questions": [
         {
-          "id": "az104-s1-q1",
+          "domainId": "d1",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which Azure service is the cloud-based identity and access management provider?",
+          "options": [
+            {
+              "text": "Microsoft Entra ID",
+              "correct": true,
+              "explanation": "Correct. Entra ID (formerly Azure AD) provides identity and access management.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Policy",
+              "correct": false,
+              "explanation": "Wrong. Policy enforces resource compliance, not identity.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Monitor",
+              "correct": false,
+              "explanation": "Wrong. Monitor handles observability.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Blueprints",
+              "correct": false,
+              "explanation": "Wrong. Blueprints package governance artifacts.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/fundamentals/whatis",
+          "id": "az104-s1-q1"
+        },
+        {
           "domainId": "d1",
           "difficulty": "medium",
           "type": "single",
-          "stem": "You must grant a user permission to manage VMs in one resource group without giving broader access. What is the best approach?",
+          "stem": "Which feature groups users so you can assign access and licenses together?",
           "options": [
-            { "id": "a", "text": "Assign a built-in RBAC role scoped to that resource group", "correct": true, "explanation": "Correct. RBAC at resource-group scope follows least privilege, limiting access to exactly what's needed." },
-            { "id": "b", "text": "Add the user to the Global Administrator role", "correct": false, "explanation": "Wrong. Global Admin is a broad Entra ID role — vastly more access than required." },
-            { "id": "c", "text": "Assign Owner at the subscription scope", "correct": false, "explanation": "Wrong. Owner at subscription scope grants control over everything — the opposite of least privilege." },
-            { "id": "d", "text": "Share the service principal secret", "correct": false, "explanation": "Wrong. Sharing credentials bypasses RBAC and is a security risk." }
+            {
+              "text": "Entra ID groups",
+              "correct": true,
+              "explanation": "Correct. Groups let you assign access/licenses collectively.",
+              "id": "a"
+            },
+            {
+              "text": "Management groups",
+              "correct": false,
+              "explanation": "Wrong. Those organize subscriptions, not users.",
+              "id": "b"
+            },
+            {
+              "text": "Resource groups",
+              "correct": false,
+              "explanation": "Wrong. Those contain Azure resources.",
+              "id": "c"
+            },
+            {
+              "text": "Availability sets",
+              "correct": false,
+              "explanation": "Wrong. Those relate to VM resilience.",
+              "id": "d"
+            }
           ],
-          "reference": "https://learn.microsoft.com/azure/role-based-access-control/overview"
+          "reference": "https://learn.microsoft.com/azure/active-directory/fundamentals/how-to-manage-groups",
+          "id": "az104-s1-q2"
         },
         {
-          "id": "az104-s1-q2",
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which control enforces organizational rules like allowed regions on resources?",
+          "options": [
+            {
+              "text": "Azure Policy",
+              "correct": true,
+              "explanation": "Correct. Azure Policy evaluates and enforces resource compliance.",
+              "id": "a"
+            },
+            {
+              "text": "Azure RBAC",
+              "correct": false,
+              "explanation": "Wrong. RBAC grants permissions; it does not enforce config rules.",
+              "id": "b"
+            },
+            {
+              "text": "Network security groups",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter network traffic.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Monitor",
+              "correct": false,
+              "explanation": "Wrong. Monitor observes; it does not enforce policy.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/governance/policy/overview",
+          "id": "az104-s1-q3"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which mechanism grants a user permission to manage a specific resource group?",
+          "options": [
+            {
+              "text": "Assign an RBAC role at the resource group scope",
+              "correct": true,
+              "explanation": "Correct. RBAC role assignments scope permissions precisely.",
+              "id": "a"
+            },
+            {
+              "text": "Add the user to a network security group",
+              "correct": false,
+              "explanation": "Wrong. NSGs are network filters, not permissions.",
+              "id": "b"
+            },
+            {
+              "text": "Create an Azure Policy",
+              "correct": false,
+              "explanation": "Wrong. Policy enforces config, not user permissions.",
+              "id": "c"
+            },
+            {
+              "text": "Apply a resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent change/delete, not grant access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/role-based-access-control/overview",
+          "id": "az104-s1-q4"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature prevents accidental deletion of a critical resource?",
+          "options": [
+            {
+              "text": "A resource lock (CanNotDelete or ReadOnly)",
+              "correct": true,
+              "explanation": "Correct. Locks block deletion or modification.",
+              "id": "a"
+            },
+            {
+              "text": "An RBAC Reader role",
+              "correct": false,
+              "explanation": "Wrong. Reader limits a user but does not lock the resource itself.",
+              "id": "b"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata, not protection.",
+              "id": "c"
+            },
+            {
+              "text": "An availability zone",
+              "correct": false,
+              "explanation": "Wrong. Zones relate to resilience, not deletion protection.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/lock-resources",
+          "id": "az104-s1-q5"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which structure lets you apply governance across many subscriptions at once?",
+          "options": [
+            {
+              "text": "Management groups",
+              "correct": true,
+              "explanation": "Correct. Management groups organize subscriptions for shared governance.",
+              "id": "a"
+            },
+            {
+              "text": "Resource groups",
+              "correct": false,
+              "explanation": "Wrong. Those scope resources within a subscription.",
+              "id": "b"
+            },
+            {
+              "text": "Availability sets",
+              "correct": false,
+              "explanation": "Wrong. Those are VM resilience constructs.",
+              "id": "c"
+            },
+            {
+              "text": "Virtual networks",
+              "correct": false,
+              "explanation": "Wrong. VNets are networking, not governance hierarchy.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/governance/management-groups/overview",
+          "id": "az104-s1-q6"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which storage service stores unstructured object data like images and backups?",
+          "options": [
+            {
+              "text": "Azure Blob Storage",
+              "correct": true,
+              "explanation": "Correct. Blob storage holds unstructured object data.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Files",
+              "correct": false,
+              "explanation": "Wrong. Files provides SMB/NFS file shares.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Table Storage",
+              "correct": false,
+              "explanation": "Wrong. Tables store NoSQL key-value data.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Queue Storage",
+              "correct": false,
+              "explanation": "Wrong. Queues hold messages.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/blobs/storage-blobs-introduction",
+          "id": "az104-s1-q7"
+        },
+        {
           "domainId": "d2",
           "difficulty": "medium",
           "type": "single",
-          "stem": "You need to keep blob storage costs low for data accessed only a few times a year but must remain instantly retrievable. Which access tier fits?",
+          "stem": "Which service provides fully managed SMB file shares in the cloud?",
           "options": [
-            { "id": "a", "text": "Cool tier", "correct": true, "explanation": "Correct. Cool suits infrequently accessed data kept at least 30 days, with lower storage cost and instant access." },
-            { "id": "b", "text": "Hot tier", "correct": false, "explanation": "Wrong. Hot optimizes for frequent access at higher storage cost — not cost-efficient here." },
-            { "id": "c", "text": "Archive tier", "correct": false, "explanation": "Wrong. Archive is cheapest but offline; retrieval (rehydration) takes hours, failing the instant-access need." },
-            { "id": "d", "text": "Premium block blob", "correct": false, "explanation": "Wrong. Premium targets high-transaction, low-latency workloads at premium price." }
+            {
+              "text": "Azure Files",
+              "correct": true,
+              "explanation": "Correct. Azure Files offers managed SMB/NFS shares.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Blob Storage",
+              "correct": false,
+              "explanation": "Wrong. Blob is object storage, not file shares.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Disk Storage",
+              "correct": false,
+              "explanation": "Wrong. Disks attach to VMs as block storage.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Table Storage",
+              "correct": false,
+              "explanation": "Wrong. Tables are NoSQL key-value.",
+              "id": "d"
+            }
           ],
-          "reference": "https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview"
+          "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-introduction",
+          "id": "az104-s1-q8"
         },
         {
-          "id": "az104-s1-q3",
-          "domainId": "d4",
+          "domainId": "d2",
           "difficulty": "medium",
           "type": "single",
-          "stem": "Two VNets in the same region must communicate privately over the Azure backbone with low latency. What do you configure?",
+          "stem": "Which redundancy option keeps three copies within a single datacenter only?",
           "options": [
-            { "id": "a", "text": "VNet peering", "correct": true, "explanation": "Correct. Peering connects VNets over Microsoft's backbone with low latency and private addressing." },
-            { "id": "b", "text": "A public load balancer", "correct": false, "explanation": "Wrong. A public LB exposes traffic to the internet; not a private VNet-to-VNet link." },
-            { "id": "c", "text": "A NAT gateway", "correct": false, "explanation": "Wrong. NAT gateway handles outbound internet egress, not inter-VNet connectivity." },
-            { "id": "d", "text": "An ExpressRoute circuit", "correct": false, "explanation": "Wrong. ExpressRoute links on-premises to Azure, overkill for two VNets in one region." }
+            {
+              "text": "Locally redundant storage (LRS)",
+              "correct": true,
+              "explanation": "Correct. LRS replicates three times within one datacenter.",
+              "id": "a"
+            },
+            {
+              "text": "Geo-redundant storage (GRS)",
+              "correct": false,
+              "explanation": "Wrong. GRS replicates to a secondary region.",
+              "id": "b"
+            },
+            {
+              "text": "Zone-redundant storage (ZRS)",
+              "correct": false,
+              "explanation": "Wrong. ZRS spreads across availability zones.",
+              "id": "c"
+            },
+            {
+              "text": "Read-access GRS (RA-GRS)",
+              "correct": false,
+              "explanation": "Wrong. RA-GRS adds read access to a secondary region.",
+              "id": "d"
+            }
           ],
-          "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-peering-overview"
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-redundancy",
+          "id": "az104-s1-q9"
         },
         {
-          "id": "az104-s1-q4",
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which redundancy option replicates data to a paired secondary region?",
+          "options": [
+            {
+              "text": "Geo-redundant storage (GRS)",
+              "correct": true,
+              "explanation": "Correct. GRS copies data to a secondary region for regional protection.",
+              "id": "a"
+            },
+            {
+              "text": "Locally redundant storage (LRS)",
+              "correct": false,
+              "explanation": "Wrong. LRS stays in one datacenter.",
+              "id": "b"
+            },
+            {
+              "text": "Zone-redundant storage (ZRS)",
+              "correct": false,
+              "explanation": "Wrong. ZRS spans zones in one region.",
+              "id": "c"
+            },
+            {
+              "text": "Premium block blob",
+              "correct": false,
+              "explanation": "Wrong. That is a performance tier, not a geo option.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-redundancy",
+          "id": "az104-s1-q10"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which blob access tier is cheapest for rarely accessed data stored long-term, tolerating retrieval latency?",
+          "options": [
+            {
+              "text": "Archive tier",
+              "correct": true,
+              "explanation": "Correct. Archive is lowest-cost for long-term, rarely accessed data.",
+              "id": "a"
+            },
+            {
+              "text": "Hot tier",
+              "correct": false,
+              "explanation": "Wrong. Hot is for frequent access at higher storage cost.",
+              "id": "b"
+            },
+            {
+              "text": "Cool tier",
+              "correct": false,
+              "explanation": "Wrong. Cool is cheaper than Hot but pricier than Archive.",
+              "id": "c"
+            },
+            {
+              "text": "Premium tier",
+              "correct": false,
+              "explanation": "Wrong. Premium is for low-latency high-transaction workloads.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/blobs/access-tiers-overview",
+          "id": "az104-s1-q11"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature grants limited, time-bound access to a blob without sharing account keys?",
+          "options": [
+            {
+              "text": "A shared access signature (SAS)",
+              "correct": true,
+              "explanation": "Correct. SAS tokens grant scoped, time-limited access.",
+              "id": "a"
+            },
+            {
+              "text": "The storage account key",
+              "correct": false,
+              "explanation": "Wrong. Account keys grant full access and should be protected.",
+              "id": "b"
+            },
+            {
+              "text": "An NSG rule",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter network traffic, not blob access tokens.",
+              "id": "c"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes, not grant access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-sas-overview",
+          "id": "az104-s1-q12"
+        },
+        {
           "domainId": "d3",
           "difficulty": "easy",
           "type": "single",
-          "stem": "Which feature automatically adds or removes VM instances based on demand?",
+          "stem": "Which resource provides a resizable virtual machine in Azure?",
           "options": [
-            { "id": "a", "text": "Virtual Machine Scale Sets with autoscale", "correct": true, "explanation": "Correct. VMSS with autoscale rules adds/removes instances based on metrics like CPU." },
-            { "id": "b", "text": "Availability Set", "correct": false, "explanation": "Wrong. Availability Sets improve resilience via fault/update domains; they don't autoscale." },
-            { "id": "c", "text": "Azure Bastion", "correct": false, "explanation": "Wrong. Bastion provides secure RDP/SSH access; nothing to do with scaling." },
-            { "id": "d", "text": "Resource lock", "correct": false, "explanation": "Wrong. Locks prevent accidental change/deletion; unrelated to scaling." }
+            {
+              "text": "Azure Virtual Machines",
+              "correct": true,
+              "explanation": "Correct. Azure VMs are IaaS compute instances.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Functions",
+              "correct": false,
+              "explanation": "Wrong. Functions are serverless, not full VMs.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Blob Storage",
+              "correct": false,
+              "explanation": "Wrong. Blob is storage.",
+              "id": "c"
+            },
+            {
+              "text": "Azure DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "d"
+            }
           ],
-          "reference": "https://learn.microsoft.com/azure/virtual-machine-scale-sets/overview"
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/overview",
+          "id": "az104-s1-q13"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature distributes identical VMs and scales them automatically?",
+          "options": [
+            {
+              "text": "Virtual Machine Scale Sets",
+              "correct": true,
+              "explanation": "Correct. Scale Sets manage and autoscale identical VMs.",
+              "id": "a"
+            },
+            {
+              "text": "Availability sets",
+              "correct": false,
+              "explanation": "Wrong. Availability sets improve resilience but do not autoscale.",
+              "id": "b"
+            },
+            {
+              "text": "A single large VM",
+              "correct": false,
+              "explanation": "Wrong. One VM does not scale horizontally.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Files",
+              "correct": false,
+              "explanation": "Wrong. That is file storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machine-scale-sets/overview",
+          "id": "az104-s1-q14"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which construct protects VMs from datacenter hardware failures by spreading across fault and update domains?",
+          "options": [
+            {
+              "text": "Availability set",
+              "correct": true,
+              "explanation": "Correct. Availability sets distribute VMs across fault/update domains.",
+              "id": "a"
+            },
+            {
+              "text": "Resource group",
+              "correct": false,
+              "explanation": "Wrong. Resource groups organize resources, not resilience domains.",
+              "id": "b"
+            },
+            {
+              "text": "Management group",
+              "correct": false,
+              "explanation": "Wrong. Those organize subscriptions.",
+              "id": "c"
+            },
+            {
+              "text": "Network security group",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/availability-set-overview",
+          "id": "az104-s1-q15"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which option provides the highest VM SLA by spreading instances across physically separate zones?",
+          "options": [
+            {
+              "text": "Availability zones",
+              "correct": true,
+              "explanation": "Correct. Zones are physically separate locations within a region for the highest VM SLA.",
+              "id": "a"
+            },
+            {
+              "text": "Availability sets only",
+              "correct": false,
+              "explanation": "Wrong. Sets protect within a datacenter, not across zones.",
+              "id": "b"
+            },
+            {
+              "text": "A single VM",
+              "correct": false,
+              "explanation": "Wrong. One VM has the lowest SLA.",
+              "id": "c"
+            },
+            {
+              "text": "A proximity placement group",
+              "correct": false,
+              "explanation": "Wrong. PPGs reduce latency, not maximize cross-zone resilience.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/availability-zones/az-overview",
+          "id": "az104-s1-q16"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service runs containers without managing the underlying VMs for simple workloads?",
+          "options": [
+            {
+              "text": "Azure Container Instances",
+              "correct": true,
+              "explanation": "Correct. ACI runs containers serverlessly for simple scenarios.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Virtual Machines",
+              "correct": false,
+              "explanation": "Wrong. VMs require managing the OS/host.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Blob Storage",
+              "correct": false,
+              "explanation": "Wrong. That is storage.",
+              "id": "c"
+            },
+            {
+              "text": "Azure DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/container-instances/container-instances-overview",
+          "id": "az104-s1-q17"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which Azure service provides a managed Kubernetes control plane?",
+          "options": [
+            {
+              "text": "Azure Kubernetes Service (AKS)",
+              "correct": true,
+              "explanation": "Correct. AKS offers a managed Kubernetes control plane.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Container Instances",
+              "correct": false,
+              "explanation": "Wrong. ACI runs single containers, not a managed K8s control plane.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Functions",
+              "correct": false,
+              "explanation": "Wrong. Functions are serverless functions.",
+              "id": "c"
+            },
+            {
+              "text": "Azure App Service",
+              "correct": false,
+              "explanation": "Wrong. App Service hosts web apps, not a K8s control plane.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/aks/intro-kubernetes",
+          "id": "az104-s1-q18"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service hosts web apps and APIs as a managed PaaS?",
+          "options": [
+            {
+              "text": "Azure App Service",
+              "correct": true,
+              "explanation": "Correct. App Service is managed hosting for web apps and APIs.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Virtual Machines",
+              "correct": false,
+              "explanation": "Wrong. VMs are IaaS requiring more management.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Blob Storage",
+              "correct": false,
+              "explanation": "Wrong. That is object storage.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Monitor",
+              "correct": false,
+              "explanation": "Wrong. Monitor is observability.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/app-service/overview",
+          "id": "az104-s1-q19"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which resource provides private networking for Azure resources?",
+          "options": [
+            {
+              "text": "Virtual network (VNet)",
+              "correct": true,
+              "explanation": "Correct. VNets provide isolated private networking.",
+              "id": "a"
+            },
+            {
+              "text": "Resource group",
+              "correct": false,
+              "explanation": "Wrong. Resource groups organize resources, not networking.",
+              "id": "b"
+            },
+            {
+              "text": "Storage account",
+              "correct": false,
+              "explanation": "Wrong. That is storage.",
+              "id": "c"
+            },
+            {
+              "text": "Availability set",
+              "correct": false,
+              "explanation": "Wrong. That is VM resilience.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-networks-overview",
+          "id": "az104-s1-q20"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which resource filters inbound and outbound traffic at the subnet or NIC level?",
+          "options": [
+            {
+              "text": "Network security group (NSG)",
+              "correct": true,
+              "explanation": "Correct. NSGs allow/deny traffic by rules at subnet or NIC scope.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Policy",
+              "correct": false,
+              "explanation": "Wrong. Policy governs resource config, not packet filtering.",
+              "id": "b"
+            },
+            {
+              "text": "Resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "Route table alone",
+              "correct": false,
+              "explanation": "Wrong. Route tables direct traffic; they do not allow/deny by rule.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/network-security-groups-overview",
+          "id": "az104-s1-q21"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which resource connects two VNets so resources communicate privately?",
+          "options": [
+            {
+              "text": "VNet peering",
+              "correct": true,
+              "explanation": "Correct. Peering links VNets for private, low-latency connectivity.",
+              "id": "a"
+            },
+            {
+              "text": "A public IP",
+              "correct": false,
+              "explanation": "Wrong. Public IPs expose resources to the internet.",
+              "id": "b"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic, they do not connect VNets.",
+              "id": "c"
+            },
+            {
+              "text": "A storage account",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to VNet connectivity.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-peering-overview",
+          "id": "az104-s1-q22"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service provides Layer 7 load balancing with URL-based routing and WAF?",
+          "options": [
+            {
+              "text": "Azure Application Gateway",
+              "correct": true,
+              "explanation": "Correct. Application Gateway is L7 with path routing and optional WAF.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Load Balancer",
+              "correct": false,
+              "explanation": "Wrong. Load Balancer is L4 (TCP/UDP).",
+              "id": "b"
+            },
+            {
+              "text": "Azure DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Firewall only",
+              "correct": false,
+              "explanation": "Wrong. Firewall is a network security service, not L7 app load balancing.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/application-gateway/overview",
+          "id": "az104-s1-q23"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which service provides L4 load balancing for high-throughput TCP/UDP traffic?",
+          "options": [
+            {
+              "text": "Azure Load Balancer",
+              "correct": true,
+              "explanation": "Correct. Azure Load Balancer operates at Layer 4.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Application Gateway",
+              "correct": false,
+              "explanation": "Wrong. App Gateway is L7.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Front Door",
+              "correct": false,
+              "explanation": "Wrong. Front Door is global L7/CDN-style routing.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Bastion",
+              "correct": false,
+              "explanation": "Wrong. Bastion provides secure RDP/SSH access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/load-balancer/load-balancer-overview",
+          "id": "az104-s1-q24"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which service allows secure RDP/SSH to VMs without exposing public IPs?",
+          "options": [
+            {
+              "text": "Azure Bastion",
+              "correct": true,
+              "explanation": "Correct. Bastion provides browser-based RDP/SSH without public IPs on the VM.",
+              "id": "a"
+            },
+            {
+              "text": "A public IP on each VM",
+              "correct": false,
+              "explanation": "Wrong. That exposes the VM to the internet.",
+              "id": "b"
+            },
+            {
+              "text": "An NSG rule alone",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter but still require exposure for direct RDP/SSH.",
+              "id": "c"
+            },
+            {
+              "text": "Azure DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS does not provide secure access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/bastion/bastion-overview",
+          "id": "az104-s1-q25"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which resource lets on-premises networks connect to Azure over an encrypted tunnel across the internet?",
+          "options": [
+            {
+              "text": "VPN Gateway",
+              "correct": true,
+              "explanation": "Correct. VPN Gateway establishes site-to-site IPsec tunnels.",
+              "id": "a"
+            },
+            {
+              "text": "ExpressRoute",
+              "correct": false,
+              "explanation": "Wrong. ExpressRoute is a private dedicated circuit, not over the internet.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Bastion",
+              "correct": false,
+              "explanation": "Wrong. Bastion is for VM access, not site connectivity.",
+              "id": "c"
+            },
+            {
+              "text": "Load Balancer",
+              "correct": false,
+              "explanation": "Wrong. Load Balancer distributes traffic, not site VPNs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/vpn-gateway/vpn-gateway-about-vpngateways",
+          "id": "az104-s1-q26"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which service collects metrics, logs, and alerts across Azure resources?",
+          "options": [
+            {
+              "text": "Azure Monitor",
+              "correct": true,
+              "explanation": "Correct. Azure Monitor centralizes metrics, logs, and alerting.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Policy",
+              "correct": false,
+              "explanation": "Wrong. Policy enforces compliance.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Blueprints",
+              "correct": false,
+              "explanation": "Wrong. Blueprints package governance artifacts.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Bastion",
+              "correct": false,
+              "explanation": "Wrong. Bastion provides secure VM access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/overview",
+          "id": "az104-s1-q27"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which component stores and queries log data using KQL?",
+          "options": [
+            {
+              "text": "Log Analytics workspace",
+              "correct": true,
+              "explanation": "Correct. Log Analytics stores logs and is queried with KQL.",
+              "id": "a"
+            },
+            {
+              "text": "A storage account only",
+              "correct": false,
+              "explanation": "Wrong. Storage holds data but is not the KQL query engine.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Policy",
+              "correct": false,
+              "explanation": "Wrong. Policy enforces config.",
+              "id": "c"
+            },
+            {
+              "text": "Network Watcher",
+              "correct": false,
+              "explanation": "Wrong. Network Watcher diagnoses networking.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/logs/log-analytics-overview",
+          "id": "az104-s1-q28"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which tool diagnoses VNet connectivity issues like NSG rule blocks?",
+          "options": [
+            {
+              "text": "Azure Network Watcher",
+              "correct": true,
+              "explanation": "Correct. Network Watcher offers diagnostics like IP flow verify.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Monitor alerts only",
+              "correct": false,
+              "explanation": "Wrong. Alerts notify but do not run network diagnostics.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Policy",
+              "correct": false,
+              "explanation": "Wrong. Policy governs config.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Bastion",
+              "correct": false,
+              "explanation": "Wrong. Bastion provides VM access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/network-watcher/network-watcher-monitoring-overview",
+          "id": "az104-s1-q29"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature notifies you when a metric crosses a threshold?",
+          "options": [
+            {
+              "text": "An Azure Monitor alert rule",
+              "correct": true,
+              "explanation": "Correct. Alert rules trigger on metric/log conditions.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes, not alerting.",
+              "id": "b"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "An availability set",
+              "correct": false,
+              "explanation": "Wrong. That is VM resilience.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/alerts/alerts-overview",
+          "id": "az104-s1-q30"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which service backs up Azure VMs and supports restore points?",
+          "options": [
+            {
+              "text": "Azure Backup (Recovery Services vault)",
+              "correct": true,
+              "explanation": "Correct. Azure Backup protects VMs with restore points.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Monitor",
+              "correct": false,
+              "explanation": "Wrong. Monitor observes; it does not back up VMs.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Policy",
+              "correct": false,
+              "explanation": "Wrong. Policy enforces config.",
+              "id": "c"
+            },
+            {
+              "text": "Azure DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/backup/backup-overview",
+          "id": "az104-s1-q31"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which service replicates VMs to a secondary region for disaster recovery failover?",
+          "options": [
+            {
+              "text": "Azure Site Recovery",
+              "correct": true,
+              "explanation": "Correct. Site Recovery orchestrates replication and failover for DR.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Backup only",
+              "correct": false,
+              "explanation": "Wrong. Backup restores data but is not orchestrated DR failover.",
+              "id": "b"
+            },
+            {
+              "text": "Availability sets",
+              "correct": false,
+              "explanation": "Wrong. Sets protect within a datacenter, not cross-region DR.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Monitor",
+              "correct": false,
+              "explanation": "Wrong. Monitor observes; it does not replicate VMs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/site-recovery/site-recovery-overview",
+          "id": "az104-s1-q32"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which Entra ID feature enforces conditions like MFA based on sign-in risk or location?",
+          "options": [
+            {
+              "text": "Conditional Access",
+              "correct": true,
+              "explanation": "Correct. Conditional Access applies access controls based on signals.",
+              "id": "a"
+            },
+            {
+              "text": "Resource locks",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent resource changes.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Policy",
+              "correct": false,
+              "explanation": "Wrong. Policy governs resource config, not sign-in.",
+              "id": "c"
+            },
+            {
+              "text": "Network security groups",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter network traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/conditional-access/overview",
+          "id": "az104-s1-q33"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which Entra ID capability provides just-in-time, time-bound elevation to privileged roles?",
+          "options": [
+            {
+              "text": "Privileged Identity Management (PIM)",
+              "correct": true,
+              "explanation": "Correct. PIM grants time-bound, approved privileged access.",
+              "id": "a"
+            },
+            {
+              "text": "Standing global admin assignments",
+              "correct": false,
+              "explanation": "Wrong. Permanent elevation increases risk.",
+              "id": "b"
+            },
+            {
+              "text": "Conditional Access alone",
+              "correct": false,
+              "explanation": "Wrong. CA gates access but does not provide JIT role elevation.",
+              "id": "c"
+            },
+            {
+              "text": "Resource locks",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent resource changes.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/privileged-identity-management/pim-configure",
+          "id": "az104-s1-q34"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which tool copies large amounts of data to and from blob storage efficiently from the CLI?",
+          "options": [
+            {
+              "text": "AzCopy",
+              "correct": true,
+              "explanation": "Correct. AzCopy transfers data to/from Azure Storage at scale.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Monitor",
+              "correct": false,
+              "explanation": "Wrong. Monitor is observability.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Policy",
+              "correct": false,
+              "explanation": "Wrong. Policy enforces config.",
+              "id": "c"
+            },
+            {
+              "text": "Network Watcher",
+              "correct": false,
+              "explanation": "Wrong. That diagnoses networking.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-use-azcopy-v10",
+          "id": "az104-s1-q35"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which approach lets you run a script on a VM at provisioning time?",
+          "options": [
+            {
+              "text": "Custom Script Extension (or cloud-init)",
+              "correct": true,
+              "explanation": "Correct. Extensions/cloud-init run setup scripts during provisioning.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "An NSG rule",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/extensions/custom-script-windows",
+          "id": "az104-s1-q36"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which resource provides name resolution for custom domains within Azure?",
+          "options": [
+            {
+              "text": "Azure DNS (or Private DNS zones)",
+              "correct": true,
+              "explanation": "Correct. Azure DNS hosts domains and Private DNS handles internal resolution.",
+              "id": "a"
+            },
+            {
+              "text": "A network security group",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic, not resolve names.",
+              "id": "b"
+            },
+            {
+              "text": "A storage account",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to DNS.",
+              "id": "c"
+            },
+            {
+              "text": "An availability set",
+              "correct": false,
+              "explanation": "Wrong. That is VM resilience.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/dns/dns-overview",
+          "id": "az104-s1-q37"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which service provides global HTTP load balancing and acceleration close to users?",
+          "options": [
+            {
+              "text": "Azure Front Door",
+              "correct": true,
+              "explanation": "Correct. Front Door provides global L7 routing and acceleration.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Load Balancer",
+              "correct": false,
+              "explanation": "Wrong. Load Balancer is regional L4.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Bastion",
+              "correct": false,
+              "explanation": "Wrong. Bastion is VM access.",
+              "id": "c"
+            },
+            {
+              "text": "Azure DNS",
+              "correct": false,
+              "explanation": "Wrong. DNS resolves names but does not accelerate HTTP.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/frontdoor/front-door-overview",
+          "id": "az104-s1-q38"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which Azure Monitor signal type is numeric and collected at regular intervals?",
+          "options": [
+            {
+              "text": "Metrics",
+              "correct": true,
+              "explanation": "Correct. Metrics are time-series numeric values.",
+              "id": "a"
+            },
+            {
+              "text": "Logs",
+              "correct": false,
+              "explanation": "Wrong. Logs are richer event/record data queried with KQL.",
+              "id": "b"
+            },
+            {
+              "text": "Locks",
+              "correct": false,
+              "explanation": "Wrong. Locks are governance controls, not signals.",
+              "id": "c"
+            },
+            {
+              "text": "Tags",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/essentials/data-platform-metrics",
+          "id": "az104-s1-q39"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which identity type lets an Azure resource authenticate to services without stored credentials?",
+          "options": [
+            {
+              "text": "Managed identity",
+              "correct": true,
+              "explanation": "Correct. Managed identities provide credential-free authentication for resources.",
+              "id": "a"
+            },
+            {
+              "text": "A shared account password",
+              "correct": false,
+              "explanation": "Wrong. Shared passwords are insecure and manual.",
+              "id": "b"
+            },
+            {
+              "text": "A SAS token",
+              "correct": false,
+              "explanation": "Wrong. SAS grants storage access, not resource identity.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG rule",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/managed-identities-azure-resources/overview",
+          "id": "az104-s1-q40"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature automatically moves blobs between access tiers based on rules?",
+          "options": [
+            {
+              "text": "Blob lifecycle management policies",
+              "correct": true,
+              "explanation": "Correct. Lifecycle rules transition or delete blobs automatically.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "A SAS token",
+              "correct": false,
+              "explanation": "Wrong. SAS grants access, not tiering.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/blobs/lifecycle-management-overview",
+          "id": "az104-s1-q41"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which disk type offers the best performance for production database VMs?",
+          "options": [
+            {
+              "text": "Premium SSD (or Ultra Disk)",
+              "correct": true,
+              "explanation": "Correct. Premium SSD/Ultra deliver high IOPS and low latency.",
+              "id": "a"
+            },
+            {
+              "text": "Standard HDD",
+              "correct": false,
+              "explanation": "Wrong. HDD is the lowest-performance, cheapest option.",
+              "id": "b"
+            },
+            {
+              "text": "Standard SSD for heavy OLTP",
+              "correct": false,
+              "explanation": "Wrong. Standard SSD is moderate, not best for demanding DBs.",
+              "id": "c"
+            },
+            {
+              "text": "Blob storage",
+              "correct": false,
+              "explanation": "Wrong. Blob is object storage, not a VM disk.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/disks-types",
+          "id": "az104-s1-q42"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets a subnet reach Azure PaaS services over the Azure backbone, not the internet?",
+          "options": [
+            {
+              "text": "Service endpoints or Private Link",
+              "correct": true,
+              "explanation": "Correct. These keep PaaS traffic on the Azure backbone.",
+              "id": "a"
+            },
+            {
+              "text": "A public IP",
+              "correct": false,
+              "explanation": "Wrong. Public IPs route over the internet.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-service-endpoints-overview",
+          "id": "az104-s1-q43"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature aggregates activity logs showing who did what to which resource?",
+          "options": [
+            {
+              "text": "Azure Activity Log",
+              "correct": true,
+              "explanation": "Correct. The Activity Log records control-plane operations.",
+              "id": "a"
+            },
+            {
+              "text": "Metrics",
+              "correct": false,
+              "explanation": "Wrong. Metrics are numeric time series, not operation audit trails.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/essentials/activity-log",
+          "id": "az104-s1-q44"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which scope is the lowest level where you can assign an RBAC role?",
+          "options": [
+            {
+              "text": "Individual resource",
+              "correct": true,
+              "explanation": "Correct. RBAC can be assigned at management group, subscription, resource group, or resource.",
+              "id": "a"
+            },
+            {
+              "text": "Only the subscription",
+              "correct": false,
+              "explanation": "Wrong. You can scope more granularly than the subscription.",
+              "id": "b"
+            },
+            {
+              "text": "Only the tenant",
+              "correct": false,
+              "explanation": "Wrong. RBAC supports finer scopes than the tenant.",
+              "id": "c"
+            },
+            {
+              "text": "Only a management group",
+              "correct": false,
+              "explanation": "Wrong. Finer scopes exist down to a single resource.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/role-based-access-control/scope-overview",
+          "id": "az104-s1-q45"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which storage account type is required for premium file shares?",
+          "options": [
+            {
+              "text": "FileStorage (premium) account",
+              "correct": true,
+              "explanation": "Correct. Premium file shares need a FileStorage account.",
+              "id": "a"
+            },
+            {
+              "text": "A general-purpose v1 account",
+              "correct": false,
+              "explanation": "Wrong. v1 does not support premium files the same way.",
+              "id": "b"
+            },
+            {
+              "text": "A blob-only Archive account",
+              "correct": false,
+              "explanation": "Wrong. Archive is a blob tier, not premium files.",
+              "id": "c"
+            },
+            {
+              "text": "A queue-only account",
+              "correct": false,
+              "explanation": "Wrong. That is for queues.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-planning",
+          "id": "az104-s1-q46"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature lets you resize a VM to a different size?",
+          "options": [
+            {
+              "text": "Change the VM size in the portal/CLI (may require a restart)",
+              "correct": true,
+              "explanation": "Correct. You can resize a VM, sometimes requiring a deallocation/restart.",
+              "id": "a"
+            },
+            {
+              "text": "Create a new resource group",
+              "correct": false,
+              "explanation": "Wrong. Resource groups do not change VM size.",
+              "id": "b"
+            },
+            {
+              "text": "Add a tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "Apply a resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/resize-vm",
+          "id": "az104-s1-q47"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which component directs subnet traffic to a virtual appliance or specific next hop?",
+          "options": [
+            {
+              "text": "A user-defined route (UDR) in a route table",
+              "correct": true,
+              "explanation": "Correct. UDRs override default routing to a chosen next hop.",
+              "id": "a"
+            },
+            {
+              "text": "An NSG rule",
+              "correct": false,
+              "explanation": "Wrong. NSGs allow/deny; they do not set next hops.",
+              "id": "b"
+            },
+            {
+              "text": "A public IP",
+              "correct": false,
+              "explanation": "Wrong. Public IPs expose resources, not route traffic internally.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-networks-udr-overview",
+          "id": "az104-s1-q48"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature lets you analyze cost and set spending alerts in Azure?",
+          "options": [
+            {
+              "text": "Microsoft Cost Management + Budgets",
+              "correct": true,
+              "explanation": "Correct. Cost Management analyzes spend and Budgets alert on thresholds.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Monitor metrics only",
+              "correct": false,
+              "explanation": "Wrong. Metrics watch resources, not billing budgets.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/cost-management-billing/costs/overview-cost-management",
+          "id": "az104-s1-q49"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you attach additional data disks to a running VM?",
+          "options": [
+            {
+              "text": "Add a managed data disk to the VM",
+              "correct": true,
+              "explanation": "Correct. Managed data disks can be attached to expand VM storage.",
+              "id": "a"
+            },
+            {
+              "text": "Apply a resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes, not add storage.",
+              "id": "b"
+            },
+            {
+              "text": "Add a tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "Create an NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/disks-types",
+          "id": "az104-s1-q50"
         }
       ]
     },
@@ -82,32 +1741,1704 @@
       "timeLimitMin": 60,
       "questions": [
         {
-          "id": "az104-s2-q1",
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets external partners sign in to your apps with their own identities?",
+          "options": [
+            {
+              "text": "Microsoft Entra B2B collaboration",
+              "correct": true,
+              "explanation": "Correct. B2B invites external users as guests with their own credentials.",
+              "id": "a"
+            },
+            {
+              "text": "Managed identities",
+              "correct": false,
+              "explanation": "Wrong. Those authenticate Azure resources, not external partners.",
+              "id": "b"
+            },
+            {
+              "text": "Resource locks",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Policy",
+              "correct": false,
+              "explanation": "Wrong. Policy enforces config.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/external-identities/what-is-b2b",
+          "id": "az104-s2-q1"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which tool packages policies, RBAC, and ARM templates as a repeatable governance artifact?",
+          "options": [
+            {
+              "text": "Azure Blueprints",
+              "correct": true,
+              "explanation": "Correct. Blueprints bundle governance artifacts for repeatable environments.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Monitor",
+              "correct": false,
+              "explanation": "Wrong. Monitor is observability.",
+              "id": "b"
+            },
+            {
+              "text": "Network Watcher",
+              "correct": false,
+              "explanation": "Wrong. That diagnoses networking.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Bastion",
+              "correct": false,
+              "explanation": "Wrong. Bastion provides VM access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/governance/blueprints/overview",
+          "id": "az104-s2-q2"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A user needs to manage VMs but not networking in a resource group. What is the right approach?",
+          "options": [
+            {
+              "text": "Assign the Virtual Machine Contributor role at that resource group",
+              "correct": true,
+              "explanation": "Correct. A scoped built-in role grants only VM management.",
+              "id": "a"
+            },
+            {
+              "text": "Assign Owner at the subscription",
+              "correct": false,
+              "explanation": "Wrong. That grants far more than needed.",
+              "id": "b"
+            },
+            {
+              "text": "Add the user to an NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs are network filters, not permissions.",
+              "id": "c"
+            },
+            {
+              "text": "Apply a resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks restrict changes; they do not grant management.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/role-based-access-control/built-in-roles",
+          "id": "az104-s2-q3"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature enforces that all resources carry a required tag?",
+          "options": [
+            {
+              "text": "Azure Policy with a require-tag definition",
+              "correct": true,
+              "explanation": "Correct. Policy can require and even append tags.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes, not enforce tags.",
+              "id": "b"
+            },
+            {
+              "text": "An RBAC role",
+              "correct": false,
+              "explanation": "Wrong. RBAC grants permissions, not tag rules.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/governance/policy/tutorials/govern-tags",
+          "id": "az104-s2-q4"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which storage service stores NoSQL key-value data at scale cheaply?",
+          "options": [
+            {
+              "text": "Azure Table Storage",
+              "correct": true,
+              "explanation": "Correct. Table storage holds schemaless key-value data.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Blob Storage",
+              "correct": false,
+              "explanation": "Wrong. Blob is object storage.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Files",
+              "correct": false,
+              "explanation": "Wrong. Files provides file shares.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Disk Storage",
+              "correct": false,
+              "explanation": "Wrong. Disks are VM block storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/tables/table-storage-overview",
+          "id": "az104-s2-q5"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which option provides messaging between application components via storage?",
+          "options": [
+            {
+              "text": "Azure Queue Storage",
+              "correct": true,
+              "explanation": "Correct. Queue storage holds messages for decoupled processing.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Blob Storage",
+              "correct": false,
+              "explanation": "Wrong. Blob is object storage, not a message queue.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Files",
+              "correct": false,
+              "explanation": "Wrong. Files is a file share.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Table Storage",
+              "correct": false,
+              "explanation": "Wrong. Tables store key-value data, not a queue.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/queues/storage-queues-introduction",
+          "id": "az104-s2-q6"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which redundancy spreads copies across availability zones within one region?",
+          "options": [
+            {
+              "text": "Zone-redundant storage (ZRS)",
+              "correct": true,
+              "explanation": "Correct. ZRS replicates across zones in a region.",
+              "id": "a"
+            },
+            {
+              "text": "Locally redundant storage (LRS)",
+              "correct": false,
+              "explanation": "Wrong. LRS stays in one datacenter.",
+              "id": "b"
+            },
+            {
+              "text": "Geo-redundant storage (GRS)",
+              "correct": false,
+              "explanation": "Wrong. GRS replicates to a second region, not just zones.",
+              "id": "c"
+            },
+            {
+              "text": "Archive tier",
+              "correct": false,
+              "explanation": "Wrong. Archive is an access tier, not a redundancy option.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-redundancy",
+          "id": "az104-s2-q7"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature protects blobs from deletion or overwrite for a retention period (compliance)?",
+          "options": [
+            {
+              "text": "Immutable storage with time-based retention (WORM)",
+              "correct": true,
+              "explanation": "Correct. Immutability locks blobs for compliance retention.",
+              "id": "a"
+            },
+            {
+              "text": "A SAS token",
+              "correct": false,
+              "explanation": "Wrong. SAS grants access; it does not enforce immutability.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Resource locks act on the resource, not per-blob WORM retention.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/blobs/immutable-storage-overview",
+          "id": "az104-s2-q8"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which compute option is serverless and event-driven for small functions?",
+          "options": [
+            {
+              "text": "Azure Functions",
+              "correct": true,
+              "explanation": "Correct. Functions run code in response to events serverlessly.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Virtual Machines",
+              "correct": false,
+              "explanation": "Wrong. VMs are always-on IaaS.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Files",
+              "correct": false,
+              "explanation": "Wrong. That is storage.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Monitor",
+              "correct": false,
+              "explanation": "Wrong. Monitor is observability.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-functions/functions-overview",
+          "id": "az104-s2-q9"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you deploy a VM from a captured, generalized image repeatedly?",
+          "options": [
+            {
+              "text": "A managed image or Azure Compute Gallery",
+              "correct": true,
+              "explanation": "Correct. Generalized images enable consistent repeated deployments.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/shared-image-galleries",
+          "id": "az104-s2-q10"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature automatically increases VM Scale Set instances under load?",
+          "options": [
+            {
+              "text": "Autoscale rules based on metrics",
+              "correct": true,
+              "explanation": "Correct. Autoscale adds/removes instances per metric thresholds.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "An availability set",
+              "correct": false,
+              "explanation": "Wrong. Sets improve resilience, not autoscaling.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview",
+          "id": "az104-s2-q11"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature reduces VM cost for predictable, long-running workloads via a 1- or 3-year commitment?",
+          "options": [
+            {
+              "text": "Azure Reservations (Reserved VM Instances)",
+              "correct": true,
+              "explanation": "Correct. Reservations discount steady usage for a committed term.",
+              "id": "a"
+            },
+            {
+              "text": "Spot VMs for steady prod",
+              "correct": false,
+              "explanation": "Wrong. Spot can be evicted, unsuitable for steady prod.",
+              "id": "b"
+            },
+            {
+              "text": "Pay-as-you-go only",
+              "correct": false,
+              "explanation": "Wrong. PAYG costs more for predictable load.",
+              "id": "c"
+            },
+            {
+              "text": "A larger VM size",
+              "correct": false,
+              "explanation": "Wrong. Bigger costs more.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/cost-management-billing/reservations/save-compute-costs-reservations",
+          "id": "az104-s2-q12"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which option offers deep discounts for interruptible, fault-tolerant workloads?",
+          "options": [
+            {
+              "text": "Azure Spot Virtual Machines",
+              "correct": true,
+              "explanation": "Correct. Spot VMs are cheap but can be evicted.",
+              "id": "a"
+            },
+            {
+              "text": "Reserved Instances",
+              "correct": false,
+              "explanation": "Wrong. Reservations suit steady, non-interruptible usage.",
+              "id": "b"
+            },
+            {
+              "text": "Dedicated Hosts",
+              "correct": false,
+              "explanation": "Wrong. Dedicated is premium isolation, not cheapest.",
+              "id": "c"
+            },
+            {
+              "text": "Pay-as-you-go",
+              "correct": false,
+              "explanation": "Wrong. PAYG is the standard, not deepest discount.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/spot-vms",
+          "id": "az104-s2-q13"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which address type allows a resource to be reachable from the internet?",
+          "options": [
+            {
+              "text": "A public IP address",
+              "correct": true,
+              "explanation": "Correct. Public IPs make a resource internet-reachable.",
+              "id": "a"
+            },
+            {
+              "text": "A private IP only",
+              "correct": false,
+              "explanation": "Wrong. Private IPs are internal to the VNet.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/ip-services/public-ip-addresses",
+          "id": "az104-s2-q14"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets VMs without public IPs reach the internet for outbound updates?",
+          "options": [
+            {
+              "text": "A NAT gateway",
+              "correct": true,
+              "explanation": "Correct. NAT gateway provides outbound internet for private subnets.",
+              "id": "a"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter; they do not provide outbound NAT.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/nat-gateway/nat-overview",
+          "id": "az104-s2-q15"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which dedicated private connection to Azure bypasses the public internet entirely?",
+          "options": [
+            {
+              "text": "ExpressRoute",
+              "correct": true,
+              "explanation": "Correct. ExpressRoute is a private dedicated circuit to Azure.",
+              "id": "a"
+            },
+            {
+              "text": "VPN Gateway",
+              "correct": false,
+              "explanation": "Wrong. Site-to-site VPN runs over the internet.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Bastion",
+              "correct": false,
+              "explanation": "Wrong. Bastion is VM access.",
+              "id": "c"
+            },
+            {
+              "text": "A public IP",
+              "correct": false,
+              "explanation": "Wrong. Public IPs use the internet.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/expressroute/expressroute-introduction",
+          "id": "az104-s2-q16"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature centralizes outbound traffic filtering with FQDN and threat rules for a VNet?",
+          "options": [
+            {
+              "text": "Azure Firewall",
+              "correct": true,
+              "explanation": "Correct. Azure Firewall provides centralized, stateful network/application filtering.",
+              "id": "a"
+            },
+            {
+              "text": "An NSG only",
+              "correct": false,
+              "explanation": "Wrong. NSGs are simpler L3/L4 filters without FQDN/threat intelligence.",
+              "id": "b"
+            },
+            {
+              "text": "A public IP",
+              "correct": false,
+              "explanation": "Wrong. Public IPs expose resources.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/firewall/overview",
+          "id": "az104-s2-q17"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which design hub-and-spoke component shares services like a firewall across spokes?",
+          "options": [
+            {
+              "text": "A hub VNet peered with spoke VNets",
+              "correct": true,
+              "explanation": "Correct. Hub-and-spoke centralizes shared services in the hub.",
+              "id": "a"
+            },
+            {
+              "text": "A single flat VNet for everything",
+              "correct": false,
+              "explanation": "Wrong. That does not implement hub-and-spoke.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/architecture/reference-architectures/hybrid-networking/hub-spoke",
+          "id": "az104-s2-q18"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which feature shows the health and metrics of a single VM quickly?",
+          "options": [
+            {
+              "text": "VM insights in Azure Monitor",
+              "correct": true,
+              "explanation": "Correct. VM insights provides performance and health views.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/vm/vminsights-overview",
+          "id": "az104-s2-q19"
+        },
+        {
           "domainId": "d5",
           "difficulty": "medium",
           "type": "single",
-          "stem": "You want to be alerted when a VM's average CPU exceeds 80% for 5 minutes. Which Azure feature do you use?",
+          "stem": "Which target can an Azure Monitor alert use to run automated remediation?",
           "options": [
-            { "id": "a", "text": "Azure Monitor metric alert", "correct": true, "explanation": "Correct. Metric alerts in Azure Monitor evaluate metrics like CPU against a threshold and notify via action groups." },
-            { "id": "b", "text": "Azure Policy", "correct": false, "explanation": "Wrong. Policy enforces governance/compliance rules, not metric-based alerting." },
-            { "id": "c", "text": "Network Watcher", "correct": false, "explanation": "Wrong. Network Watcher diagnoses networking, not VM CPU alerts." },
-            { "id": "d", "text": "Resource lock", "correct": false, "explanation": "Wrong. Locks protect resources from change; they don't alert." }
+            {
+              "text": "An action group (email, webhook, Automation runbook, Function)",
+              "correct": true,
+              "explanation": "Correct. Action groups define what happens when an alert fires.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A public IP",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to alert actions.",
+              "id": "d"
+            }
           ],
-          "reference": "https://learn.microsoft.com/azure/azure-monitor/alerts/alerts-metric-overview"
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/alerts/action-groups",
+          "id": "az104-s2-q20"
         },
         {
-          "id": "az104-s2-q2",
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature applies OS patches to many VMs on a schedule?",
+          "options": [
+            {
+              "text": "Azure Update Manager",
+              "correct": true,
+              "explanation": "Correct. Update Manager orchestrates patching across VMs.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Monitor metrics",
+              "correct": false,
+              "explanation": "Wrong. Metrics observe; they do not patch.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/update-manager/overview",
+          "id": "az104-s2-q21"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which approach captures guest OS performance counters and logs into Log Analytics?",
+          "options": [
+            {
+              "text": "The Azure Monitor Agent with data collection rules",
+              "correct": true,
+              "explanation": "Correct. AMA plus DCRs collect guest metrics/logs into Log Analytics.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "c"
+            },
+            {
+              "text": "A SAS token",
+              "correct": false,
+              "explanation": "Wrong. SAS grants storage access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/agents/azure-monitor-agent-overview",
+          "id": "az104-s2-q22"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which authentication method strengthens sign-in beyond a password?",
+          "options": [
+            {
+              "text": "Multi-factor authentication (MFA)",
+              "correct": true,
+              "explanation": "Correct. MFA adds a second verification factor.",
+              "id": "a"
+            },
+            {
+              "text": "A longer password only",
+              "correct": false,
+              "explanation": "Wrong. A single factor remains a single point of failure.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/authentication/concept-mfa-howitworks",
+          "id": "az104-s2-q23"
+        },
+        {
           "domainId": "d1",
           "difficulty": "hard",
-          "type": "multi",
-          "stem": "Which mechanisms enforce organizational standards across subscriptions? (Select TWO)",
+          "type": "single",
+          "stem": "Which feature automatically remediates non-compliant resources where possible?",
           "options": [
-            { "id": "a", "text": "Azure Policy", "correct": true, "explanation": "Correct. Policy audits and enforces rules (allowed regions, required tags) across scopes." },
-            { "id": "b", "text": "Management groups", "correct": true, "explanation": "Correct. Management groups let you apply governance and RBAC across many subscriptions at once." },
-            { "id": "c", "text": "Availability Zones", "correct": false, "explanation": "Wrong. AZs are datacenter-resilience constructs, not governance tools." },
-            { "id": "d", "text": "Blob lifecycle rules", "correct": false, "explanation": "Wrong. Lifecycle rules manage storage tiering/expiry, not org-wide governance." }
+            {
+              "text": "Azure Policy with a deployIfNotExists/modify effect",
+              "correct": true,
+              "explanation": "Correct. Certain policy effects can remediate resources.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes, not remediate.",
+              "id": "b"
+            },
+            {
+              "text": "An RBAC role",
+              "correct": false,
+              "explanation": "Wrong. RBAC grants access, not remediation.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
           ],
-          "reference": "https://learn.microsoft.com/azure/governance/management-groups/overview"
+          "reference": "https://learn.microsoft.com/azure/governance/policy/how-to/remediate-resources",
+          "id": "az104-s2-q24"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you mount Azure file shares on Windows, Linux, and macOS?",
+          "options": [
+            {
+              "text": "Azure Files via SMB/NFS",
+              "correct": true,
+              "explanation": "Correct. Azure Files mounts across major OSes.",
+              "id": "a"
+            },
+            {
+              "text": "Blob containers as a drive natively",
+              "correct": false,
+              "explanation": "Wrong. Blob is object storage, not a mounted SMB share by default.",
+              "id": "b"
+            },
+            {
+              "text": "A queue",
+              "correct": false,
+              "explanation": "Wrong. Queues hold messages.",
+              "id": "c"
+            },
+            {
+              "text": "A table",
+              "correct": false,
+              "explanation": "Wrong. Tables store key-value data.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/files/storage-how-to-use-files-windows",
+          "id": "az104-s2-q25"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which key-rotation practice secures storage accounts?",
+          "options": [
+            {
+              "text": "Rotate access keys regularly and prefer Entra ID/SAS over keys",
+              "correct": true,
+              "explanation": "Correct. Rotating keys and minimizing their use reduces risk.",
+              "id": "a"
+            },
+            {
+              "text": "Embed the key in client apps",
+              "correct": false,
+              "explanation": "Wrong. Embedding keys risks leakage.",
+              "id": "b"
+            },
+            {
+              "text": "Never rotate to avoid downtime",
+              "correct": false,
+              "explanation": "Wrong. Stale keys increase exposure.",
+              "id": "c"
+            },
+            {
+              "text": "Make the account public",
+              "correct": false,
+              "explanation": "Wrong. Public access is insecure.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-account-keys-manage",
+          "id": "az104-s2-q26"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you run the same VM config across regions consistently?",
+          "options": [
+            {
+              "text": "Azure Compute Gallery image replication",
+              "correct": true,
+              "explanation": "Correct. The gallery replicates images across regions for consistent deployments.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/shared-image-galleries",
+          "id": "az104-s2-q27"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which approach gives a VM a system-assigned identity to access Key Vault securely?",
+          "options": [
+            {
+              "text": "Enable a managed identity and grant it Key Vault access",
+              "correct": true,
+              "explanation": "Correct. Managed identity plus Key Vault policy avoids stored secrets.",
+              "id": "a"
+            },
+            {
+              "text": "Hardcode the Key Vault key in the VM",
+              "correct": false,
+              "explanation": "Wrong. Hardcoding secrets is insecure.",
+              "id": "b"
+            },
+            {
+              "text": "Use the storage account key",
+              "correct": false,
+              "explanation": "Wrong. That is unrelated to Key Vault identity.",
+              "id": "c"
+            },
+            {
+              "text": "Open Key Vault publicly",
+              "correct": false,
+              "explanation": "Wrong. Public exposure is unsafe.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/managed-identities-azure-resources/overview",
+          "id": "az104-s2-q28"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you reserve a private static IP for a VM's NIC?",
+          "options": [
+            {
+              "text": "Set the private IP allocation to static",
+              "correct": true,
+              "explanation": "Correct. Static allocation keeps the private IP fixed.",
+              "id": "a"
+            },
+            {
+              "text": "Assign a public IP only",
+              "correct": false,
+              "explanation": "Wrong. That is the internet-facing address.",
+              "id": "b"
+            },
+            {
+              "text": "Apply a resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "Add a tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/ip-services/virtual-network-network-interface-addresses",
+          "id": "az104-s2-q29"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which capability spans multiple VNets and on-premises with centralized routing management?",
+          "options": [
+            {
+              "text": "Azure Virtual WAN",
+              "correct": true,
+              "explanation": "Correct. Virtual WAN centralizes large-scale branch and VNet connectivity.",
+              "id": "a"
+            },
+            {
+              "text": "A single NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic; they do not manage WAN routing.",
+              "id": "b"
+            },
+            {
+              "text": "A public IP",
+              "correct": false,
+              "explanation": "Wrong. Public IPs expose resources.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-wan/virtual-wan-about",
+          "id": "az104-s2-q30"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you query metrics across many resources in one place?",
+          "options": [
+            {
+              "text": "Azure Monitor Metrics Explorer",
+              "correct": true,
+              "explanation": "Correct. Metrics Explorer charts and analyzes metrics.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/essentials/metrics-getting-started",
+          "id": "az104-s2-q31"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which service stores secrets, keys, and certificates with access policies and logging?",
+          "options": [
+            {
+              "text": "Azure Key Vault",
+              "correct": true,
+              "explanation": "Correct. Key Vault centrally manages secrets, keys, and certs.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Blob Storage",
+              "correct": false,
+              "explanation": "Wrong. Blob is object storage, not a secrets manager.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Monitor",
+              "correct": false,
+              "explanation": "Wrong. Monitor is observability.",
+              "id": "c"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/key-vault/general/overview",
+          "id": "az104-s2-q32"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which Entra ID license feature provides self-service password reset for users?",
+          "options": [
+            {
+              "text": "Self-Service Password Reset (SSPR)",
+              "correct": true,
+              "explanation": "Correct. SSPR lets users reset passwords without a help desk.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Policy",
+              "correct": false,
+              "explanation": "Wrong. Policy governs resource config.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/authentication/concept-sspr-howitworks",
+          "id": "az104-s2-q33"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which approach restricts a storage account to specific VNets only?",
+          "options": [
+            {
+              "text": "Configure storage firewall with VNet rules/service endpoints",
+              "correct": true,
+              "explanation": "Correct. Storage firewalls limit access to selected networks.",
+              "id": "a"
+            },
+            {
+              "text": "Make the account public",
+              "correct": false,
+              "explanation": "Wrong. Public exposes the account to everyone.",
+              "id": "b"
+            },
+            {
+              "text": "Apply a resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes, not network restriction.",
+              "id": "c"
+            },
+            {
+              "text": "Add a tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-network-security",
+          "id": "az104-s2-q34"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you schedule automatic VM start/stop to save cost?",
+          "options": [
+            {
+              "text": "Start/Stop VMs or Automation runbooks",
+              "correct": true,
+              "explanation": "Correct. Scheduling shutdown of idle VMs reduces cost.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "A tag alone",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata, not scheduling.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-functions/start-stop-vms/overview",
+          "id": "az104-s2-q35"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which NSG concept determines which rule applies when multiple match?",
+          "options": [
+            {
+              "text": "Rule priority (lowest number wins)",
+              "correct": true,
+              "explanation": "Correct. NSG rules are evaluated by priority order.",
+              "id": "a"
+            },
+            {
+              "text": "Alphabetical rule name",
+              "correct": false,
+              "explanation": "Wrong. Names do not determine precedence.",
+              "id": "b"
+            },
+            {
+              "text": "Creation timestamp",
+              "correct": false,
+              "explanation": "Wrong. Priority, not time, governs evaluation.",
+              "id": "c"
+            },
+            {
+              "text": "The largest port range",
+              "correct": false,
+              "explanation": "Wrong. Port range does not set precedence.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/network-security-groups-overview",
+          "id": "az104-s2-q36"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature provides a single dashboard of security posture and recommendations?",
+          "options": [
+            {
+              "text": "Microsoft Defender for Cloud",
+              "correct": true,
+              "explanation": "Correct. Defender for Cloud assesses posture and gives recommendations.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Monitor metrics only",
+              "correct": false,
+              "explanation": "Wrong. Metrics watch performance, not security posture broadly.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/defender-for-cloud/defender-for-cloud-introduction",
+          "id": "az104-s2-q37"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which approach assigns the same RBAC role to many resources efficiently?",
+          "options": [
+            {
+              "text": "Assign the role at a higher scope (resource group, subscription, or management group)",
+              "correct": true,
+              "explanation": "Correct. Higher-scope assignments inherit down to child resources.",
+              "id": "a"
+            },
+            {
+              "text": "Assign it on each resource individually",
+              "correct": false,
+              "explanation": "Wrong. That is tedious and error-prone.",
+              "id": "b"
+            },
+            {
+              "text": "Use a tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata, not permissions.",
+              "id": "c"
+            },
+            {
+              "text": "Use an NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/role-based-access-control/scope-overview",
+          "id": "az104-s2-q38"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which storage feature reduces egress for frequently read content delivered globally?",
+          "options": [
+            {
+              "text": "Azure CDN in front of blob storage",
+              "correct": true,
+              "explanation": "Correct. CDN caches content at edge nodes, reducing origin egress.",
+              "id": "a"
+            },
+            {
+              "text": "Archive tier",
+              "correct": false,
+              "explanation": "Wrong. Archive is cold storage with slow retrieval.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/cdn/cdn-overview",
+          "id": "az104-s2-q39"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you apply configuration consistently to many VMs as code?",
+          "options": [
+            {
+              "text": "Azure Automation State Configuration (DSC) or VM extensions",
+              "correct": true,
+              "explanation": "Correct. DSC/extensions enforce desired configuration at scale.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/automation/automation-dsc-overview",
+          "id": "az104-s2-q40"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which option enables private, dedicated access to a single PaaS resource via a private IP in your VNet?",
+          "options": [
+            {
+              "text": "Azure Private Link / Private Endpoint",
+              "correct": true,
+              "explanation": "Correct. Private Endpoints map a PaaS service to a private IP in your VNet.",
+              "id": "a"
+            },
+            {
+              "text": "A service endpoint only",
+              "correct": false,
+              "explanation": "Wrong. Service endpoints secure the route but do not assign a private IP to the service.",
+              "id": "b"
+            },
+            {
+              "text": "A public IP",
+              "correct": false,
+              "explanation": "Wrong. Public IPs route over the internet.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/private-link/private-link-overview",
+          "id": "az104-s2-q41"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you create a reusable query and pin its result to a dashboard?",
+          "options": [
+            {
+              "text": "A saved Log Analytics (KQL) query",
+              "correct": true,
+              "explanation": "Correct. Saved KQL queries can be pinned to dashboards.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/logs/queries",
+          "id": "az104-s2-q42"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you review and recertify user access periodically?",
+          "options": [
+            {
+              "text": "Entra ID access reviews",
+              "correct": true,
+              "explanation": "Correct. Access reviews periodically recertify access.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Policy",
+              "correct": false,
+              "explanation": "Wrong. Policy governs resource config.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/governance/access-reviews-overview",
+          "id": "az104-s2-q43"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature gives a point-in-time recovery option for blobs against accidental change?",
+          "options": [
+            {
+              "text": "Blob soft delete and versioning",
+              "correct": true,
+              "explanation": "Correct. Soft delete and versioning recover prior/deleted blobs.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock only",
+              "correct": false,
+              "explanation": "Wrong. Locks act on the resource, not per-blob recovery.",
+              "id": "b"
+            },
+            {
+              "text": "A SAS token",
+              "correct": false,
+              "explanation": "Wrong. SAS grants access, not recovery.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/blobs/soft-delete-blob-overview",
+          "id": "az104-s2-q44"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which approach lets you deploy infrastructure declaratively and repeatably in Azure?",
+          "options": [
+            {
+              "text": "ARM templates or Bicep",
+              "correct": true,
+              "explanation": "Correct. ARM/Bicep define infrastructure as code declaratively.",
+              "id": "a"
+            },
+            {
+              "text": "Manually clicking in the portal each time",
+              "correct": false,
+              "explanation": "Wrong. Manual steps are not repeatable IaC.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-resource-manager/templates/overview",
+          "id": "az104-s2-q45"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you see effective security rules applied to a VM's NIC?",
+          "options": [
+            {
+              "text": "Effective security rules in Network Watcher",
+              "correct": true,
+              "explanation": "Correct. Network Watcher shows the combined effective NSG rules.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A public IP",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to rule inspection.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/network-watcher/network-watcher-security-group-view-overview",
+          "id": "az104-s2-q46"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you group related resources for unified billing and management?",
+          "options": [
+            {
+              "text": "Resource groups",
+              "correct": true,
+              "explanation": "Correct. Resource groups organize related resources together.",
+              "id": "a"
+            },
+            {
+              "text": "Availability zones",
+              "correct": false,
+              "explanation": "Wrong. Zones are resilience constructs.",
+              "id": "b"
+            },
+            {
+              "text": "NSGs",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "c"
+            },
+            {
+              "text": "Tags only",
+              "correct": false,
+              "explanation": "Wrong. Tags label resources but do not group lifecycle/management like RGs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/manage-resource-groups-portal",
+          "id": "az104-s2-q47"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Which feature provides automated, recurring export of cost data to storage for analysis?",
+          "options": [
+            {
+              "text": "Cost Management scheduled exports",
+              "correct": true,
+              "explanation": "Correct. Scheduled exports push cost data to storage regularly.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Monitor metrics",
+              "correct": false,
+              "explanation": "Wrong. Metrics watch resources, not billing exports.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/cost-management-billing/costs/tutorial-export-acm-data",
+          "id": "az104-s2-q48"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which tool gives a graphical way to browse and manage storage account contents?",
+          "options": [
+            {
+              "text": "Azure Storage Explorer",
+              "correct": true,
+              "explanation": "Correct. Storage Explorer browses blobs, files, queues, and tables visually.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Monitor",
+              "correct": false,
+              "explanation": "Wrong. Monitor is observability, not storage browsing.",
+              "id": "b"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "c"
+            },
+            {
+              "text": "An NSG",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/vs-azure-tools-storage-manage-with-storage-explorer",
+          "id": "az104-s2-q49"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which feature lets you verify whether traffic is allowed between two endpoints in a VNet?",
+          "options": [
+            {
+              "text": "IP flow verify in Network Watcher",
+              "correct": true,
+              "explanation": "Correct. IP flow verify checks if a packet is allowed or denied.",
+              "id": "a"
+            },
+            {
+              "text": "A resource lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes.",
+              "id": "b"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata.",
+              "id": "c"
+            },
+            {
+              "text": "A public IP",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to flow verification.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/network-watcher/network-watcher-ip-flow-verify-overview",
+          "id": "az104-s2-q50"
         }
       ]
     }
