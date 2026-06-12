@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>certs.eknathalabs.com — Free cloud & DevOps certification practice exams</title>
 <meta name="description" content="Free practice exams for Terraform, CKA, AWS, Azure & GCP certifications. 500 questions, every answer explained — including the wrong ones. No signup, works offline.">
+<meta property="og:title" content="Free cloud & DevOps cert practice — 500 questions, every answer explained">
+<meta property="og:description" content="Terraform 004 · CKA · AWS SAA-C03 · AZ-104 · GCP ACE. Timed exam + practice modes, per-domain scoring, no signup.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://certs.eknathalabs.com/">
+<meta property="og:site_name" content="EknathaLabs">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%230b0f16%22/%3E%3Cpath d=%22M9 11l6 5-6 5%22 stroke=%22%2354e8d4%22 stroke-width=%223%22 fill=%22none%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M17 21h7%22 stroke=%22%2354e8d4%22 stroke-width=%223%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -188,21 +195,20 @@
   .runbar .modepill{margin-left:auto;color:var(--dim);text-transform:uppercase;letter-spacing:1px}
   .runbar .exit{color:var(--dim);cursor:pointer;border:none;background:none;font-family:var(--mono);font-size:12px;padding:0}
   .runbar .exit:hover{color:var(--bad)}
-  .progress{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin:14px 0 14px}
+  .progress{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin:14px 0 22px}
   .progress>i{display:block;height:100%;background:var(--accent);transition:width .35s;width:0}
-  .rb-ans{color:var(--dim)}
 
-  .palette{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 20px}
-  .pq{width:32px;height:32px;font-family:var(--mono);font-size:11px;border:1px solid var(--line);
-    background:var(--panel);color:var(--dim);border-radius:8px;cursor:pointer;transition:.12s;padding:0}
-  .pq:hover{border-color:var(--line-2);color:var(--muted)}
-  .pq.done{border-color:var(--accent-dim);color:var(--accent)}
-  .pq.cur{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);font-weight:700}
-  .pq.ok{border-color:#1f6e44;color:var(--ok)}
-  .pq.bad{border-color:#7a2e2e;color:var(--bad)}
-  .kbd-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:14px;text-align:center;width:100%}
-  .kbd-hint b{color:var(--dim);font-weight:500;border:1px solid var(--line);border-radius:4px;padding:1px 5px;background:var(--panel)}
-  @media(max-width:600px){.kbd-hint{display:none}.pq{width:29px;height:29px}}
+  .qnav{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 20px}
+  .qnav .qn{width:30px;height:26px;font-family:var(--mono);font-size:10.5px;border:1px solid var(--line);
+    background:var(--panel);color:var(--dim);border-radius:6px;cursor:pointer;transition:.12s;padding:0}
+  .qnav .qn:hover{border-color:var(--accent);color:var(--accent)}
+  .qnav .qn.ans{background:var(--panel-3);color:var(--muted);border-color:var(--line-2)}
+  .qnav .qn.cur{border-color:var(--accent);color:var(--accent);font-weight:700}
+  .qnav .qn.ok{border-color:#1f6e44;color:var(--ok)}
+  .qnav .qn.bad{border-color:#7a2e2e;color:var(--bad)}
+  .kbd-hint{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin:-8px 0 18px}
+  .kbd-hint b{color:var(--dim);border:1px solid var(--line);border-radius:4px;padding:0 5px;font-weight:500}
+  @media(max-width:760px){.kbd-hint{display:none}}
 
   .qcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px;margin-bottom:18px}
   .qmeta{display:flex;gap:9px;font-family:var(--mono);font-size:10px;color:var(--dim);
@@ -276,6 +282,7 @@
     <span class="head-spacer"></span>
     <a class="head-link" href="#certs" onclick="event.preventDefault();gotoCerts()">certifications</a>
     <a class="head-link" href="https://eknathalabs.com" target="_blank" rel="noopener">EknathaLabs ↗</a>
+    <span class="head-link hidden" id="visHead"></span>
   </div>
 </header>
 
@@ -357,12 +364,12 @@
     <div class="runbar">
       <span class="qcount" id="rbCount"></span>
       <span class="timer" id="rbTimer"></span>
-      <span class="rb-ans" id="rbAns"></span>
       <span class="modepill" id="rbMode"></span>
       <button class="exit" onclick="confirmExit()">✕ exit</button>
     </div>
     <div class="progress"><i id="rbProg"></i></div>
-    <div class="palette" id="qPalette"></div>
+    <div class="qnav" id="qNav" aria-label="Question navigator"></div>
+    <div class="kbd-hint">keys: <b>A</b>–<b>D</b> / <b>1</b>–<b>4</b> answer · <b>←</b> <b>→</b> navigate · <b>Enter</b> check / next · <b>Esc</b> exit</div>
     <div id="qHost"></div>
     <div class="navbtns">
       <button class="btn" id="btnPrev" onclick="prevQ()">‹ prev</button>
@@ -370,7 +377,6 @@
       <button class="btn" id="btnNext" onclick="nextQ()">next ›</button>
       <button class="btn primary" id="btnSubmit" onclick="submitExam()">submit exam</button>
     </div>
-    <div class="kbd-hint"><b>A</b>–<b>D</b> select · <b>←</b> <b>→</b> navigate · <b>↵</b> check</div>
   </section>
 
   <!-- ============ RESULTS ============ -->
@@ -385,8 +391,7 @@
     <div class="sec-head" style="margin-top:30px"><h2>Score by domain</h2></div>
     <div class="dom-break" id="domBreak"></div>
     <div class="navbtns" style="margin-top:20px">
-      <button class="btn primary" onclick="reviewAnswers(true)" id="btnRevWrong">review mistakes</button>
-      <button class="btn" onclick="reviewAnswers(false)">review all</button>
+      <button class="btn primary" onclick="reviewAnswers()">review answers</button>
       <button class="btn" onclick="retrySet()">retry set</button>
       <button class="btn" onclick="openCert(CERT.certId)">other set</button>
     </div>
@@ -397,6 +402,7 @@
       <span>certs.eknathalabs.com</span>
       <a href="https://eknathalabs.com" target="_blank" rel="noopener">EknathaLabs</a>
       <a href="https://github.com/eknatha" target="_blank" rel="noopener">GitHub</a>
+      <span class="hidden" id="visFoot"></span>
       <span class="sp"></span>
       <span>Built for engineers, by an engineer · offline-first</span>
     </div>
@@ -407,12 +413,9 @@
 const VC={HashiCorp:'--hashicorp',Google:'--google','Google Cloud':'--google',AWS:'--aws',Microsoft:'--microsoft',CNCF:'--cncf'};
 const VABBR={HashiCorp:'TF',Google:'GCP','Google Cloud':'GCP',AWS:'AWS',Microsoft:'AZ',CNCF:'K8s'};
 let MANIFEST=[], CERT=null, SET=null, MODE='exam';
-let QI=0, ORDER=[], ANSWERS={}, TIMER=null, TIME_LEFT=0, REVIEWING=false;
+let QI=0, ANSWERS={}, TIMER=null, TIME_LEFT=0, REVIEWING=false;
 const $=id=>document.getElementById(id);
-/* escape user-facing data before innerHTML — question text contains raw <node>, <addr>, etc. */
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-/* escape, then render `backticks` as code chips */
-const fmt=s=>esc(s).replace(/`([^`]+)`/g,'<code>$1</code>');
 function show(v){['view-home','view-sets','view-run','view-results'].forEach(x=>$(x).classList.toggle('hidden',x!==v));}
 
 /* progress persistence */
@@ -457,7 +460,11 @@ function renderCerts(){
       <div class="foot">${foot}<span class="start">start <span class="ar">→</span></span></div>
     </article>`;}).join('');
 }
-function gotoCerts(){clearInterval(TIMER);show('view-home');requestAnimationFrame(()=>$('certs').scrollIntoView({behavior:'smooth',block:'start'}));}
+function gotoCerts(){
+  if(!$('view-run').classList.contains('hidden') && !REVIEWING){
+    if(!confirm('Leave this set? Your progress on this run will be lost.'))return;
+  }
+  clearInterval(TIMER);if(MANIFEST.length)renderCerts();show('view-home');requestAnimationFrame(()=>$('certs').scrollIntoView({behavior:'smooth',block:'start'}));}
 function scrollDemo(){$('demoConsole').scrollIntoView({behavior:'smooth',block:'center'});}
 
 /* interactive hero demo */
@@ -510,8 +517,8 @@ function openCert(id){
 function renderSets(){
   const col=VC[CERT.vendor]||'--accent';
   $('view-sets').style.setProperty('--cc',`var(${col})`);
-  $('setCertSub').innerHTML=`<span>${esc(CERT.vendor)}</span><span>· exam ${esc(CERT.examVersion)}</span><span>· pass ${CERT.passScore}%</span>`+
-    `<span class="badge"><span class="dot"></span>updated ${esc(CERT.lastUpdated)}</span>`;
+  $('setCertSub').innerHTML=`<span>${CERT.vendor}</span><span>· exam ${CERT.examVersion}</span><span>· pass ${CERT.passScore}%</span>`+
+    `<span class="badge"><span class="dot"></span>updated ${CERT.lastUpdated}</span>`;
   const noteHtml = CERT.note ? `<div class="note"><span class="ic">▲</span><span>${esc(CERT.note)}</span></div>` : '';
   $('setList').innerHTML=noteHtml+CERT.sets.map(s=>{
     const best=setBest(CERT.certId,s.setId);
@@ -532,7 +539,6 @@ function renderSets(){
 function startSet(setId,mode){
   SET=CERT.sets.find(s=>s.setId===setId);
   MODE=mode;QI=0;ANSWERS={};REVIEWING=false;
-  ORDER=SET.questions.map((_,i)=>i);
   const col=VC[CERT.vendor]||'--accent';
   $('view-run').style.setProperty('--cc',`var(${col})`);
   $('view-results').style.setProperty('--cc',`var(${col})`);
@@ -548,26 +554,13 @@ function startTimer(){
     const m=String(Math.floor(TIME_LEFT/60)).padStart(2,'0'),s=String(TIME_LEFT%60).padStart(2,'0');
     const el=$('rbTimer');el.textContent=`⏱ ${m}:${s}`;
     el.classList.toggle('low',TIME_LEFT<=60);
-    if(TIME_LEFT<=0){clearInterval(TIMER);submitExam(true);return;}
+    if(TIME_LEFT<=0){clearInterval(TIMER);submitExam();return;}
     TIME_LEFT--;
   };
   tick();TIMER=setInterval(tick,1000);
 }
-function curQ(){return SET.questions[ORDER[QI]];}
-function renderPalette(){
-  $('qPalette').innerHTML=ORDER.map((qi,i)=>{
-    const q=SET.questions[qi];
-    const a=(ANSWERS[q.id]||[]).length>0;
-    let cls='pq'+(i===QI?' cur':'');
-    if(REVIEWING)cls+=gradeQuestion(q)?' ok':' bad';
-    else if(a)cls+=' done';
-    return `<button class="${cls}" onclick="jumpQ(${i})" aria-label="Question ${i+1}">${i+1}</button>`;
-  }).join('');
-  const answered=SET.questions.filter(q=>(ANSWERS[q.id]||[]).length>0).length;
-  $('rbAns').textContent=REVIEWING?'reviewing':`${answered}/${SET.questions.length} answered`;
-}
 function renderQ(){
-  const q=curQ(), total=ORDER.length;
+  const q=SET.questions[QI], total=SET.questions.length;
   $('rbCount').textContent=`Q ${QI+1} / ${total}`;
   $('rbProg').style.width=((QI+1)/total*100)+'%';
   const dom=(CERT.domains.find(d=>d.id===q.domainId)||{}).name||q.domainId;
@@ -577,14 +570,14 @@ function renderQ(){
   $('qHost').innerHTML=`<div class="qcard">
     <div class="qmeta">
       <span class="pill dom">${esc(dom)}</span>
-      <span class="pill">${esc(q.difficulty)}</span>
+      <span class="pill">${q.difficulty}</span>
       <span class="pill">${q.type==='multi'?'select all that apply':'single answer'}</span>
     </div>
-    <div class="stem">${fmt(q.stem)}</div>
-    <div id="opts">${q.options.map(o=>{
+    <div class="stem">${esc(q.stem)}</div>
+    <div id="opts">${q.options.map((o,oi)=>{
       const isSel=sel.includes(o.id);
       let cls='opt'+(isSel?' sel':'');
-      let expCls='exp',mark=isSel?(q.type==='multi'?'✓':'●'):'';
+      let expCls='exp',mark=isSel?(q.type==='multi'?'✓':'●'):('ABCDE'[oi]||'');
       if(graded){
         if(o.correct){cls+=' correct';expCls+=' show r';mark='✓';}
         else if(isSel){cls+=' wrong';expCls+=' show w';mark='✕';}
@@ -593,8 +586,8 @@ function renderQ(){
       return `<div class="${cls}" ${graded?'':`onclick="pick('${q.id}','${o.id}','${q.type}')"`}>
         <div class="mark">${mark}</div>
         <div style="flex:1">
-          <div class="otext">${fmt(o.text)}</div>
-          <div class="${expCls}"><b>${o.correct?'Correct.':'Incorrect.'}</b> ${fmt(o.explanation.replace(/^(Correct|Wrong|Incorrect)\.\s*/i,''))}</div>
+          <div class="otext">${esc(o.text)}</div>
+          <div class="${expCls}"><b>${o.correct?'Correct.':'Incorrect.'}</b> ${esc(o.explanation.replace(/^(Correct|Wrong|Incorrect)\.\s*/i,''))}</div>
         </div>
       </div>`;}).join('')}</div>
     ${MODE==='practice'&&!graded?`<div class="navbtns" style="margin-top:16px"><button class="btn primary" onclick="checkQ('${q.id}')" ${sel.length?'':'disabled'}>check answer</button></div>`:''}
@@ -602,7 +595,7 @@ function renderQ(){
   </div>`;
   $('btnPrev').disabled=QI===0;
   $('btnNext').disabled=QI===total-1;
-  renderPalette();
+  renderNav();
 }
 function pick(qid,oid,type){
   let sel=ANSWERS[qid]||[];
@@ -655,13 +648,59 @@ function submitExam(){
   $('domBreak').innerHTML=Object.entries(byDom).map(([id,v])=>{
     const name=(CERT.domains.find(d=>d.id===id)||{}).name||id;
     const p=Math.round(v.r/v.t*100),col=p>=CERT.passScore?'--ok':'--bad';
-    return `<div class="dom-row"><span class="dname">${name}</span>
+    return `<div class="dom-row"><span class="dname">${esc(name)}</span>
       <div class="dom-bar"><i style="width:${p}%;background:var(${col})"></i></div>
       <span style="color:var(${col});width:54px;text-align:right">${v.r}/${v.t}</span></div>`;}).join('');
   show('view-results');window.scrollTo({top:0,behavior:'smooth'});
 }
 function reviewAnswers(){REVIEWING=true;QI=0;$('btnSubmit').classList.add('hidden');show('view-run');window.scrollTo({top:0});renderQ();}
 function retrySet(){startSet(SET.setId,MODE);}
+
+/* ---------- question navigator ---------- */
+function renderNav(){
+  if(!SET)return;
+  $('qNav').innerHTML=SET.questions.map((q,i)=>{
+    const a=((ANSWERS[q.id]||[]).length>0);
+    let cls='qn'+(i===QI?' cur':'')+(a?' ans':'');
+    if(REVIEWING)cls+=gradeQuestion(q)?' ok':' bad';
+    return `<button class="${cls}" onclick="jumpQ(${i})" aria-label="Go to question ${i+1}">${i+1}</button>`;
+  }).join('');
+}
+function jumpQ(i){QI=i;renderQ();window.scrollTo({top:0,behavior:'smooth'});}
+
+/* ---------- keyboard shortcuts ---------- */
+document.addEventListener('keydown',e=>{
+  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  if(!SET||$('view-run').classList.contains('hidden'))return;
+  const q=SET.questions[QI],sel=ANSWERS[q.id]||[];
+  const graded=REVIEWING||(MODE==='practice'&&sel._checked);
+  if(e.key==='ArrowRight'){nextQ();}
+  else if(e.key==='ArrowLeft'){prevQ();}
+  else if(e.key==='Escape'){confirmExit();}
+  else if(e.key==='Enter'){e.preventDefault();if(MODE==='practice'&&!graded&&sel.length)checkQ(q.id);else nextQ();}
+  else if(!graded){
+    let i=-1;
+    if(/^[1-9]$/.test(e.key))i=+e.key-1;
+    else if(/^[a-eA-E]$/.test(e.key))i=e.key.toUpperCase().charCodeAt(0)-65;
+    if(i>=0&&i<q.options.length)pick(q.id,q.options[i].id,q.type);
+  }
+});
+
+/* ---------- total visitor counter ----------
+   Uses Abacus (free, keyless hit counter). Counts once per browser session.
+   If the service is unreachable (offline / blocked), the counter simply stays hidden. */
+(function(){
+  const NS='certs-eknathalabs-com',KEY='visits';
+  let hit=true;try{hit=!sessionStorage.getItem('cv_hit')}catch(e){}
+  fetch(`https://abacus.jasoncameron.dev/${hit?'hit':'get'}/${NS}/${KEY}`)
+    .then(r=>{if(!r.ok)throw 0;return r.json()})
+    .then(d=>{
+      try{sessionStorage.setItem('cv_hit','1')}catch(e){}
+      const n=Number(d.value||0).toLocaleString();
+      const h=$('visHead');if(h){h.textContent='◉ '+n;h.title=n+' total visitors';h.classList.remove('hidden');}
+      const f=$('visFoot');if(f){f.textContent=n+' total visitors';f.classList.remove('hidden');}
+    }).catch(()=>{});
+})();
 </script>
 </body>
 </html>
