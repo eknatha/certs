@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>certs.eknathalabs.com — Free cloud & DevOps certification practice exams</title>
-<meta name="description" content="Free practice exams for Terraform, CKA, AWS, Azure & GCP certifications. 500 questions, every answer explained — including the wrong ones. No signup, works offline.">
-<meta property="og:title" content="Free cloud & DevOps cert practice — 500 questions, every answer explained">
-<meta property="og:description" content="Terraform 004 · CKA · AWS SAA-C03 · AZ-104 · GCP ACE. Timed exam + practice modes, per-domain scoring, no signup.">
+<title>certs.eknathalabs.com — Free Cloud & DevOps certification practice exams</title>
+<meta name="description" content="Free practice exams for Terraform, CKA, AWS, Azure & GCP certifications. 1,000 questions across definitional and scenario sets, every answer explained — including the wrong ones. No signup, works offline.">
+<meta property="og:title" content="Free Cloud & DevOps cert practice — 1,000 questions, every answer explained">
+<meta property="og:description" content="Terraform 004 · CKA · AWS SAA-C03 · AZ-104 · GCP ACE. Definitional + scenario sets, timed exam + practice modes, per-domain scoring, no signup.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://certs.eknathalabs.com/">
 <meta property="og:site_name" content="EknathaLabs">
@@ -177,6 +177,11 @@
   .set-row .sbest{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;
     background:color-mix(in srgb,var(--cc) 16%,transparent);color:var(--cc)}
   .set-row .info{font-family:var(--mono);font-size:11px;color:var(--dim);margin-top:5px;display:flex;gap:8px;flex-wrap:wrap}
+  .set-row .shint{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.45;max-width:46ch}
+  .stype{font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+    padding:2px 8px;border-radius:20px;border:1px solid var(--line-2);color:var(--dim)}
+  .stype.scen{color:var(--cc);border-color:color-mix(in srgb,var(--cc) 40%,transparent);
+    background:color-mix(in srgb,var(--cc) 12%,transparent)}
   .modes{display:flex;gap:9px;flex:none}
   .btn{font-family:var(--mono);font-size:12px;border:1px solid var(--line-2);background:var(--panel-2);
     color:var(--ink);border-radius:9px;padding:10px 16px;cursor:pointer;transition:.15s;font-weight:500}
@@ -307,8 +312,8 @@
   <section id="view-home">
     <div class="hero">
       <span class="eyebrow"><span class="pulse"></span> Free · No signup · Works offline</span>
-      <h1>Pass your cloud cert.<br>Practice on <span class="hl">500</span> real questions.</h1>
-      <p class="sub">Exam-style practice for Terraform, Kubernetes, AWS, Azure & GCP — where <b>every option is explained, including the wrong ones.</b> Most quiz sites tell you the answer. This one tells you why.</p>
+      <h1>Prepare for your Cloud & Devops Certifications.<br>Practice on <span class="hl" id="heroNum">1,000+</span> real questions.</h1>
+      <p class="sub">Exam-style practice for Terraform, Kubernetes, AWS, Azure &amp; GCP — where <b>every option is explained, including the wrong ones.</b> Definitional sets to learn the ground, scenario sets to test it under real exam pressure.</p>
       <div class="hero-cta">
         <button class="cta go" onclick="gotoCerts()">Start practicing →</button>
         <button class="cta ghost" onclick="scrollDemo()">Try a question first</button>
@@ -336,11 +341,11 @@
       </div>
     </div>
 
-    <div class="stats">
-      <div class="stat"><div class="n">5</div><div class="l">Certifications</div></div>
-      <div class="stat"><div class="n">500</div><div class="l">Questions</div></div>
-      <div class="stat"><div class="n">~2<span class="u">k</span></div><div class="l">Explanations</div></div>
-      <div class="stat"><div class="n">10</div><div class="l">Practice exams</div></div>
+    <div class="stats" aria-label="Catalog at a glance">
+      <div class="stat"><div class="n" id="stCerts">5</div><div class="l">Certifications</div></div>
+      <div class="stat"><div class="n" id="stQs">1,000</div><div class="l">Questions</div></div>
+      <div class="stat"><div class="n" id="stExp">~4<span class="u">k</span></div><div class="l">Explanations</div></div>
+      <div class="stat"><div class="n" id="stSets">20</div><div class="l">Practice exams</div></div>
     </div>
 
     <section class="sec" id="qotd-sec">
@@ -361,7 +366,7 @@
 
     <section class="sec" id="certs">
       <div class="sec-head"><h2>Choose your exam</h2><span class="ix" id="certCount"></span></div>
-      <p class="sec-sub">Two full 50-question sets each. Pick exam mode for a timed run, or practice mode to check answers as you go.</p>
+      <p class="sec-sub">Four 50-question sets each — two definitional, two scenario-based. Pick exam mode for a timed run, or practice mode to check answers as you go.</p>
       <div class="grid" id="certGrid">
         <div class="skel"></div><div class="skel"></div><div class="skel"></div>
       </div>
@@ -400,7 +405,7 @@
     </div>
     <div class="progress"><i id="rbProg"></i></div>
     <div class="qnav" id="qNav" aria-label="Question navigator"></div>
-    <div class="kbd-hint">keys: <b>A</b>–<b>D</b> / <b>1</b>–<b>4</b> answer · <b>←</b> <b>→</b> navigate · <b>Enter</b> check / next · <b>Esc</b> exit</div>
+    <div class="kbd-hint">keys: <b>A</b>–<b>E</b> / <b>1</b>–<b>5</b> answer · <b>←</b> <b>→</b> navigate · <b>Enter</b> check / next · <b>F</b> flag · <b>Esc</b> exit</div>
     <div id="qHost"></div>
     <div class="navbtns">
       <button class="btn" id="btnPrev" onclick="prevQ()">‹ prev</button>
@@ -476,8 +481,35 @@ function certProgress(certId){
 function setBest(certId,setId){const p=loadProg();const e=p[certId+'::'+setId];return e?e.best:null;}
 
 /* load manifest */
-fetch('data/manifest.json').then(r=>r.json()).then(d=>{MANIFEST=d.certs;renderCerts();initQotd();})
+fetch('data/manifest.json').then(r=>r.json()).then(d=>{MANIFEST=d.certs;renderCerts();initQotd();try{renderStats();}catch(e){}})
   .catch(()=>{$('certGrid').innerHTML=`<div class="empty">Couldn't load <code>data/manifest.json</code>.<br>If you're opening this file directly, run a local server: <code>python3 -m http.server</code> — fetch is blocked on file://</div>`;});
+
+/* ---------- live catalog stats (never go stale) ---------- */
+function renderStats(){
+  const certs=MANIFEST.length;
+  const qs=MANIFEST.reduce((a,c)=>a+(c.questionCount||0),0);
+  const sets=MANIFEST.reduce((a,c)=>a+(c.setCount||0),0);
+  const exp=qs*4; // four options, each with an explanation
+  const set=(id,val)=>{const el=$(id);if(el)el.textContent=val;};
+  countUp('stCerts',certs,v=>String(v));
+  countUp('stQs',qs,v=>v.toLocaleString());
+  countUp('stSets',sets,v=>String(v));
+  set('heroNum',qs.toLocaleString());
+  // explanations: round to nearest 0.5k and render with the accent "k" unit preserved
+  const k=Math.round(exp/500)/2; const kt=(k%1===0?k:k.toFixed(1)).replace(/\.0$/,'');
+  const ex=$('stExp');if(ex)ex.innerHTML='~'+kt+'<span class="u">k</span>';
+}
+function countUp(id,target,fmt){
+  const el=$(id);if(!el)return;
+  const reduce=(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches);
+  if(reduce||typeof requestAnimationFrame!=='function'){el.textContent=fmt(target);return;}
+  const dur=900,t0=performance.now();
+  (function tick(t){
+    const p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);
+    el.textContent=fmt(Math.round(target*e));
+    if(p<1)requestAnimationFrame(tick);
+  })(t0);
+}
 
 function renderCerts(){
   $('certCount').textContent='['+MANIFEST.length+']';
@@ -560,13 +592,21 @@ function renderSets(){
   $('setCertSub').innerHTML=`<span>${CERT.vendor}</span><span>· exam ${CERT.examVersion}</span><span>· pass ${CERT.passScore}%</span>`+
     `<span class="badge"><span class="dot"></span>updated ${CERT.lastUpdated}</span>`;
   const noteHtml = CERT.note ? `<div class="note"><span class="ic">▲</span><span>${esc(CERT.note)}</span></div>` : '';
-  $('setList').innerHTML=noteHtml+CERT.sets.map(s=>{
+  $('setList').innerHTML=noteHtml+CERT.sets.map((s,ix)=>{
     const best=setBest(CERT.certId,s.setId);
     const bestTag = best!==null?`<span class="sbest">best ${best}%</span>`:'';
+    const scenario=/scenario/i.test(s.name);
+    const typeTag=scenario
+      ? `<span class="stype scen">scenario</span>`
+      : `<span class="stype">core</span>`;
+    const hint=scenario
+      ? 'Multi-constraint scenarios with CLI commands in the explanations.'
+      : 'Definitional questions covering the exam blueprint.';
     return `<div class="set-row" style="--cc:var(${col})">
       <div>
-        <div class="sname">${esc(s.name)}${bestTag}</div>
+        <div class="sname">${esc(s.name)}${typeTag}${bestTag}</div>
         <div class="info"><span>${s.questions.length} questions</span><span>· ${s.timeLimitMin} min</span><span>· ${CERT.passScore}% to pass</span></div>
+        <div class="shint">${hint}</div>
       </div>
       <div class="modes">
         <button class="btn" onclick="startSet('${s.setId}','practice')">practice</button>
