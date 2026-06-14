@@ -1,45 +1,45 @@
 {
-  "generated": "2026-06-11",
+  "generated": "2026-06-13",
   "certs": [
     {
       "certId": "terraform-004",
       "title": "HashiCorp Certified: Terraform Associate (004)",
       "vendor": "HashiCorp",
       "file": "data/terraform-004.json",
-      "questionCount": 100,
-      "setCount": 2
+      "questionCount": 200,
+      "setCount": 4
     },
     {
       "certId": "cka",
       "title": "Certified Kubernetes Administrator (CKA)",
       "vendor": "CNCF",
       "file": "data/cka.json",
-      "questionCount": 100,
-      "setCount": 2
+      "questionCount": 200,
+      "setCount": 4
     },
     {
       "certId": "aws-saa-c03",
       "title": "AWS Certified Solutions Architect – Associate (SAA-C03)",
       "vendor": "AWS",
       "file": "data/aws-saa-c03.json",
-      "questionCount": 100,
-      "setCount": 2
+      "questionCount": 200,
+      "setCount": 4
     },
     {
       "certId": "az-104",
       "title": "Microsoft Azure Administrator (AZ-104)",
       "vendor": "Microsoft",
       "file": "data/az-104.json",
-      "questionCount": 100,
-      "setCount": 2
+      "questionCount": 200,
+      "setCount": 4
     },
     {
       "certId": "gcp-ace",
       "title": "Google Cloud Associate Cloud Engineer (ACE)",
       "vendor": "Google Cloud",
       "file": "data/gcp-ace.json",
-      "questionCount": 100,
-      "setCount": 2
+      "questionCount": 200,
+      "setCount": 4
     }
   ]
 }
