@@ -3441,6 +3441,3420 @@
           "id": "terraform004-s2-q50"
         }
       ]
+    },
+    {
+      "setId": "set-3",
+      "name": "Scenario Exam 1",
+      "timeLimitMin": 60,
+      "questions": [
+        {
+          "domainId": "d6",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "After renaming aws_instance.web to aws_instance.frontend, plan shows 1 to destroy and 1 to create. How do you keep the running VM?",
+          "options": [
+            {
+              "text": "Add a moved block and re-plan",
+              "correct": true,
+              "explanation": "Correct. `moved { from = aws_instance.web  to = aws_instance.frontend }` retargets state; plan becomes a no-op.",
+              "id": "a"
+            },
+            {
+              "text": "Apply, accepting brief downtime",
+              "correct": false,
+              "explanation": "Wrong. Replacement is unnecessary; moved blocks exist for exactly this.",
+              "id": "b"
+            },
+            {
+              "text": "terraform refresh",
+              "correct": false,
+              "explanation": "Wrong. Refresh syncs attribute values; it cannot re-address resources.",
+              "id": "c"
+            },
+            {
+              "text": "Delete the state file and re-import everything",
+              "correct": false,
+              "explanation": "Wrong. Massive overkill and risky.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/develop/refactoring",
+          "id": "terraform004-s3-q1"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A CI job was killed mid-apply and now every run fails with 'Error acquiring the state lock'. Nothing is running. Next step?",
+          "options": [
+            {
+              "text": "Run terraform force-unlock with the lock ID from the error",
+              "correct": true,
+              "explanation": "Correct. After confirming no apply is live: `terraform force-unlock 3f1c…`.",
+              "id": "a"
+            },
+            {
+              "text": "Delete the remote state object",
+              "correct": false,
+              "explanation": "Wrong. That destroys the record of all managed resources.",
+              "id": "b"
+            },
+            {
+              "text": "Re-run apply with -lock=false permanently",
+              "correct": false,
+              "explanation": "Wrong. Disabling locking invites state corruption.",
+              "id": "c"
+            },
+            {
+              "text": "terraform init -reconfigure",
+              "correct": false,
+              "explanation": "Wrong. Backend reconfig doesn't clear a held lock.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/locking",
+          "id": "terraform004-s3-q2"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A colleague deleted a decommissioned VM in the cloud console. The config block was already removed, but state still tracks it and plan errors. Fix?",
+          "options": [
+            {
+              "text": "Remove it from state",
+              "correct": true,
+              "explanation": "Correct. `terraform state rm aws_instance.legacy` stops tracking the already-gone resource.",
+              "id": "a"
+            },
+            {
+              "text": "terraform apply -replace on it",
+              "correct": false,
+              "explanation": "Wrong. -replace would try to recreate the VM.",
+              "id": "b"
+            },
+            {
+              "text": "Restore the VM manually first",
+              "correct": false,
+              "explanation": "Wrong. It was meant to be deleted.",
+              "id": "c"
+            },
+            {
+              "text": "Delete the lock file",
+              "correct": false,
+              "explanation": "Wrong. The lock file pins providers; unrelated.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/state/rm",
+          "id": "terraform004-s3-q3"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Security created an S3 bucket by hand that must now be Terraform-managed without recreation. Modern approach?",
+          "options": [
+            {
+              "text": "Write an import block, then plan and apply",
+              "correct": true,
+              "explanation": "Correct. `import { to = aws_s3_bucket.audit  id = \"audit-logs-prod\" }` adopts it via the normal workflow.",
+              "id": "a"
+            },
+            {
+              "text": "terraform state push a hand-written entry",
+              "correct": false,
+              "explanation": "Wrong. Hand-crafting state is unsupported and error-prone.",
+              "id": "b"
+            },
+            {
+              "text": "Recreate it with a new name",
+              "correct": false,
+              "explanation": "Wrong. The requirement is no recreation.",
+              "id": "c"
+            },
+            {
+              "text": "Reference it only as a data source",
+              "correct": false,
+              "explanation": "Wrong. Data sources read; they don't manage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/import",
+          "id": "terraform004-s3-q4"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You're refactoring: aws_sqs_queue.jobs must live inside module \"queues\". How do you relocate it without destroy/create?",
+          "options": [
+            {
+              "text": "terraform state mv to the module address",
+              "correct": true,
+              "explanation": "Correct. `terraform state mv aws_sqs_queue.jobs module.queues.aws_sqs_queue.jobs` (or a moved block).",
+              "id": "a"
+            },
+            {
+              "text": "Cut-paste the config and apply",
+              "correct": false,
+              "explanation": "Wrong. Address change without state move = destroy + create.",
+              "id": "b"
+            },
+            {
+              "text": "terraform import inside the module",
+              "correct": false,
+              "explanation": "Wrong. Possible but clumsy; state mv/moved is the direct path.",
+              "id": "c"
+            },
+            {
+              "text": "Run two applies quickly",
+              "correct": false,
+              "explanation": "Wrong. Speed doesn't change the plan.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/state/mv",
+          "id": "terraform004-s3-q5"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need a local backup of remote state before risky surgery. Command?",
+          "options": [
+            {
+              "text": "terraform state pull > backup.tfstate",
+              "correct": true,
+              "explanation": "Correct. `state pull` streams the current remote state to stdout for safekeeping.",
+              "id": "a"
+            },
+            {
+              "text": "terraform state list > backup.tfstate",
+              "correct": false,
+              "explanation": "Wrong. That's only addresses, not full state.",
+              "id": "b"
+            },
+            {
+              "text": "cp terraform.tfstate backup/",
+              "correct": false,
+              "explanation": "Wrong. With a remote backend there's no local tfstate to copy.",
+              "id": "c"
+            },
+            {
+              "text": "terraform output -json > backup.tfstate",
+              "correct": false,
+              "explanation": "Wrong. Outputs ≠ full state.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/state/pull",
+          "id": "terraform004-s3-q6"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "One VM in a fleet of ten is corrupted at the OS level. You want Terraform to rebuild just that one. Command?",
+          "options": [
+            {
+              "text": "terraform apply -replace='aws_instance.web[2]'",
+              "correct": true,
+              "explanation": "Correct. -replace forces recreation of one address; taint is deprecated.",
+              "id": "a"
+            },
+            {
+              "text": "terraform destroy then apply",
+              "correct": false,
+              "explanation": "Wrong. That cycles all ten.",
+              "id": "b"
+            },
+            {
+              "text": "terraform taint (still the recommended way)",
+              "correct": false,
+              "explanation": "Wrong. taint is deprecated in favor of -replace.",
+              "id": "c"
+            },
+            {
+              "text": "Delete it from state",
+              "correct": false,
+              "explanation": "Wrong. State rm orphans the broken VM instead of rebuilding it.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/plan#replace-address",
+          "id": "terraform004-s3-q7"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Your pipeline must fail PRs containing unformatted Terraform. Which gate?",
+          "options": [
+            {
+              "text": "terraform fmt -check -recursive",
+              "correct": true,
+              "explanation": "Correct. Non-zero exit on diffs: `terraform fmt -check -recursive` in CI.",
+              "id": "a"
+            },
+            {
+              "text": "terraform fmt (plain)",
+              "correct": false,
+              "explanation": "Wrong. Plain fmt rewrites files and exits 0 — it hides the problem.",
+              "id": "b"
+            },
+            {
+              "text": "terraform validate",
+              "correct": false,
+              "explanation": "Wrong. validate checks correctness, not style.",
+              "id": "c"
+            },
+            {
+              "text": "grep for tabs",
+              "correct": false,
+              "explanation": "Wrong. Fragile; fmt -check is canonical.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/fmt",
+          "id": "terraform004-s3-q8"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "CI must run terraform validate on PRs but has no backend credentials. How do you init?",
+          "options": [
+            {
+              "text": "terraform init -backend=false",
+              "correct": true,
+              "explanation": "Correct. `init -backend=false && terraform validate` skips backend setup while installing providers.",
+              "id": "a"
+            },
+            {
+              "text": "Give CI full state credentials",
+              "correct": false,
+              "explanation": "Wrong. Unnecessary privilege for validation.",
+              "id": "b"
+            },
+            {
+              "text": "Skip init entirely",
+              "correct": false,
+              "explanation": "Wrong. validate needs providers/modules installed.",
+              "id": "c"
+            },
+            {
+              "text": "terraform init -migrate-state",
+              "correct": false,
+              "explanation": "Wrong. That's for backend migration.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "id": "terraform004-s3-q9"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Linux CI fails with provider checksum errors because the lock file was created on macOS. Durable fix?",
+          "options": [
+            {
+              "text": "Lock multiple platforms",
+              "correct": true,
+              "explanation": "Correct. `terraform providers lock -platform=linux_amd64 -platform=darwin_arm64` records hashes for both.",
+              "id": "a"
+            },
+            {
+              "text": "Delete .terraform.lock.hcl in CI",
+              "correct": false,
+              "explanation": "Wrong. That defeats supply-chain pinning.",
+              "id": "b"
+            },
+            {
+              "text": "Pin an older provider",
+              "correct": false,
+              "explanation": "Wrong. Version isn't the issue; platform hashes are.",
+              "id": "c"
+            },
+            {
+              "text": "Run CI on macOS only",
+              "correct": false,
+              "explanation": "Wrong. Fixing the lock file is the supported route.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/providers/lock",
+          "id": "terraform004-s3-q10"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A provider call fails with an opaque 403. How do you capture full API request/response detail?",
+          "options": [
+            {
+              "text": "TF_LOG=DEBUG with TF_LOG_PATH",
+              "correct": true,
+              "explanation": "Correct. `TF_LOG=DEBUG TF_LOG_PATH=./tf.log terraform plan` writes verbose traces.",
+              "id": "a"
+            },
+            {
+              "text": "terraform plan -verbose",
+              "correct": false,
+              "explanation": "Wrong. No such flag.",
+              "id": "b"
+            },
+            {
+              "text": "Read the state file",
+              "correct": false,
+              "explanation": "Wrong. State won't show live API errors.",
+              "id": "c"
+            },
+            {
+              "text": "terraform graph",
+              "correct": false,
+              "explanation": "Wrong. graph shows dependencies, not HTTP traffic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/internals/debugging",
+          "id": "terraform004-s3-q11"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Change control demands the apply execute exactly what reviewers saw — no re-planning. Workflow?",
+          "options": [
+            {
+              "text": "Save the plan, apply the file",
+              "correct": true,
+              "explanation": "Correct. `terraform plan -out=tfplan` for review, then `terraform apply tfplan`.",
+              "id": "a"
+            },
+            {
+              "text": "apply -auto-approve right after plan",
+              "correct": false,
+              "explanation": "Wrong. A fresh apply re-plans; the world may have changed.",
+              "id": "b"
+            },
+            {
+              "text": "Screenshot the plan",
+              "correct": false,
+              "explanation": "Wrong. Screenshots don't bind the apply.",
+              "id": "c"
+            },
+            {
+              "text": "Lock the state during review",
+              "correct": false,
+              "explanation": "Wrong. Holding locks for hours blocks everyone and still re-plans.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/plan#out-filename",
+          "id": "terraform004-s3-q12"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Production is down; you must fix one security group now, but the full plan includes risky unrelated changes. Acceptable emergency move?",
+          "options": [
+            {
+              "text": "Apply with -target on that resource, then reconcile soon",
+              "correct": true,
+              "explanation": "Correct. `terraform apply -target=aws_security_group.app` is the documented escape hatch — follow up with a full plan.",
+              "id": "a"
+            },
+            {
+              "text": "Make -target the team's standard workflow",
+              "correct": false,
+              "explanation": "Wrong. Routine targeting masks dependency drift.",
+              "id": "b"
+            },
+            {
+              "text": "Edit the SG in the console and never tell Terraform",
+              "correct": false,
+              "explanation": "Wrong. That creates silent drift.",
+              "id": "c"
+            },
+            {
+              "text": "Run destroy first",
+              "correct": false,
+              "explanation": "Wrong. Catastrophic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/plan#target-address",
+          "id": "terraform004-s3-q13"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You want a nightly job that alerts when live infra drifts from config, making no changes. Best mechanism?",
+          "options": [
+            {
+              "text": "terraform plan -detailed-exitcode",
+              "correct": true,
+              "explanation": "Correct. Exit 0 = clean, 2 = drift: `terraform plan -detailed-exitcode -lock=false` in a cron job.",
+              "id": "a"
+            },
+            {
+              "text": "terraform apply -auto-approve nightly",
+              "correct": false,
+              "explanation": "Wrong. That 'fixes' drift silently — and dangerously.",
+              "id": "b"
+            },
+            {
+              "text": "terraform refresh nightly",
+              "correct": false,
+              "explanation": "Wrong. Refresh rewrites state to match reality, hiding drift.",
+              "id": "c"
+            },
+            {
+              "text": "Diff state files by hand",
+              "correct": false,
+              "explanation": "Wrong. plan already encodes the comparison.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/plan",
+          "id": "terraform004-s3-q14"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Ops added cost-center tags to every VM in the console. You want state to absorb the new tags without touching infra. Command?",
+          "options": [
+            {
+              "text": "terraform apply -refresh-only",
+              "correct": true,
+              "explanation": "Correct. refresh-only reconciles state to reality and applies nothing else.",
+              "id": "a"
+            },
+            {
+              "text": "terraform apply",
+              "correct": false,
+              "explanation": "Wrong. A full apply may revert the tags to match config.",
+              "id": "b"
+            },
+            {
+              "text": "terraform state rm + import everything",
+              "correct": false,
+              "explanation": "Wrong. Needless surgery.",
+              "id": "c"
+            },
+            {
+              "text": "Edit state JSON manually",
+              "correct": false,
+              "explanation": "Wrong. Unsupported.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/refresh",
+          "id": "terraform004-s3-q15"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "The team is moving state from local to an S3 backend. After adding the backend block, what completes the move safely?",
+          "options": [
+            {
+              "text": "terraform init -migrate-state",
+              "correct": true,
+              "explanation": "Correct. init detects the backend change and offers to copy existing state.",
+              "id": "a"
+            },
+            {
+              "text": "Delete local state, init fresh",
+              "correct": false,
+              "explanation": "Wrong. You'd orphan every managed resource.",
+              "id": "b"
+            },
+            {
+              "text": "terraform state push s3://…",
+              "correct": false,
+              "explanation": "Wrong. Not how backend migration works.",
+              "id": "c"
+            },
+            {
+              "text": "Copy the file into the bucket manually",
+              "correct": false,
+              "explanation": "Wrong. Skips locking/serial metadata handling.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "id": "terraform004-s3-q16"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Backend credentials rotated; config is otherwise identical, but init errors about changed configuration. Quick fix?",
+          "options": [
+            {
+              "text": "terraform init -reconfigure",
+              "correct": true,
+              "explanation": "Correct. -reconfigure re-reads backend settings without attempting migration.",
+              "id": "a"
+            },
+            {
+              "text": "terraform init -migrate-state",
+              "correct": false,
+              "explanation": "Wrong. Nothing is migrating; only creds changed.",
+              "id": "b"
+            },
+            {
+              "text": "Delete .terraform.lock.hcl",
+              "correct": false,
+              "explanation": "Wrong. Lock file is about providers.",
+              "id": "c"
+            },
+            {
+              "text": "Recreate the workspace",
+              "correct": false,
+              "explanation": "Wrong. Unnecessary.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "id": "terraform004-s3-q17"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A staging-only resource must be decommissioned. The clean, auditable workflow?",
+          "options": [
+            {
+              "text": "Delete its config block, review plan's '1 to destroy', apply",
+              "correct": true,
+              "explanation": "Correct. Config-driven removal keeps the change in VCS history.",
+              "id": "a"
+            },
+            {
+              "text": "terraform destroy (whole stack)",
+              "correct": false,
+              "explanation": "Wrong. destroy levels everything.",
+              "id": "b"
+            },
+            {
+              "text": "terraform state rm",
+              "correct": false,
+              "explanation": "Wrong. That orphans the live resource, still billing.",
+              "id": "c"
+            },
+            {
+              "text": "Console-delete it",
+              "correct": false,
+              "explanation": "Wrong. Creates drift and bypasses review.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/destroy",
+          "id": "terraform004-s3-q18"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need the exact attributes Terraform recorded for one bucket while debugging. Command?",
+          "options": [
+            {
+              "text": "terraform state show aws_s3_bucket.logs",
+              "correct": true,
+              "explanation": "Correct. `state show <address>` prints that resource's recorded attributes.",
+              "id": "a"
+            },
+            {
+              "text": "terraform output",
+              "correct": false,
+              "explanation": "Wrong. Only declared outputs.",
+              "id": "b"
+            },
+            {
+              "text": "terraform show (entire state)",
+              "correct": false,
+              "explanation": "Wrong. Works but dumps everything; state show targets one.",
+              "id": "c"
+            },
+            {
+              "text": "cat terraform.tfstate",
+              "correct": false,
+              "explanation": "Wrong. Remote backend — and raw JSON spelunking is the hard way.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/state/show",
+          "id": "terraform004-s3-q19"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You forgot the exact resource address for a state operation. Fastest lookup?",
+          "options": [
+            {
+              "text": "terraform state list, optionally grep",
+              "correct": true,
+              "explanation": "Correct. `terraform state list | grep sqs` reveals addresses.",
+              "id": "a"
+            },
+            {
+              "text": "terraform graph",
+              "correct": false,
+              "explanation": "Wrong. graph output is DOT, painful for lookup.",
+              "id": "b"
+            },
+            {
+              "text": "Open the console",
+              "correct": false,
+              "explanation": "Wrong. The console shows cloud names, not Terraform addresses.",
+              "id": "c"
+            },
+            {
+              "text": "terraform validate",
+              "correct": false,
+              "explanation": "Wrong. validate doesn't read state.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+          "id": "terraform004-s3-q20"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You want to experiment with cidrsubnet() against real state values before committing config. Tool?",
+          "options": [
+            {
+              "text": "terraform console",
+              "correct": true,
+              "explanation": "Correct. `terraform console` gives a REPL with functions and state, e.g. `cidrsubnet(\"10.0.0.0/16\",8,3)`.",
+              "id": "a"
+            },
+            {
+              "text": "terraform plan with dummy outputs",
+              "correct": false,
+              "explanation": "Wrong. Slow feedback loop.",
+              "id": "b"
+            },
+            {
+              "text": "Python re-implementation",
+              "correct": false,
+              "explanation": "Wrong. Risk of divergent semantics.",
+              "id": "c"
+            },
+            {
+              "text": "terraform fmt",
+              "correct": false,
+              "explanation": "Wrong. fmt formats; it doesn't evaluate.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/console",
+          "id": "terraform004-s3-q21"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A deploy script needs the DB endpoint Terraform created — clean string, no quotes or JSON. Command?",
+          "options": [
+            {
+              "text": "terraform output -raw db_endpoint",
+              "correct": true,
+              "explanation": "Correct. `-raw` prints the bare value, ideal for shell consumption.",
+              "id": "a"
+            },
+            {
+              "text": "terraform output db_endpoint",
+              "correct": false,
+              "explanation": "Wrong. Quoted/decorated output breaks scripts.",
+              "id": "b"
+            },
+            {
+              "text": "terraform state show the whole DB",
+              "correct": false,
+              "explanation": "Wrong. You'd have to parse attributes.",
+              "id": "c"
+            },
+            {
+              "text": "Hardcode it",
+              "correct": false,
+              "explanation": "Wrong. Defeats IaC.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/output",
+          "id": "terraform004-s3-q22"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Plan wants to recreate instances because you switched count to for_each, and indices became keys. Least-disruptive path?",
+          "options": [
+            {
+              "text": "Add moved blocks mapping old indices to new keys",
+              "correct": true,
+              "explanation": "Correct. `moved { from = aws_instance.web[0]  to = aws_instance.web[\"blue\"] }` preserves each instance.",
+              "id": "a"
+            },
+            {
+              "text": "Accept recreation",
+              "correct": false,
+              "explanation": "Wrong. Avoidable downtime.",
+              "id": "b"
+            },
+            {
+              "text": "Revert to count forever",
+              "correct": false,
+              "explanation": "Wrong. for_each is usually the better model; migrate properly.",
+              "id": "c"
+            },
+            {
+              "text": "state rm + re-import all",
+              "correct": false,
+              "explanation": "Wrong. moved blocks do this declaratively.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/develop/refactoring",
+          "id": "terraform004-s3-q23"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "for_each over var.names (a list) errors: 'the given \"for_each\" argument value is unsuitable'. Fix?",
+          "options": [
+            {
+              "text": "Wrap it: for_each = toset(var.names)",
+              "correct": true,
+              "explanation": "Correct. for_each takes a set or map; `toset()` converts the list.",
+              "id": "a"
+            },
+            {
+              "text": "Use count = var.names",
+              "correct": false,
+              "explanation": "Wrong. count needs a number.",
+              "id": "b"
+            },
+            {
+              "text": "Join the list into a string",
+              "correct": false,
+              "explanation": "Wrong. Then you'd have one resource.",
+              "id": "c"
+            },
+            {
+              "text": "Switch the variable to bool",
+              "correct": false,
+              "explanation": "Wrong. Nonsensical.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/meta-arguments/for_each",
+          "id": "terraform004-s3-q24"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An optional bastion host should exist only when var.enable_bastion is true. Idiomatic pattern?",
+          "options": [
+            {
+              "text": "count = var.enable_bastion ? 1 : 0",
+              "correct": true,
+              "explanation": "Correct. Conditional count is the standard toggle for a single optional resource.",
+              "id": "a"
+            },
+            {
+              "text": "Comment the block in/out per env",
+              "correct": false,
+              "explanation": "Wrong. Not declarative; error-prone.",
+              "id": "b"
+            },
+            {
+              "text": "for_each over a bool",
+              "correct": false,
+              "explanation": "Wrong. for_each wants a set/map.",
+              "id": "c"
+            },
+            {
+              "text": "Separate copy of the whole stack",
+              "correct": false,
+              "explanation": "Wrong. Heavyweight.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/meta-arguments/count",
+          "id": "terraform004-s3-q25"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Prod RDS must never be destroyable by a careless apply. Guardrail inside Terraform?",
+          "options": [
+            {
+              "text": "lifecycle { prevent_destroy = true }",
+              "correct": true,
+              "explanation": "Correct. Any plan that would destroy it then fails loudly.",
+              "id": "a"
+            },
+            {
+              "text": "Remove delete IAM permissions from everyone forever",
+              "correct": false,
+              "explanation": "Wrong. Blocks legitimate ops; do least-privilege separately.",
+              "id": "b"
+            },
+            {
+              "text": "A README warning",
+              "correct": false,
+              "explanation": "Wrong. Not a control.",
+              "id": "c"
+            },
+            {
+              "text": "ignore_changes = all",
+              "correct": false,
+              "explanation": "Wrong. That ignores updates; it doesn't block destroy.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle",
+          "id": "terraform004-s3-q26"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "An ASG keeps updating instance AMIs via instance refresh, and every plan wants to 'fix' the AMI back. You accept external AMI management. Config?",
+          "options": [
+            {
+              "text": "lifecycle { ignore_changes = [ami] }",
+              "correct": true,
+              "explanation": "Correct. Terraform stops reconciling that attribute.",
+              "id": "a"
+            },
+            {
+              "text": "prevent_destroy",
+              "correct": false,
+              "explanation": "Wrong. That blocks destroys, not attribute diffs.",
+              "id": "b"
+            },
+            {
+              "text": "-refresh-only on every run",
+              "correct": false,
+              "explanation": "Wrong. That syncs state but config still disagrees.",
+              "id": "c"
+            },
+            {
+              "text": "Remove the resource from state",
+              "correct": false,
+              "explanation": "Wrong. You'd unmanage the whole ASG.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle",
+          "id": "terraform004-s3-q27"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Replacing a live NAT instance must bring the new one up before killing the old. Setting?",
+          "options": [
+            {
+              "text": "lifecycle { create_before_destroy = true }",
+              "correct": true,
+              "explanation": "Correct. CBD inverts the replace order to minimize downtime.",
+              "id": "a"
+            },
+            {
+              "text": "Two applies with manual steps",
+              "correct": false,
+              "explanation": "Wrong. CBD automates exactly this.",
+              "id": "b"
+            },
+            {
+              "text": "prevent_destroy",
+              "correct": false,
+              "explanation": "Wrong. That forbids replacement entirely.",
+              "id": "c"
+            },
+            {
+              "text": "-target the new resource",
+              "correct": false,
+              "explanation": "Wrong. There's one resource; ordering is the issue.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle",
+          "id": "terraform004-s3-q28"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "One config must create resources in us-east-1 and eu-west-1 with the same AWS provider. Mechanism?",
+          "options": [
+            {
+              "text": "Provider aliases; resources pick via provider = aws.eu",
+              "correct": true,
+              "explanation": "Correct. Two provider blocks (`alias = \"eu\"`), then `provider = aws.eu` on EU resources.",
+              "id": "a"
+            },
+            {
+              "text": "Two separate root modules only",
+              "correct": false,
+              "explanation": "Wrong. Valid pattern, but aliases solve it in one config.",
+              "id": "b"
+            },
+            {
+              "text": "Change region mid-apply",
+              "correct": false,
+              "explanation": "Wrong. Impossible.",
+              "id": "c"
+            },
+            {
+              "text": "A region variable on each resource",
+              "correct": false,
+              "explanation": "Wrong. Region lives on the provider.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/providers/configuration#alias-multiple-provider-configurations",
+          "id": "terraform004-s3-q29"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Deploys must always use the newest Amazon Linux 2023 AMI without hardcoding IDs. Pattern?",
+          "options": [
+            {
+              "text": "data \"aws_ami\" with most_recent = true and owner/name filters",
+              "correct": true,
+              "explanation": "Correct. The data source resolves the latest AMI at plan time.",
+              "id": "a"
+            },
+            {
+              "text": "Update a variable weekly",
+              "correct": false,
+              "explanation": "Wrong. Manual toil.",
+              "id": "b"
+            },
+            {
+              "text": "ignore_changes on ami",
+              "correct": false,
+              "explanation": "Wrong. That freezes whatever was first deployed.",
+              "id": "c"
+            },
+            {
+              "text": "A provisioner that queries AWS",
+              "correct": false,
+              "explanation": "Wrong. Data sources exist for this.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/data-sources",
+          "id": "terraform004-s3-q30"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Plan must fail if a teammate runs Terraform 1.3 against a codebase using 1.7 features. Where do you enforce it?",
+          "options": [
+            {
+              "text": "required_version in the terraform block",
+              "correct": true,
+              "explanation": "Correct. `required_version = \">= 1.6.0, < 2.0.0\"` halts old CLIs at init.",
+              "id": "a"
+            },
+            {
+              "text": "A comment at the top of main.tf",
+              "correct": false,
+              "explanation": "Wrong. Comments don't enforce.",
+              "id": "b"
+            },
+            {
+              "text": "The provider version constraint",
+              "correct": false,
+              "explanation": "Wrong. That pins providers, not core.",
+              "id": "c"
+            },
+            {
+              "text": "CI only",
+              "correct": false,
+              "explanation": "Wrong. Local runs would still slip through.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/terraform#terraform-required_version",
+          "id": "terraform004-s3-q31"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Which artifacts belong in version control for a Terraform repo?",
+          "options": [
+            {
+              "text": "*.tf files and .terraform.lock.hcl; never .terraform/ or local state",
+              "correct": true,
+              "explanation": "Correct. Commit config + lock file; .terraform/ is a cache and state may hold secrets.",
+              "id": "a"
+            },
+            {
+              "text": "Everything including .terraform/",
+              "correct": false,
+              "explanation": "Wrong. The plugin cache is bulky and machine-specific.",
+              "id": "b"
+            },
+            {
+              "text": "Only main.tf",
+              "correct": false,
+              "explanation": "Wrong. The lock file matters for reproducibility.",
+              "id": "c"
+            },
+            {
+              "text": "State files too",
+              "correct": false,
+              "explanation": "Wrong. State can contain secrets in plaintext.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/files/dependency-lock",
+          "id": "terraform004-s3-q32"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Two engineers ran applies simultaneously last month and corrupted local state. The team now uses S3. What specifically prevents a repeat?",
+          "options": [
+            {
+              "text": "Backend state locking serializes operations",
+              "correct": true,
+              "explanation": "Correct. The second apply blocks with a lock error instead of racing.",
+              "id": "a"
+            },
+            {
+              "text": "S3 versioning alone",
+              "correct": false,
+              "explanation": "Wrong. Versioning helps recovery, not prevention.",
+              "id": "b"
+            },
+            {
+              "text": "Smaller modules",
+              "correct": false,
+              "explanation": "Wrong. Structure doesn't serialize writes.",
+              "id": "c"
+            },
+            {
+              "text": "-parallelism=1",
+              "correct": false,
+              "explanation": "Wrong. That's within one run, not across runs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/locking",
+          "id": "terraform004-s3-q33"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Applies hammer a rate-limited internal API provider and fail intermittently. Quick mitigation flag?",
+          "options": [
+            {
+              "text": "terraform apply -parallelism=3",
+              "correct": true,
+              "explanation": "Correct. Lowering concurrent operations (default 10) eases API pressure.",
+              "id": "a"
+            },
+            {
+              "text": "-lock=false",
+              "correct": false,
+              "explanation": "Wrong. Locking is unrelated to API rate limits.",
+              "id": "b"
+            },
+            {
+              "text": "-refresh=false everywhere",
+              "correct": false,
+              "explanation": "Wrong. Hides drift; doesn't address write bursts.",
+              "id": "c"
+            },
+            {
+              "text": "TF_LOG=TRACE",
+              "correct": false,
+              "explanation": "Wrong. Logging doesn't throttle.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/apply",
+          "id": "terraform004-s3-q34"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An apply died halfway through creating 40 resources. Safest immediate next action?",
+          "options": [
+            {
+              "text": "Run plan again and apply; Terraform resumes from recorded state",
+              "correct": true,
+              "explanation": "Correct. State knows what succeeded; the next apply converges the remainder.",
+              "id": "a"
+            },
+            {
+              "text": "terraform destroy and start over",
+              "correct": false,
+              "explanation": "Wrong. Destroys the half that worked.",
+              "id": "b"
+            },
+            {
+              "text": "Hand-edit state to 'complete' it",
+              "correct": false,
+              "explanation": "Wrong. Corruption risk.",
+              "id": "c"
+            },
+            {
+              "text": "Re-run with -target on everything",
+              "correct": false,
+              "explanation": "Wrong. Plan/apply already handles resumption.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/intro/core-workflow",
+          "id": "terraform004-s3-q35"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "One codebase, separate state per environment, CLI-only stack. Built-in mechanism?",
+          "options": [
+            {
+              "text": "terraform workspace new staging / workspace select",
+              "correct": true,
+              "explanation": "Correct. CLI workspaces give each env its own state under one backend.",
+              "id": "a"
+            },
+            {
+              "text": "Copy the repo per env",
+              "correct": false,
+              "explanation": "Wrong. Divergence machine.",
+              "id": "b"
+            },
+            {
+              "text": "Different AWS accounts only",
+              "correct": false,
+              "explanation": "Wrong. Accounts isolate infra, not Terraform state organization by themselves.",
+              "id": "c"
+            },
+            {
+              "text": "Rename state files manually",
+              "correct": false,
+              "explanation": "Wrong. Fragile.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/workspaces",
+          "id": "terraform004-s3-q36"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Staging and prod differ only in instance sizes and counts. How do you feed env-specific values cleanly?",
+          "options": [
+            {
+              "text": "terraform apply -var-file=staging.tfvars",
+              "correct": true,
+              "explanation": "Correct. Per-env tfvars files keep one config, many value sets.",
+              "id": "a"
+            },
+            {
+              "text": "Duplicate main.tf per env",
+              "correct": false,
+              "explanation": "Wrong. Copy-paste drift.",
+              "id": "b"
+            },
+            {
+              "text": "Hardcode prod and patch for staging",
+              "correct": false,
+              "explanation": "Wrong. Reverse of declarative.",
+              "id": "c"
+            },
+            {
+              "text": "sed before apply",
+              "correct": false,
+              "explanation": "Wrong. Mutating source in CI is a smell.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/values/variables#variable-definitions-tfvars-files",
+          "id": "terraform004-s3-q37"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "Which files does Terraform load automatically without -var-file?",
+          "options": [
+            {
+              "text": "terraform.tfvars and *.auto.tfvars",
+              "correct": true,
+              "explanation": "Correct. Both are auto-loaded; anything else needs -var-file.",
+              "id": "a"
+            },
+            {
+              "text": "Any .tfvars in the directory",
+              "correct": false,
+              "explanation": "Wrong. Only those naming patterns.",
+              "id": "b"
+            },
+            {
+              "text": "vars.json",
+              "correct": false,
+              "explanation": "Wrong. Only .tfvars(.json) with those names auto-load.",
+              "id": "c"
+            },
+            {
+              "text": "None; all must be flagged",
+              "correct": false,
+              "explanation": "Wrong. The two patterns auto-load.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/values/variables",
+          "id": "terraform004-s3-q38"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A pipeline must inject db_password without writing files or CLI history. Mechanism?",
+          "options": [
+            {
+              "text": "Environment variable TF_VAR_db_password",
+              "correct": true,
+              "explanation": "Correct. `export TF_VAR_db_password=…` maps to var.db_password.",
+              "id": "a"
+            },
+            {
+              "text": "Echo it into terraform.tfvars",
+              "correct": false,
+              "explanation": "Wrong. Secrets land on disk.",
+              "id": "b"
+            },
+            {
+              "text": "-var on the command line",
+              "correct": false,
+              "explanation": "Wrong. Shows up in shell history/process list.",
+              "id": "c"
+            },
+            {
+              "text": "Hardcode with sensitive = true",
+              "correct": false,
+              "explanation": "Wrong. sensitive masks output, not the source.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/values/variables#environment-variables",
+          "id": "terraform004-s3-q39"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You edited a module's source from registry to a local path. Plan errors about the module not being installed. Fix?",
+          "options": [
+            {
+              "text": "Re-run terraform init",
+              "correct": true,
+              "explanation": "Correct. init (re)installs modules after source changes.",
+              "id": "a"
+            },
+            {
+              "text": "terraform validate",
+              "correct": false,
+              "explanation": "Wrong. validate can't install modules.",
+              "id": "b"
+            },
+            {
+              "text": "Delete the lock file",
+              "correct": false,
+              "explanation": "Wrong. Lock file is providers-only.",
+              "id": "c"
+            },
+            {
+              "text": "terraform state mv",
+              "correct": false,
+              "explanation": "Wrong. State addresses aren't the issue.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "id": "terraform004-s3-q40"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You want newer minor provider versions within '~> 5.0' and the lock file updated. Command?",
+          "options": [
+            {
+              "text": "terraform init -upgrade",
+              "correct": true,
+              "explanation": "Correct. `-upgrade` re-resolves within constraints and rewrites the lock entries.",
+              "id": "a"
+            },
+            {
+              "text": "Edit the lock file hashes",
+              "correct": false,
+              "explanation": "Wrong. Hand-editing hashes defeats verification.",
+              "id": "b"
+            },
+            {
+              "text": "Delete providers from .terraform/",
+              "correct": false,
+              "explanation": "Wrong. init restores the same pinned versions.",
+              "id": "c"
+            },
+            {
+              "text": "terraform apply -upgrade",
+              "correct": false,
+              "explanation": "Wrong. No such flag.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/init",
+          "id": "terraform004-s3-q41"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "hard",
+          "type": "multi",
+          "stem": "Your remote state contains a database password in plaintext. Which TWO are appropriate controls?",
+          "options": [
+            {
+              "text": "Encrypt the backend (e.g. S3 SSE-KMS) and restrict access via IAM",
+              "correct": true,
+              "explanation": "Correct. Treat state as secret material at rest and in access policy.",
+              "id": "a"
+            },
+            {
+              "text": "Avoid putting secrets in state where possible (e.g. manage them outside Terraform)",
+              "correct": true,
+              "explanation": "Correct. The strongest fix is not recording the secret at all.",
+              "id": "b"
+            },
+            {
+              "text": "Mark the variable sensitive and consider it solved",
+              "correct": false,
+              "explanation": "Wrong. sensitive only redacts CLI output; state still stores plaintext.",
+              "id": "c"
+            },
+            {
+              "text": "Commit state to a private Git repo",
+              "correct": false,
+              "explanation": "Wrong. VCS is the wrong place for state regardless of visibility.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/sensitive-data",
+          "id": "terraform004-s3-q42"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Your org wants every workspace to fail plans that create public S3 buckets — non-overridable. HCP Terraform mechanism?",
+          "options": [
+            {
+              "text": "A Sentinel/OPA policy set at hard-mandatory enforcement",
+              "correct": true,
+              "explanation": "Correct. Hard-mandatory policies block runs and cannot be overridden.",
+              "id": "a"
+            },
+            {
+              "text": "A README convention",
+              "correct": false,
+              "explanation": "Wrong. Not enforcement.",
+              "id": "b"
+            },
+            {
+              "text": "advisory enforcement level",
+              "correct": false,
+              "explanation": "Wrong. Advisory only warns.",
+              "id": "c"
+            },
+            {
+              "text": "Variable sets",
+              "correct": false,
+              "explanation": "Wrong. Those share variables, not rules.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/policy-enforcement",
+          "id": "terraform004-s3-q43"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Finance wants to see projected cost deltas on every HCP Terraform run before apply. Feature?",
+          "options": [
+            {
+              "text": "Cost estimation on runs",
+              "correct": true,
+              "explanation": "Correct. HCP Terraform shows estimated monthly cost changes in the run UI.",
+              "id": "a"
+            },
+            {
+              "text": "AWS Cost Explorer",
+              "correct": false,
+              "explanation": "Wrong. Post-hoc billing, not pre-apply estimates in the run.",
+              "id": "b"
+            },
+            {
+              "text": "Drift detection",
+              "correct": false,
+              "explanation": "Wrong. Drift ≠ cost.",
+              "id": "c"
+            },
+            {
+              "text": "Run triggers",
+              "correct": false,
+              "explanation": "Wrong. Those chain workspaces.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/cost-estimation",
+          "id": "terraform004-s3-q44"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Applying the network workspace should automatically queue a run in the app workspace that consumes its outputs. Feature?",
+          "options": [
+            {
+              "text": "Run triggers",
+              "correct": true,
+              "explanation": "Correct. Source workspace apply → triggered run in the dependent workspace.",
+              "id": "a"
+            },
+            {
+              "text": "Variable sets",
+              "correct": false,
+              "explanation": "Wrong. Shared variables don't queue runs.",
+              "id": "b"
+            },
+            {
+              "text": "Drift detection",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "c"
+            },
+            {
+              "text": "VCS webhooks on the app repo",
+              "correct": false,
+              "explanation": "Wrong. The trigger is the other workspace's apply, not a commit.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/workspaces/settings/run-triggers",
+          "id": "terraform004-s3-q45"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Security bans long-lived AWS keys in HCP Terraform variables. Runs must still authenticate. Modern answer?",
+          "options": [
+            {
+              "text": "Dynamic provider credentials via OIDC workload identity",
+              "correct": true,
+              "explanation": "Correct. Each run mints short-lived credentials; nothing static is stored.",
+              "id": "a"
+            },
+            {
+              "text": "Rotate the static keys monthly",
+              "correct": false,
+              "explanation": "Wrong. Better than nothing, but the ban says none.",
+              "id": "b"
+            },
+            {
+              "text": "Put keys in the code marked sensitive",
+              "correct": false,
+              "explanation": "Wrong. Worst option.",
+              "id": "c"
+            },
+            {
+              "text": "A shared bastion's instance profile",
+              "correct": false,
+              "explanation": "Wrong. Doesn't apply to HCP-hosted runs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/workspaces/dynamic-provider-credentials",
+          "id": "terraform004-s3-q46"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "HCP Terraform runs can't reach your private-VPC-only vSphere API. Supported fix?",
+          "options": [
+            {
+              "text": "Deploy HCP Terraform agents inside the network",
+              "correct": true,
+              "explanation": "Correct. Agents execute runs from within your perimeter and dial out to HCP.",
+              "id": "a"
+            },
+            {
+              "text": "Expose vSphere to the internet",
+              "correct": false,
+              "explanation": "Wrong. Unacceptable exposure.",
+              "id": "b"
+            },
+            {
+              "text": "Switch to local CLI runs forever",
+              "correct": false,
+              "explanation": "Wrong. Loses HCP governance; agents exist for this.",
+              "id": "c"
+            },
+            {
+              "text": "VPN from HashiCorp's side",
+              "correct": false,
+              "explanation": "Wrong. Not the offered model; agents are.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/agents",
+          "id": "terraform004-s3-q47"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You must bulk-adopt 30 hand-made DNS records and don't want to write each resource block manually. Helper?",
+          "options": [
+            {
+              "text": "import blocks + terraform plan -generate-config-out=generated.tf",
+              "correct": true,
+              "explanation": "Correct. Terraform drafts matching config for imported objects; review and merge it.",
+              "id": "a"
+            },
+            {
+              "text": "state push a synthetic file",
+              "correct": false,
+              "explanation": "Wrong. Unsupported surgery.",
+              "id": "b"
+            },
+            {
+              "text": "A provisioner loop",
+              "correct": false,
+              "explanation": "Wrong. Provisioners don't write config.",
+              "id": "c"
+            },
+            {
+              "text": "Recreate all records",
+              "correct": false,
+              "explanation": "Wrong. DNS recreation risks outages.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/import/generating-configuration",
+          "id": "terraform004-s3-q48"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You wrote a reusable module and want automated checks that it actually provisions and its outputs are sane. Native tooling?",
+          "options": [
+            {
+              "text": "terraform test with .tftest.hcl files",
+              "correct": true,
+              "explanation": "Correct. `terraform test` runs apply/assert/destroy cycles defined in test files.",
+              "id": "a"
+            },
+            {
+              "text": "Only terraform validate",
+              "correct": false,
+              "explanation": "Wrong. validate is static; it never provisions.",
+              "id": "b"
+            },
+            {
+              "text": "A bash script of greps",
+              "correct": false,
+              "explanation": "Wrong. Fragile non-functional testing.",
+              "id": "c"
+            },
+            {
+              "text": "Manual checklist",
+              "correct": false,
+              "explanation": "Wrong. Not automated.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/tests",
+          "id": "terraform004-s3-q49"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "CI re-downloads every provider on each run, wasting minutes. Sanctioned speed-up?",
+          "options": [
+            {
+              "text": "Set TF_PLUGIN_CACHE_DIR to a persisted cache path",
+              "correct": true,
+              "explanation": "Correct. `TF_PLUGIN_CACHE_DIR=$HOME/.terraform.d/plugin-cache` lets runs share downloads.",
+              "id": "a"
+            },
+            {
+              "text": "Commit .terraform/ to the repo",
+              "correct": false,
+              "explanation": "Wrong. Bulky, platform-specific, explicitly discouraged.",
+              "id": "b"
+            },
+            {
+              "text": "Remove version constraints",
+              "correct": false,
+              "explanation": "Wrong. Constraints aren't the cost; downloads are.",
+              "id": "c"
+            },
+            {
+              "text": "-parallelism=20",
+              "correct": false,
+              "explanation": "Wrong. Parallelism is for graph ops, not downloads.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/config/config-file#provider-plugin-cache",
+          "id": "terraform004-s3-q50"
+        }
+      ]
+    },
+    {
+      "setId": "set-4",
+      "name": "Scenario Exam 2",
+      "timeLimitMin": 60,
+      "questions": [
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Your platform team publishes a VPC module to the private registry. App teams must get patch fixes automatically but never a breaking 2.x. Constraint?",
+          "options": [
+            {
+              "text": "version = \"~> 1.4\"",
+              "correct": true,
+              "explanation": "Correct. The pessimistic operator allows 1.4.x → 1.x upgrades but blocks 2.0.",
+              "id": "a"
+            },
+            {
+              "text": "version = \">= 1.4\"",
+              "correct": false,
+              "explanation": "Wrong. That admits 2.x breaking changes.",
+              "id": "b"
+            },
+            {
+              "text": "No constraint",
+              "correct": false,
+              "explanation": "Wrong. Uncontrolled upgrades.",
+              "id": "c"
+            },
+            {
+              "text": "Pin = 1.4.0 forever",
+              "correct": false,
+              "explanation": "Wrong. Blocks the patch fixes they want.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/syntax#version",
+          "id": "terraform004-s4-q1"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A module lives in a Git repo and prod must track an exact release tag. Source string?",
+          "options": [
+            {
+              "text": "git::https://…/modules.git//vpc?ref=v1.2.0",
+              "correct": true,
+              "explanation": "Correct. `?ref=` pins a tag/commit; `//` selects the subdirectory.",
+              "id": "a"
+            },
+            {
+              "text": "The registry version argument",
+              "correct": false,
+              "explanation": "Wrong. version works for registry sources, not git.",
+              "id": "b"
+            },
+            {
+              "text": "Track the default branch",
+              "correct": false,
+              "explanation": "Wrong. Prod tracking main is roulette.",
+              "id": "c"
+            },
+            {
+              "text": "Vendor a copy into the repo",
+              "correct": false,
+              "explanation": "Wrong. Loses provenance and updates.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/sources#generic-git-repository",
+          "id": "terraform004-s4-q2"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Inside org 'acme' on HCP Terraform's private registry, the canonical address for their vpc module on AWS is…",
+          "options": [
+            {
+              "text": "app.terraform.io/acme/vpc/aws",
+              "correct": true,
+              "explanation": "Correct. <HOST>/<ORG>/<NAME>/<PROVIDER> is the private-registry format.",
+              "id": "a"
+            },
+            {
+              "text": "acme/vpc/aws from the public registry",
+              "correct": false,
+              "explanation": "Wrong. That's the public namespace.",
+              "id": "b"
+            },
+            {
+              "text": "git::app.terraform.io/acme/vpc",
+              "correct": false,
+              "explanation": "Wrong. Not a git source.",
+              "id": "c"
+            },
+            {
+              "text": "registry.local/acme-vpc",
+              "correct": false,
+              "explanation": "Wrong. Invented format.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/registry/using",
+          "id": "terraform004-s4-q3"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Root config needs the ARN of an SQS queue created two modules deep. What plumbing is required?",
+          "options": [
+            {
+              "text": "Each module level declares an output passing the value upward",
+              "correct": true,
+              "explanation": "Correct. Outputs are the only way values cross module boundaries upward.",
+              "id": "a"
+            },
+            {
+              "text": "Reference module.a.module.b.aws_sqs_queue.q directly",
+              "correct": false,
+              "explanation": "Wrong. Internal resources of nested modules aren't addressable from root.",
+              "id": "b"
+            },
+            {
+              "text": "A global variable",
+              "correct": false,
+              "explanation": "Wrong. No global scope exists.",
+              "id": "c"
+            },
+            {
+              "text": "Read it from state with a data source in the same config",
+              "correct": false,
+              "explanation": "Wrong. Outputs are the supported, simpler path.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/values/outputs",
+          "id": "terraform004-s4-q4"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A reusable module must create resources in whichever region the caller chooses, including aliased providers. Caller syntax?",
+          "options": [
+            {
+              "text": "providers = { aws = aws.eu } in the module block",
+              "correct": true,
+              "explanation": "Correct. The providers map hands specific (aliased) configurations to the child.",
+              "id": "a"
+            },
+            {
+              "text": "Set region as a module variable and configure a provider inside the module",
+              "correct": false,
+              "explanation": "Wrong. Embedding provider configs in shared modules is discouraged.",
+              "id": "b"
+            },
+            {
+              "text": "Environment variable per region",
+              "correct": false,
+              "explanation": "Wrong. Doesn't select aliases per call.",
+              "id": "c"
+            },
+            {
+              "text": "Duplicate the module per region",
+              "correct": false,
+              "explanation": "Wrong. The providers map exists to avoid this.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/develop/providers",
+          "id": "terraform004-s4-q5"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "easy",
+          "type": "single",
+          "stem": "While developing a module you want the root config to consume your local working copy. Source?",
+          "options": [
+            {
+              "text": "source = \"../modules/vpc\"",
+              "correct": true,
+              "explanation": "Correct. Relative paths give instant local iteration before publishing.",
+              "id": "a"
+            },
+            {
+              "text": "Push to the registry on every edit",
+              "correct": false,
+              "explanation": "Wrong. Painfully slow loop.",
+              "id": "b"
+            },
+            {
+              "text": "git:: pointing at your laptop",
+              "correct": false,
+              "explanation": "Wrong. Not a thing.",
+              "id": "c"
+            },
+            {
+              "text": "Symlink into .terraform/",
+              "correct": false,
+              "explanation": "Wrong. init manages that directory.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/sources#local-paths",
+          "id": "terraform004-s4-q6"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Three nearly-identical environment stacks have drifted apart over a year of copy-paste. The structural fix?",
+          "options": [
+            {
+              "text": "One shared module; envs become thin callers with their own variables/state",
+              "correct": true,
+              "explanation": "Correct. Single source of truth, per-env tfvars and state.",
+              "id": "a"
+            },
+            {
+              "text": "A weekly manual diff meeting",
+              "correct": false,
+              "explanation": "Wrong. Process can't beat structure.",
+              "id": "b"
+            },
+            {
+              "text": "Freeze two environments",
+              "correct": false,
+              "explanation": "Wrong. Sidesteps the problem.",
+              "id": "c"
+            },
+            {
+              "text": "Merge all envs into one state",
+              "correct": false,
+              "explanation": "Wrong. Blast radius nightmare.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/modules/develop",
+          "id": "terraform004-s4-q7"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Networking, data, and app layers share one state file; a tiny app change once locked everyone out during an incident. Architecture fix?",
+          "options": [
+            {
+              "text": "Split into separate root modules/states per layer",
+              "correct": true,
+              "explanation": "Correct. Independent states shrink blast radius and lock contention.",
+              "id": "a"
+            },
+            {
+              "text": "-lock=false during incidents",
+              "correct": false,
+              "explanation": "Wrong. Trades contention for corruption.",
+              "id": "b"
+            },
+            {
+              "text": "Faster apply hardware",
+              "correct": false,
+              "explanation": "Wrong. Lock semantics don't care.",
+              "id": "c"
+            },
+            {
+              "text": "One giant workspace per engineer",
+              "correct": false,
+              "explanation": "Wrong. Now state diverges per person.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/workspaces#when-to-use-multiple-workspaces",
+          "id": "terraform004-s4-q8"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "The app stack needs the VPC ID created by the network stack (separate state). Built-in consumer?",
+          "options": [
+            {
+              "text": "data \"terraform_remote_state\" reading the network stack's outputs",
+              "correct": true,
+              "explanation": "Correct. Remote state data sources expose another config's outputs read-only.",
+              "id": "a"
+            },
+            {
+              "text": "Hardcode the VPC ID",
+              "correct": false,
+              "explanation": "Wrong. Breaks on recreation.",
+              "id": "b"
+            },
+            {
+              "text": "Merge the stacks",
+              "correct": false,
+              "explanation": "Wrong. Reintroduces the monolith.",
+              "id": "c"
+            },
+            {
+              "text": "terraform state mv across backends",
+              "correct": false,
+              "explanation": "Wrong. mv relocates resources; it doesn't share values.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/remote-state-data",
+          "id": "terraform004-s4-q9"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Variable vpc_cidr must reject anything that isn't a valid /16. Mechanism?",
+          "options": [
+            {
+              "text": "A validation block using can(cidrnetmask(var.vpc_cidr))-style conditions",
+              "correct": true,
+              "explanation": "Correct. Variable validation fails plan with a clear message on bad input.",
+              "id": "a"
+            },
+            {
+              "text": "A README note",
+              "correct": false,
+              "explanation": "Wrong. Documentation isn't enforcement.",
+              "id": "b"
+            },
+            {
+              "text": "Runtime provider errors",
+              "correct": false,
+              "explanation": "Wrong. Late, cryptic failures.",
+              "id": "c"
+            },
+            {
+              "text": "type = string is enough",
+              "correct": false,
+              "explanation": "Wrong. Type ≠ format.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/custom-conditions#input-variable-validation",
+          "id": "terraform004-s4-q10"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Several attributes of an object variable should be omittable with sensible defaults. Modern type syntax?",
+          "options": [
+            {
+              "text": "optional(type, default) attributes in the object type",
+              "correct": true,
+              "explanation": "Correct. `optional(string, \"gp3\")` lets callers skip attributes.",
+              "id": "a"
+            },
+            {
+              "text": "type = any",
+              "correct": false,
+              "explanation": "Wrong. Abandons type safety.",
+              "id": "b"
+            },
+            {
+              "text": "Separate variables for every attribute",
+              "correct": false,
+              "explanation": "Wrong. Explodes the interface.",
+              "id": "c"
+            },
+            {
+              "text": "null checks scattered in expressions",
+              "correct": false,
+              "explanation": "Wrong. optional() centralizes defaults.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/type-constraints#optional-object-type-attributes",
+          "id": "terraform004-s4-q11"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Common tags must merge with per-resource extras, extras winning on conflicts. Expression?",
+          "options": [
+            {
+              "text": "tags = merge(local.common_tags, var.extra_tags)",
+              "correct": true,
+              "explanation": "Correct. merge() gives later maps precedence on duplicate keys.",
+              "id": "a"
+            },
+            {
+              "text": "concat() of the two",
+              "correct": false,
+              "explanation": "Wrong. concat is for lists.",
+              "id": "b"
+            },
+            {
+              "text": "join() them",
+              "correct": false,
+              "explanation": "Wrong. join makes strings.",
+              "id": "c"
+            },
+            {
+              "text": "Write both tag blocks",
+              "correct": false,
+              "explanation": "Wrong. Invalid HCL.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/merge",
+          "id": "terraform004-s4-q12"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Instance size should be m5.large in prod and t3.medium elsewhere, decided by var.env. Expression?",
+          "options": [
+            {
+              "text": "var.env == \"prod\" ? \"m5.large\" : \"t3.medium\"",
+              "correct": true,
+              "explanation": "Correct. The conditional expression is the idiomatic switch.",
+              "id": "a"
+            },
+            {
+              "text": "Two resources with opposite counts",
+              "correct": false,
+              "explanation": "Wrong. Works but heavyweight for one attribute.",
+              "id": "b"
+            },
+            {
+              "text": "A provisioner that resizes later",
+              "correct": false,
+              "explanation": "Wrong. Imperative band-aid.",
+              "id": "c"
+            },
+            {
+              "text": "Override in the console after apply",
+              "correct": false,
+              "explanation": "Wrong. Instant drift.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/conditionals",
+          "id": "terraform004-s4-q13"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A data source's deeply nested attribute is sometimes absent and plans crash. Defensive expression?",
+          "options": [
+            {
+              "text": "try(data.x.y.nested[0].value, null)",
+              "correct": true,
+              "explanation": "Correct. try() returns the fallback instead of erroring on missing paths.",
+              "id": "a"
+            },
+            {
+              "text": "count on the data source",
+              "correct": false,
+              "explanation": "Wrong. Doesn't guard attribute access.",
+              "id": "b"
+            },
+            {
+              "text": "TF_LOG=DEBUG",
+              "correct": false,
+              "explanation": "Wrong. Diagnoses; doesn't fix.",
+              "id": "c"
+            },
+            {
+              "text": "Wrap in jsonencode",
+              "correct": false,
+              "explanation": "Wrong. Encoding a crash is still a crash.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/try",
+          "id": "terraform004-s4-q14"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "EC2 user_data needs variables (hostname, role) injected into a bootstrap script kept as a file. Function?",
+          "options": [
+            {
+              "text": "templatefile(\"${path.module}/init.sh.tftpl\", { role = var.role })",
+              "correct": true,
+              "explanation": "Correct. templatefile renders the file with the given variables.",
+              "id": "a"
+            },
+            {
+              "text": "file() + string concat",
+              "correct": false,
+              "explanation": "Wrong. Manual splicing is brittle; templatefile exists.",
+              "id": "b"
+            },
+            {
+              "text": "heredoc inline in HCL",
+              "correct": false,
+              "explanation": "Wrong. Workable but unmaintainable for real scripts.",
+              "id": "c"
+            },
+            {
+              "text": "A provisioner to edit the file on boot",
+              "correct": false,
+              "explanation": "Wrong. user_data templating is the native path.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/templatefile",
+          "id": "terraform004-s4-q15"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An IAM policy document must be built from HCL maps, not a hand-written JSON string. Function?",
+          "options": [
+            {
+              "text": "jsonencode({ Version = \"2012-10-17\", Statement = [...] })",
+              "correct": true,
+              "explanation": "Correct. jsonencode produces valid JSON from native HCL structures.",
+              "id": "a"
+            },
+            {
+              "text": "Multi-line string with \\n",
+              "correct": false,
+              "explanation": "Wrong. Quote-escaping misery.",
+              "id": "b"
+            },
+            {
+              "text": "yamldecode",
+              "correct": false,
+              "explanation": "Wrong. That parses YAML in, not JSON out.",
+              "id": "c"
+            },
+            {
+              "text": "templatefile with %s slots",
+              "correct": false,
+              "explanation": "Wrong. jsonencode is safer for structured data.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/jsonencode",
+          "id": "terraform004-s4-q16"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Platform settings live in settings.yaml beside the config. How does Terraform consume them?",
+          "options": [
+            {
+              "text": "locals { cfg = yamldecode(file(\"${path.module}/settings.yaml\")) }",
+              "correct": true,
+              "explanation": "Correct. file() reads, yamldecode parses into usable values.",
+              "id": "a"
+            },
+            {
+              "text": "A YAML provider",
+              "correct": false,
+              "explanation": "Wrong. Functions handle this natively.",
+              "id": "b"
+            },
+            {
+              "text": "Convert to .tf by hand each change",
+              "correct": false,
+              "explanation": "Wrong. Toil.",
+              "id": "c"
+            },
+            {
+              "text": "jsondecode on YAML",
+              "correct": false,
+              "explanation": "Wrong. Wrong parser.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/yamldecode",
+          "id": "terraform004-s4-q17"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Ingress rules vary per environment as a list of objects; the SG resource needs one ingress block each. Construct?",
+          "options": [
+            {
+              "text": "A dynamic \"ingress\" block iterating var.rules",
+              "correct": true,
+              "explanation": "Correct. dynamic blocks generate nested blocks from collections.",
+              "id": "a"
+            },
+            {
+              "text": "Write the max set and hope",
+              "correct": false,
+              "explanation": "Wrong. Wrong rules in some envs.",
+              "id": "b"
+            },
+            {
+              "text": "count on the security group",
+              "correct": false,
+              "explanation": "Wrong. That multiplies the SG, not its rules.",
+              "id": "c"
+            },
+            {
+              "text": "Separate SG per rule",
+              "correct": false,
+              "explanation": "Wrong. Resource sprawl.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/dynamic-blocks",
+          "id": "terraform004-s4-q18"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "After apply you want Terraform itself to verify the ALB returns HTTP 200, warning on failure without blocking. Construct?",
+          "options": [
+            {
+              "text": "A check block with an HTTP data source assertion",
+              "correct": true,
+              "explanation": "Correct. check blocks run assertions and surface failures as warnings.",
+              "id": "a"
+            },
+            {
+              "text": "validation on a variable",
+              "correct": false,
+              "explanation": "Wrong. Input validation can't probe live endpoints.",
+              "id": "b"
+            },
+            {
+              "text": "A local-exec curl provisioner",
+              "correct": false,
+              "explanation": "Wrong. Imperative, runs only at create.",
+              "id": "c"
+            },
+            {
+              "text": "Manual smoke test",
+              "correct": false,
+              "explanation": "Wrong. The ask is in-Terraform.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/checks",
+          "id": "terraform004-s4-q19"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A legacy null_resource reruns a script when an instance ID changes. The modern replacement?",
+          "options": [
+            {
+              "text": "terraform_data with triggers_replace",
+              "correct": true,
+              "explanation": "Correct. `terraform_data` is the built-in successor; `triggers_replace = aws_instance.app.id`.",
+              "id": "a"
+            },
+            {
+              "text": "Keep null_resource forever",
+              "correct": false,
+              "explanation": "Wrong. terraform_data removes the extra provider.",
+              "id": "b"
+            },
+            {
+              "text": "A check block",
+              "correct": false,
+              "explanation": "Wrong. checks assert; they don't trigger replacement.",
+              "id": "c"
+            },
+            {
+              "text": "ignore_changes",
+              "correct": false,
+              "explanation": "Wrong. Opposite intent.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/resources/terraform-data",
+          "id": "terraform004-s4-q20"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A teammate proposes provisioners for all app config. The guidance you cite?",
+          "options": [
+            {
+              "text": "Provisioners are a last resort; prefer user_data/cloud-init or config management",
+              "correct": true,
+              "explanation": "Correct. HashiCorp's docs say exactly this — imperative steps break the declarative model.",
+              "id": "a"
+            },
+            {
+              "text": "Provisioners are the recommended default",
+              "correct": false,
+              "explanation": "Wrong. Documented as last resort.",
+              "id": "b"
+            },
+            {
+              "text": "They're deprecated and removed",
+              "correct": false,
+              "explanation": "Wrong. Still present, just discouraged.",
+              "id": "c"
+            },
+            {
+              "text": "Only remote-exec is fine",
+              "correct": false,
+              "explanation": "Wrong. The caution covers provisioners generally.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/resources/provisioners/syntax",
+          "id": "terraform004-s4-q21"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Module B reads an S3 bucket that module A creates, but Terraform can't infer the order and intermittently fails. Fix at the call site?",
+          "options": [
+            {
+              "text": "depends_on = [module.a] on module B",
+              "correct": true,
+              "explanation": "Correct. Module-level depends_on forces A to complete first.",
+              "id": "a"
+            },
+            {
+              "text": "Run apply twice",
+              "correct": false,
+              "explanation": "Wrong. Papering over a graph gap.",
+              "id": "b"
+            },
+            {
+              "text": "sleep in a provisioner",
+              "correct": false,
+              "explanation": "Wrong. Race-condition roulette.",
+              "id": "c"
+            },
+            {
+              "text": "Merge the modules",
+              "correct": false,
+              "explanation": "Wrong. Unnecessary restructuring.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/meta-arguments/depends_on",
+          "id": "terraform004-s4-q22"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "module.db outputs a connection string with a password; it must not splash across plan output. Where do you mark it?",
+          "options": [
+            {
+              "text": "sensitive = true on the output (each level it passes through)",
+              "correct": true,
+              "explanation": "Correct. Sensitive propagates redaction through module boundaries.",
+              "id": "a"
+            },
+            {
+              "text": "Only on the variable feeding it",
+              "correct": false,
+              "explanation": "Wrong. The output needs its own marking.",
+              "id": "b"
+            },
+            {
+              "text": "Nowhere; outputs are always hidden",
+              "correct": false,
+              "explanation": "Wrong. They print by default.",
+              "id": "c"
+            },
+            {
+              "text": "Encrypt it with a function",
+              "correct": false,
+              "explanation": "Wrong. No built-in encryption function fixes display.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/values/outputs#sensitive-suppressing-values-in-cli-output",
+          "id": "terraform004-s4-q23"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Design a minimal PR pipeline for Terraform quality gates, in order.",
+          "options": [
+            {
+              "text": "fmt -check → init -backend=false → validate → plan (posted to the PR)",
+              "correct": true,
+              "explanation": "Correct. Cheap static gates first, then a speculative plan for reviewers.",
+              "id": "a"
+            },
+            {
+              "text": "apply on every PR",
+              "correct": false,
+              "explanation": "Wrong. PRs shouldn't mutate infra.",
+              "id": "b"
+            },
+            {
+              "text": "plan only",
+              "correct": false,
+              "explanation": "Wrong. You lose the fast static failures.",
+              "id": "c"
+            },
+            {
+              "text": "validate before init",
+              "correct": false,
+              "explanation": "Wrong. validate needs init's providers/modules.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/intro/core-workflow",
+          "id": "terraform004-s4-q24"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "With VCS-driven HCP Terraform workspaces, opening a PR against the tracked repo causes…",
+          "options": [
+            {
+              "text": "A speculative plan whose result is posted to the PR; apply happens after merge",
+              "correct": true,
+              "explanation": "Correct. Speculative plans are the PR feedback loop; merges queue real runs.",
+              "id": "a"
+            },
+            {
+              "text": "An immediate apply",
+              "correct": false,
+              "explanation": "Wrong. Applies follow merge per workspace settings.",
+              "id": "b"
+            },
+            {
+              "text": "Nothing until merge",
+              "correct": false,
+              "explanation": "Wrong. Speculative plans run on PRs.",
+              "id": "c"
+            },
+            {
+              "text": "A drift-detection sweep",
+              "correct": false,
+              "explanation": "Wrong. Separate feature.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/run/ui",
+          "id": "terraform004-s4-q25"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A CLI-driven config should execute remotely in HCP Terraform workspace 'app-prod' of org 'acme'. Block?",
+          "options": [
+            {
+              "text": "cloud { organization = \"acme\"  workspaces { name = \"app-prod\" } }",
+              "correct": true,
+              "explanation": "Correct. The cloud block binds local CLI to remote execution.",
+              "id": "a"
+            },
+            {
+              "text": "backend \"remote\" is the only modern way",
+              "correct": false,
+              "explanation": "Wrong. The cloud block superseded it.",
+              "id": "b"
+            },
+            {
+              "text": "provider \"tfe\"",
+              "correct": false,
+              "explanation": "Wrong. That manages HCP resources, not run routing.",
+              "id": "c"
+            },
+            {
+              "text": "An environment variable alone",
+              "correct": false,
+              "explanation": "Wrong. The block is required.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/cloud/settings",
+          "id": "terraform004-s4-q26"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Forty workspaces need the same Datadog API key, maintained in one place. HCP feature?",
+          "options": [
+            {
+              "text": "A variable set applied to those workspaces or the whole project",
+              "correct": true,
+              "explanation": "Correct. Variable sets centralize shared variables; edit once, applied everywhere.",
+              "id": "a"
+            },
+            {
+              "text": "Paste into each workspace",
+              "correct": false,
+              "explanation": "Wrong. Forty copies to rotate.",
+              "id": "b"
+            },
+            {
+              "text": "Commit it encrypted-ish to the repo",
+              "correct": false,
+              "explanation": "Wrong. Secrets out of VCS.",
+              "id": "c"
+            },
+            {
+              "text": "A run trigger",
+              "correct": false,
+              "explanation": "Wrong. Triggers chain runs, not variables.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/workspaces/variables/managing-variables#variable-sets",
+          "id": "terraform004-s4-q27"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Auditors ask how prod drift is caught between deploys in HCP Terraform. Feature to point at?",
+          "options": [
+            {
+              "text": "Health assessments / drift detection on the workspace",
+              "correct": true,
+              "explanation": "Correct. Scheduled assessments compare state to real infrastructure and flag drift.",
+              "id": "a"
+            },
+            {
+              "text": "Lock file integrity",
+              "correct": false,
+              "explanation": "Wrong. Providers, not infra.",
+              "id": "b"
+            },
+            {
+              "text": "Cost estimation",
+              "correct": false,
+              "explanation": "Wrong. Money, not drift.",
+              "id": "c"
+            },
+            {
+              "text": "Speculative plans",
+              "correct": false,
+              "explanation": "Wrong. Those run on PRs, not on a schedule.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/workspaces/health",
+          "id": "terraform004-s4-q28"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Junior engineers may queue plans on prod but must never apply; seniors approve applies. HCP model?",
+          "options": [
+            {
+              "text": "Team permissions: juniors get plan, seniors get apply on the workspace",
+              "correct": true,
+              "explanation": "Correct. Workspace-level team access separates plan and apply rights.",
+              "id": "a"
+            },
+            {
+              "text": "Share one admin login carefully",
+              "correct": false,
+              "explanation": "Wrong. No audit trail, full power.",
+              "id": "b"
+            },
+            {
+              "text": "Sentinel soft-mandatory",
+              "correct": false,
+              "explanation": "Wrong. Policies gate content, not who clicks apply.",
+              "id": "c"
+            },
+            {
+              "text": "CODEOWNERS in VCS",
+              "correct": false,
+              "explanation": "Wrong. Governs merges, not Terraform applies.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/users-teams-organizations/permissions",
+          "id": "terraform004-s4-q29"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "During a long apply a colleague's run shows 'state locked by run-xyz'. Correct etiquette?",
+          "options": [
+            {
+              "text": "Wait for the active run; investigate before any force-unlock",
+              "correct": true,
+              "explanation": "Correct. The lock is doing its job — force-unlock only for verified-stale locks.",
+              "id": "a"
+            },
+            {
+              "text": "force-unlock immediately",
+              "correct": false,
+              "explanation": "Wrong. You'd corrupt an in-flight apply.",
+              "id": "b"
+            },
+            {
+              "text": "-lock=false and proceed",
+              "correct": false,
+              "explanation": "Wrong. Two writers, one state.",
+              "id": "c"
+            },
+            {
+              "text": "Delete the lock record in the backend",
+              "correct": false,
+              "explanation": "Wrong. Same corruption, more steps.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/locking",
+          "id": "terraform004-s4-q30"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "An auditor asks why your team rebuilt the staging VPC identically in 4 minutes after deletion. The IaC property at work?",
+          "options": [
+            {
+              "text": "Idempotent, declarative config: the same code converges to the same infrastructure",
+              "correct": true,
+              "explanation": "Correct. Reproducibility is the core IaC payoff.",
+              "id": "a"
+            },
+            {
+              "text": "Luck",
+              "correct": false,
+              "explanation": "Wrong. It's a design property.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud provider backups",
+              "correct": false,
+              "explanation": "Wrong. Terraform re-created, not restored.",
+              "id": "c"
+            },
+            {
+              "text": "Manual runbooks executed quickly",
+              "correct": false,
+              "explanation": "Wrong. No manual steps were involved.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/intro",
+          "id": "terraform004-s4-q31"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A new hire asks where Terraform 'remembers' resource IDs between runs, since .tf files contain none. Answer?",
+          "options": [
+            {
+              "text": "In the state file, which maps config addresses to real resource IDs",
+              "correct": true,
+              "explanation": "Correct. State is the binding layer between config and reality.",
+              "id": "a"
+            },
+            {
+              "text": "In the lock file",
+              "correct": false,
+              "explanation": "Wrong. Provider pins only.",
+              "id": "b"
+            },
+            {
+              "text": "In provider plugin caches",
+              "correct": false,
+              "explanation": "Wrong. Plugins are stateless binaries.",
+              "id": "c"
+            },
+            {
+              "text": "It queries everything fresh each run",
+              "correct": false,
+              "explanation": "Wrong. Refresh updates known resources via state, not discovery.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state",
+          "id": "terraform004-s4-q32"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "cidrsubnet(\"10.0.0.0/16\", 8, 3) evaluates to…",
+          "options": [
+            {
+              "text": "10.0.3.0/24",
+              "correct": true,
+              "explanation": "Correct. 8 extra bits → /24s; index 3 selects the fourth: 10.0.3.0/24.",
+              "id": "a"
+            },
+            {
+              "text": "10.0.0.3/16",
+              "correct": false,
+              "explanation": "Wrong. The prefix grows by newbits.",
+              "id": "b"
+            },
+            {
+              "text": "10.3.0.0/24",
+              "correct": false,
+              "explanation": "Wrong. The index lands in the third octet here, value 3.",
+              "id": "c"
+            },
+            {
+              "text": "10.0.8.0/24",
+              "correct": false,
+              "explanation": "Wrong. 8 is the newbits count, not the index.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/cidrsubnet",
+          "id": "terraform004-s4-q33"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need [\"a-prod\",\"b-prod\"] from var.names = [\"a\",\"b\"]. Expression?",
+          "options": [
+            {
+              "text": "[for n in var.names : \"${n}-prod\"]",
+              "correct": true,
+              "explanation": "Correct. A for expression maps over the list.",
+              "id": "a"
+            },
+            {
+              "text": "join(var.names, \"-prod\")",
+              "correct": false,
+              "explanation": "Wrong. join's signature is (sep, list) and yields one string.",
+              "id": "b"
+            },
+            {
+              "text": "merge()",
+              "correct": false,
+              "explanation": "Wrong. merge is for maps.",
+              "id": "c"
+            },
+            {
+              "text": "toset() alone",
+              "correct": false,
+              "explanation": "Wrong. Conversion, not transformation.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/for",
+          "id": "terraform004-s4-q34"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A standalone \"${var.region}\" expression draws a deprecation warning. The clean form?",
+          "options": [
+            {
+              "text": "var.region",
+              "correct": true,
+              "explanation": "Correct. Interpolation-only expressions should be bare references.",
+              "id": "a"
+            },
+            {
+              "text": "\"$${var.region}\"",
+              "correct": false,
+              "explanation": "Wrong. That escapes to a literal.",
+              "id": "b"
+            },
+            {
+              "text": "format(var.region)",
+              "correct": false,
+              "explanation": "Wrong. Pointless wrapper.",
+              "id": "c"
+            },
+            {
+              "text": "Keep it; warnings are cosmetic",
+              "correct": false,
+              "explanation": "Wrong. Lint-clean code drops them.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/strings#interpolation",
+          "id": "terraform004-s4-q35"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A module needs files shipped inside the module itself (templates/, policies/). The correct path prefix?",
+          "options": [
+            {
+              "text": "${path.module}/templates/…",
+              "correct": true,
+              "explanation": "Correct. path.module resolves relative to the module's own directory wherever it's called from.",
+              "id": "a"
+            },
+            {
+              "text": "./templates",
+              "correct": false,
+              "explanation": "Wrong. Relative to the working directory, breaking when called remotely.",
+              "id": "b"
+            },
+            {
+              "text": "path.root always",
+              "correct": false,
+              "explanation": "Wrong. That's the root config's directory.",
+              "id": "c"
+            },
+            {
+              "text": "Absolute paths",
+              "correct": false,
+              "explanation": "Wrong. Machine-specific.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/expressions/references#filesystem-and-workspace-info",
+          "id": "terraform004-s4-q36"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Before opening a PR you want exactly the warnings/errors CI will produce, locally. Commands?",
+          "options": [
+            {
+              "text": "terraform fmt -check && terraform validate",
+              "correct": true,
+              "explanation": "Correct. Mirroring CI's static gates locally gives instant feedback.",
+              "id": "a"
+            },
+            {
+              "text": "terraform apply locally",
+              "correct": false,
+              "explanation": "Wrong. PR checks shouldn't require mutating infra.",
+              "id": "b"
+            },
+            {
+              "text": "git push and watch CI",
+              "correct": false,
+              "explanation": "Wrong. Slow loop.",
+              "id": "c"
+            },
+            {
+              "text": "terraform console",
+              "correct": false,
+              "explanation": "Wrong. REPL, not linting.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/validate",
+          "id": "terraform004-s4-q37"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "terraform plan suddenly proposes destroying everything. You suspect the wrong state. First diagnostic?",
+          "options": [
+            {
+              "text": "Check the active backend/workspace: terraform workspace show and backend config",
+              "correct": true,
+              "explanation": "Correct. An empty or wrong workspace/backend makes plan see 'nothing exists' and propose full destroy… or full create. Verify before anything.",
+              "id": "a"
+            },
+            {
+              "text": "Apply to see what happens",
+              "correct": false,
+              "explanation": "Wrong. Potentially catastrophic.",
+              "id": "b"
+            },
+            {
+              "text": "Delete the lock file",
+              "correct": false,
+              "explanation": "Wrong. Providers aren't the issue.",
+              "id": "c"
+            },
+            {
+              "text": "Re-clone the repo",
+              "correct": false,
+              "explanation": "Wrong. The config isn't what selects state.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/workspaces",
+          "id": "terraform004-s4-q38"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "S3-backed state was accidentally overwritten. Recovery prerequisite that should already exist?",
+          "options": [
+            {
+              "text": "Bucket versioning, so a prior state version can be restored",
+              "correct": true,
+              "explanation": "Correct. Versioned state backends make 'restore previous object version' a routine fix.",
+              "id": "a"
+            },
+            {
+              "text": "A printout of terraform plan",
+              "correct": false,
+              "explanation": "Wrong. Plans aren't state.",
+              "id": "b"
+            },
+            {
+              "text": "The lock file",
+              "correct": false,
+              "explanation": "Wrong. Providers only.",
+              "id": "c"
+            },
+            {
+              "text": "Console screenshots",
+              "correct": false,
+              "explanation": "Wrong. Not machine-restorable.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/backend/s3",
+          "id": "terraform004-s4-q39"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "multi",
+          "stem": "Which TWO are auto-loaded by Terraform without any flag?",
+          "options": [
+            {
+              "text": "terraform.tfvars",
+              "correct": true,
+              "explanation": "Correct. Auto-loaded by name.",
+              "id": "a"
+            },
+            {
+              "text": "anything matching *.auto.tfvars",
+              "correct": true,
+              "explanation": "Correct. The .auto.tfvars suffix auto-loads.",
+              "id": "b"
+            },
+            {
+              "text": "prod.tfvars",
+              "correct": false,
+              "explanation": "Wrong. Needs -var-file=prod.tfvars.",
+              "id": "c"
+            },
+            {
+              "text": "variables.json",
+              "correct": false,
+              "explanation": "Wrong. Not a recognized auto-load name.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/values/variables",
+          "id": "terraform004-s4-q40"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Your org adopts HCP Terraform projects. The practical benefit over a flat workspace list?",
+          "options": [
+            {
+              "text": "Group related workspaces with scoped team access and shared variable sets",
+              "correct": true,
+              "explanation": "Correct. Projects bring structure, permissions, and variable scoping to many workspaces.",
+              "id": "a"
+            },
+            {
+              "text": "Faster applies",
+              "correct": false,
+              "explanation": "Wrong. Projects don't change run speed.",
+              "id": "b"
+            },
+            {
+              "text": "Cheaper state storage",
+              "correct": false,
+              "explanation": "Wrong. Not a billing construct.",
+              "id": "c"
+            },
+            {
+              "text": "Automatic module upgrades",
+              "correct": false,
+              "explanation": "Wrong. Not a project feature.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/projects",
+          "id": "terraform004-s4-q41"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Leadership wants 'multi-cloud DR' — the same workflow deploying to AWS normally and Azure in emergencies. What does Terraform actually give you here?",
+          "options": [
+            {
+              "text": "One workflow and language across providers; resources themselves must be authored per cloud",
+              "correct": true,
+              "explanation": "Correct. Terraform unifies the workflow, not the resource definitions — AWS and Azure stacks are separate configs/modules.",
+              "id": "a"
+            },
+            {
+              "text": "Automatic translation of AWS resources to Azure",
+              "correct": false,
+              "explanation": "Wrong. No such conversion exists.",
+              "id": "b"
+            },
+            {
+              "text": "A single resource block deploying to both",
+              "correct": false,
+              "explanation": "Wrong. Resources are provider-specific.",
+              "id": "c"
+            },
+            {
+              "text": "Nothing; separate tools are required",
+              "correct": false,
+              "explanation": "Wrong. The shared workflow is real value.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/intro/use-cases",
+          "id": "terraform004-s4-q42"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must look up per-region AMI IDs from a map variable, failing clearly if the region is missing. Expression?",
+          "options": [
+            {
+              "text": "lookup(var.amis, var.region) or var.amis[var.region]",
+              "correct": true,
+              "explanation": "Correct. Map indexing errors loudly on missing keys; lookup() can add a default if desired.",
+              "id": "a"
+            },
+            {
+              "text": "element(var.amis, var.region)",
+              "correct": false,
+              "explanation": "Wrong. element is positional, for lists.",
+              "id": "b"
+            },
+            {
+              "text": "try() to silence it",
+              "correct": false,
+              "explanation": "Wrong. The requirement is a clear failure.",
+              "id": "c"
+            },
+            {
+              "text": "for expression scan",
+              "correct": false,
+              "explanation": "Wrong. Direct indexing is the tool.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/functions/lookup",
+          "id": "terraform004-s4-q43"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "terraform validate passes but apply fails with a real AWS quota error. Why didn't validate catch it?",
+          "options": [
+            {
+              "text": "validate is offline/static; it never calls provider APIs",
+              "correct": true,
+              "explanation": "Correct. Quota, auth, and live conflicts surface only at plan/apply.",
+              "id": "a"
+            },
+            {
+              "text": "validate is broken",
+              "correct": false,
+              "explanation": "Wrong. Working as designed.",
+              "id": "b"
+            },
+            {
+              "text": "The lock file is stale",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "c"
+            },
+            {
+              "text": "Missing -refresh flag on validate",
+              "correct": false,
+              "explanation": "Wrong. No such flag.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/validate",
+          "id": "terraform004-s4-q44"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Two app stacks must share one RDS instance. Stack A creates it; how should stack B reference it without owning it?",
+          "options": [
+            {
+              "text": "A data source (or remote state output) in stack B",
+              "correct": true,
+              "explanation": "Correct. B reads; only A manages. e.g. `data \"aws_db_instance\" \"shared\" { db_instance_identifier = \"core\" }`.",
+              "id": "a"
+            },
+            {
+              "text": "Define the same resource block in both",
+              "correct": false,
+              "explanation": "Wrong. Two owners, fight forever.",
+              "id": "b"
+            },
+            {
+              "text": "terraform state mv it into B too",
+              "correct": false,
+              "explanation": "Wrong. A resource lives in exactly one state.",
+              "id": "c"
+            },
+            {
+              "text": "Import into B while A keeps it",
+              "correct": false,
+              "explanation": "Wrong. Same dual-ownership corruption.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/data-sources",
+          "id": "terraform004-s4-q45"
+        },
+        {
+          "domainId": "d6",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An engineer asks why state isn't simply re-derived from the cloud each run. Best answer?",
+          "options": [
+            {
+              "text": "State stores bindings and metadata (dependencies, sensitive values) that discovery can't reliably reconstruct",
+              "correct": true,
+              "explanation": "Correct. Mapping config addresses to real IDs needs persisted bookkeeping.",
+              "id": "a"
+            },
+            {
+              "text": "It could be; state is legacy",
+              "correct": false,
+              "explanation": "Wrong. State is foundational.",
+              "id": "b"
+            },
+            {
+              "text": "APIs are too slow only",
+              "correct": false,
+              "explanation": "Wrong. Performance is secondary to identity binding.",
+              "id": "c"
+            },
+            {
+              "text": "Licensing reasons",
+              "correct": false,
+              "explanation": "Wrong. Technical, not legal.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/language/state/purpose",
+          "id": "terraform004-s4-q46"
+        },
+        {
+          "domainId": "d8",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A soft-mandatory Sentinel policy fails on a run that genuinely needs an exception. What happens?",
+          "options": [
+            {
+              "text": "An authorized user can override and let the run continue",
+              "correct": true,
+              "explanation": "Correct. soft-mandatory = blockable but overridable with permission; hard-mandatory has no override.",
+              "id": "a"
+            },
+            {
+              "text": "The run is permanently blocked",
+              "correct": false,
+              "explanation": "Wrong. That's hard-mandatory.",
+              "id": "b"
+            },
+            {
+              "text": "It auto-applies anyway",
+              "correct": false,
+              "explanation": "Wrong. advisory merely warns; soft-mandatory stops until overridden.",
+              "id": "c"
+            },
+            {
+              "text": "The policy deletes itself",
+              "correct": false,
+              "explanation": "Wrong. No.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cloud-docs/policy-enforcement/manage-policy-sets",
+          "id": "terraform004-s4-q47"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "After merging a renamed output, a colleague's old shell script breaks parsing `terraform output`. Most robust consumption pattern going forward?",
+          "options": [
+            {
+              "text": "terraform output -json piped through jq",
+              "correct": true,
+              "explanation": "Correct. `terraform output -json | jq -r .db_endpoint.value` is stable and machine-friendly.",
+              "id": "a"
+            },
+            {
+              "text": "Scrape the human-readable table",
+              "correct": false,
+              "explanation": "Wrong. Formatting is not a contract.",
+              "id": "b"
+            },
+            {
+              "text": "Read state directly",
+              "correct": false,
+              "explanation": "Wrong. Internal format, may contain secrets.",
+              "id": "c"
+            },
+            {
+              "text": "Hardcode values",
+              "correct": false,
+              "explanation": "Wrong. Defeats outputs entirely.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/output",
+          "id": "terraform004-s4-q48"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You inherit a repo with no docs. Which command sequence builds a mental model fastest, read-only?",
+          "options": [
+            {
+              "text": "terraform init -backend=false, validate, then state list/show against a copy of state",
+              "correct": true,
+              "explanation": "Correct. Static install + validation, then read-only state inspection — nothing mutates.",
+              "id": "a"
+            },
+            {
+              "text": "terraform apply to 'see what it does'",
+              "correct": false,
+              "explanation": "Wrong. Discovery by mutation.",
+              "id": "b"
+            },
+            {
+              "text": "destroy in a sandbox of prod state",
+              "correct": false,
+              "explanation": "Wrong. That's not read-only.",
+              "id": "c"
+            },
+            {
+              "text": "Rename resources to test reactions",
+              "correct": false,
+              "explanation": "Wrong. Chaos engineering, wrong layer.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/state/list",
+          "id": "terraform004-s4-q49"
+        },
+        {
+          "domainId": "d7",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Plan output shows '(known after apply)' on an attribute another resource references, forcing replacement chains. A way to confirm the dependency path?",
+          "options": [
+            {
+              "text": "terraform graph piped to dot for a dependency diagram",
+              "correct": true,
+              "explanation": "Correct. `terraform graph | dot -Tsvg > g.svg` visualizes the edges driving the chain.",
+              "id": "a"
+            },
+            {
+              "text": "Read every .tf file by eye",
+              "correct": false,
+              "explanation": "Wrong. Possible, but the graph is generated truth.",
+              "id": "b"
+            },
+            {
+              "text": "TF_LOG=TRACE",
+              "correct": false,
+              "explanation": "Wrong. HTTP noise, not graph clarity.",
+              "id": "c"
+            },
+            {
+              "text": "state rm the noisy resource",
+              "correct": false,
+              "explanation": "Wrong. Destructive non-answer.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://developer.hashicorp.com/terraform/cli/commands/graph",
+          "id": "terraform004-s4-q50"
+        }
+      ]
     }
   ]
 }
