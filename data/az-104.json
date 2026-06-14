@@ -3441,6 +3441,3420 @@
           "id": "az104-s2-q50"
         }
       ]
+    },
+    {
+      "setId": "set-3",
+      "name": "Scenario Exam 1",
+      "timeLimitMin": 60,
+      "questions": [
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A new employee needs to manage all resources in one resource group but nothing elsewhere in the subscription. What is the least-privilege assignment?",
+          "options": [
+            {
+              "text": "Contributor role scoped to that resource group",
+              "correct": true,
+              "explanation": "Correct. RBAC is scope-bound; assign at the RG scope: `az role assignment create --assignee user@contoso.com --role Contributor --resource-group rg-app`.",
+              "id": "a"
+            },
+            {
+              "text": "Owner at subscription scope",
+              "correct": false,
+              "explanation": "Wrong. Grants full control over everything plus access management — far beyond the requirement.",
+              "id": "b"
+            },
+            {
+              "text": "Contributor at subscription scope",
+              "correct": false,
+              "explanation": "Wrong. Correct role, wrong scope — they could change every RG.",
+              "id": "c"
+            },
+            {
+              "text": "Reader scoped to the resource group",
+              "correct": false,
+              "explanation": "Wrong. Reader can view but not manage resources.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/role-based-access-control/role-assignments-cli",
+          "id": "az104-s3-q1"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must prevent anyone — including Owners — from accidentally deleting a critical resource group. What do you apply?",
+          "options": [
+            {
+              "text": "A CanNotDelete management lock on the resource group",
+              "correct": true,
+              "explanation": "Correct. Locks override RBAC: `az lock create --name noDelete --lock-type CanNotDelete --resource-group rg-prod`. Even Owners cannot delete until the lock is removed.",
+              "id": "a"
+            },
+            {
+              "text": "Remove delete permission via a custom role",
+              "correct": false,
+              "explanation": "Wrong. Owners can reassign roles; a lock is the durable guard.",
+              "id": "b"
+            },
+            {
+              "text": "An Azure Policy with deny effect",
+              "correct": false,
+              "explanation": "Wrong. Policy governs property/SKU compliance, not deletion protection of an existing RG.",
+              "id": "c"
+            },
+            {
+              "text": "A resource tag named 'doNotDelete'",
+              "correct": false,
+              "explanation": "Wrong. Tags are metadata only; they enforce nothing.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-resource-manager/management/lock-resources",
+          "id": "az104-s3-q2"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Azure Policy should automatically add a 'costCenter' tag to new resources that lack it, inheriting from the resource group. Which policy effect do you need?",
+          "options": [
+            {
+              "text": "modify (with a remediation task for existing resources)",
+              "correct": true,
+              "explanation": "Correct. `modify` adds/updates tags on create/update; run `az policy remediation create` to tag existing resources retroactively.",
+              "id": "a"
+            },
+            {
+              "text": "deny",
+              "correct": false,
+              "explanation": "Wrong. deny blocks non-compliant creates rather than fixing the tag.",
+              "id": "b"
+            },
+            {
+              "text": "audit",
+              "correct": false,
+              "explanation": "Wrong. audit only flags non-compliance in the log; it changes nothing.",
+              "id": "c"
+            },
+            {
+              "text": "append",
+              "correct": false,
+              "explanation": "Wrong. append adds fields but cannot reference the RG tag for inheritance the way modify can; modify is the documented pattern for tag inheritance.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/governance/policy/samples/inherit-resource-group-tags",
+          "id": "az104-s3-q3"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A guest user from another tenant needs access to a shared resource. How do you add them?",
+          "options": [
+            {
+              "text": "Invite them as a B2B guest in Microsoft Entra ID",
+              "correct": true,
+              "explanation": "Correct. `az ad user invite` (or the portal) creates a guest object; then assign RBAC normally. The user authenticates with their home tenant.",
+              "id": "a"
+            },
+            {
+              "text": "Create a new member user with their email",
+              "correct": false,
+              "explanation": "Wrong. That creates a separate identity they must manage a new password for; B2B reuses their existing identity.",
+              "id": "b"
+            },
+            {
+              "text": "Share your own credentials",
+              "correct": false,
+              "explanation": "Wrong. Never — violates least privilege and auditing.",
+              "id": "c"
+            },
+            {
+              "text": "Add them to an on-prem AD group",
+              "correct": false,
+              "explanation": "Wrong. On-prem groups don't grant Azure RBAC without sync and an Entra identity.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/external-identities/add-users-administrator",
+          "id": "az104-s3-q4"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You want users to request elevated access only when needed, with approval and a time limit, instead of standing Owner rights. Which feature?",
+          "options": [
+            {
+              "text": "Microsoft Entra Privileged Identity Management (PIM)",
+              "correct": true,
+              "explanation": "Correct. PIM makes roles eligible rather than active; users activate just-in-time with optional approval and expiry, reducing standing privilege.",
+              "id": "a"
+            },
+            {
+              "text": "Conditional Access",
+              "correct": false,
+              "explanation": "Wrong. CA gates sign-in conditions, not role activation lifecycle.",
+              "id": "b"
+            },
+            {
+              "text": "Access reviews",
+              "correct": false,
+              "explanation": "Wrong. Reviews periodically recertify access but don't provide JIT activation.",
+              "id": "c"
+            },
+            {
+              "text": "A custom RBAC role",
+              "correct": false,
+              "explanation": "Wrong. Still grants standing access whenever assigned.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/privileged-identity-management/pim-configure",
+          "id": "az104-s3-q5"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A storage account must reject all traffic except from one specific VNet subnet. What configuration achieves this?",
+          "options": [
+            {
+              "text": "Set default network action to Deny, then add the subnet as a network rule",
+              "correct": true,
+              "explanation": "Correct. `az storage account update --name st --default-action Deny` then `az storage account network-rule add --subnet <id>`. Default-deny plus an allow rule for the subnet.",
+              "id": "a"
+            },
+            {
+              "text": "A private endpoint only",
+              "correct": false,
+              "explanation": "Wrong. Valid alternative, but with the public endpoint still default-Allow other networks reach it; the question asks to reject all except the subnet via firewall rules.",
+              "id": "b"
+            },
+            {
+              "text": "Set default action to Allow and add the subnet",
+              "correct": false,
+              "explanation": "Wrong. Allow leaves every other network permitted.",
+              "id": "c"
+            },
+            {
+              "text": "A CanNotDelete lock",
+              "correct": false,
+              "explanation": "Wrong. Locks are about deletion, not network access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-network-security",
+          "id": "az104-s3-q6"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Blobs in a container must move to Cool tier after 30 days and be deleted after 365 days automatically. What do you configure?",
+          "options": [
+            {
+              "text": "A lifecycle management policy on the storage account",
+              "correct": true,
+              "explanation": "Correct. Define a JSON rule with tierToCool afterModificationGreaterThan 30 and delete after 365, applied via `az storage account management-policy create`.",
+              "id": "a"
+            },
+            {
+              "text": "Manually re-tier with a scheduled runbook",
+              "correct": false,
+              "explanation": "Wrong. Reinvents built-in lifecycle management and is error-prone.",
+              "id": "b"
+            },
+            {
+              "text": "Object replication",
+              "correct": false,
+              "explanation": "Wrong. Replicates blobs across accounts; not a tiering/expiry tool.",
+              "id": "c"
+            },
+            {
+              "text": "Change the account's default access tier",
+              "correct": false,
+              "explanation": "Wrong. Sets a single default, not time-based transitions per blob.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/blobs/lifecycle-management-overview",
+          "id": "az104-s3-q7"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to grant a partner temporary read access to a single blob without sharing the account key. What do you generate?",
+          "options": [
+            {
+              "text": "A user delegation SAS for that blob",
+              "correct": true,
+              "explanation": "Correct. `az storage blob generate-sas --auth-mode login --as-user --permissions r --expiry ...` signs with Entra credentials, scoped and time-limited, no account key exposed.",
+              "id": "a"
+            },
+            {
+              "text": "The storage account access key",
+              "correct": false,
+              "explanation": "Wrong. Grants full account access and can't be scoped or expired easily.",
+              "id": "b"
+            },
+            {
+              "text": "A stored access policy with write",
+              "correct": false,
+              "explanation": "Wrong. Write exceeds 'read', violating least privilege.",
+              "id": "c"
+            },
+            {
+              "text": "Anonymous public read on the container",
+              "correct": false,
+              "explanation": "Wrong. Exposes the blob to everyone, not just the partner.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-sas-overview",
+          "id": "az104-s3-q8"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An Azure File share must be accessible from on-prem Windows machines over SMB without opening port 445 to the internet. What is the recommended approach?",
+          "options": [
+            {
+              "text": "A private endpoint for the file share plus VPN/ExpressRoute connectivity",
+              "correct": true,
+              "explanation": "Correct. Private endpoint gives the share a private IP reached over the VPN tunnel, avoiding public 445 which ISPs often block. `az network private-endpoint create ...`.",
+              "id": "a"
+            },
+            {
+              "text": "Expose the public endpoint and allow 445",
+              "correct": false,
+              "explanation": "Wrong. Many ISPs block 445 and it's a security risk.",
+              "id": "b"
+            },
+            {
+              "text": "Azure File Sync only",
+              "correct": false,
+              "explanation": "Wrong. Sync caches to a server but doesn't itself solve direct SMB reachability requirement.",
+              "id": "c"
+            },
+            {
+              "text": "AzCopy over HTTPS",
+              "correct": false,
+              "explanation": "Wrong. AzCopy is a copy tool, not a mounted SMB share.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-networking-overview",
+          "id": "az104-s3-q9"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A running VM needs a larger size, but the target SKU isn't offered while the VM is allocated. What is the correct procedure?",
+          "options": [
+            {
+              "text": "Deallocate the VM, then resize, then start it",
+              "correct": true,
+              "explanation": "Correct. `az vm deallocate` frees the host, `az vm resize --size Standard_D4s_v5` allows SKUs not on the current host, then `az vm start`.",
+              "id": "a"
+            },
+            {
+              "text": "Resize live; Azure always allows any SKU",
+              "correct": false,
+              "explanation": "Wrong. Only sizes available on the current host cluster work without deallocation.",
+              "id": "b"
+            },
+            {
+              "text": "Delete and recreate the VM",
+              "correct": false,
+              "explanation": "Wrong. Unnecessary and loses ephemeral state; resize is supported.",
+              "id": "c"
+            },
+            {
+              "text": "Add a second NIC to increase size",
+              "correct": false,
+              "explanation": "Wrong. NICs don't change compute size.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/resize-vm",
+          "id": "az104-s3-q10"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You need three VMs to remain available during both unplanned hardware failures and planned maintenance, within a single datacenter. What do you use?",
+          "options": [
+            {
+              "text": "An availability set with multiple fault and update domains",
+              "correct": true,
+              "explanation": "Correct. Fault domains span racks/power; update domains stagger maintenance reboots — protecting against both within one datacenter. Create at VM provisioning time.",
+              "id": "a"
+            },
+            {
+              "text": "An availability zone deployment",
+              "correct": false,
+              "explanation": "Wrong. Zones protect across datacenters (higher SLA) but the requirement specifies a single datacenter; either is defensible, yet availability set is the single-DC construct.",
+              "id": "b"
+            },
+            {
+              "text": "A scale set with one instance",
+              "correct": false,
+              "explanation": "Wrong. One instance gives no redundancy.",
+              "id": "c"
+            },
+            {
+              "text": "Three VMs in the same fault domain",
+              "correct": false,
+              "explanation": "Wrong. A single fault domain shares failure risk.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/availability-set-overview",
+          "id": "az104-s3-q11"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A VM scale set must add instances when average CPU exceeds 70% for 10 minutes and remove them below 30%. What do you configure?",
+          "options": [
+            {
+              "text": "Autoscale rules on the scale set tied to the CPU metric",
+              "correct": true,
+              "explanation": "Correct. `az monitor autoscale create` + `az monitor autoscale rule create --condition \"Percentage CPU > 70 avg 10m\" --scale out 1`, plus a scale-in rule at 30%.",
+              "id": "a"
+            },
+            {
+              "text": "A larger VM SKU",
+              "correct": false,
+              "explanation": "Wrong. Vertical scaling doesn't auto-adjust to load.",
+              "id": "b"
+            },
+            {
+              "text": "Manual instance count changes",
+              "correct": false,
+              "explanation": "Wrong. Doesn't meet the automatic requirement.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Load Balancer health probes",
+              "correct": false,
+              "explanation": "Wrong. Probes route traffic; they don't change instance count.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-autoscale-overview",
+          "id": "az104-s3-q12"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must run a containerized web app without managing any VMs or orchestrators, scaling to zero when idle. Which compute service fits best?",
+          "options": [
+            {
+              "text": "Azure Container Apps (or Container Instances) — serverless containers",
+              "correct": true,
+              "explanation": "Correct. Container Apps runs containers serverlessly with scale-to-zero and KEDA-based autoscaling; no node management. `az containerapp create ...`.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Kubernetes Service",
+              "correct": false,
+              "explanation": "Wrong. AKS requires managing node pools and the cluster.",
+              "id": "b"
+            },
+            {
+              "text": "A VM with Docker installed",
+              "correct": false,
+              "explanation": "Wrong. You manage the VM, patching, and scaling yourself.",
+              "id": "c"
+            },
+            {
+              "text": "App Service on an Isolated plan",
+              "correct": false,
+              "explanation": "Wrong. Heavier and doesn't scale to zero the way the requirement implies.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/container-apps/overview",
+          "id": "az104-s3-q13"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A VM's OS disk is corrupted and it won't boot. You need to inspect the disk from another VM. What is the standard recovery step?",
+          "options": [
+            {
+              "text": "Swap the OS disk or attach it as a data disk to a repair VM",
+              "correct": true,
+              "explanation": "Correct. `az vm repair create` builds a repair VM with the problem disk attached, or `az vm update --os-disk` swaps in a fixed disk. Mount and fix offline.",
+              "id": "a"
+            },
+            {
+              "text": "Reimage the VM immediately",
+              "correct": false,
+              "explanation": "Wrong. Reimage on a managed-disk VM may lose data; inspect first.",
+              "id": "b"
+            },
+            {
+              "text": "Resize the VM",
+              "correct": false,
+              "explanation": "Wrong. Size is unrelated to a corrupt boot disk.",
+              "id": "c"
+            },
+            {
+              "text": "Enable boot diagnostics and wait",
+              "correct": false,
+              "explanation": "Wrong. Diagnostics help diagnose but don't repair the disk.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/repair-as-a-service",
+          "id": "az104-s3-q14"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Two VNets in the same region must communicate privately with low latency, but transitive routing through a third VNet is not required. What do you configure?",
+          "options": [
+            {
+              "text": "VNet peering between the two VNets",
+              "correct": true,
+              "explanation": "Correct. `az network vnet peering create` links them over the Microsoft backbone with private IPs and low latency. Peering is non-transitive by default.",
+              "id": "a"
+            },
+            {
+              "text": "A VPN gateway between them",
+              "correct": false,
+              "explanation": "Wrong. Works but adds latency, cost, and throughput limits versus peering for same-region VNets.",
+              "id": "b"
+            },
+            {
+              "text": "A shared subnet",
+              "correct": false,
+              "explanation": "Wrong. Subnets can't span VNets.",
+              "id": "c"
+            },
+            {
+              "text": "Service endpoints",
+              "correct": false,
+              "explanation": "Wrong. Service endpoints secure access to PaaS services, not VNet-to-VNet connectivity.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-peering-overview",
+          "id": "az104-s3-q15"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An NSG allows inbound 443 but users still can't reach the VM's web app on 443. The VM's local firewall is open. What should you check next?",
+          "options": [
+            {
+              "text": "Whether a higher-priority NSG rule denies the traffic, and effective security rules",
+              "correct": true,
+              "explanation": "Correct. NSG rules are evaluated by priority (lower number first). `az network nic list-effective-nsg` shows the merged subnet+NIC rules and which rule actually wins.",
+              "id": "a"
+            },
+            {
+              "text": "Increase the VM size",
+              "correct": false,
+              "explanation": "Wrong. Size is unrelated to connectivity.",
+              "id": "b"
+            },
+            {
+              "text": "Add a public IP again",
+              "correct": false,
+              "explanation": "Wrong. If one exists, re-adding doesn't fix a deny rule.",
+              "id": "c"
+            },
+            {
+              "text": "Reboot the VM repeatedly",
+              "correct": false,
+              "explanation": "Wrong. Doesn't address rule precedence.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/network-security-group-how-it-works",
+          "id": "az104-s3-q16"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Web servers in a private subnet must download OS updates from the internet but must not be reachable inbound from the internet. What do you deploy?",
+          "options": [
+            {
+              "text": "A NAT gateway on the subnet for outbound connectivity",
+              "correct": true,
+              "explanation": "Correct. `az network nat gateway create` then associate to the subnet — provides SNAT for outbound only, with no inbound exposure and no public IPs on the VMs.",
+              "id": "a"
+            },
+            {
+              "text": "A public IP on each VM",
+              "correct": false,
+              "explanation": "Wrong. Public IPs allow inbound exposure, the opposite of the requirement.",
+              "id": "b"
+            },
+            {
+              "text": "An internet-facing load balancer",
+              "correct": false,
+              "explanation": "Wrong. That's for inbound traffic distribution.",
+              "id": "c"
+            },
+            {
+              "text": "A service endpoint",
+              "correct": false,
+              "explanation": "Wrong. Service endpoints reach Azure PaaS, not arbitrary internet update servers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/nat-gateway/nat-overview",
+          "id": "az104-s3-q17"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need name resolution for VMs across several peered VNets using custom domain names, without managing DNS servers. What do you use?",
+          "options": [
+            {
+              "text": "An Azure Private DNS zone linked to the VNets with autoregistration",
+              "correct": true,
+              "explanation": "Correct. `az network private-dns zone create` + `az network private-dns link vnet create --registration-enabled true` auto-registers VM records and resolves across linked VNets.",
+              "id": "a"
+            },
+            {
+              "text": "Azure-provided default DNS only",
+              "correct": false,
+              "explanation": "Wrong. Default DNS doesn't resolve custom names across VNets.",
+              "id": "b"
+            },
+            {
+              "text": "A public DNS zone",
+              "correct": false,
+              "explanation": "Wrong. Public zones expose records to the internet and don't autoregister private VMs.",
+              "id": "c"
+            },
+            {
+              "text": "Hosts files on each VM",
+              "correct": false,
+              "explanation": "Wrong. Unmanageable at scale and not dynamic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/dns/private-dns-overview",
+          "id": "az104-s3-q18"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Traffic to your global web app should route users to the nearest healthy regional endpoint at the DNS level. Which service do you choose?",
+          "options": [
+            {
+              "text": "Azure Traffic Manager with performance routing",
+              "correct": true,
+              "explanation": "Correct. Traffic Manager is DNS-based global routing; performance method directs users to the lowest-latency endpoint and fails over on health-probe failures.",
+              "id": "a"
+            },
+            {
+              "text": "Azure Load Balancer",
+              "correct": false,
+              "explanation": "Wrong. Regional L4 only — not global DNS routing.",
+              "id": "b"
+            },
+            {
+              "text": "Application Gateway",
+              "correct": false,
+              "explanation": "Wrong. Regional L7; pair it behind Front Door/Traffic Manager for global.",
+              "id": "c"
+            },
+            {
+              "text": "A single public IP",
+              "correct": false,
+              "explanation": "Wrong. No geographic routing or failover.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/traffic-manager/traffic-manager-routing-methods",
+          "id": "az104-s3-q19"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must be alerted when a VM's average CPU exceeds 80% over 5 minutes. What do you create?",
+          "options": [
+            {
+              "text": "A metric alert rule on the Percentage CPU signal with an action group",
+              "correct": true,
+              "explanation": "Correct. `az monitor metrics alert create --condition \"avg Percentage CPU > 80\" --window-size 5m --action <ag>` notifies via the action group (email/SMS/webhook).",
+              "id": "a"
+            },
+            {
+              "text": "A log query alert on heartbeat",
+              "correct": false,
+              "explanation": "Wrong. Heartbeat tracks availability, not CPU thresholds.",
+              "id": "b"
+            },
+            {
+              "text": "Boot diagnostics",
+              "correct": false,
+              "explanation": "Wrong. Captures console output, not metric alerts.",
+              "id": "c"
+            },
+            {
+              "text": "A budget alert",
+              "correct": false,
+              "explanation": "Wrong. Budgets track cost, not CPU.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/alerts/alerts-metric",
+          "id": "az104-s3-q20"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You need to centralize and query logs from many VMs and run KQL across them. What do you set up?",
+          "options": [
+            {
+              "text": "A Log Analytics workspace with the Azure Monitor Agent and a data collection rule",
+              "correct": true,
+              "explanation": "Correct. Install AMA, define a DCR to collect logs, and query with KQL in the workspace: `az monitor log-analytics workspace create` then associate via DCR.",
+              "id": "a"
+            },
+            {
+              "text": "Storage account diagnostic logs only",
+              "correct": false,
+              "explanation": "Wrong. Storage archives logs but offers no KQL query engine.",
+              "id": "b"
+            },
+            {
+              "text": "Boot diagnostics",
+              "correct": false,
+              "explanation": "Wrong. Per-VM console only.",
+              "id": "c"
+            },
+            {
+              "text": "Network Watcher",
+              "correct": false,
+              "explanation": "Wrong. Network Watcher is for network diagnostics, not general VM log querying.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/logs/log-analytics-workspace-overview",
+          "id": "az104-s3-q21"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Diagnostic settings on a resource should stream platform logs to three destinations at once: archive, SIEM, and analytics. Which three are valid targets?",
+          "options": [
+            {
+              "text": "Storage account, Event Hub, and Log Analytics workspace",
+              "correct": true,
+              "explanation": "Correct. Diagnostic settings support all three simultaneously — storage for archive, Event Hub for SIEM ingestion, Log Analytics for KQL. `az monitor diagnostic-settings create`.",
+              "id": "a"
+            },
+            {
+              "text": "Only a Log Analytics workspace",
+              "correct": false,
+              "explanation": "Wrong. The requirement names three destinations.",
+              "id": "b"
+            },
+            {
+              "text": "Only a storage account",
+              "correct": false,
+              "explanation": "Wrong. Single target doesn't meet the requirement.",
+              "id": "c"
+            },
+            {
+              "text": "A VM data disk",
+              "correct": false,
+              "explanation": "Wrong. Disks aren't diagnostic-settings targets.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/essentials/diagnostic-settings",
+          "id": "az104-s3-q22"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "After a VM was accidentally deleted, you must recover its data disk that was retained. The disk still exists as a managed disk. How do you bring the VM back?",
+          "options": [
+            {
+              "text": "Create a new VM and attach the retained managed disk as the OS disk",
+              "correct": true,
+              "explanation": "Correct. Managed disks persist independently. `az vm create --attach-os-disk <diskName>` rebuilds the VM from the surviving disk.",
+              "id": "a"
+            },
+            {
+              "text": "Undelete the VM object",
+              "correct": false,
+              "explanation": "Wrong. Azure has no generic VM undelete; you rebuild from the disk.",
+              "id": "b"
+            },
+            {
+              "text": "Restore from boot diagnostics",
+              "correct": false,
+              "explanation": "Wrong. Diagnostics aren't a backup.",
+              "id": "c"
+            },
+            {
+              "text": "Resize an existing VM",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to recovery.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/windows/recover-data-disk",
+          "id": "az104-s3-q23"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An Azure Backup must protect a VM with a 7-year retention for monthly points. Where do you configure this?",
+          "options": [
+            {
+              "text": "A Recovery Services vault with a backup policy specifying monthly retention of 7 years",
+              "correct": true,
+              "explanation": "Correct. `az backup policy set` defines daily/weekly/monthly/yearly retention; associate the VM via `az backup protection enable-for-vm`.",
+              "id": "a"
+            },
+            {
+              "text": "A storage lifecycle policy",
+              "correct": false,
+              "explanation": "Wrong. That's for blobs, not VM backups.",
+              "id": "b"
+            },
+            {
+              "text": "A snapshot taken once",
+              "correct": false,
+              "explanation": "Wrong. A single snapshot isn't a retention-managed backup.",
+              "id": "c"
+            },
+            {
+              "text": "Azure Site Recovery",
+              "correct": false,
+              "explanation": "Wrong. ASR is for replication/DR failover, not long-term backup retention.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/backup/backup-azure-vms-introduction",
+          "id": "az104-s3-q24"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A subscription must block creation of any resource outside the 'eastus' and 'westus' regions. What enforces this?",
+          "options": [
+            {
+              "text": "An Azure Policy with the 'Allowed locations' built-in definition and deny effect",
+              "correct": true,
+              "explanation": "Correct. Assign the built-in allowed-locations policy listing the two regions: `az policy assignment create --policy <allowed-locations> --params '{\"listOfAllowedLocations\":{\"value\":[\"eastus\",\"westus\"]}}'`.",
+              "id": "a"
+            },
+            {
+              "text": "RBAC role restrictions",
+              "correct": false,
+              "explanation": "Wrong. RBAC governs who, not which region resources may use.",
+              "id": "b"
+            },
+            {
+              "text": "A management lock",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent changes/deletes, not region selection.",
+              "id": "c"
+            },
+            {
+              "text": "Tags",
+              "correct": false,
+              "explanation": "Wrong. Tags don't enforce constraints.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/governance/policy/samples/allowed-locations",
+          "id": "az104-s3-q25"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must apply the same VM configuration (extensions, tags, NIC settings) repeatably across environments via declarative IaC native to Azure. What do you use?",
+          "options": [
+            {
+              "text": "An ARM/Bicep template deployed with az deployment",
+              "correct": true,
+              "explanation": "Correct. `az deployment group create --template-file main.bicep` deploys declarative, idempotent infrastructure — repeatable across environments.",
+              "id": "a"
+            },
+            {
+              "text": "Manual portal clicks per environment",
+              "correct": false,
+              "explanation": "Wrong. Not repeatable or version-controlled.",
+              "id": "b"
+            },
+            {
+              "text": "A shell script of az commands with no state",
+              "correct": false,
+              "explanation": "Wrong. Imperative scripts drift and aren't idempotent like templates.",
+              "id": "c"
+            },
+            {
+              "text": "A VM image only",
+              "correct": false,
+              "explanation": "Wrong. Images capture the OS, not the surrounding resource configuration.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-resource-manager/bicep/overview",
+          "id": "az104-s3-q26"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "An Application Gateway must route /api/* to one backend pool and /images/* to another. What feature do you configure?",
+          "options": [
+            {
+              "text": "Path-based routing rules on the Application Gateway",
+              "correct": true,
+              "explanation": "Correct. URL path maps send /api/* and /images/* to different backend pools on the same listener: `az network application-gateway url-path-map create ...`.",
+              "id": "a"
+            },
+            {
+              "text": "NSG rules",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter by IP/port, not URL path.",
+              "id": "b"
+            },
+            {
+              "text": "Traffic Manager",
+              "correct": false,
+              "explanation": "Wrong. DNS-level, can't inspect URL paths.",
+              "id": "c"
+            },
+            {
+              "text": "Two separate public IPs",
+              "correct": false,
+              "explanation": "Wrong. Doesn't provide path-based L7 routing on one endpoint.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/application-gateway/url-route-overview",
+          "id": "az104-s3-q27"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to copy 5 TB of blobs between two storage accounts efficiently from a VM. Which tool is recommended?",
+          "options": [
+            {
+              "text": "AzCopy with a SAS or Entra auth",
+              "correct": true,
+              "explanation": "Correct. `azcopy copy 'https://src...' 'https://dst...' --recursive` is optimized for high-throughput bulk transfer between accounts.",
+              "id": "a"
+            },
+            {
+              "text": "Azure portal upload",
+              "correct": false,
+              "explanation": "Wrong. Impractical for 5 TB.",
+              "id": "b"
+            },
+            {
+              "text": "az storage blob download then upload one by one",
+              "correct": false,
+              "explanation": "Wrong. Slow and serial versus AzCopy's parallelism.",
+              "id": "c"
+            },
+            {
+              "text": "Object replication for a one-time copy",
+              "correct": false,
+              "explanation": "Wrong. Replication is for ongoing async sync, not a single bulk move.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-use-azcopy-v10",
+          "id": "az104-s3-q28"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Self-service password reset (SSPR) should be enabled for a pilot group only, not the whole tenant. Where do you scope it?",
+          "options": [
+            {
+              "text": "In Entra ID SSPR settings, set it to a selected security group",
+              "correct": true,
+              "explanation": "Correct. SSPR can target 'Selected' and a security group; add pilot users to the group rather than enabling for 'All'.",
+              "id": "a"
+            },
+            {
+              "text": "Conditional Access policy",
+              "correct": false,
+              "explanation": "Wrong. CA gates sign-in; it doesn't toggle SSPR scope.",
+              "id": "b"
+            },
+            {
+              "text": "A custom RBAC role",
+              "correct": false,
+              "explanation": "Wrong. RBAC is Azure resource access, not SSPR.",
+              "id": "c"
+            },
+            {
+              "text": "Per-user license assignment",
+              "correct": false,
+              "explanation": "Wrong. Licensing enables capability but scoping is done via the SSPR group setting.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/authentication/howto-sspr-deployment",
+          "id": "az104-s3-q29"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must capture and analyze packets to/from a VM to troubleshoot a connectivity issue. Which tool do you use?",
+          "options": [
+            {
+              "text": "Network Watcher packet capture",
+              "correct": true,
+              "explanation": "Correct. `az network watcher packet-capture create` records traffic on the VM to a storage account for analysis with Wireshark.",
+              "id": "a"
+            },
+            {
+              "text": "Boot diagnostics",
+              "correct": false,
+              "explanation": "Wrong. Console output, not packet data.",
+              "id": "b"
+            },
+            {
+              "text": "Log Analytics heartbeat",
+              "correct": false,
+              "explanation": "Wrong. Availability signal, not packets.",
+              "id": "c"
+            },
+            {
+              "text": "NSG flow logs alone",
+              "correct": false,
+              "explanation": "Wrong. Flow logs summarize allow/deny by 5-tuple but don't capture full packets.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/network-watcher/network-watcher-packet-capture-overview",
+          "id": "az104-s3-q30"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "VMs in a subnet must reach Azure Storage over the Microsoft backbone, keeping traffic off the public internet, without per-resource private endpoints. What's the simplest fit?",
+          "options": [
+            {
+              "text": "A service endpoint for Microsoft.Storage on the subnet",
+              "correct": true,
+              "explanation": "Correct. `az network vnet subnet update --service-endpoints Microsoft.Storage` routes storage traffic over the backbone and lets the storage firewall trust the subnet.",
+              "id": "a"
+            },
+            {
+              "text": "A private endpoint per storage account",
+              "correct": false,
+              "explanation": "Wrong. Works but the question asks to avoid per-resource endpoints; service endpoint covers the subnet.",
+              "id": "b"
+            },
+            {
+              "text": "A NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. NAT is outbound internet, not backbone access to PaaS.",
+              "id": "c"
+            },
+            {
+              "text": "Forced tunneling",
+              "correct": false,
+              "explanation": "Wrong. Sends traffic on-prem, the opposite goal.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-service-endpoints-overview",
+          "id": "az104-s3-q31"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Dev VMs should automatically shut down at 7 PM daily to save cost. What's the built-in way to configure this?",
+          "options": [
+            {
+              "text": "The VM's Auto-shutdown setting (DevTest Labs schedule)",
+              "correct": true,
+              "explanation": "Correct. Each VM has an Auto-shutdown blade; set the time and time zone. CLI: `az vm auto-shutdown -g rg -n vm --time 1900`.",
+              "id": "a"
+            },
+            {
+              "text": "A CanNotDelete lock",
+              "correct": false,
+              "explanation": "Wrong. Locks don't power off VMs.",
+              "id": "b"
+            },
+            {
+              "text": "A budget alert",
+              "correct": false,
+              "explanation": "Wrong. Alerts notify but don't stop the VM.",
+              "id": "c"
+            },
+            {
+              "text": "Resize to a smaller SKU nightly",
+              "correct": false,
+              "explanation": "Wrong. Doesn't stop billing for compute the way deallocation does.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/auto-shutdown",
+          "id": "az104-s3-q32"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A storage account must be reachable only through a private IP inside the VNet, with no public endpoint at all. What do you deploy and disable?",
+          "options": [
+            {
+              "text": "A private endpoint, and set public network access to Disabled",
+              "correct": true,
+              "explanation": "Correct. `az network private-endpoint create ...` plus `az storage account update --public-network-access Disabled` removes the public endpoint entirely.",
+              "id": "a"
+            },
+            {
+              "text": "A service endpoint only",
+              "correct": false,
+              "explanation": "Wrong. Service endpoints still use the storage public IP; they don't give a private IP.",
+              "id": "b"
+            },
+            {
+              "text": "Default network action Deny only",
+              "correct": false,
+              "explanation": "Wrong. The public endpoint still exists, merely firewalled.",
+              "id": "c"
+            },
+            {
+              "text": "A NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to inbound private access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/private-link/tutorial-private-endpoint-storage-portal",
+          "id": "az104-s3-q33"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need all administrators to use MFA when accessing the Azure portal, but not when on the corporate network. What enforces this?",
+          "options": [
+            {
+              "text": "A Conditional Access policy requiring MFA, excluding the trusted named location",
+              "correct": true,
+              "explanation": "Correct. CA targets the admin roles, requires MFA, and excludes the corporate IP named location: `Grant: require MFA`, `Conditions: exclude trusted locations`.",
+              "id": "a"
+            },
+            {
+              "text": "Per-user MFA only",
+              "correct": false,
+              "explanation": "Wrong. Legacy per-user MFA can't express the network exclusion condition.",
+              "id": "b"
+            },
+            {
+              "text": "Security defaults",
+              "correct": false,
+              "explanation": "Wrong. Security defaults are all-or-nothing and not location-aware.",
+              "id": "c"
+            },
+            {
+              "text": "A management lock",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to authentication.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/conditional-access/howto-conditional-access-policy-admin-mfa",
+          "id": "az104-s3-q34"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Two VMs behind a public Standard Load Balancer can't receive traffic though the LB rule exists. The backend health probe shows unhealthy. What's the most likely fix?",
+          "options": [
+            {
+              "text": "Ensure the NSG allows the probe source (AzureLoadBalancer) and the app listens on the probe port",
+              "correct": true,
+              "explanation": "Correct. Standard LB requires explicit NSG allow; the probe comes from the AzureLoadBalancer service tag and the app must answer on the probed port for instances to be marked healthy.",
+              "id": "a"
+            },
+            {
+              "text": "Switch to a Basic load balancer",
+              "correct": false,
+              "explanation": "Wrong. Basic is being retired and doesn't fix a probe/NSG issue.",
+              "id": "b"
+            },
+            {
+              "text": "Add public IPs to the VMs",
+              "correct": false,
+              "explanation": "Wrong. Backend VMs behind an LB don't need their own public IPs.",
+              "id": "c"
+            },
+            {
+              "text": "Resize the VMs",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to health probes.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/load-balancer/load-balancer-custom-probe-overview",
+          "id": "az104-s3-q35"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You want a single dashboard showing CPU, disk, and network for a fleet of VMs with prebuilt charts and no manual KQL. What do you enable?",
+          "options": [
+            {
+              "text": "VM insights in Azure Monitor",
+              "correct": true,
+              "explanation": "Correct. VM insights deploys the agent and a dependency map plus prebuilt performance workbooks across the fleet — enable via the Monitor > Insights blade.",
+              "id": "a"
+            },
+            {
+              "text": "Boot diagnostics",
+              "correct": false,
+              "explanation": "Wrong. Per-VM console only.",
+              "id": "b"
+            },
+            {
+              "text": "A storage diagnostic setting",
+              "correct": false,
+              "explanation": "Wrong. Archives logs without dashboards.",
+              "id": "c"
+            },
+            {
+              "text": "Network Watcher topology",
+              "correct": false,
+              "explanation": "Wrong. Shows network topology, not VM performance dashboards.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/vm/vminsights-overview",
+          "id": "az104-s3-q36"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An App Service web app needs to access a Key Vault secret without storing credentials. What do you configure?",
+          "options": [
+            {
+              "text": "A managed identity on the App Service with a Key Vault access policy/RBAC",
+              "correct": true,
+              "explanation": "Correct. Enable system-assigned identity (`az webapp identity assign`), grant it `get` on secrets, and reference the secret — no credentials in code or config.",
+              "id": "a"
+            },
+            {
+              "text": "The Key Vault access key in app settings",
+              "correct": false,
+              "explanation": "Wrong. Key Vault has no shared 'access key'; storing secrets defeats the purpose.",
+              "id": "b"
+            },
+            {
+              "text": "A service principal secret in code",
+              "correct": false,
+              "explanation": "Wrong. That's a stored credential — the thing we're avoiding.",
+              "id": "c"
+            },
+            {
+              "text": "Anonymous Key Vault access",
+              "correct": false,
+              "explanation": "Wrong. Key Vault doesn't allow anonymous access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/app-service/app-service-key-vault-references",
+          "id": "az104-s3-q37"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You must ensure a storage account's data survives a full regional outage with automatic read access from the secondary region. Which redundancy option?",
+          "options": [
+            {
+              "text": "Read-access geo-redundant storage (RA-GRS / RA-GZRS)",
+              "correct": true,
+              "explanation": "Correct. RA-GRS replicates to a paired region and the -RA option exposes a readable secondary endpoint during a primary outage. `az storage account update --sku Standard_RAGRS`.",
+              "id": "a"
+            },
+            {
+              "text": "Locally redundant storage (LRS)",
+              "correct": false,
+              "explanation": "Wrong. LRS stays in one datacenter — no regional protection.",
+              "id": "b"
+            },
+            {
+              "text": "Zone-redundant storage (ZRS)",
+              "correct": false,
+              "explanation": "Wrong. ZRS spans zones in one region, not across regions.",
+              "id": "c"
+            },
+            {
+              "text": "GRS without read access",
+              "correct": false,
+              "explanation": "Wrong. GRS protects data but the secondary isn't readable until failover; the requirement needs read access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-redundancy",
+          "id": "az104-s3-q38"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "On-prem network 10.1.0.0/16 must connect to an Azure VNet over an encrypted tunnel across the internet. What do you deploy in Azure?",
+          "options": [
+            {
+              "text": "A VPN gateway with a site-to-site connection and local network gateway",
+              "correct": true,
+              "explanation": "Correct. `az network vnet-gateway create` (VpnGw SKU) + a local network gateway describing on-prem, joined by an IPsec connection over the public internet.",
+              "id": "a"
+            },
+            {
+              "text": "ExpressRoute",
+              "correct": false,
+              "explanation": "Wrong. ExpressRoute is a private circuit, not 'across the internet'; also far costlier for this requirement.",
+              "id": "b"
+            },
+            {
+              "text": "VNet peering",
+              "correct": false,
+              "explanation": "Wrong. Peering is Azure-to-Azure, not on-prem.",
+              "id": "c"
+            },
+            {
+              "text": "A NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. Outbound SNAT only, no on-prem tunnel.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/vpn-gateway/tutorial-site-to-site-portal",
+          "id": "az104-s3-q39"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Costs must be attributed per department. You need spending visibility grouped by a 'department' tag and a budget alert at 80% per group. What combination do you use?",
+          "options": [
+            {
+              "text": "Cost Management with tag-based grouping plus a budget with an 80% alert threshold",
+              "correct": true,
+              "explanation": "Correct. Apply the department tag (enforce via policy), group in Cost analysis by that tag, and `az consumption budget create` with an 80% notification.",
+              "id": "a"
+            },
+            {
+              "text": "A management lock",
+              "correct": false,
+              "explanation": "Wrong. Doesn't track or alert on cost.",
+              "id": "b"
+            },
+            {
+              "text": "RBAC Reader roles",
+              "correct": false,
+              "explanation": "Wrong. Controls access, not cost reporting.",
+              "id": "c"
+            },
+            {
+              "text": "Activity log alerts",
+              "correct": false,
+              "explanation": "Wrong. Those fire on control-plane operations, not spend thresholds.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/cost-management-billing/costs/tutorial-acm-create-budgets",
+          "id": "az104-s3-q40"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must deploy 50 identical VMs that scale together and share a load balancer, managed as one resource. What do you use?",
+          "options": [
+            {
+              "text": "A Virtual Machine Scale Set",
+              "correct": true,
+              "explanation": "Correct. VMSS manages a group of identical VMs with integrated load balancing and autoscale as a single resource: `az vmss create --instance-count 50 ...`.",
+              "id": "a"
+            },
+            {
+              "text": "50 individual VMs in an availability set",
+              "correct": false,
+              "explanation": "Wrong. Not managed as one unit and lacks integrated autoscale.",
+              "id": "b"
+            },
+            {
+              "text": "App Service",
+              "correct": false,
+              "explanation": "Wrong. PaaS web hosting, not raw VM fleet management.",
+              "id": "c"
+            },
+            {
+              "text": "AKS",
+              "correct": false,
+              "explanation": "Wrong. Kubernetes nodes, a different abstraction than identical IaaS VMs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machine-scale-sets/overview",
+          "id": "az104-s3-q41"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "An alert should trigger a remediation automatically (e.g., restart a service) when fired, not just notify. What do you attach to the action group?",
+          "options": [
+            {
+              "text": "An automation runbook or Azure Function as an action group action",
+              "correct": true,
+              "explanation": "Correct. Action groups can call an Automation runbook, Function, Logic App, or webhook to remediate automatically when the alert fires.",
+              "id": "a"
+            },
+            {
+              "text": "An email action only",
+              "correct": false,
+              "explanation": "Wrong. Email notifies but cannot remediate.",
+              "id": "b"
+            },
+            {
+              "text": "A metric alert with no action group",
+              "correct": false,
+              "explanation": "Wrong. Without an action nothing happens.",
+              "id": "c"
+            },
+            {
+              "text": "A diagnostic setting",
+              "correct": false,
+              "explanation": "Wrong. Routes logs, doesn't run remediation.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/alerts/action-groups",
+          "id": "az104-s3-q42"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need an immutable, write-once-read-many policy on a blob container for compliance. What do you apply?",
+          "options": [
+            {
+              "text": "A time-based or legal-hold immutability policy on the container",
+              "correct": true,
+              "explanation": "Correct. `az storage container immutability-policy create` enforces WORM — blobs can't be modified or deleted for the retention period.",
+              "id": "a"
+            },
+            {
+              "text": "A CanNotDelete lock",
+              "correct": false,
+              "explanation": "Wrong. Locks act on the resource, not blob-level WORM compliance.",
+              "id": "b"
+            },
+            {
+              "text": "Soft delete",
+              "correct": false,
+              "explanation": "Wrong. Soft delete enables recovery, not immutability.",
+              "id": "c"
+            },
+            {
+              "text": "Lifecycle management",
+              "correct": false,
+              "explanation": "Wrong. That tiers/expires blobs rather than locking them.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/blobs/immutable-storage-overview",
+          "id": "az104-s3-q43"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Several subscriptions should share one set of policies and RBAC assignments applied at a level above subscriptions. What do you use?",
+          "options": [
+            {
+              "text": "A management group hierarchy",
+              "correct": true,
+              "explanation": "Correct. Place subscriptions under a management group; assign policy and RBAC once at the group and they inherit downward. `az account management-group create`.",
+              "id": "a"
+            },
+            {
+              "text": "A resource group",
+              "correct": false,
+              "explanation": "Wrong. RGs live inside a single subscription.",
+              "id": "b"
+            },
+            {
+              "text": "Tags",
+              "correct": false,
+              "explanation": "Wrong. Tags don't apply policy or RBAC.",
+              "id": "c"
+            },
+            {
+              "text": "A single large subscription",
+              "correct": false,
+              "explanation": "Wrong. Doesn't address governing multiple existing subscriptions.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/governance/management-groups/overview",
+          "id": "az104-s3-q44"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "App Gateway must terminate TLS and protect the app from common web exploits like SQL injection. What do you enable?",
+          "options": [
+            {
+              "text": "Application Gateway WAF SKU with the OWASP rule set",
+              "correct": true,
+              "explanation": "Correct. The WAF v2 SKU terminates TLS and inspects requests against OWASP CRS, blocking SQLi/XSS. `az network application-gateway waf-policy create`.",
+              "id": "a"
+            },
+            {
+              "text": "An NSG rule",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter by IP/port, not application-layer attacks.",
+              "id": "b"
+            },
+            {
+              "text": "Azure Firewall only",
+              "correct": false,
+              "explanation": "Wrong. Helpful for network filtering but WAF is the app-layer exploit protection paired with App Gateway.",
+              "id": "c"
+            },
+            {
+              "text": "DDoS Protection",
+              "correct": false,
+              "explanation": "Wrong. Mitigates volumetric attacks, not SQL injection.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/web-application-firewall/ag/ag-overview",
+          "id": "az104-s3-q45"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A VM must join the domain and install monitoring automatically right after provisioning, declaratively. What mechanism do you use?",
+          "options": [
+            {
+              "text": "VM extensions (e.g., custom script / domain join / AMA) in the deployment template",
+              "correct": true,
+              "explanation": "Correct. Extensions run post-provision tasks; declare them in Bicep/ARM or `az vm extension set` to domain-join and install agents idempotently.",
+              "id": "a"
+            },
+            {
+              "text": "Manual RDP and configure",
+              "correct": false,
+              "explanation": "Wrong. Not declarative or repeatable.",
+              "id": "b"
+            },
+            {
+              "text": "A larger VM SKU",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to post-deploy configuration.",
+              "id": "c"
+            },
+            {
+              "text": "A managed disk snapshot",
+              "correct": false,
+              "explanation": "Wrong. Captures disk state, not a configuration workflow.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/extensions/overview",
+          "id": "az104-s3-q46"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must retain activity (control-plane) logs for the subscription for 2 years for audit. What do you configure?",
+          "options": [
+            {
+              "text": "A diagnostic setting on the subscription Activity Log exporting to a storage account or Log Analytics with retention",
+              "correct": true,
+              "explanation": "Correct. `az monitor diagnostic-settings subscription create` ships the Activity Log to storage (set lifecycle/retention) or a workspace for 2-year audit retention.",
+              "id": "a"
+            },
+            {
+              "text": "Boot diagnostics",
+              "correct": false,
+              "explanation": "Wrong. Per-VM console only.",
+              "id": "b"
+            },
+            {
+              "text": "A metric alert",
+              "correct": false,
+              "explanation": "Wrong. Alerts don't retain logs.",
+              "id": "c"
+            },
+            {
+              "text": "NSG flow logs",
+              "correct": false,
+              "explanation": "Wrong. Those are network flow records, not control-plane activity logs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/essentials/activity-log",
+          "id": "az104-s3-q47"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "An AKS or VM workload needs a shared, concurrently mounted ReadWriteMany file system over SMB/NFS. Which Azure storage service fits?",
+          "options": [
+            {
+              "text": "Azure Files (Premium) mounted by multiple clients",
+              "correct": true,
+              "explanation": "Correct. Azure Files supports concurrent SMB/NFS mounts (RWX). Create the share and mount it on each node; Premium tier for low latency.",
+              "id": "a"
+            },
+            {
+              "text": "A managed disk",
+              "correct": false,
+              "explanation": "Wrong. Managed disks attach to one VM at a time (RWO), not shared concurrent mounts.",
+              "id": "b"
+            },
+            {
+              "text": "Blob storage",
+              "correct": false,
+              "explanation": "Wrong. Object storage, not a mountable POSIX/SMB file system for RWX.",
+              "id": "c"
+            },
+            {
+              "text": "A snapshot",
+              "correct": false,
+              "explanation": "Wrong. Point-in-time copy, not a live shared mount.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/files/storage-files-introduction",
+          "id": "az104-s3-q48"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A blob container must allow anonymous read of blobs but not list the container contents. Which public access level do you set?",
+          "options": [
+            {
+              "text": "Blob (anonymous read access for blobs only)",
+              "correct": true,
+              "explanation": "Correct. The 'Blob' level allows reading individual blobs by URL but not enumerating the container. `az storage container set-permission --public-access blob` (account must permit anonymous access).",
+              "id": "a"
+            },
+            {
+              "text": "Container (full public read)",
+              "correct": false,
+              "explanation": "Wrong. That also allows listing the container's blobs.",
+              "id": "b"
+            },
+            {
+              "text": "Private",
+              "correct": false,
+              "explanation": "Wrong. Private blocks all anonymous read.",
+              "id": "c"
+            },
+            {
+              "text": "A SAS token",
+              "correct": false,
+              "explanation": "Wrong. SAS is scoped credentialed access, not anonymous public read.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/blobs/anonymous-read-access-configure",
+          "id": "az104-s3-q49"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Two VMs must have the lowest possible network latency between them for an HPC workload. Which placement construct do you use?",
+          "options": [
+            {
+              "text": "A proximity placement group",
+              "correct": true,
+              "explanation": "Correct. `az ppg create` then deploy both VMs into it to co-locate them physically, minimizing inter-VM latency.",
+              "id": "a"
+            },
+            {
+              "text": "An availability zone spread",
+              "correct": false,
+              "explanation": "Wrong. Zones increase resilience but add latency by separating datacenters.",
+              "id": "b"
+            },
+            {
+              "text": "A dedicated host",
+              "correct": false,
+              "explanation": "Wrong. Isolates hardware but doesn't guarantee minimal inter-VM latency.",
+              "id": "c"
+            },
+            {
+              "text": "An availability set",
+              "correct": false,
+              "explanation": "Wrong. Spreads across fault domains, which can increase latency.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/co-location",
+          "id": "az104-s3-q50"
+        }
+      ]
+    },
+    {
+      "setId": "set-4",
+      "name": "Scenario Exam 2",
+      "timeLimitMin": 60,
+      "questions": [
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You assigned Reader at the subscription and Contributor at a resource group to the same user. What can they do inside that resource group?",
+          "options": [
+            {
+              "text": "Contributor actions — the more specific/permissive applicable role applies, and RBAC is additive",
+              "correct": true,
+              "explanation": "Correct. RBAC permissions are the union of all assignments; within the RG the user has Contributor (read+write), inheriting Reader elsewhere.",
+              "id": "a"
+            },
+            {
+              "text": "Only Reader actions",
+              "correct": false,
+              "explanation": "Wrong. Assignments are additive, not most-restrictive, unless a deny assignment exists.",
+              "id": "b"
+            },
+            {
+              "text": "Nothing — conflicting roles cancel out",
+              "correct": false,
+              "explanation": "Wrong. Roles never cancel; they combine.",
+              "id": "c"
+            },
+            {
+              "text": "Owner actions",
+              "correct": false,
+              "explanation": "Wrong. Neither assignment grants access-management rights.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/role-based-access-control/rbac-and-directory-admin-roles",
+          "id": "az104-s4-q1"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A custom role must allow restarting VMs but nothing else. Which actions belong in the role definition?",
+          "options": [
+            {
+              "text": "Microsoft.Compute/virtualMachines/restart/action plus read actions",
+              "correct": true,
+              "explanation": "Correct. `az role definition create` with Actions limited to the restart operation and the read needed to see the VM enforces least privilege.",
+              "id": "a"
+            },
+            {
+              "text": "Microsoft.Compute/*",
+              "correct": false,
+              "explanation": "Wrong. Wildcard grants all compute operations, far beyond restart.",
+              "id": "b"
+            },
+            {
+              "text": "*/read only",
+              "correct": false,
+              "explanation": "Wrong. Read can't restart.",
+              "id": "c"
+            },
+            {
+              "text": "Microsoft.Authorization/*/write",
+              "correct": false,
+              "explanation": "Wrong. That's access management, unrelated and dangerous.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/role-based-access-control/custom-roles",
+          "id": "az104-s4-q2"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to mount an Azure File share on a Linux VM. Which protocol and command pattern apply?",
+          "options": [
+            {
+              "text": "SMB (or NFS) mount using the storage account key or identity",
+              "correct": true,
+              "explanation": "Correct. e.g. `mount -t cifs //acct.file.core.windows.net/share /mnt/share -o credentials=...`; get the key via `az storage account keys list`.",
+              "id": "a"
+            },
+            {
+              "text": "Blob REST endpoints",
+              "correct": false,
+              "explanation": "Wrong. Blob isn't a mountable file system.",
+              "id": "b"
+            },
+            {
+              "text": "FTP",
+              "correct": false,
+              "explanation": "Wrong. Azure Files doesn't expose FTP.",
+              "id": "c"
+            },
+            {
+              "text": "iSCSI",
+              "correct": false,
+              "explanation": "Wrong. Azure Files uses SMB/NFS, not iSCSI.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/files/storage-how-to-use-files-linux",
+          "id": "az104-s4-q3"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A scale set deployment must update instances gradually, keeping most online during a new image rollout. Which upgrade policy do you set?",
+          "options": [
+            {
+              "text": "Rolling upgrade policy with a max batch and pause between batches",
+              "correct": true,
+              "explanation": "Correct. `az vmss update --set upgradePolicy.mode=Rolling` updates instances in batches honoring maxBatchInstancePercent and health checks, keeping the rest serving.",
+              "id": "a"
+            },
+            {
+              "text": "Manual upgrade with all at once",
+              "correct": false,
+              "explanation": "Wrong. Updating all instances simultaneously drops availability.",
+              "id": "b"
+            },
+            {
+              "text": "Delete and recreate the scale set",
+              "correct": false,
+              "explanation": "Wrong. Destroys the running service.",
+              "id": "c"
+            },
+            {
+              "text": "Automatic with no health probe",
+              "correct": false,
+              "explanation": "Wrong. Without health gating a bad image rolls out fully.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machine-scale-sets/virtual-machine-scale-sets-upgrade-scale-set",
+          "id": "az104-s4-q4"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Peering exists between VNet-A and VNet-B, and between VNet-B and VNet-C. VMs in A cannot reach C. Why?",
+          "options": [
+            {
+              "text": "VNet peering is non-transitive; A↔C needs its own peering or a hub with routing",
+              "correct": true,
+              "explanation": "Correct. Spoke-to-spoke traffic doesn't transit a peered hub by default; add direct peering or route through an NVA/Azure Firewall in a hub-spoke design.",
+              "id": "a"
+            },
+            {
+              "text": "Peering is always transitive",
+              "correct": false,
+              "explanation": "Wrong. It is not transitive by default.",
+              "id": "b"
+            },
+            {
+              "text": "An NSG blocks it",
+              "correct": false,
+              "explanation": "Wrong. The structural cause is non-transitivity, not an NSG.",
+              "id": "c"
+            },
+            {
+              "text": "DNS misconfiguration",
+              "correct": false,
+              "explanation": "Wrong. The reachability gap is routing, not name resolution.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-network-peering-overview",
+          "id": "az104-s4-q5"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "In a hub-spoke topology, all spoke traffic must be inspected by Azure Firewall in the hub. What do you configure on the spokes?",
+          "options": [
+            {
+              "text": "User-defined routes (UDR) with a 0.0.0.0/0 next hop of the firewall's private IP",
+              "correct": true,
+              "explanation": "Correct. `az network route-table route create --next-hop-type VirtualAppliance --next-hop-ip-address <fw>` forces spoke egress through the firewall.",
+              "id": "a"
+            },
+            {
+              "text": "Service endpoints",
+              "correct": false,
+              "explanation": "Wrong. Those reach PaaS directly, bypassing the firewall.",
+              "id": "b"
+            },
+            {
+              "text": "NSG allow rules",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter but don't redirect traffic to the firewall.",
+              "id": "c"
+            },
+            {
+              "text": "Default system routes only",
+              "correct": false,
+              "explanation": "Wrong. Default routes send traffic straight out, not via the firewall.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/firewall/tutorial-hybrid-portal",
+          "id": "az104-s4-q6"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must rotate the storage account access keys without downtime for apps using key1. What's the safe procedure?",
+          "options": [
+            {
+              "text": "Switch apps to key2, regenerate key1, then switch back as needed",
+              "correct": true,
+              "explanation": "Correct. Two keys exist for zero-downtime rotation: move clients to key2 (`az storage account keys list`), `az storage account keys renew --key key1`, then rotate again later.",
+              "id": "a"
+            },
+            {
+              "text": "Regenerate both keys at once",
+              "correct": false,
+              "explanation": "Wrong. Invalidates all clients simultaneously — downtime.",
+              "id": "b"
+            },
+            {
+              "text": "Delete the account and recreate",
+              "correct": false,
+              "explanation": "Wrong. Destructive and unnecessary.",
+              "id": "c"
+            },
+            {
+              "text": "Disable keys entirely",
+              "correct": false,
+              "explanation": "Wrong. Breaks apps that depend on key auth.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-account-keys-manage",
+          "id": "az104-s4-q7"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An App Service should deploy from a staging slot and swap to production with zero downtime and easy rollback. What do you use?",
+          "options": [
+            {
+              "text": "Deployment slots with a swap operation",
+              "correct": true,
+              "explanation": "Correct. Deploy to 'staging', warm it up, then `az webapp deployment slot swap` performs a near-instant VIP swap; swap back to roll back.",
+              "id": "a"
+            },
+            {
+              "text": "Restart the production app after each deploy",
+              "correct": false,
+              "explanation": "Wrong. Causes downtime and no rollback.",
+              "id": "b"
+            },
+            {
+              "text": "A second App Service plan manually",
+              "correct": false,
+              "explanation": "Wrong. Reinvents slots without the integrated swap.",
+              "id": "c"
+            },
+            {
+              "text": "Scale up the plan",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to deployment strategy.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/app-service/deploy-staging-slots",
+          "id": "az104-s4-q8"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Guest users must be reviewed quarterly and removed if no longer needed, automatically prompting reviewers. What do you configure?",
+          "options": [
+            {
+              "text": "Entra ID Access Reviews on the guest population",
+              "correct": true,
+              "explanation": "Correct. Access reviews recur (e.g., quarterly), email reviewers, and can auto-remove access for users who aren't recertified.",
+              "id": "a"
+            },
+            {
+              "text": "PIM",
+              "correct": false,
+              "explanation": "Wrong. PIM handles JIT role activation, not recurring recertification of guests.",
+              "id": "b"
+            },
+            {
+              "text": "Conditional Access",
+              "correct": false,
+              "explanation": "Wrong. CA gates sign-in conditions, not periodic review.",
+              "id": "c"
+            },
+            {
+              "text": "A management lock",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to identity lifecycle.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/governance/access-reviews-overview",
+          "id": "az104-s4-q9"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need a KQL query showing the top 5 VMs by CPU over the last hour from Log Analytics. Which table do you query?",
+          "options": [
+            {
+              "text": "Perf (or InsightsMetrics) filtered to the Processor counter, summarized and sorted",
+              "correct": true,
+              "explanation": "Correct. e.g. `Perf | where CounterName == \"% Processor Time\" | summarize avg(CounterValue) by Computer | top 5 by avg_CounterValue`.",
+              "id": "a"
+            },
+            {
+              "text": "Heartbeat",
+              "correct": false,
+              "explanation": "Wrong. Tracks agent availability, not CPU.",
+              "id": "b"
+            },
+            {
+              "text": "AzureActivity",
+              "correct": false,
+              "explanation": "Wrong. Control-plane operations, not performance counters.",
+              "id": "c"
+            },
+            {
+              "text": "AzureMetrics for blob",
+              "correct": false,
+              "explanation": "Wrong. Wrong resource type/metric.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/logs/get-started-queries",
+          "id": "az104-s4-q10"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A VM must have a static private IP that never changes across reboots and deallocations. How do you set it?",
+          "options": [
+            {
+              "text": "Set the NIC's private IP allocation to Static",
+              "correct": true,
+              "explanation": "Correct. `az network nic ip-config update --set privateIpAllocationMethod=Static --private-ip-address 10.0.0.10` pins it; dynamic IPs can change on deallocation.",
+              "id": "a"
+            },
+            {
+              "text": "Assign a static public IP",
+              "correct": false,
+              "explanation": "Wrong. That's the public address, not the private one.",
+              "id": "b"
+            },
+            {
+              "text": "Use a reservation in DHCP",
+              "correct": false,
+              "explanation": "Wrong. Azure doesn't expose DHCP reservations; you set allocation on the NIC.",
+              "id": "c"
+            },
+            {
+              "text": "Add a second NIC",
+              "correct": false,
+              "explanation": "Wrong. Doesn't pin the existing private IP.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/ip-services/virtual-networks-static-private-ip-arm-pportal",
+          "id": "az104-s4-q11"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Your AKS cluster needs to pull images from a private Azure Container Registry without storing credentials. What do you configure?",
+          "options": [
+            {
+              "text": "Attach the ACR to the cluster (managed identity AcrPull)",
+              "correct": true,
+              "explanation": "Correct. `az aks update --attach-acr <registry>` grants the cluster's identity AcrPull — image pulls work with no imagePullSecrets.",
+              "id": "a"
+            },
+            {
+              "text": "A docker login in each pod",
+              "correct": false,
+              "explanation": "Wrong. Stores credentials and isn't scalable.",
+              "id": "b"
+            },
+            {
+              "text": "Make the registry public",
+              "correct": false,
+              "explanation": "Wrong. Defeats privacy/security.",
+              "id": "c"
+            },
+            {
+              "text": "Copy images to each node",
+              "correct": false,
+              "explanation": "Wrong. Unmanageable and bypasses the registry.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/aks/cluster-container-registry-integration",
+          "id": "az104-s4-q12"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must give a Logic App read access to a storage queue using its identity. What two steps are required?",
+          "options": [
+            {
+              "text": "Enable a managed identity on the Logic App, then assign it the Storage Queue Data Reader role",
+              "correct": true,
+              "explanation": "Correct. `az logicapp identity assign` then `az role assignment create --role \"Storage Queue Data Reader\" --assignee <principalId> --scope <queue>`.",
+              "id": "a"
+            },
+            {
+              "text": "Put the account key in the workflow",
+              "correct": false,
+              "explanation": "Wrong. Stored credential; avoid.",
+              "id": "b"
+            },
+            {
+              "text": "Make the queue public",
+              "correct": false,
+              "explanation": "Wrong. Queues can't be anonymous and it's insecure.",
+              "id": "c"
+            },
+            {
+              "text": "Use a SAS hardcoded in the app",
+              "correct": false,
+              "explanation": "Wrong. Expiring secret in code; identity+RBAC is preferred.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/role-based-access-control/built-in-roles#storage-queue-data-reader",
+          "id": "az104-s4-q13"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Security defaults are enabled but you need granular control — MFA only for admins and risky sign-ins. What must you do first?",
+          "options": [
+            {
+              "text": "Disable security defaults and create Conditional Access policies",
+              "correct": true,
+              "explanation": "Correct. Security defaults and CA are mutually exclusive; turn defaults off, then author targeted CA policies (requires a P1/P2 license).",
+              "id": "a"
+            },
+            {
+              "text": "Keep security defaults and add CA on top",
+              "correct": false,
+              "explanation": "Wrong. You can't run both simultaneously.",
+              "id": "b"
+            },
+            {
+              "text": "Use per-user MFA",
+              "correct": false,
+              "explanation": "Wrong. Lacks risk-based and granular targeting.",
+              "id": "c"
+            },
+            {
+              "text": "Apply a management lock",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to authentication.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/conditional-access/concept-conditional-access-security-defaults",
+          "id": "az104-s4-q14"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "ExpressRoute is the primary on-prem link; you need an automatic failover path if the circuit goes down. What do you add?",
+          "options": [
+            {
+              "text": "A site-to-site VPN as a backup connection with appropriate routing/weights",
+              "correct": true,
+              "explanation": "Correct. Configure S2S VPN over the internet as failover; BGP/route weighting prefers ExpressRoute and falls back to VPN on failure.",
+              "id": "a"
+            },
+            {
+              "text": "A second NIC on each VM",
+              "correct": false,
+              "explanation": "Wrong. Doesn't provide WAN-link redundancy.",
+              "id": "b"
+            },
+            {
+              "text": "VNet peering",
+              "correct": false,
+              "explanation": "Wrong. Azure-to-Azure only, not on-prem failover.",
+              "id": "c"
+            },
+            {
+              "text": "A NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. Outbound internet only.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/expressroute/use-s2s-vpn-as-backup-for-expressroute-privatepeering",
+          "id": "az104-s4-q15"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must alert when fewer than 2 healthy instances back a load balancer. Which signal type fits best?",
+          "options": [
+            {
+              "text": "A metric alert on the load balancer's Health Probe Status / Dip availability",
+              "correct": true,
+              "explanation": "Correct. `az monitor metrics alert create` on the LB health-probe metric notifies when healthy backend count drops below threshold.",
+              "id": "a"
+            },
+            {
+              "text": "An activity log alert",
+              "correct": false,
+              "explanation": "Wrong. Tracks control-plane ops, not live backend health.",
+              "id": "b"
+            },
+            {
+              "text": "Boot diagnostics",
+              "correct": false,
+              "explanation": "Wrong. Per-VM console only.",
+              "id": "c"
+            },
+            {
+              "text": "A budget alert",
+              "correct": false,
+              "explanation": "Wrong. Cost-based, not health.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/load-balancer/load-balancer-standard-diagnostics",
+          "id": "az104-s4-q16"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A storage account's blob soft delete is on, but a user permanently deleted a container. Can it be recovered, and how?",
+          "options": [
+            {
+              "text": "Yes, if container soft delete is enabled — undelete within the retention window",
+              "correct": true,
+              "explanation": "Correct. Container soft delete is separate from blob soft delete; with it on, `az storage container restore --name <c> --deleted-version <v>` recovers it.",
+              "id": "a"
+            },
+            {
+              "text": "No, soft delete never covers containers",
+              "correct": false,
+              "explanation": "Wrong. Container-level soft delete exists and must be enabled separately.",
+              "id": "b"
+            },
+            {
+              "text": "Only by restoring from a different account",
+              "correct": false,
+              "explanation": "Wrong. Not required when container soft delete is on.",
+              "id": "c"
+            },
+            {
+              "text": "Only via a lock",
+              "correct": false,
+              "explanation": "Wrong. Locks don't restore deleted containers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/blobs/soft-delete-container-overview",
+          "id": "az104-s4-q17"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must run a one-off batch job in a container, exiting when done, with per-second billing and no orchestrator. Which service fits?",
+          "options": [
+            {
+              "text": "Azure Container Instances (ACI)",
+              "correct": true,
+              "explanation": "Correct. ACI runs a container to completion with restartPolicy Never and per-second billing: `az container create --restart-policy Never ...`.",
+              "id": "a"
+            },
+            {
+              "text": "AKS",
+              "correct": false,
+              "explanation": "Wrong. Requires a managed cluster for a single job.",
+              "id": "b"
+            },
+            {
+              "text": "App Service",
+              "correct": false,
+              "explanation": "Wrong. Long-running web hosting, not a one-off container job.",
+              "id": "c"
+            },
+            {
+              "text": "A VM",
+              "correct": false,
+              "explanation": "Wrong. You'd manage and pay for the VM lifecycle yourself.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/container-instances/container-instances-restart-policy",
+          "id": "az104-s4-q18"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An internal-only API behind a load balancer must not be reachable from the internet. Which load balancer type do you use?",
+          "options": [
+            {
+              "text": "An internal (private) Standard Load Balancer with a private frontend IP",
+              "correct": true,
+              "explanation": "Correct. `az network lb create --frontend-ip ... --private-ip-address` keeps the frontend on a private VNet IP, never internet-exposed.",
+              "id": "a"
+            },
+            {
+              "text": "A public Standard Load Balancer",
+              "correct": false,
+              "explanation": "Wrong. Public frontend exposes it to the internet.",
+              "id": "b"
+            },
+            {
+              "text": "Application Gateway public listener",
+              "correct": false,
+              "explanation": "Wrong. Public-facing by default.",
+              "id": "c"
+            },
+            {
+              "text": "Traffic Manager",
+              "correct": false,
+              "explanation": "Wrong. DNS-based global routing, inherently public.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/load-balancer/components#frontend-ip-configurations",
+          "id": "az104-s4-q19"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A deny assignment must stop even Owners from deleting resources in a managed resource group provisioned by a managed app. Where does this come from?",
+          "options": [
+            {
+              "text": "Azure-managed deny assignments created by the managed application / Blueprints",
+              "correct": true,
+              "explanation": "Correct. Deny assignments (distinct from role assignments) are created by Azure-managed scenarios and override Owner permissions; you don't author them directly via RBAC.",
+              "id": "a"
+            },
+            {
+              "text": "A custom RBAC role with deny",
+              "correct": false,
+              "explanation": "Wrong. RBAC roles can't express deny; only deny assignments do, and those are system-created.",
+              "id": "b"
+            },
+            {
+              "text": "A management lock only",
+              "correct": false,
+              "explanation": "Wrong. Locks prevent delete/modify but the question specifies deny assignments from managed apps.",
+              "id": "c"
+            },
+            {
+              "text": "An Azure Policy deny",
+              "correct": false,
+              "explanation": "Wrong. Policy denies non-compliant creates, not principal-scoped deny on existing resources.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/role-based-access-control/deny-assignments",
+          "id": "az104-s4-q20"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You need near-real-time streaming of resource logs into a third-party SIEM. Which diagnostic destination should you choose?",
+          "options": [
+            {
+              "text": "Event Hub",
+              "correct": true,
+              "explanation": "Correct. Diagnostic settings stream to an Event Hub which SIEMs (Splunk, QRadar) consume in near-real-time. `az monitor diagnostic-settings create --event-hub ...`.",
+              "id": "a"
+            },
+            {
+              "text": "Storage account",
+              "correct": false,
+              "explanation": "Wrong. Good for archive/batch, not low-latency streaming.",
+              "id": "b"
+            },
+            {
+              "text": "Log Analytics only",
+              "correct": false,
+              "explanation": "Wrong. Great for KQL but not the standard SIEM streaming ingress.",
+              "id": "c"
+            },
+            {
+              "text": "A VM disk",
+              "correct": false,
+              "explanation": "Wrong. Not a diagnostics destination.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/essentials/stream-monitoring-data-event-hubs",
+          "id": "az104-s4-q21"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must give time-limited write access to a container that you can revoke instantly if leaked. What do you use?",
+          "options": [
+            {
+              "text": "A SAS tied to a stored access policy",
+              "correct": true,
+              "explanation": "Correct. The stored access policy lets you revoke or change the SAS by editing the policy — instant revocation without rotating account keys.",
+              "id": "a"
+            },
+            {
+              "text": "An ad-hoc SAS with a long expiry",
+              "correct": false,
+              "explanation": "Wrong. Ad-hoc SAS can't be revoked without rotating the account key.",
+              "id": "b"
+            },
+            {
+              "text": "The account key",
+              "correct": false,
+              "explanation": "Wrong. Full access, no scoping or quick revocation.",
+              "id": "c"
+            },
+            {
+              "text": "Public write access",
+              "correct": false,
+              "explanation": "Wrong. Anyone could write; no control.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/storage-stored-access-policy-define-dotnet",
+          "id": "az104-s4-q22"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Provisioning must fail the deployment if a parameter value is outside an allowed list, before any resource is created. Which Bicep feature enforces this?",
+          "options": [
+            {
+              "text": "An @allowed() decorator on the parameter",
+              "correct": true,
+              "explanation": "Correct. `@allowed(['dev','test','prod'])` validates parameters at compile/deploy time, failing fast before resource creation.",
+              "id": "a"
+            },
+            {
+              "text": "A management lock",
+              "correct": false,
+              "explanation": "Wrong. Acts after resources exist.",
+              "id": "b"
+            },
+            {
+              "text": "An NSG rule",
+              "correct": false,
+              "explanation": "Wrong. Network filtering, unrelated to parameter validation.",
+              "id": "c"
+            },
+            {
+              "text": "A tag",
+              "correct": false,
+              "explanation": "Wrong. Tags don't validate inputs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-resource-manager/bicep/parameters#decorators",
+          "id": "az104-s4-q23"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "DNS queries from your VNet must be forwarded to an on-prem DNS server for certain zones, and to Azure for others, without managing DNS VMs. What do you deploy?",
+          "options": [
+            {
+              "text": "Azure DNS Private Resolver with forwarding rulesets",
+              "correct": true,
+              "explanation": "Correct. The Private Resolver provides inbound/outbound endpoints and conditional forwarding rules to on-prem zones, fully managed — no DNS VMs.",
+              "id": "a"
+            },
+            {
+              "text": "Custom DNS servers on VMs",
+              "correct": false,
+              "explanation": "Wrong. The requirement is to avoid managing DNS VMs.",
+              "id": "b"
+            },
+            {
+              "text": "A public DNS zone",
+              "correct": false,
+              "explanation": "Wrong. Public, no conditional forwarding to on-prem.",
+              "id": "c"
+            },
+            {
+              "text": "Hosts file entries",
+              "correct": false,
+              "explanation": "Wrong. Not scalable or dynamic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/dns/dns-private-resolver-overview",
+          "id": "az104-s4-q24"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An application registration needs permission to read user profiles via Microsoft Graph as the signed-in user. What do you configure?",
+          "options": [
+            {
+              "text": "A delegated Microsoft Graph permission (User.Read) with admin/user consent",
+              "correct": true,
+              "explanation": "Correct. In the app registration's API permissions, add the delegated `User.Read` Graph scope and grant consent; the app acts as the signed-in user.",
+              "id": "a"
+            },
+            {
+              "text": "An application (app-only) permission",
+              "correct": false,
+              "explanation": "Wrong. App-only acts without a user; the requirement says 'as the signed-in user' (delegated).",
+              "id": "b"
+            },
+            {
+              "text": "A client secret only",
+              "correct": false,
+              "explanation": "Wrong. A secret authenticates the app but doesn't grant Graph scopes.",
+              "id": "c"
+            },
+            {
+              "text": "An RBAC role",
+              "correct": false,
+              "explanation": "Wrong. Azure RBAC doesn't govern Graph API scopes.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/develop/permissions-consent-overview",
+          "id": "az104-s4-q25"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You want autoscale to also scale in safely without thrashing when load fluctuates near the threshold. Which setting addresses this?",
+          "options": [
+            {
+              "text": "A cool-down period between scale actions",
+              "correct": true,
+              "explanation": "Correct. The autoscale cooldown prevents rapid repeated scaling; set it in the autoscale profile so the system waits before the next action.",
+              "id": "a"
+            },
+            {
+              "text": "Lower the instance minimum to zero",
+              "correct": false,
+              "explanation": "Wrong. Doesn't address oscillation near a threshold.",
+              "id": "b"
+            },
+            {
+              "text": "A bigger VM SKU",
+              "correct": false,
+              "explanation": "Wrong. Vertical change, unrelated to scale thrashing.",
+              "id": "c"
+            },
+            {
+              "text": "Disable the scale-in rule",
+              "correct": false,
+              "explanation": "Wrong. Then it never scales in.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/autoscale/autoscale-best-practices",
+          "id": "az104-s4-q26"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Compliance requires that storage account keys cannot be used at all — only Entra ID auth. What do you set?",
+          "options": [
+            {
+              "text": "Disable shared key access on the storage account",
+              "correct": true,
+              "explanation": "Correct. `az storage account update --allow-shared-key-access false` blocks account-key and SAS-via-key auth, forcing Entra ID (RBAC) authorization.",
+              "id": "a"
+            },
+            {
+              "text": "Rotate the keys frequently",
+              "correct": false,
+              "explanation": "Wrong. Keys still usable between rotations.",
+              "id": "b"
+            },
+            {
+              "text": "A private endpoint",
+              "correct": false,
+              "explanation": "Wrong. Controls network path, not auth method.",
+              "id": "c"
+            },
+            {
+              "text": "A management lock",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to auth method.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/common/shared-key-authorization-prevent",
+          "id": "az104-s4-q27"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A web app on App Service must scale out automatically based on HTTP queue length and CPU. Where do you configure the rules?",
+          "options": [
+            {
+              "text": "Autoscale settings on the App Service plan",
+              "correct": true,
+              "explanation": "Correct. Scale rules live at the plan level (the compute that hosts apps): `az monitor autoscale create --resource <plan>` with CPU/queue conditions.",
+              "id": "a"
+            },
+            {
+              "text": "On each individual web app",
+              "correct": false,
+              "explanation": "Wrong. Scaling is a plan-level capability shared by apps on the plan.",
+              "id": "b"
+            },
+            {
+              "text": "On the storage account",
+              "correct": false,
+              "explanation": "Wrong. Unrelated resource.",
+              "id": "c"
+            },
+            {
+              "text": "Via a management lock",
+              "correct": false,
+              "explanation": "Wrong. Locks don't scale.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/app-service/manage-scale-up",
+          "id": "az104-s4-q28"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Outbound SNAT port exhaustion is causing intermittent failures from many VMs sharing one load balancer. What's the recommended remedy?",
+          "options": [
+            {
+              "text": "Add a NAT gateway to the subnet for scalable outbound SNAT",
+              "correct": true,
+              "explanation": "Correct. NAT gateway provides far more SNAT ports and replaces LB outbound rules; `az network nat gateway create` then associate the subnet.",
+              "id": "a"
+            },
+            {
+              "text": "Add more public IPs to each VM",
+              "correct": false,
+              "explanation": "Wrong. Operationally messy and exposes VMs inbound.",
+              "id": "b"
+            },
+            {
+              "text": "Resize the VMs",
+              "correct": false,
+              "explanation": "Wrong. SNAT exhaustion isn't a compute-size issue.",
+              "id": "c"
+            },
+            {
+              "text": "Reduce the timeout to 1 second",
+              "correct": false,
+              "explanation": "Wrong. Aggressive timeouts can worsen reliability.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/nat-gateway/nat-gateway-resource",
+          "id": "az104-s4-q29"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A break-glass emergency admin account must bypass Conditional Access MFA so admins aren't locked out if MFA fails tenant-wide. How do you handle it?",
+          "options": [
+            {
+              "text": "Exclude the dedicated break-glass account from CA policies and monitor its sign-ins",
+              "correct": true,
+              "explanation": "Correct. Microsoft recommends two excluded emergency accounts, tightly monitored with alerts on use, so a CA/MFA outage can't lock everyone out.",
+              "id": "a"
+            },
+            {
+              "text": "Give it no MFA via per-user settings",
+              "correct": false,
+              "explanation": "Wrong. Doesn't reliably bypass CA and isn't the documented pattern.",
+              "id": "b"
+            },
+            {
+              "text": "Disable all CA policies",
+              "correct": false,
+              "explanation": "Wrong. Removes protection for everyone.",
+              "id": "c"
+            },
+            {
+              "text": "Share the global admin password broadly",
+              "correct": false,
+              "explanation": "Wrong. Severe security risk.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/roles/security-emergency-access",
+          "id": "az104-s4-q30"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to see exactly who deleted a resource and when. Where do you look?",
+          "options": [
+            {
+              "text": "The Activity Log, filtered to the Delete operation on the resource",
+              "correct": true,
+              "explanation": "Correct. `az monitor activity-log list --resource-id <id> --offset 7d` shows the caller, operation, and timestamp for control-plane deletes.",
+              "id": "a"
+            },
+            {
+              "text": "Boot diagnostics",
+              "correct": false,
+              "explanation": "Wrong. Per-VM console only.",
+              "id": "b"
+            },
+            {
+              "text": "Metrics",
+              "correct": false,
+              "explanation": "Wrong. Numeric telemetry, not who-did-what.",
+              "id": "c"
+            },
+            {
+              "text": "NSG flow logs",
+              "correct": false,
+              "explanation": "Wrong. Network flows, not management operations.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/essentials/activity-log",
+          "id": "az104-s4-q31"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A premium file share needs to be backed up daily with 30-day retention. What protects it?",
+          "options": [
+            {
+              "text": "Azure Backup for Azure Files via a Recovery Services vault",
+              "correct": true,
+              "explanation": "Correct. `az backup protection enable-for-azurefileshare` with a policy of daily backups and 30-day retention snapshots the share.",
+              "id": "a"
+            },
+            {
+              "text": "Lifecycle management",
+              "correct": false,
+              "explanation": "Wrong. That's for blobs, not file-share backup.",
+              "id": "b"
+            },
+            {
+              "text": "Object replication",
+              "correct": false,
+              "explanation": "Wrong. Blob-only and not a backup.",
+              "id": "c"
+            },
+            {
+              "text": "A management lock",
+              "correct": false,
+              "explanation": "Wrong. Prevents deletion, doesn't back up.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/backup/backup-afs",
+          "id": "az104-s4-q32"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You must guarantee a VM lands on dedicated physical hardware not shared with other customers for compliance. What do you provision?",
+          "options": [
+            {
+              "text": "An Azure Dedicated Host and place the VM on it",
+              "correct": true,
+              "explanation": "Correct. `az vm host create` provides single-tenant physical servers; deploy VMs onto the host for hardware isolation.",
+              "id": "a"
+            },
+            {
+              "text": "A larger VM SKU",
+              "correct": false,
+              "explanation": "Wrong. Size doesn't guarantee single tenancy.",
+              "id": "b"
+            },
+            {
+              "text": "An availability zone",
+              "correct": false,
+              "explanation": "Wrong. Zones are about datacenter redundancy, not dedicated hardware.",
+              "id": "c"
+            },
+            {
+              "text": "Proximity placement group",
+              "correct": false,
+              "explanation": "Wrong. PPG co-locates VMs for latency; doesn't isolate hardware.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/dedicated-hosts",
+          "id": "az104-s4-q33"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Two subnets in the same VNet must be isolated so they cannot talk to each other, while both still reach the internet. What do you apply?",
+          "options": [
+            {
+              "text": "NSGs on each subnet denying the other subnet's address range",
+              "correct": true,
+              "explanation": "Correct. Default intra-VNet allow lets subnets talk; add NSG deny rules for the peer subnet's CIDR while leaving internet egress allowed.",
+              "id": "a"
+            },
+            {
+              "text": "Separate VNets with no peering",
+              "correct": false,
+              "explanation": "Wrong. Works but the question keeps them in one VNet; NSGs achieve isolation.",
+              "id": "b"
+            },
+            {
+              "text": "A NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. Affects outbound internet, not inter-subnet isolation.",
+              "id": "c"
+            },
+            {
+              "text": "A route table only",
+              "correct": false,
+              "explanation": "Wrong. Routing changes paths but NSGs enforce the deny.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/network-security-groups-overview",
+          "id": "az104-s4-q34"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Dynamic group membership should automatically include all users whose department equals 'Sales'. What do you configure?",
+          "options": [
+            {
+              "text": "A dynamic security group with a membership rule on the department attribute",
+              "correct": true,
+              "explanation": "Correct. `(user.department -eq \"Sales\")` as the dynamic rule auto-populates the group as user attributes change (requires Entra ID P1).",
+              "id": "a"
+            },
+            {
+              "text": "A static group with manual adds",
+              "correct": false,
+              "explanation": "Wrong. Not automatic as users change.",
+              "id": "b"
+            },
+            {
+              "text": "A Conditional Access policy",
+              "correct": false,
+              "explanation": "Wrong. CA gates sign-in, doesn't manage membership.",
+              "id": "c"
+            },
+            {
+              "text": "An administrative unit",
+              "correct": false,
+              "explanation": "Wrong. AUs scope admin, not auto-membership by attribute.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/enterprise-users/groups-dynamic-membership",
+          "id": "az104-s4-q35"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A scheduled query rule must run every 5 minutes and fire when error log count exceeds 100. Which alert type do you build?",
+          "options": [
+            {
+              "text": "A log search (scheduled query) alert in Azure Monitor",
+              "correct": true,
+              "explanation": "Correct. `az monitor scheduled-query create` runs a KQL count query on a cadence and alerts when results cross the threshold.",
+              "id": "a"
+            },
+            {
+              "text": "A metric alert",
+              "correct": false,
+              "explanation": "Wrong. Metric alerts use platform metrics, not arbitrary log KQL counts.",
+              "id": "b"
+            },
+            {
+              "text": "An activity log alert",
+              "correct": false,
+              "explanation": "Wrong. Limited to control-plane events.",
+              "id": "c"
+            },
+            {
+              "text": "A budget alert",
+              "correct": false,
+              "explanation": "Wrong. Cost only.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/alerts/alerts-types#log-alerts",
+          "id": "az104-s4-q36"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must serve static website content (HTML/CSS/JS) directly from blob storage with a custom index document. What do you enable?",
+          "options": [
+            {
+              "text": "Static website hosting on the storage account",
+              "correct": true,
+              "explanation": "Correct. `az storage blob service-properties update --static-website --index-document index.html` serves the $web container over an HTTPS web endpoint.",
+              "id": "a"
+            },
+            {
+              "text": "A private endpoint",
+              "correct": false,
+              "explanation": "Wrong. Makes it private, not a public website.",
+              "id": "b"
+            },
+            {
+              "text": "A file share",
+              "correct": false,
+              "explanation": "Wrong. SMB, not web hosting.",
+              "id": "c"
+            },
+            {
+              "text": "Lifecycle management",
+              "correct": false,
+              "explanation": "Wrong. Tiers blobs; doesn't host a site.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/blobs/storage-blob-static-website",
+          "id": "az104-s4-q37"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "An AKS cluster must autoscale nodes when pods are unschedulable due to insufficient resources. What do you enable?",
+          "options": [
+            {
+              "text": "The cluster autoscaler on the node pool",
+              "correct": true,
+              "explanation": "Correct. `az aks update --enable-cluster-autoscaler --min-count 1 --max-count 5` adds nodes when pods can't schedule and removes idle ones.",
+              "id": "a"
+            },
+            {
+              "text": "The horizontal pod autoscaler only",
+              "correct": false,
+              "explanation": "Wrong. HPA scales pods, not nodes; unschedulable pods still need more nodes.",
+              "id": "b"
+            },
+            {
+              "text": "A larger single node",
+              "correct": false,
+              "explanation": "Wrong. Doesn't auto-respond to pending pods.",
+              "id": "c"
+            },
+            {
+              "text": "Manual scaling",
+              "correct": false,
+              "explanation": "Wrong. Not automatic.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/aks/cluster-autoscaler",
+          "id": "az104-s4-q38"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A VM needs both a static public IP that persists and a DNS label like myapp.eastus.cloudapp.azure.com. What do you configure on the public IP?",
+          "options": [
+            {
+              "text": "A Standard static public IP with a DNS name label",
+              "correct": true,
+              "explanation": "Correct. `az network public-ip create --sku Standard --allocation-method Static --dns-name myapp` yields a persistent IP and an Azure FQDN.",
+              "id": "a"
+            },
+            {
+              "text": "A dynamic Basic public IP",
+              "correct": false,
+              "explanation": "Wrong. Dynamic IPs change and Basic is being retired.",
+              "id": "b"
+            },
+            {
+              "text": "A private IP",
+              "correct": false,
+              "explanation": "Wrong. Private IPs aren't internet-reachable with a public FQDN.",
+              "id": "c"
+            },
+            {
+              "text": "A Traffic Manager profile",
+              "correct": false,
+              "explanation": "Wrong. Provides a global DNS name but not a static VM public IP.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/ip-services/public-ip-addresses",
+          "id": "az104-s4-q39"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Hybrid identity: on-prem AD users must sign in to Azure with their existing password, with password hashes synced to the cloud. Which sync option?",
+          "options": [
+            {
+              "text": "Microsoft Entra Connect with Password Hash Synchronization",
+              "correct": true,
+              "explanation": "Correct. Entra Connect's PHS syncs a hash-of-the-hash to the cloud so users authenticate with the same password; simplest, most resilient hybrid option.",
+              "id": "a"
+            },
+            {
+              "text": "Pass-through authentication only",
+              "correct": false,
+              "explanation": "Wrong. Valid hybrid option but PHS is what 'hashes synced to the cloud' describes.",
+              "id": "b"
+            },
+            {
+              "text": "Federation with AD FS only",
+              "correct": false,
+              "explanation": "Wrong. Heavier, requires on-prem infra; not hash sync.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud-only accounts",
+              "correct": false,
+              "explanation": "Wrong. Ignores the existing on-prem identities.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/hybrid/whatis-phs",
+          "id": "az104-s4-q40"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must export cost data daily to a storage account for analysis in Power BI. What do you set up?",
+          "options": [
+            {
+              "text": "A scheduled export in Cost Management to a storage account",
+              "correct": true,
+              "explanation": "Correct. Cost Management exports push daily CSVs to storage: configure under Exports, then connect Power BI to the container.",
+              "id": "a"
+            },
+            {
+              "text": "A diagnostic setting",
+              "correct": false,
+              "explanation": "Wrong. Diagnostic settings handle logs/metrics, not cost exports.",
+              "id": "b"
+            },
+            {
+              "text": "A budget",
+              "correct": false,
+              "explanation": "Wrong. Budgets alert on spend; they don't export data.",
+              "id": "c"
+            },
+            {
+              "text": "A metric alert",
+              "correct": false,
+              "explanation": "Wrong. Not a cost export mechanism.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/cost-management-billing/costs/tutorial-export-acm-data",
+          "id": "az104-s4-q41"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A VM image with your hardened OS config must be reused across regions and subscriptions, versioned. What do you use?",
+          "options": [
+            {
+              "text": "Azure Compute Gallery (Shared Image Gallery) with image versions",
+              "correct": true,
+              "explanation": "Correct. `az sig image-version create` stores versioned images replicated to multiple regions and shareable across subscriptions.",
+              "id": "a"
+            },
+            {
+              "text": "A single managed disk snapshot",
+              "correct": false,
+              "explanation": "Wrong. Snapshots aren't versioned, multi-region image distributables.",
+              "id": "b"
+            },
+            {
+              "text": "A storage blob of the VHD",
+              "correct": false,
+              "explanation": "Wrong. Manual and not integrated image lifecycle.",
+              "id": "c"
+            },
+            {
+              "text": "A backup vault",
+              "correct": false,
+              "explanation": "Wrong. For recovery, not image distribution.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-machines/azure-compute-gallery",
+          "id": "az104-s4-q42"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Apps must reference Key Vault secrets that auto-update when rotated, without redeploying. What pattern do you use in App Service?",
+          "options": [
+            {
+              "text": "Key Vault references in app settings with a managed identity",
+              "correct": true,
+              "explanation": "Correct. `@Microsoft.KeyVault(SecretUri=...)` in app settings, resolved via the app's managed identity; rotating the secret reflects on next refresh without code changes.",
+              "id": "a"
+            },
+            {
+              "text": "Hardcode secrets in code",
+              "correct": false,
+              "explanation": "Wrong. Requires redeploy on rotation and is insecure.",
+              "id": "b"
+            },
+            {
+              "text": "Store secrets in a config file",
+              "correct": false,
+              "explanation": "Wrong. Same redeploy/security problems.",
+              "id": "c"
+            },
+            {
+              "text": "Use the storage account key",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to Key Vault secret references.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/app-service/app-service-key-vault-references",
+          "id": "az104-s4-q43"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Diagnostics show asymmetric routing breaking a connection through an NVA. What Azure routing construct most likely needs adjustment?",
+          "options": [
+            {
+              "text": "User-defined routes (route tables) to ensure symmetric paths through the NVA",
+              "correct": true,
+              "explanation": "Correct. Asymmetric routing through firewalls/NVAs is fixed by aligning UDRs so request and response traverse the same appliance; review `az network route-table route list`.",
+              "id": "a"
+            },
+            {
+              "text": "NSG priorities",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter, they don't determine the forwarding path.",
+              "id": "b"
+            },
+            {
+              "text": "DNS settings",
+              "correct": false,
+              "explanation": "Wrong. Name resolution isn't the routing path.",
+              "id": "c"
+            },
+            {
+              "text": "Public IP allocation",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to internal asymmetric routing.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/virtual-network/virtual-networks-udr-overview",
+          "id": "az104-s4-q44"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must delegate the ability to manage a specific subset of users (one region's staff) to a regional helpdesk, without tenant-wide rights. What scopes the admin?",
+          "options": [
+            {
+              "text": "An administrative unit containing those users, with a scoped role assignment",
+              "correct": true,
+              "explanation": "Correct. Place the region's users in an AU and assign the helpdesk a role scoped to that AU — admin rights apply only to its members.",
+              "id": "a"
+            },
+            {
+              "text": "Global Administrator",
+              "correct": false,
+              "explanation": "Wrong. Tenant-wide, the opposite of scoped.",
+              "id": "b"
+            },
+            {
+              "text": "A dynamic group only",
+              "correct": false,
+              "explanation": "Wrong. Groups organize membership but don't scope admin roles by themselves.",
+              "id": "c"
+            },
+            {
+              "text": "A management lock",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to identity delegation.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/roles/administrative-units",
+          "id": "az104-s4-q45"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Logs from multiple subscriptions must land in one central workspace governed by one team. What's the recommended architecture?",
+          "options": [
+            {
+              "text": "A centralized Log Analytics workspace with diagnostic settings/DCRs from each subscription pointing to it",
+              "correct": true,
+              "explanation": "Correct. Point each subscription's resources to the shared workspace; central team manages access and retention. Scales for governance.",
+              "id": "a"
+            },
+            {
+              "text": "One workspace per resource",
+              "correct": false,
+              "explanation": "Wrong. Fragments data and governance.",
+              "id": "b"
+            },
+            {
+              "text": "Storage accounts per subscription only",
+              "correct": false,
+              "explanation": "Wrong. No central KQL analysis.",
+              "id": "c"
+            },
+            {
+              "text": "Boot diagnostics",
+              "correct": false,
+              "explanation": "Wrong. Per-VM console, not centralized logging.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/azure-monitor/logs/workspace-design",
+          "id": "az104-s4-q46"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A containerized API needs HTTPS ingress, revisions for blue-green, and scale-to-zero with minimal ops. Which service is the best fit?",
+          "options": [
+            {
+              "text": "Azure Container Apps",
+              "correct": true,
+              "explanation": "Correct. Container Apps provides managed ingress with TLS, traffic-split revisions for blue-green, and KEDA scale-to-zero — minimal operational overhead.",
+              "id": "a"
+            },
+            {
+              "text": "A VM with nginx",
+              "correct": false,
+              "explanation": "Wrong. You manage TLS, scaling, and revisions yourself.",
+              "id": "b"
+            },
+            {
+              "text": "AKS",
+              "correct": false,
+              "explanation": "Wrong. Powerful but heavier ops than Container Apps for this requirement.",
+              "id": "c"
+            },
+            {
+              "text": "App Service with no slots",
+              "correct": false,
+              "explanation": "Wrong. Lacks the revision/scale-to-zero container model described.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/container-apps/revisions",
+          "id": "az104-s4-q47"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must prevent accidental data loss by recovering blobs deleted in the last 14 days. What do you enable?",
+          "options": [
+            {
+              "text": "Blob soft delete with a 14-day retention period",
+              "correct": true,
+              "explanation": "Correct. `az storage account blob-service-properties update --enable-delete-retention true --delete-retention-days 14` lets you undelete blobs within the window.",
+              "id": "a"
+            },
+            {
+              "text": "A CanNotDelete lock",
+              "correct": false,
+              "explanation": "Wrong. Locks stop deletes but don't recover already-deleted blobs.",
+              "id": "b"
+            },
+            {
+              "text": "Object replication",
+              "correct": false,
+              "explanation": "Wrong. Async copy, not deletion recovery.",
+              "id": "c"
+            },
+            {
+              "text": "Lifecycle management",
+              "correct": false,
+              "explanation": "Wrong. Tiers/expires blobs rather than recovering deletions.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/storage/blobs/soft-delete-blob-overview",
+          "id": "az104-s4-q48"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "BGP-learned routes from on-prem must propagate to a VNet's VMs over the VPN gateway. What must be enabled?",
+          "options": [
+            {
+              "text": "BGP on the VPN gateway and the local network gateway",
+              "correct": true,
+              "explanation": "Correct. Enable BGP with ASNs and peering IPs on both gateways (`az network vnet-gateway create --asn ...`) so routes exchange dynamically instead of static definitions.",
+              "id": "a"
+            },
+            {
+              "text": "Service endpoints",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to dynamic routing.",
+              "id": "b"
+            },
+            {
+              "text": "An NSG allow rule",
+              "correct": false,
+              "explanation": "Wrong. NSGs filter, they don't propagate routes.",
+              "id": "c"
+            },
+            {
+              "text": "A NAT gateway",
+              "correct": false,
+              "explanation": "Wrong. Outbound SNAT only.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/vpn-gateway/vpn-gateway-bgp-overview",
+          "id": "az104-s4-q49"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A user reports they can't be added to a role because the role is 'eligible' not 'active'. What product governs this state?",
+          "options": [
+            {
+              "text": "Privileged Identity Management (PIM)",
+              "correct": true,
+              "explanation": "Correct. PIM introduces eligible assignments that users activate just-in-time; the user must activate the eligible role via the PIM portal or `az` PIM APIs.",
+              "id": "a"
+            },
+            {
+              "text": "Conditional Access",
+              "correct": false,
+              "explanation": "Wrong. CA gates sign-in, not role eligibility/activation.",
+              "id": "b"
+            },
+            {
+              "text": "Access reviews",
+              "correct": false,
+              "explanation": "Wrong. Reviews recertify; they don't create the eligible state.",
+              "id": "c"
+            },
+            {
+              "text": "A management lock",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to role activation.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://learn.microsoft.com/azure/active-directory/privileged-identity-management/pim-how-to-activate-role",
+          "id": "az104-s4-q50"
+        }
+      ]
     }
   ]
 }
