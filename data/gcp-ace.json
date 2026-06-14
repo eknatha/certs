@@ -3441,6 +3441,3420 @@
           "id": "gcpace-s2-q50"
         }
       ]
+    },
+    {
+      "setId": "set-3",
+      "name": "Scenario Exam 1",
+      "timeLimitMin": 60,
+      "questions": [
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to switch the active project and account for the gcloud CLI without retyping flags on every command. What do you configure?",
+          "options": [
+            {
+              "text": "A named gcloud configuration",
+              "correct": true,
+              "explanation": "Correct. `gcloud config configurations create prod` then `gcloud config set project my-proj` and `gcloud config set account me@x.com`; activate with `gcloud config configurations activate prod`.",
+              "id": "a"
+            },
+            {
+              "text": "Environment variables only",
+              "correct": false,
+              "explanation": "Wrong. Works partially but configurations are the supported, switchable mechanism.",
+              "id": "b"
+            },
+            {
+              "text": "A new service account each time",
+              "correct": false,
+              "explanation": "Wrong. Identity choice, not CLI context switching.",
+              "id": "c"
+            },
+            {
+              "text": "Editing ~/.bashrc per command",
+              "correct": false,
+              "explanation": "Wrong. Fragile and not how gcloud manages context.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/docs/configurations",
+          "id": "gcpace-s3-q1"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must deploy a container to a fully managed serverless platform that scales to zero and is reachable over HTTPS. Which service and command?",
+          "options": [
+            {
+              "text": "Cloud Run — gcloud run deploy",
+              "correct": true,
+              "explanation": "Correct. `gcloud run deploy my-svc --image gcr.io/proj/img --allow-unauthenticated --region us-central1` runs the container serverlessly with scale-to-zero and a managed HTTPS URL.",
+              "id": "a"
+            },
+            {
+              "text": "GKE with a node pool",
+              "correct": false,
+              "explanation": "Wrong. Requires managing a cluster; not scale-to-zero serverless out of the box.",
+              "id": "b"
+            },
+            {
+              "text": "A Compute Engine VM",
+              "correct": false,
+              "explanation": "Wrong. You manage the VM, scaling, and TLS yourself.",
+              "id": "c"
+            },
+            {
+              "text": "App Engine flexible",
+              "correct": false,
+              "explanation": "Wrong. Heavier and doesn't scale to zero like Cloud Run.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/run/docs/deploying",
+          "id": "gcpace-s3-q2"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Your GKE cluster's kubectl context isn't set after creation. How do you fetch credentials so kubectl targets the cluster?",
+          "options": [
+            {
+              "text": "gcloud container clusters get-credentials",
+              "correct": true,
+              "explanation": "Correct. `gcloud container clusters get-credentials my-cluster --region us-central1` writes the kubeconfig entry and sets the current context.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl config use-context manually with a guessed name",
+              "correct": false,
+              "explanation": "Wrong. The context doesn't exist until get-credentials creates it.",
+              "id": "b"
+            },
+            {
+              "text": "gcloud auth login only",
+              "correct": false,
+              "explanation": "Wrong. Authenticates the user but doesn't add the cluster to kubeconfig.",
+              "id": "c"
+            },
+            {
+              "text": "Download the kubeconfig from the console as a file",
+              "correct": false,
+              "explanation": "Wrong. get-credentials is the supported path; manual files drift.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl",
+          "id": "gcpace-s3-q3"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must grant a teammate permission to view all resources in a project but change nothing. Which predefined role and command?",
+          "options": [
+            {
+              "text": "roles/viewer via gcloud projects add-iam-policy-binding",
+              "correct": true,
+              "explanation": "Correct. `gcloud projects add-iam-policy-binding my-proj --member='user:t@x.com' --role='roles/viewer'` grants read-only access project-wide.",
+              "id": "a"
+            },
+            {
+              "text": "roles/editor",
+              "correct": false,
+              "explanation": "Wrong. Editor allows modifying resources, exceeding view-only.",
+              "id": "b"
+            },
+            {
+              "text": "roles/owner",
+              "correct": false,
+              "explanation": "Wrong. Owner adds IAM management; far too broad.",
+              "id": "c"
+            },
+            {
+              "text": "A custom role with storage.objects.delete",
+              "correct": false,
+              "explanation": "Wrong. Delete contradicts view-only.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/granting-changing-revoking-access",
+          "id": "gcpace-s3-q4"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "An application on a Compute Engine VM must call Cloud Storage without embedding a key file. What is the recommended setup?",
+          "options": [
+            {
+              "text": "Attach a service account to the VM with the needed role and use the metadata server",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute instances create vm --service-account sa@proj.iam.gserviceaccount.com --scopes cloud-platform`; the SDK auto-fetches tokens from the metadata server — no key files.",
+              "id": "a"
+            },
+            {
+              "text": "Download a service account JSON key onto the VM",
+              "correct": false,
+              "explanation": "Wrong. Long-lived key files are a security risk and unnecessary on GCE.",
+              "id": "b"
+            },
+            {
+              "text": "Use the user's personal credentials",
+              "correct": false,
+              "explanation": "Wrong. Ties the app to a human identity; not for workloads.",
+              "id": "c"
+            },
+            {
+              "text": "Make the bucket public",
+              "correct": false,
+              "explanation": "Wrong. Exposes data broadly to avoid auth.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/best-practices-service-accounts",
+          "id": "gcpace-s3-q5"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need a Cloud Storage bucket whose objects are deleted automatically 90 days after creation. What do you configure?",
+          "options": [
+            {
+              "text": "An object lifecycle rule with Delete after age 90",
+              "correct": true,
+              "explanation": "Correct. Write a lifecycle JSON with action Delete, condition age 90, then `gcloud storage buckets update gs://b --lifecycle-file=lifecycle.json`.",
+              "id": "a"
+            },
+            {
+              "text": "A retention policy",
+              "correct": false,
+              "explanation": "Wrong. Retention prevents early deletion; it doesn't auto-delete after an age.",
+              "id": "b"
+            },
+            {
+              "text": "Bucket lock",
+              "correct": false,
+              "explanation": "Wrong. Locks the retention policy; not an expiry mechanism.",
+              "id": "c"
+            },
+            {
+              "text": "Manual deletion via cron",
+              "correct": false,
+              "explanation": "Wrong. Reinvents built-in lifecycle management.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/lifecycle",
+          "id": "gcpace-s3-q6"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Data is read frequently for 30 days, then rarely. You want automatic cost optimization by storage class. What lifecycle action fits?",
+          "options": [
+            {
+              "text": "SetStorageClass to Nearline after 30 days",
+              "correct": true,
+              "explanation": "Correct. A lifecycle rule `{action: SetStorageClass Nearline, condition: {age: 30}}` transitions objects to a cheaper class for infrequent access.",
+              "id": "a"
+            },
+            {
+              "text": "Delete after 30 days",
+              "correct": false,
+              "explanation": "Wrong. The data is still needed, just less often.",
+              "id": "b"
+            },
+            {
+              "text": "Make the bucket multi-region",
+              "correct": false,
+              "explanation": "Wrong. Location choice, not access-frequency tiering.",
+              "id": "c"
+            },
+            {
+              "text": "Enable versioning",
+              "correct": false,
+              "explanation": "Wrong. Keeps old versions; unrelated to tiering by access pattern.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/storage-classes",
+          "id": "gcpace-s3-q7"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A managed instance group must add VMs when CPU exceeds 60%. What do you configure?",
+          "options": [
+            {
+              "text": "Autoscaling on the MIG keyed to CPU utilization",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute instance-groups managed set-autoscaling my-mig --max-num-replicas 10 --target-cpu-utilization 0.6` scales out at 60% CPU.",
+              "id": "a"
+            },
+            {
+              "text": "A larger machine type",
+              "correct": false,
+              "explanation": "Wrong. Vertical resize doesn't auto-respond to load.",
+              "id": "b"
+            },
+            {
+              "text": "A second static VM",
+              "correct": false,
+              "explanation": "Wrong. Manual and not load-driven.",
+              "id": "c"
+            },
+            {
+              "text": "A health check only",
+              "correct": false,
+              "explanation": "Wrong. Health checks recreate unhealthy VMs but don't autoscale count.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/autoscaler",
+          "id": "gcpace-s3-q8"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You must update all VMs in a managed instance group to a new template gradually, keeping the service available. Which command pattern?",
+          "options": [
+            {
+              "text": "A rolling update via gcloud compute instance-groups managed rolling-action start-update",
+              "correct": true,
+              "explanation": "Correct. `... rolling-action start-update my-mig --version template=new-tmpl --max-unavailable 1` replaces instances incrementally with surge/unavailable controls.",
+              "id": "a"
+            },
+            {
+              "text": "Delete the MIG and recreate it",
+              "correct": false,
+              "explanation": "Wrong. Drops the service entirely.",
+              "id": "b"
+            },
+            {
+              "text": "Manually recreate each VM at once",
+              "correct": false,
+              "explanation": "Wrong. Simultaneous replacement loses availability.",
+              "id": "c"
+            },
+            {
+              "text": "Resize to zero then back up",
+              "correct": false,
+              "explanation": "Wrong. Causes an outage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/instance-groups/rolling-out-updates-to-managed-instance-groups",
+          "id": "gcpace-s3-q9"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to investigate why a Cloud Run service is returning 500s. Where do you look first via CLI?",
+          "options": [
+            {
+              "text": "Cloud Logging — gcloud logging read for the service",
+              "correct": true,
+              "explanation": "Correct. `gcloud logging read 'resource.type=cloud_run_revision AND severity>=ERROR' --limit 50` surfaces the request and container error logs.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud compute instances list",
+              "correct": false,
+              "explanation": "Wrong. Cloud Run has no user-managed instances to list.",
+              "id": "b"
+            },
+            {
+              "text": "The billing console",
+              "correct": false,
+              "explanation": "Wrong. Cost data won't show application errors.",
+              "id": "c"
+            },
+            {
+              "text": "gsutil ls",
+              "correct": false,
+              "explanation": "Wrong. Lists storage objects, unrelated to service errors.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/run/docs/logging",
+          "id": "gcpace-s3-q10"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "An alert must fire when a VM's CPU stays above 80% for 5 minutes. What do you create in Cloud Monitoring?",
+          "options": [
+            {
+              "text": "An alerting policy on the CPU utilization metric with a 5-minute condition",
+              "correct": true,
+              "explanation": "Correct. Create a policy (`gcloud alpha monitoring policies create ...` or console) on compute.googleapis.com/instance/cpu/utilization above 0.8 for 5m, with a notification channel.",
+              "id": "a"
+            },
+            {
+              "text": "A logging sink",
+              "correct": false,
+              "explanation": "Wrong. Sinks route logs; they don't threshold metrics.",
+              "id": "b"
+            },
+            {
+              "text": "A budget alert",
+              "correct": false,
+              "explanation": "Wrong. Budgets track spend, not CPU.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Filters traffic, unrelated to alerting.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/monitoring/alerts",
+          "id": "gcpace-s3-q11"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must export all project logs to BigQuery for long-term analysis. What do you set up?",
+          "options": [
+            {
+              "text": "A log sink with a BigQuery dataset destination",
+              "correct": true,
+              "explanation": "Correct. `gcloud logging sinks create my-sink bigquery.googleapis.com/projects/p/datasets/ds --log-filter='...'`, then grant the sink's writer identity access to the dataset.",
+              "id": "a"
+            },
+            {
+              "text": "A Cloud Storage lifecycle rule",
+              "correct": false,
+              "explanation": "Wrong. That manages object expiry, not log export.",
+              "id": "b"
+            },
+            {
+              "text": "A monitoring policy",
+              "correct": false,
+              "explanation": "Wrong. Alerts on metrics; doesn't export logs.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall log only",
+              "correct": false,
+              "explanation": "Wrong. Captures one log type, not all project logs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/logging/docs/export/configure_export_v2",
+          "id": "gcpace-s3-q12"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Resources must be organized so policies apply to all projects in 'Engineering' but not 'Finance'. What construct do you use?",
+          "options": [
+            {
+              "text": "Folders in the resource hierarchy with IAM/policies set at the folder",
+              "correct": true,
+              "explanation": "Correct. Group Engineering projects under an Engineering folder; bind roles/policies at the folder so they inherit to its projects only. `gcloud resource-manager folders create`.",
+              "id": "a"
+            },
+            {
+              "text": "Labels on each project",
+              "correct": false,
+              "explanation": "Wrong. Labels are metadata; they don't apply IAM inheritance.",
+              "id": "b"
+            },
+            {
+              "text": "A single shared project",
+              "correct": false,
+              "explanation": "Wrong. Doesn't separate Engineering from Finance governance.",
+              "id": "c"
+            },
+            {
+              "text": "Per-resource IAM only",
+              "correct": false,
+              "explanation": "Wrong. Doesn't scale; folders provide hierarchical inheritance.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/resource-manager/docs/creating-managing-folders",
+          "id": "gcpace-s3-q13"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Two VPC networks in different projects must communicate privately without external IPs or a VPN. What's the simplest GCP-native option?",
+          "options": [
+            {
+              "text": "VPC Network Peering between the two VPCs",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute networks peerings create` connects the VPCs over Google's backbone using internal IPs; no gateways or external IPs.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud VPN",
+              "correct": false,
+              "explanation": "Wrong. Works but adds tunnels/cost where peering suffices for same-cloud VPCs.",
+              "id": "b"
+            },
+            {
+              "text": "Shared VPC only",
+              "correct": false,
+              "explanation": "Wrong. Shared VPC is one host project sharing subnets, a different model than peering two independent VPCs.",
+              "id": "c"
+            },
+            {
+              "text": "External IPs with firewall rules",
+              "correct": false,
+              "explanation": "Wrong. Uses public addressing, contrary to 'private'.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/vpc/docs/vpc-peering",
+          "id": "gcpace-s3-q14"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Multiple service projects must share centrally-managed subnets and firewall rules owned by a networking team. Which model do you use?",
+          "options": [
+            {
+              "text": "Shared VPC with a host project and attached service projects",
+              "correct": true,
+              "explanation": "Correct. The host project owns the VPC/subnets; service projects deploy resources into them. `gcloud compute shared-vpc enable host-proj` and associate service projects.",
+              "id": "a"
+            },
+            {
+              "text": "VPC peering between every project",
+              "correct": false,
+              "explanation": "Wrong. Doesn't centralize firewall/subnet management; meshy and harder to govern.",
+              "id": "b"
+            },
+            {
+              "text": "One project for everything",
+              "correct": false,
+              "explanation": "Wrong. Loses project-level isolation/billing separation.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud VPN mesh",
+              "correct": false,
+              "explanation": "Wrong. Overcomplicated for intra-org subnet sharing.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/vpc/docs/shared-vpc",
+          "id": "gcpace-s3-q15"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A web tier in a VPC must reach the internet for updates, but the VMs must have no external IP addresses. What do you deploy?",
+          "options": [
+            {
+              "text": "Cloud NAT on the subnet's region",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute routers nats create` provides outbound-only NAT so private-IP VMs reach the internet without external IPs or inbound exposure.",
+              "id": "a"
+            },
+            {
+              "text": "An external IP per VM",
+              "correct": false,
+              "explanation": "Wrong. Adds inbound exposure, the opposite requirement.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall allow rule",
+              "correct": false,
+              "explanation": "Wrong. Rules permit traffic but don't provide egress NAT for private VMs.",
+              "id": "c"
+            },
+            {
+              "text": "VPC peering",
+              "correct": false,
+              "explanation": "Wrong. Connects VPCs, not VMs to the internet.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/nat/docs/overview",
+          "id": "gcpace-s3-q16"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Traffic to a global web app should route users to the nearest healthy backend across regions on one anycast IP. Which load balancer?",
+          "options": [
+            {
+              "text": "Global external Application Load Balancer (HTTP(S))",
+              "correct": true,
+              "explanation": "Correct. It uses a single global anycast IP, routes to the closest healthy backend, and supports cross-region failover. Configure backends, health checks, and a URL map.",
+              "id": "a"
+            },
+            {
+              "text": "A regional network load balancer",
+              "correct": false,
+              "explanation": "Wrong. Regional and L4; no global routing.",
+              "id": "b"
+            },
+            {
+              "text": "An internal load balancer",
+              "correct": false,
+              "explanation": "Wrong. Internal-only, not internet-facing global.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud DNS round-robin",
+              "correct": false,
+              "explanation": "Wrong. No health-aware, latency-based global routing on one IP.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/load-balancing/docs/https",
+          "id": "gcpace-s3-q17"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must run a batch container job to completion on a schedule, with no always-on infrastructure. Which approach fits ACE-level GCP?",
+          "options": [
+            {
+              "text": "Cloud Run jobs (or a Cloud Scheduler-triggered Cloud Run job)",
+              "correct": true,
+              "explanation": "Correct. `gcloud run jobs create my-job --image ... ` runs to completion; trigger on a schedule with Cloud Scheduler — no persistent servers.",
+              "id": "a"
+            },
+            {
+              "text": "A always-on Compute Engine VM",
+              "correct": false,
+              "explanation": "Wrong. Pays for idle time and you manage it.",
+              "id": "b"
+            },
+            {
+              "text": "A GKE Deployment",
+              "correct": false,
+              "explanation": "Wrong. Deployments are long-running services, not finite jobs, and need a cluster.",
+              "id": "c"
+            },
+            {
+              "text": "App Engine standard service",
+              "correct": false,
+              "explanation": "Wrong. Request-driven service model, not a scheduled batch job.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/run/docs/create-jobs",
+          "id": "gcpace-s3-q18"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A CI pipeline outside GCP must authenticate to GCP without a stored service account key. What do you configure?",
+          "options": [
+            {
+              "text": "Workload Identity Federation with the external identity provider",
+              "correct": true,
+              "explanation": "Correct. Federate the external OIDC/SAML identity to impersonate a service account — no exported key. `gcloud iam workload-identity-pools create ...`.",
+              "id": "a"
+            },
+            {
+              "text": "A downloaded service account JSON key in the CI secret store",
+              "correct": false,
+              "explanation": "Wrong. Long-lived key — the practice federation eliminates.",
+              "id": "b"
+            },
+            {
+              "text": "The owner's user credentials",
+              "correct": false,
+              "explanation": "Wrong. Human identity for automation is discouraged.",
+              "id": "c"
+            },
+            {
+              "text": "A public bucket for artifacts",
+              "correct": false,
+              "explanation": "Wrong. Doesn't address authentication.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/workload-identity-federation",
+          "id": "gcpace-s3-q19"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to let a service account in project A read a bucket in project B. What's the correct binding?",
+          "options": [
+            {
+              "text": "Grant the project-A service account roles/storage.objectViewer on the project-B bucket",
+              "correct": true,
+              "explanation": "Correct. `gcloud storage buckets add-iam-policy-binding gs://b --member='serviceAccount:sa@projA.iam.gserviceaccount.com' --role='roles/storage.objectViewer'`. IAM is cross-project by member identity.",
+              "id": "a"
+            },
+            {
+              "text": "Make the bucket public",
+              "correct": false,
+              "explanation": "Wrong. Over-exposes data to grant one SA access.",
+              "id": "b"
+            },
+            {
+              "text": "Copy the SA key into project B",
+              "correct": false,
+              "explanation": "Wrong. Keys aren't needed; cross-project IAM binding suffices.",
+              "id": "c"
+            },
+            {
+              "text": "Add the SA as a project-B owner",
+              "correct": false,
+              "explanation": "Wrong. Far too broad for read access to one bucket.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/access-control/iam",
+          "id": "gcpace-s3-q20"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must provision a project's infrastructure declaratively and repeatably using a GCP-native IaC service. Which do you choose?",
+          "options": [
+            {
+              "text": "Infrastructure Manager (or Terraform on GCP)",
+              "correct": true,
+              "explanation": "Correct. Infrastructure Manager runs Terraform configs as a managed service for declarative, repeatable provisioning; `gcloud infra-manager deployments apply ...`.",
+              "id": "a"
+            },
+            {
+              "text": "A bash script of gcloud commands",
+              "correct": false,
+              "explanation": "Wrong. Imperative and drift-prone, not declarative IaC.",
+              "id": "b"
+            },
+            {
+              "text": "Manual console clicks",
+              "correct": false,
+              "explanation": "Wrong. Not repeatable or version-controlled.",
+              "id": "c"
+            },
+            {
+              "text": "A startup script only",
+              "correct": false,
+              "explanation": "Wrong. Configures a VM, not whole-project infrastructure.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/infrastructure-manager/docs/overview",
+          "id": "gcpace-s3-q21"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must set a default region and zone so gcloud compute commands don't require those flags each time. How?",
+          "options": [
+            {
+              "text": "gcloud config set compute/region and compute/zone",
+              "correct": true,
+              "explanation": "Correct. `gcloud config set compute/region us-central1` and `gcloud config set compute/zone us-central1-a` apply defaults to compute commands.",
+              "id": "a"
+            },
+            {
+              "text": "Edit each command with flags forever",
+              "correct": false,
+              "explanation": "Wrong. The point is to set a default.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to CLI defaults.",
+              "id": "c"
+            },
+            {
+              "text": "An environment label",
+              "correct": false,
+              "explanation": "Wrong. Labels don't drive gcloud defaults.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/gcloud-compute#set_default_zone_and_region_in_your_local_client",
+          "id": "gcpace-s3-q22"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A Deployment in GKE must expose pods to internet traffic with a stable external IP and L4 load balancing. Which Service type?",
+          "options": [
+            {
+              "text": "A Service of type LoadBalancer",
+              "correct": true,
+              "explanation": "Correct. `kubectl expose deployment web --type=LoadBalancer --port 80` provisions a Google L4 load balancer with an external IP to the pods.",
+              "id": "a"
+            },
+            {
+              "text": "type ClusterIP",
+              "correct": false,
+              "explanation": "Wrong. Internal-only, no external IP.",
+              "id": "b"
+            },
+            {
+              "text": "type NodePort alone",
+              "correct": false,
+              "explanation": "Wrong. Exposes a port on nodes but no managed external LB/IP.",
+              "id": "c"
+            },
+            {
+              "text": "A headless Service",
+              "correct": false,
+              "explanation": "Wrong. No load balancing or external IP.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/how-to/exposing-apps",
+          "id": "gcpace-s3-q23"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must capture and analyze VPC traffic metadata (5-tuple, bytes) to investigate a connectivity issue. What do you enable?",
+          "options": [
+            {
+              "text": "VPC Flow Logs on the subnet",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute networks subnets update my-subnet --enable-flow-logs` records flow metadata to Cloud Logging for analysis.",
+              "id": "a"
+            },
+            {
+              "text": "Packet mirroring to a disk",
+              "correct": false,
+              "explanation": "Wrong. Mirroring sends full packets to collectors; flow logs are the metadata-level fit for the question.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Filters traffic; doesn't log flows.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud NAT logs only",
+              "correct": false,
+              "explanation": "Wrong. NAT logs cover translation, not all subnet flows.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/vpc/docs/flow-logs",
+          "id": "gcpace-s3-q24"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A bucket must enforce uniform IAM-based access and disable per-object ACLs for consistency. What do you set?",
+          "options": [
+            {
+              "text": "Uniform bucket-level access",
+              "correct": true,
+              "explanation": "Correct. `gcloud storage buckets update gs://b --uniform-bucket-level-access` turns off object ACLs so IAM alone governs access.",
+              "id": "a"
+            },
+            {
+              "text": "Make all objects public",
+              "correct": false,
+              "explanation": "Wrong. Opposite of controlled access.",
+              "id": "b"
+            },
+            {
+              "text": "Signed URLs for every object",
+              "correct": false,
+              "explanation": "Wrong. Per-object credentials, not a uniform IAM model.",
+              "id": "c"
+            },
+            {
+              "text": "A retention policy",
+              "correct": false,
+              "explanation": "Wrong. Governs deletion timing, not the ACL model.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/uniform-bucket-level-access",
+          "id": "gcpace-s3-q25"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Each environment (dev/stage/prod) needs isolated billing visibility and IAM, under one organization. How do you structure this?",
+          "options": [
+            {
+              "text": "Separate projects per environment under the organization",
+              "correct": true,
+              "explanation": "Correct. Projects are the unit of isolation for IAM, billing, and quotas; create three projects and bind roles/billing per project. `gcloud projects create dev-app ...`.",
+              "id": "a"
+            },
+            {
+              "text": "One project with labels",
+              "correct": false,
+              "explanation": "Wrong. Labels don't isolate IAM or billing boundaries.",
+              "id": "b"
+            },
+            {
+              "text": "Folders without projects",
+              "correct": false,
+              "explanation": "Wrong. Resources live in projects; folders group projects but don't replace them.",
+              "id": "c"
+            },
+            {
+              "text": "Separate organizations",
+              "correct": false,
+              "explanation": "Wrong. Overkill; one org with multiple projects is standard.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/resource-manager/docs/creating-managing-projects",
+          "id": "gcpace-s3-q26"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to SSH into a private VM that has no external IP, without setting up a bastion host. What feature do you use?",
+          "options": [
+            {
+              "text": "Identity-Aware Proxy TCP forwarding for SSH",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute ssh vm --tunnel-through-iap` connects through IAP without an external IP or a self-managed bastion.",
+              "id": "a"
+            },
+            {
+              "text": "Add an external IP temporarily",
+              "correct": false,
+              "explanation": "Wrong. Exposes the VM; IAP avoids that.",
+              "id": "b"
+            },
+            {
+              "text": "Open port 22 to 0.0.0.0/0",
+              "correct": false,
+              "explanation": "Wrong. Broad exposure and still needs reachability.",
+              "id": "c"
+            },
+            {
+              "text": "Serial console only",
+              "correct": false,
+              "explanation": "Wrong. Serial console is for break-glass, not normal SSH workflows.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iap/docs/using-tcp-forwarding",
+          "id": "gcpace-s3-q27"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A scheduled task must run a script every night at 2 AM and call an HTTP endpoint, fully managed. What do you use?",
+          "options": [
+            {
+              "text": "Cloud Scheduler with an HTTP target",
+              "correct": true,
+              "explanation": "Correct. `gcloud scheduler jobs create http nightly --schedule='0 2 * * *' --uri=https://...` is a managed cron that invokes the endpoint.",
+              "id": "a"
+            },
+            {
+              "text": "A crontab on a VM",
+              "correct": false,
+              "explanation": "Wrong. Requires an always-on managed VM.",
+              "id": "b"
+            },
+            {
+              "text": "A Cloud Storage trigger",
+              "correct": false,
+              "explanation": "Wrong. Event-driven on objects, not time-based.",
+              "id": "c"
+            },
+            {
+              "text": "A monitoring alert",
+              "correct": false,
+              "explanation": "Wrong. Alerts notify; they don't run scheduled scripts.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/scheduler/docs/creating",
+          "id": "gcpace-s3-q28"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must reserve a static external IP so a load balancer's address never changes. What command reserves it?",
+          "options": [
+            {
+              "text": "gcloud compute addresses create with the right scope",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute addresses create my-ip --global` (or `--region`) reserves a static external IP to attach to the forwarding rule/LB.",
+              "id": "a"
+            },
+            {
+              "text": "Let the LB use an ephemeral IP",
+              "correct": false,
+              "explanation": "Wrong. Ephemeral IPs can change on recreation.",
+              "id": "b"
+            },
+            {
+              "text": "A DNS CNAME only",
+              "correct": false,
+              "explanation": "Wrong. Doesn't pin the underlying IP.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Filters traffic; doesn't reserve addresses.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/ip-addresses/reserve-static-external-ip-address",
+          "id": "gcpace-s3-q29"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "An auditor needs to know who changed IAM policy on a project and when. Where do you look?",
+          "options": [
+            {
+              "text": "Cloud Audit Logs (Admin Activity)",
+              "correct": true,
+              "explanation": "Correct. Admin Activity logs record SetIamPolicy calls with the principal and timestamp: `gcloud logging read 'protoPayload.methodName=\"SetIamPolicy\"'`.",
+              "id": "a"
+            },
+            {
+              "text": "VPC Flow Logs",
+              "correct": false,
+              "explanation": "Wrong. Network flows, not IAM changes.",
+              "id": "b"
+            },
+            {
+              "text": "Billing reports",
+              "correct": false,
+              "explanation": "Wrong. Cost data, not policy changes.",
+              "id": "c"
+            },
+            {
+              "text": "Monitoring metrics",
+              "correct": false,
+              "explanation": "Wrong. Numeric telemetry, not audit events.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/logging/docs/audit",
+          "id": "gcpace-s3-q30"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Your GKE workloads must access Google Cloud APIs using per-workload identities instead of node service accounts. What do you enable?",
+          "options": [
+            {
+              "text": "Workload Identity on the cluster, mapping KSAs to GSAs",
+              "correct": true,
+              "explanation": "Correct. `gcloud container clusters update --workload-pool=PROJECT.svc.id.goog` then bind the Kubernetes SA to a Google SA — pods get scoped credentials without node-wide keys.",
+              "id": "a"
+            },
+            {
+              "text": "A single node service account with broad scopes",
+              "correct": false,
+              "explanation": "Wrong. Gives every pod the same wide access; the practice avoids that.",
+              "id": "b"
+            },
+            {
+              "text": "Service account JSON keys mounted as secrets",
+              "correct": false,
+              "explanation": "Wrong. Long-lived keys; Workload Identity removes them.",
+              "id": "c"
+            },
+            {
+              "text": "Public API access",
+              "correct": false,
+              "explanation": "Wrong. Most APIs require authentication.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/concepts/workload-identity",
+          "id": "gcpace-s3-q31"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A relational database needs managed backups, patching, and high availability with minimal ops. Which service?",
+          "options": [
+            {
+              "text": "Cloud SQL with HA (regional) configuration",
+              "correct": true,
+              "explanation": "Correct. `gcloud sql instances create db --availability-type=REGIONAL` gives a managed MySQL/Postgres/SQL Server with automated backups, patching, and failover.",
+              "id": "a"
+            },
+            {
+              "text": "A self-managed database on Compute Engine",
+              "correct": false,
+              "explanation": "Wrong. You handle patching, backups, and HA yourself.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud Storage",
+              "correct": false,
+              "explanation": "Wrong. Object storage, not a relational database.",
+              "id": "c"
+            },
+            {
+              "text": "Firestore",
+              "correct": false,
+              "explanation": "Wrong. NoSQL document database, not relational.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sql/docs/mysql/high-availability",
+          "id": "gcpace-s3-q32"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must roll back a Cloud Run service to the previous revision after a bad deploy. How?",
+          "options": [
+            {
+              "text": "Route 100% traffic to the prior revision",
+              "correct": true,
+              "explanation": "Correct. `gcloud run services update-traffic my-svc --to-revisions=PREV-REV=100` shifts traffic back instantly; revisions are immutable and retained.",
+              "id": "a"
+            },
+            {
+              "text": "Redeploy from scratch",
+              "correct": false,
+              "explanation": "Wrong. Slower; traffic split to the old revision is immediate.",
+              "id": "b"
+            },
+            {
+              "text": "Delete the service",
+              "correct": false,
+              "explanation": "Wrong. Causes an outage.",
+              "id": "c"
+            },
+            {
+              "text": "Scale to zero",
+              "correct": false,
+              "explanation": "Wrong. Stops serving rather than reverting.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/run/docs/rollouts-rollbacks-traffic-migration",
+          "id": "gcpace-s3-q33"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must enable the Compute Engine API before creating VMs in a fresh project. What command?",
+          "options": [
+            {
+              "text": "gcloud services enable compute.googleapis.com",
+              "correct": true,
+              "explanation": "Correct. APIs are disabled by default in new projects; enable the needed service before use.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud compute instances create directly",
+              "correct": false,
+              "explanation": "Wrong. Fails until the API is enabled.",
+              "id": "b"
+            },
+            {
+              "text": "gcloud auth login",
+              "correct": false,
+              "explanation": "Wrong. Authenticates but doesn't enable APIs.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to API enablement.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/service-usage/docs/enable-disable",
+          "id": "gcpace-s3-q34"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Sensitive secrets used by an app must be stored encrypted, versioned, and access-controlled by IAM. Which service and access pattern?",
+          "options": [
+            {
+              "text": "Secret Manager with IAM-bound access via the app's service account",
+              "correct": true,
+              "explanation": "Correct. `gcloud secrets create db-pass --data-file=- ` then grant `roles/secretmanager.secretAccessor` to the SA; the app reads versions at runtime, no plaintext in code.",
+              "id": "a"
+            },
+            {
+              "text": "A plaintext file in a bucket",
+              "correct": false,
+              "explanation": "Wrong. Not access-controlled per secret or versioned safely.",
+              "id": "b"
+            },
+            {
+              "text": "Environment variables in source",
+              "correct": false,
+              "explanation": "Wrong. Leaks secrets into code/history.",
+              "id": "c"
+            },
+            {
+              "text": "A public config endpoint",
+              "correct": false,
+              "explanation": "Wrong. Exposes secrets to anyone.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/secret-manager/docs/overview",
+          "id": "gcpace-s3-q35"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Compute VMs in a subnet must reach Google APIs (e.g., Cloud Storage) without traversing the public internet. What do you enable?",
+          "options": [
+            {
+              "text": "Private Google Access on the subnet",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute networks subnets update sub --enable-private-ip-google-access` lets internal-IP-only VMs reach Google APIs over Google's network.",
+              "id": "a"
+            },
+            {
+              "text": "An external IP per VM",
+              "correct": false,
+              "explanation": "Wrong. Adds public exposure unnecessarily.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud NAT only",
+              "correct": false,
+              "explanation": "Wrong. NAT reaches the general internet; Private Google Access is the API-specific private path.",
+              "id": "c"
+            },
+            {
+              "text": "VPC peering",
+              "correct": false,
+              "explanation": "Wrong. Connects VPCs, not VMs to Google APIs privately.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/vpc/docs/private-google-access",
+          "id": "gcpace-s3-q36"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must give a Compute Engine VM a startup script that installs software automatically at boot, declaratively. How?",
+          "options": [
+            {
+              "text": "Set the startup-script metadata on the instance",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute instances create vm --metadata-from-file startup-script=init.sh` runs the script at boot for repeatable provisioning.",
+              "id": "a"
+            },
+            {
+              "text": "SSH in and run commands manually",
+              "correct": false,
+              "explanation": "Wrong. Not declarative or repeatable.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to provisioning.",
+              "id": "c"
+            },
+            {
+              "text": "A lifecycle policy",
+              "correct": false,
+              "explanation": "Wrong. That's for storage objects.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/instances/startup-scripts/linux",
+          "id": "gcpace-s3-q37"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Cloud SQL is approaching storage capacity. You want it to grow automatically to avoid downtime. What do you enable?",
+          "options": [
+            {
+              "text": "Automatic storage increase on the instance",
+              "correct": true,
+              "explanation": "Correct. `gcloud sql instances patch db --storage-auto-increase` grows disk as needed, preventing out-of-space outages.",
+              "id": "a"
+            },
+            {
+              "text": "Manual resize when it fills",
+              "correct": false,
+              "explanation": "Wrong. Risks downtime if missed.",
+              "id": "b"
+            },
+            {
+              "text": "A read replica",
+              "correct": false,
+              "explanation": "Wrong. Replicas serve reads; they don't extend primary storage.",
+              "id": "c"
+            },
+            {
+              "text": "A larger machine type",
+              "correct": false,
+              "explanation": "Wrong. Changes CPU/RAM, not storage growth behavior.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sql/docs/mysql/instance-settings#automatic-storage-increase-2ndgen",
+          "id": "gcpace-s3-q38"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must allow a group of developers to deploy to Cloud Run but not manage IAM. Which role binds to the group?",
+          "options": [
+            {
+              "text": "roles/run.developer on the project to the Google group",
+              "correct": true,
+              "explanation": "Correct. `gcloud projects add-iam-policy-binding p --member='group:devs@x.com' --role='roles/run.developer'` lets them deploy without IAM-admin rights.",
+              "id": "a"
+            },
+            {
+              "text": "roles/owner",
+              "correct": false,
+              "explanation": "Wrong. Includes IAM management, too broad.",
+              "id": "b"
+            },
+            {
+              "text": "roles/viewer",
+              "correct": false,
+              "explanation": "Wrong. Read-only; can't deploy.",
+              "id": "c"
+            },
+            {
+              "text": "roles/iam.securityAdmin",
+              "correct": false,
+              "explanation": "Wrong. That's the IAM management they should not have.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/run/docs/reference/iam/roles",
+          "id": "gcpace-s3-q39"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must link a project to a billing account so resources can be created. What command associates them?",
+          "options": [
+            {
+              "text": "gcloud billing projects link",
+              "correct": true,
+              "explanation": "Correct. `gcloud billing projects link my-proj --billing-account=XXXXXX-XXXXXX-XXXXXX` enables billing so chargeable resources can be provisioned.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud projects create only",
+              "correct": false,
+              "explanation": "Wrong. Creation doesn't attach billing automatically in all cases.",
+              "id": "b"
+            },
+            {
+              "text": "A budget alert",
+              "correct": false,
+              "explanation": "Wrong. Tracks spend; doesn't link billing.",
+              "id": "c"
+            },
+            {
+              "text": "Enabling an API",
+              "correct": false,
+              "explanation": "Wrong. APIs need billing already linked.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/billing/docs/how-to/modify-project",
+          "id": "gcpace-s3-q40"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A GKE cluster should run a mix of always-on system pods and cheap, interruptible batch pods. How do you provision nodes cost-effectively?",
+          "options": [
+            {
+              "text": "A standard node pool plus a Spot VM node pool for batch",
+              "correct": true,
+              "explanation": "Correct. `gcloud container node-pools create batch --spot` adds discounted preemptible-class nodes; schedule interruptible batch there via taints/tolerations.",
+              "id": "a"
+            },
+            {
+              "text": "One large on-demand pool",
+              "correct": false,
+              "explanation": "Wrong. Pays full price for interruptible workloads.",
+              "id": "b"
+            },
+            {
+              "text": "Only Spot VMs",
+              "correct": false,
+              "explanation": "Wrong. System pods need stable nodes; Spot can be reclaimed.",
+              "id": "c"
+            },
+            {
+              "text": "Autopilot with no tuning",
+              "correct": false,
+              "explanation": "Wrong. Simpler ops but doesn't itself express the spot-for-batch split asked for.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/concepts/spot-vms",
+          "id": "gcpace-s3-q41"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A globally distributed, horizontally scalable relational database with strong consistency is required. Which GCP service?",
+          "options": [
+            {
+              "text": "Cloud Spanner",
+              "correct": true,
+              "explanation": "Correct. Spanner offers horizontal scale with strong, global consistency and SQL — `gcloud spanner instances create ...`.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. Regional and vertically scaled, not globally horizontal.",
+              "id": "b"
+            },
+            {
+              "text": "Bigtable",
+              "correct": false,
+              "explanation": "Wrong. Wide-column NoSQL, not relational with SQL/strong global consistency.",
+              "id": "c"
+            },
+            {
+              "text": "Firestore",
+              "correct": false,
+              "explanation": "Wrong. Document NoSQL, not relational Spanner-style.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/spanner/docs/overview",
+          "id": "gcpace-s3-q42"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must view current resource quotas and request an increase for Compute CPUs in a region. Where do you go?",
+          "options": [
+            {
+              "text": "IAM & Admin > Quotas (or gcloud compute regions describe) and submit an increase",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute regions describe us-central1` shows quota/usage; request increases via the Quotas page.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to quotas.",
+              "id": "b"
+            },
+            {
+              "text": "A budget",
+              "correct": false,
+              "explanation": "Wrong. Budgets are cost, not capacity quotas.",
+              "id": "c"
+            },
+            {
+              "text": "A lifecycle policy",
+              "correct": false,
+              "explanation": "Wrong. Storage object management, not quotas.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/quotas-limits",
+          "id": "gcpace-s3-q43"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A service account is too powerful; you must let one user run jobs as it without owning its key. What do you grant?",
+          "options": [
+            {
+              "text": "roles/iam.serviceAccountUser on that service account to the user",
+              "correct": true,
+              "explanation": "Correct. `gcloud iam service-accounts add-iam-policy-binding sa@proj... --member='user:u@x' --role='roles/iam.serviceAccountUser'` lets them attach/impersonate it without a key.",
+              "id": "a"
+            },
+            {
+              "text": "Hand them the SA's JSON key",
+              "correct": false,
+              "explanation": "Wrong. Distributes a long-lived credential; impersonation is safer.",
+              "id": "b"
+            },
+            {
+              "text": "roles/owner",
+              "correct": false,
+              "explanation": "Wrong. Project-wide ownership, far beyond using one SA.",
+              "id": "c"
+            },
+            {
+              "text": "Make the SA an editor",
+              "correct": false,
+              "explanation": "Wrong. Changes the SA's power, not who may use it.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/service-account-permissions",
+          "id": "gcpace-s3-q44"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to create a snapshot of a VM's persistent disk for backup before a risky change. What command?",
+          "options": [
+            {
+              "text": "gcloud compute disks snapshot",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute disks snapshot my-disk --snapshot-names=pre-change --zone us-central1-a` captures a restorable point-in-time copy.",
+              "id": "a"
+            },
+            {
+              "text": "gsutil cp the disk",
+              "correct": false,
+              "explanation": "Wrong. gsutil is for object storage, not block disks.",
+              "id": "b"
+            },
+            {
+              "text": "Delete and recreate the VM",
+              "correct": false,
+              "explanation": "Wrong. Doesn't back up data.",
+              "id": "c"
+            },
+            {
+              "text": "A lifecycle rule",
+              "correct": false,
+              "explanation": "Wrong. For storage objects, not disk snapshots.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/disks/create-snapshots",
+          "id": "gcpace-s3-q45"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Object data must stay within the EU for compliance, with redundancy across multiple EU regions. Which bucket location type?",
+          "options": [
+            {
+              "text": "A multi-region bucket in the 'eu' location",
+              "correct": true,
+              "explanation": "Correct. `gcloud storage buckets create gs://b --location=EU` keeps data within EU regions with multi-region redundancy.",
+              "id": "a"
+            },
+            {
+              "text": "A single us-central1 region",
+              "correct": false,
+              "explanation": "Wrong. Violates EU residency.",
+              "id": "b"
+            },
+            {
+              "text": "A dual-region across US and EU",
+              "correct": false,
+              "explanation": "Wrong. Includes a non-EU region, breaking residency.",
+              "id": "c"
+            },
+            {
+              "text": "Local SSD",
+              "correct": false,
+              "explanation": "Wrong. Ephemeral VM storage, not durable object storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/locations",
+          "id": "gcpace-s3-q46"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must grant access at the organization level so a security team can view audit logs across all projects. What scope do you bind the role at?",
+          "options": [
+            {
+              "text": "The organization node",
+              "correct": true,
+              "explanation": "Correct. `gcloud organizations add-iam-policy-binding ORG_ID --member=... --role='roles/logging.viewer'` inherits down to every project for org-wide visibility.",
+              "id": "a"
+            },
+            {
+              "text": "Each project individually",
+              "correct": false,
+              "explanation": "Wrong. Doesn't scale and risks gaps for new projects.",
+              "id": "b"
+            },
+            {
+              "text": "A single folder",
+              "correct": false,
+              "explanation": "Wrong. Misses projects outside that folder.",
+              "id": "c"
+            },
+            {
+              "text": "A bucket",
+              "correct": false,
+              "explanation": "Wrong. Too narrow for org-wide audit log access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/resource-manager/docs/access-control-org",
+          "id": "gcpace-s3-q47"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must give a Compute Engine VM read-only access to one bucket using scopes plus IAM at creation. What's the recommended combination?",
+          "options": [
+            {
+              "text": "Attach a service account and grant it roles/storage.objectViewer on the bucket",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute instances create vm --service-account sa@proj... --scopes cloud-platform`, then bind objectViewer on the bucket; access is controlled by IAM, not broad legacy scopes alone.",
+              "id": "a"
+            },
+            {
+              "text": "Use the legacy storage-ro scope with no IAM",
+              "correct": false,
+              "explanation": "Wrong. Modern practice relies on IAM roles, not only access scopes.",
+              "id": "b"
+            },
+            {
+              "text": "Embed a key file on the VM",
+              "correct": false,
+              "explanation": "Wrong. Avoid key files when a VM service account works.",
+              "id": "c"
+            },
+            {
+              "text": "Make the bucket public-read",
+              "correct": false,
+              "explanation": "Wrong. Exposes data to everyone.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/access/service-accounts",
+          "id": "gcpace-s3-q48"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must trace a slow request across multiple microservices to find the bottleneck. Which GCP service do you use?",
+          "options": [
+            {
+              "text": "Cloud Trace",
+              "correct": true,
+              "explanation": "Correct. Cloud Trace collects latency data and shows per-service spans for a request, pinpointing the slow hop; instrument with the trace libraries or built-in App Engine/Run support.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud Logging only",
+              "correct": false,
+              "explanation": "Wrong. Logs show events but not a stitched-together latency trace across services.",
+              "id": "b"
+            },
+            {
+              "text": "VPC Flow Logs",
+              "correct": false,
+              "explanation": "Wrong. Network metadata, not application latency spans.",
+              "id": "c"
+            },
+            {
+              "text": "A budget report",
+              "correct": false,
+              "explanation": "Wrong. Cost data, unrelated to latency.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/trace/docs/overview",
+          "id": "gcpace-s3-q49"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A subnet's primary IP range is nearly exhausted as you add more VMs. What's the least-disruptive fix?",
+          "options": [
+            {
+              "text": "Expand the subnet's primary IP range (or add a secondary range)",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute networks subnets expand-ip-range my-subnet --prefix-length=22` grows the range in place without recreating VMs.",
+              "id": "a"
+            },
+            {
+              "text": "Recreate the VPC with a bigger range",
+              "correct": false,
+              "explanation": "Wrong. Highly disruptive; expansion is in place.",
+              "id": "b"
+            },
+            {
+              "text": "Add external IPs to VMs",
+              "correct": false,
+              "explanation": "Wrong. Doesn't solve internal range exhaustion.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to IP capacity.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/vpc/docs/create-modify-vpc-networks#expand-subnet",
+          "id": "gcpace-s3-q50"
+        }
+      ]
+    },
+    {
+      "setId": "set-4",
+      "name": "Scenario Exam 2",
+      "timeLimitMin": 60,
+      "questions": [
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A Cloud Run service must only be callable by other authenticated services, not the public internet. How do you configure it?",
+          "options": [
+            {
+              "text": "Deploy with --no-allow-unauthenticated and grant roles/run.invoker to caller identities",
+              "correct": true,
+              "explanation": "Correct. `gcloud run deploy svc --no-allow-unauthenticated` requires IAM auth; grant `roles/run.invoker` to the calling service accounts only.",
+              "id": "a"
+            },
+            {
+              "text": "--allow-unauthenticated",
+              "correct": false,
+              "explanation": "Wrong. Makes it public, the opposite requirement.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule on the service",
+              "correct": false,
+              "explanation": "Wrong. Cloud Run access is IAM-governed, not VPC-firewall-governed for this case.",
+              "id": "c"
+            },
+            {
+              "text": "Make the bucket private",
+              "correct": false,
+              "explanation": "Wrong. Buckets are unrelated to service invocation auth.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/run/docs/securing/managing-access",
+          "id": "gcpace-s4-q1"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A user has roles/editor but must be blocked from deleting Cloud Storage buckets specifically. What's the supported mechanism?",
+          "options": [
+            {
+              "text": "An IAM deny policy denying storage.buckets.delete",
+              "correct": true,
+              "explanation": "Correct. `gcloud iam policies create` with a deny rule on the permission overrides the allow from roles/editor for that action.",
+              "id": "a"
+            },
+            {
+              "text": "Remove roles/editor entirely",
+              "correct": false,
+              "explanation": "Wrong. Removes far more than the one delete permission.",
+              "id": "b"
+            },
+            {
+              "text": "A bucket label",
+              "correct": false,
+              "explanation": "Wrong. Labels don't enforce permission denial.",
+              "id": "c"
+            },
+            {
+              "text": "A retention policy",
+              "correct": false,
+              "explanation": "Wrong. Governs object retention, not bucket deletion by IAM principals.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/deny-overview",
+          "id": "gcpace-s4-q2"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must connect an on-prem datacenter to a VPC over an encrypted tunnel across the internet with dynamic routing. What do you deploy?",
+          "options": [
+            {
+              "text": "Cloud VPN (HA VPN) with Cloud Router for BGP",
+              "correct": true,
+              "explanation": "Correct. HA VPN tunnels plus a Cloud Router exchange routes via BGP: `gcloud compute vpn-gateways create` + `gcloud compute routers create`.",
+              "id": "a"
+            },
+            {
+              "text": "VPC peering",
+              "correct": false,
+              "explanation": "Wrong. Connects two GCP VPCs, not on-prem.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud NAT",
+              "correct": false,
+              "explanation": "Wrong. Outbound internet for VMs, not a site tunnel.",
+              "id": "c"
+            },
+            {
+              "text": "Private Google Access",
+              "correct": false,
+              "explanation": "Wrong. For reaching Google APIs, not on-prem connectivity.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/network-connectivity/docs/vpn/concepts/overview",
+          "id": "gcpace-s4-q3"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "On-prem needs a private, high-bandwidth, low-latency connection to GCP that does not traverse the public internet. Which product?",
+          "options": [
+            {
+              "text": "Dedicated (or Partner) Interconnect",
+              "correct": true,
+              "explanation": "Correct. Interconnect provides a private physical/partner circuit into Google's network — higher bandwidth and lower latency than VPN, no public internet.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud VPN",
+              "correct": false,
+              "explanation": "Wrong. Traverses the public internet (encrypted) with lower throughput.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud NAT",
+              "correct": false,
+              "explanation": "Wrong. Egress for VMs, not a private on-prem link.",
+              "id": "c"
+            },
+            {
+              "text": "VPC peering",
+              "correct": false,
+              "explanation": "Wrong. GCP-to-GCP only.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/network-connectivity/docs/interconnect/concepts/overview",
+          "id": "gcpace-s4-q4"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A managed instance group must replace a VM automatically if its application stops responding on port 8080. What do you attach?",
+          "options": [
+            {
+              "text": "An autohealing health check on the MIG",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute health-checks create http hc --port 8080` then set it as the MIG's autohealing policy; failing VMs are recreated.",
+              "id": "a"
+            },
+            {
+              "text": "Autoscaling",
+              "correct": false,
+              "explanation": "Wrong. Scales count by load; it doesn't replace unhealthy instances.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Filters traffic, doesn't heal VMs.",
+              "id": "c"
+            },
+            {
+              "text": "A snapshot schedule",
+              "correct": false,
+              "explanation": "Wrong. Backs up disks, doesn't recreate VMs.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/instance-groups/autohealing-instances-in-migs",
+          "id": "gcpace-s4-q5"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A GKE Deployment update introduced a bug. You must revert to the previous ReplicaSet quickly. What command?",
+          "options": [
+            {
+              "text": "kubectl rollout undo deployment/web",
+              "correct": true,
+              "explanation": "Correct. `kubectl rollout undo deployment/web` reverts to the prior revision; `--to-revision=N` targets a specific one. Check with `kubectl rollout history`.",
+              "id": "a"
+            },
+            {
+              "text": "kubectl delete deployment web",
+              "correct": false,
+              "explanation": "Wrong. Removes the app entirely.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl scale --replicas=0",
+              "correct": false,
+              "explanation": "Wrong. Stops serving rather than reverting.",
+              "id": "c"
+            },
+            {
+              "text": "gcloud container clusters upgrade",
+              "correct": false,
+              "explanation": "Wrong. Upgrades the cluster, unrelated to a Deployment rollback.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/how-to/updating-apps",
+          "id": "gcpace-s4-q6"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must rotate a user-managed service account key and remove the old one. What's the safe sequence?",
+          "options": [
+            {
+              "text": "Create a new key, update clients, then delete the old key",
+              "correct": true,
+              "explanation": "Correct. `gcloud iam service-accounts keys create` for the new one, switch consumers, then `gcloud iam service-accounts keys delete OLD_KEY` — zero downtime.",
+              "id": "a"
+            },
+            {
+              "text": "Delete the old key first",
+              "correct": false,
+              "explanation": "Wrong. Breaks every client using it immediately.",
+              "id": "b"
+            },
+            {
+              "text": "Disable the service account",
+              "correct": false,
+              "explanation": "Wrong. Breaks all usage, not just key rotation.",
+              "id": "c"
+            },
+            {
+              "text": "Recreate the service account",
+              "correct": false,
+              "explanation": "Wrong. Loses all bindings; unnecessary for key rotation.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/keys-create-delete",
+          "id": "gcpace-s4-q7"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Two non-overlapping subnets exist in one VPC. VMs in subnet A cannot reach subnet B. What's the most likely cause?",
+          "options": [
+            {
+              "text": "A firewall rule isn't allowing the traffic between subnets",
+              "correct": true,
+              "explanation": "Correct. VPC firewall is default-deny inbound; add an allow rule for the source range/tags: `gcloud compute firewall-rules create allow-internal --source-ranges=10.0.0.0/8 --allow tcp`.",
+              "id": "a"
+            },
+            {
+              "text": "Subnets in one VPC can't communicate",
+              "correct": false,
+              "explanation": "Wrong. They can, subject to firewall rules and routes.",
+              "id": "b"
+            },
+            {
+              "text": "They need VPC peering",
+              "correct": false,
+              "explanation": "Wrong. Peering is for separate VPCs, not subnets within one.",
+              "id": "c"
+            },
+            {
+              "text": "DNS is misconfigured",
+              "correct": false,
+              "explanation": "Wrong. Reachability by IP is a firewall/route matter first.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/vpc/docs/firewalls",
+          "id": "gcpace-s4-q8"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You must shift 10% of Cloud Run traffic to a new revision for a canary before full rollout. How?",
+          "options": [
+            {
+              "text": "Split traffic with update-traffic percentages",
+              "correct": true,
+              "explanation": "Correct. `gcloud run services update-traffic svc --to-revisions=NEW=10,CURRENT=90` sends 10% to the canary, then ramp up.",
+              "id": "a"
+            },
+            {
+              "text": "Deploy and route 100% immediately",
+              "correct": false,
+              "explanation": "Wrong. No canary; full exposure to risk.",
+              "id": "b"
+            },
+            {
+              "text": "Create a second service",
+              "correct": false,
+              "explanation": "Wrong. Revisions + traffic split is the built-in canary mechanism.",
+              "id": "c"
+            },
+            {
+              "text": "Scale the old revision to zero",
+              "correct": false,
+              "explanation": "Wrong. Removes the safe baseline.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/run/docs/rollouts-rollbacks-traffic-migration",
+          "id": "gcpace-s4-q9"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must apply an organization policy that disallows creation of external IP addresses on VMs across all projects. What do you use?",
+          "options": [
+            {
+              "text": "An Organization Policy constraint (compute.vmExternalIpAccess) at the org node",
+              "correct": true,
+              "explanation": "Correct. Set the constraint to deny external IPs; it inherits to all projects. `gcloud resource-manager org-policies set-policy ...`.",
+              "id": "a"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Filters traffic; doesn't prevent IP assignment.",
+              "id": "b"
+            },
+            {
+              "text": "An IAM role",
+              "correct": false,
+              "explanation": "Wrong. Roles govern who, not which resource properties are allowed.",
+              "id": "c"
+            },
+            {
+              "text": "A label",
+              "correct": false,
+              "explanation": "Wrong. Metadata only.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/resource-manager/docs/organization-policy/overview",
+          "id": "gcpace-s4-q10"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A container image must be stored in a private GCP registry that supports vulnerability scanning. Which service and command?",
+          "options": [
+            {
+              "text": "Artifact Registry — gcloud artifacts repositories create",
+              "correct": true,
+              "explanation": "Correct. `gcloud artifacts repositories create my-repo --repository-format=docker --location=us` provides a private registry with optional vulnerability scanning.",
+              "id": "a"
+            },
+            {
+              "text": "A public Docker Hub repo",
+              "correct": false,
+              "explanation": "Wrong. Public and external, not the private GCP-native choice.",
+              "id": "b"
+            },
+            {
+              "text": "A Cloud Storage bucket of tarballs",
+              "correct": false,
+              "explanation": "Wrong. Not a container registry with scanning.",
+              "id": "c"
+            },
+            {
+              "text": "Local node storage",
+              "correct": false,
+              "explanation": "Wrong. Not a registry.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/artifact-registry/docs/overview",
+          "id": "gcpace-s4-q11"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "An application key was accidentally committed to a public repo. What's the immediate IAM remediation in GCP?",
+          "options": [
+            {
+              "text": "Disable/delete the exposed service account key and audit its usage",
+              "correct": true,
+              "explanation": "Correct. `gcloud iam service-accounts keys delete EXPOSED_KEY --iam-account=sa@...`, then review audit logs for misuse and rotate.",
+              "id": "a"
+            },
+            {
+              "text": "Change the project name",
+              "correct": false,
+              "explanation": "Wrong. Doesn't invalidate the leaked key.",
+              "id": "b"
+            },
+            {
+              "text": "Add a firewall rule",
+              "correct": false,
+              "explanation": "Wrong. The key works from anywhere with internet; firewall doesn't revoke it.",
+              "id": "c"
+            },
+            {
+              "text": "Lower the project budget",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to credential exposure.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/keys-create-delete",
+          "id": "gcpace-s4-q12"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need a NoSQL document database for a mobile app with real-time sync and offline support, minimal ops. Which service?",
+          "options": [
+            {
+              "text": "Firestore",
+              "correct": true,
+              "explanation": "Correct. Firestore is a serverless document database with real-time listeners and offline sync for mobile/web clients.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud SQL",
+              "correct": false,
+              "explanation": "Wrong. Relational, no native mobile real-time sync.",
+              "id": "b"
+            },
+            {
+              "text": "Bigtable",
+              "correct": false,
+              "explanation": "Wrong. Wide-column analytical NoSQL, not mobile document sync.",
+              "id": "c"
+            },
+            {
+              "text": "Spanner",
+              "correct": false,
+              "explanation": "Wrong. Relational global SQL, heavier than needed here.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/firestore/docs",
+          "id": "gcpace-s4-q13"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must monitor a Cloud SQL instance and be alerted when replication lag is high. What do you create?",
+          "options": [
+            {
+              "text": "A Cloud Monitoring alerting policy on the replication lag metric",
+              "correct": true,
+              "explanation": "Correct. Build a policy on the Cloud SQL replica lag metric with a threshold and a notification channel.",
+              "id": "a"
+            },
+            {
+              "text": "A budget alert",
+              "correct": false,
+              "explanation": "Wrong. Cost, not replication health.",
+              "id": "b"
+            },
+            {
+              "text": "A log sink",
+              "correct": false,
+              "explanation": "Wrong. Routes logs; doesn't threshold a metric.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to monitoring.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sql/docs/mysql/replication",
+          "id": "gcpace-s4-q14"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "GKE pods need a persistent volume that survives pod rescheduling and is backed by a GCP persistent disk. What do you define?",
+          "options": [
+            {
+              "text": "A PersistentVolumeClaim using a pd-backed StorageClass",
+              "correct": true,
+              "explanation": "Correct. A PVC with the standard/pd StorageClass dynamically provisions a Compute Engine persistent disk that reattaches when the pod reschedules.",
+              "id": "a"
+            },
+            {
+              "text": "An emptyDir volume",
+              "correct": false,
+              "explanation": "Wrong. emptyDir is ephemeral and lost on pod deletion.",
+              "id": "b"
+            },
+            {
+              "text": "A hostPath volume",
+              "correct": false,
+              "explanation": "Wrong. Tied to a node; doesn't follow rescheduled pods.",
+              "id": "c"
+            },
+            {
+              "text": "A ConfigMap",
+              "correct": false,
+              "explanation": "Wrong. For config data, not persistent storage.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes",
+          "id": "gcpace-s4-q15"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must move a project from one folder to another in the resource hierarchy. What command?",
+          "options": [
+            {
+              "text": "gcloud beta projects move (or resource-manager) to the target folder",
+              "correct": true,
+              "explanation": "Correct. `gcloud beta projects move my-proj --folder=NEW_FOLDER_ID` relocates it, changing inherited policies accordingly.",
+              "id": "a"
+            },
+            {
+              "text": "Recreate the project under the new folder",
+              "correct": false,
+              "explanation": "Wrong. Destroys resources unnecessarily; projects can be moved.",
+              "id": "b"
+            },
+            {
+              "text": "A label change",
+              "correct": false,
+              "explanation": "Wrong. Labels don't change hierarchy.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Unrelated.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/resource-manager/docs/creating-managing-folders",
+          "id": "gcpace-s4-q16"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A high-throughput streaming analytics pipeline must ingest millions of events per second and store them for analytics. Which combination fits ACE-level GCP?",
+          "options": [
+            {
+              "text": "Pub/Sub for ingestion into BigQuery (or Dataflow → BigQuery)",
+              "correct": true,
+              "explanation": "Correct. `gcloud pubsub topics create events`; subscribers or a Dataflow job land data in BigQuery for analytics at scale.",
+              "id": "a"
+            },
+            {
+              "text": "Cloud SQL only",
+              "correct": false,
+              "explanation": "Wrong. Doesn't scale to millions of events/sec ingestion.",
+              "id": "b"
+            },
+            {
+              "text": "A single VM with a local file",
+              "correct": false,
+              "explanation": "Wrong. Not scalable or durable.",
+              "id": "c"
+            },
+            {
+              "text": "Firestore for analytics",
+              "correct": false,
+              "explanation": "Wrong. Document store, not a high-volume analytics warehouse.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/pubsub/docs/overview",
+          "id": "gcpace-s4-q17"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to see real-time logs from a GKE workload as they stream. Which command?",
+          "options": [
+            {
+              "text": "kubectl logs -f deployment/web (or gcloud logging tail)",
+              "correct": true,
+              "explanation": "Correct. `kubectl logs -f` follows pod logs live; `gcloud logging tail` streams from Cloud Logging.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud compute instances describe",
+              "correct": false,
+              "explanation": "Wrong. VM metadata, not workload logs.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil cat",
+              "correct": false,
+              "explanation": "Wrong. Reads storage objects.",
+              "id": "c"
+            },
+            {
+              "text": "A monitoring dashboard only",
+              "correct": false,
+              "explanation": "Wrong. Shows metrics, not streaming log lines.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/how-to/view-logs",
+          "id": "gcpace-s4-q18"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A bucket of regulated data must be immutable for 7 years — no deletion or overwrite, even by admins. What do you apply?",
+          "options": [
+            {
+              "text": "A retention policy with bucket lock",
+              "correct": true,
+              "explanation": "Correct. `gcloud storage buckets update gs://b --retention-period=7y` then lock it; locked retention can't be shortened or removed, enforcing immutability.",
+              "id": "a"
+            },
+            {
+              "text": "Uniform bucket-level access",
+              "correct": false,
+              "explanation": "Wrong. Governs the ACL model, not immutability duration.",
+              "id": "b"
+            },
+            {
+              "text": "A lifecycle delete rule",
+              "correct": false,
+              "explanation": "Wrong. Deletes data, the opposite of retention.",
+              "id": "c"
+            },
+            {
+              "text": "An IAM viewer role",
+              "correct": false,
+              "explanation": "Wrong. Controls read access, not retention.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/bucket-lock",
+          "id": "gcpace-s4-q19"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must deploy the same app to dev and prod with different variables, using one declarative template. What approach fits?",
+          "options": [
+            {
+              "text": "A parameterized IaC config (Terraform/Infra Manager) with per-environment variables",
+              "correct": true,
+              "explanation": "Correct. One template, separate variable files per environment, applied via Infrastructure Manager or Terraform — consistent and repeatable.",
+              "id": "a"
+            },
+            {
+              "text": "Copy-paste two console setups",
+              "correct": false,
+              "explanation": "Wrong. Not declarative or consistent.",
+              "id": "b"
+            },
+            {
+              "text": "Two unrelated scripts",
+              "correct": false,
+              "explanation": "Wrong. Drifts over time.",
+              "id": "c"
+            },
+            {
+              "text": "Manual edits per deploy",
+              "correct": false,
+              "explanation": "Wrong. Error-prone.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/docs/terraform",
+          "id": "gcpace-s4-q20"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must list all IAM bindings currently set on a project to audit who has what. Which command?",
+          "options": [
+            {
+              "text": "gcloud projects get-iam-policy",
+              "correct": true,
+              "explanation": "Correct. `gcloud projects get-iam-policy my-proj --format=json` returns every member-to-role binding for review.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud compute instances list",
+              "correct": false,
+              "explanation": "Wrong. Lists VMs, not IAM.",
+              "id": "b"
+            },
+            {
+              "text": "gsutil iam get on a bucket",
+              "correct": false,
+              "explanation": "Wrong. Shows one bucket's policy, not the project's.",
+              "id": "c"
+            },
+            {
+              "text": "A billing report",
+              "correct": false,
+              "explanation": "Wrong. Cost data, not IAM bindings.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/granting-changing-revoking-access",
+          "id": "gcpace-s4-q21"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A global HTTPS load balancer serves a single-region backend; you add a second region for resilience. How does traffic fail over?",
+          "options": [
+            {
+              "text": "Add the second region's backend to the backend service with health checks",
+              "correct": true,
+              "explanation": "Correct. The global LB routes to the nearest healthy backend and shifts traffic away from a region failing its health check — add the backend and a health check.",
+              "id": "a"
+            },
+            {
+              "text": "Create a separate IP per region",
+              "correct": false,
+              "explanation": "Wrong. Defeats the single global anycast IP benefit.",
+              "id": "b"
+            },
+            {
+              "text": "Use Cloud DNS failover only",
+              "correct": false,
+              "explanation": "Wrong. DNS failover is slower and less seamless than LB health-based routing.",
+              "id": "c"
+            },
+            {
+              "text": "Manually switch backends on outage",
+              "correct": false,
+              "explanation": "Wrong. Not automatic resilience.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/load-balancing/docs/https/setting-up-https",
+          "id": "gcpace-s4-q22"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must copy a local directory of files to a bucket efficiently, preserving the folder structure. Which command?",
+          "options": [
+            {
+              "text": "gcloud storage cp -r (or gsutil -m cp -r)",
+              "correct": true,
+              "explanation": "Correct. `gcloud storage cp -r ./data gs://my-bucket/` recursively uploads; the storage CLI parallelizes transfers.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud compute scp",
+              "correct": false,
+              "explanation": "Wrong. Copies to a VM, not a bucket.",
+              "id": "b"
+            },
+            {
+              "text": "kubectl cp",
+              "correct": false,
+              "explanation": "Wrong. Copies into pods, not Cloud Storage.",
+              "id": "c"
+            },
+            {
+              "text": "A lifecycle rule",
+              "correct": false,
+              "explanation": "Wrong. Manages expiry, not uploads.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/storage/docs/uploading-objects",
+          "id": "gcpace-s4-q23"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "Developers should access only a specific BigQuery dataset, not the whole project's data. What do you grant?",
+          "options": [
+            {
+              "text": "A dataset-level role (e.g., roles/bigquery.dataViewer) on that dataset",
+              "correct": true,
+              "explanation": "Correct. BigQuery supports dataset-level IAM; grant the role on the dataset rather than the project for least privilege.",
+              "id": "a"
+            },
+            {
+              "text": "roles/bigquery.admin at project",
+              "correct": false,
+              "explanation": "Wrong. Grants control over all datasets.",
+              "id": "b"
+            },
+            {
+              "text": "roles/owner",
+              "correct": false,
+              "explanation": "Wrong. Far too broad.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Doesn't govern dataset access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/bigquery/docs/dataset-access-controls",
+          "id": "gcpace-s4-q24"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You need GKE to run without managing nodes at all — Google handles node provisioning and scaling. Which mode?",
+          "options": [
+            {
+              "text": "GKE Autopilot",
+              "correct": true,
+              "explanation": "Correct. `gcloud container clusters create-auto my-cluster` runs Autopilot, where Google manages nodes, scaling, and security; you pay per pod resource request.",
+              "id": "a"
+            },
+            {
+              "text": "GKE Standard with manual pools",
+              "correct": false,
+              "explanation": "Wrong. You manage node pools and sizing.",
+              "id": "b"
+            },
+            {
+              "text": "Compute Engine VMs",
+              "correct": false,
+              "explanation": "Wrong. You manage everything.",
+              "id": "c"
+            },
+            {
+              "text": "Cloud Run",
+              "correct": false,
+              "explanation": "Wrong. Serverless containers, but not a Kubernetes cluster.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview",
+          "id": "gcpace-s4-q25"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A new team member should be able to create projects under a specific folder. Which role at the folder scope?",
+          "options": [
+            {
+              "text": "roles/resourcemanager.projectCreator on the folder",
+              "correct": true,
+              "explanation": "Correct. `gcloud resource-manager folders add-iam-policy-binding FOLDER --member=... --role='roles/resourcemanager.projectCreator'` lets them create projects there.",
+              "id": "a"
+            },
+            {
+              "text": "roles/owner on every project",
+              "correct": false,
+              "explanation": "Wrong. Projects don't exist yet; this is about creating them.",
+              "id": "b"
+            },
+            {
+              "text": "roles/viewer",
+              "correct": false,
+              "explanation": "Wrong. Read-only can't create projects.",
+              "id": "c"
+            },
+            {
+              "text": "A billing role only",
+              "correct": false,
+              "explanation": "Wrong. Billing access isn't project-creation permission.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/resource-manager/docs/access-control-folders",
+          "id": "gcpace-s4-q26"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must schedule daily snapshots of a persistent disk automatically with retention. What do you attach?",
+          "options": [
+            {
+              "text": "A resource (snapshot) schedule policy to the disk",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute resource-policies create snapshot-schedule daily --max-retention-days 14 ...` then attach it to the disk for automated, retained snapshots.",
+              "id": "a"
+            },
+            {
+              "text": "A manual snapshot once",
+              "correct": false,
+              "explanation": "Wrong. Not scheduled or retained automatically.",
+              "id": "b"
+            },
+            {
+              "text": "A lifecycle rule",
+              "correct": false,
+              "explanation": "Wrong. For storage objects, not disk snapshots.",
+              "id": "c"
+            },
+            {
+              "text": "A budget alert",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to backups.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/disks/scheduled-snapshots",
+          "id": "gcpace-s4-q27"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "An internal microservice on Compute Engine needs a stable internal endpoint load-balanced across several backend VMs. Which load balancer?",
+          "options": [
+            {
+              "text": "An internal passthrough/Application Load Balancer with a private VIP",
+              "correct": true,
+              "explanation": "Correct. Internal load balancing exposes a private IP that distributes to backend VMs within the VPC, not the internet.",
+              "id": "a"
+            },
+            {
+              "text": "A global external HTTPS LB",
+              "correct": false,
+              "explanation": "Wrong. Internet-facing, not internal.",
+              "id": "b"
+            },
+            {
+              "text": "Cloud NAT",
+              "correct": false,
+              "explanation": "Wrong. Egress to internet, not internal load balancing.",
+              "id": "c"
+            },
+            {
+              "text": "A single VM",
+              "correct": false,
+              "explanation": "Wrong. No load balancing or resilience.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/load-balancing/docs/internal",
+          "id": "gcpace-s4-q28"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You must enforce that all VMs use OS Login with IAM-controlled SSH instead of project-wide SSH keys. What do you set?",
+          "options": [
+            {
+              "text": "Enable OS Login via metadata and grant roles/compute.osLogin",
+              "correct": true,
+              "explanation": "Correct. Set `enable-oslogin=TRUE` metadata and grant the OS Login role; SSH access is then IAM-managed and auditable, replacing static keys.",
+              "id": "a"
+            },
+            {
+              "text": "Add public keys to project metadata",
+              "correct": false,
+              "explanation": "Wrong. That's the static-key model OS Login replaces.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule on port 22",
+              "correct": false,
+              "explanation": "Wrong. Controls reachability, not key/identity management.",
+              "id": "c"
+            },
+            {
+              "text": "Make instances public",
+              "correct": false,
+              "explanation": "Wrong. Unrelated and insecure.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/oslogin",
+          "id": "gcpace-s4-q29"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A web app on App Engine standard must serve from a custom domain over HTTPS with a managed certificate. What do you configure?",
+          "options": [
+            {
+              "text": "A custom domain mapping with a Google-managed SSL certificate",
+              "correct": true,
+              "explanation": "Correct. `gcloud app domain-mappings create www.example.com` provisions a managed cert and serves the app over HTTPS.",
+              "id": "a"
+            },
+            {
+              "text": "A self-managed cert uploaded to a VM",
+              "correct": false,
+              "explanation": "Wrong. App Engine standard has no user VM; managed certs are the path.",
+              "id": "b"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Doesn't map domains or issue certs.",
+              "id": "c"
+            },
+            {
+              "text": "A load balancer only",
+              "correct": false,
+              "explanation": "Wrong. Domain mapping is the App Engine-native mechanism here.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/appengine/docs/standard/mapping-custom-domains",
+          "id": "gcpace-s4-q30"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must check which APIs are currently enabled on a project before troubleshooting a failing deployment. Which command?",
+          "options": [
+            {
+              "text": "gcloud services list --enabled",
+              "correct": true,
+              "explanation": "Correct. `gcloud services list --enabled --project my-proj` shows enabled APIs so you can spot a missing one causing failures.",
+              "id": "a"
+            },
+            {
+              "text": "gcloud projects list",
+              "correct": false,
+              "explanation": "Wrong. Lists projects, not their enabled APIs.",
+              "id": "b"
+            },
+            {
+              "text": "gcloud compute instances list",
+              "correct": false,
+              "explanation": "Wrong. Lists VMs.",
+              "id": "c"
+            },
+            {
+              "text": "A billing export",
+              "correct": false,
+              "explanation": "Wrong. Cost data, not API status.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/service-usage/docs/list-services",
+          "id": "gcpace-s4-q31"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A Pub/Sub subscriber is falling behind and messages are piling up. You must scale processing without losing messages. What's the typical fix?",
+          "options": [
+            {
+              "text": "Scale out subscribers and ensure timely acks within the ack deadline",
+              "correct": true,
+              "explanation": "Correct. Add more subscriber instances (e.g., autoscale the Cloud Run/GKE consumer) and ack promptly; unacked messages redeliver, preventing loss.",
+              "id": "a"
+            },
+            {
+              "text": "Delete the subscription",
+              "correct": false,
+              "explanation": "Wrong. Drops pending messages.",
+              "id": "b"
+            },
+            {
+              "text": "Lower the message retention to zero",
+              "correct": false,
+              "explanation": "Wrong. Causes message loss.",
+              "id": "c"
+            },
+            {
+              "text": "Switch to a smaller machine",
+              "correct": false,
+              "explanation": "Wrong. Reduces throughput, worsening backlog.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/pubsub/docs/subscriber",
+          "id": "gcpace-s4-q32"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A budget owner wants email alerts at 50%, 90%, and 100% of monthly spend for a project. What do you create?",
+          "options": [
+            {
+              "text": "A budget with multiple threshold rules in Cloud Billing",
+              "correct": true,
+              "explanation": "Correct. `gcloud billing budgets create --budget-amount=... --threshold-rule=percent=0.5 ...` (repeat per threshold) emails on each percentage.",
+              "id": "a"
+            },
+            {
+              "text": "A monitoring alert on CPU",
+              "correct": false,
+              "explanation": "Wrong. Tracks performance, not spend.",
+              "id": "b"
+            },
+            {
+              "text": "A log sink",
+              "correct": false,
+              "explanation": "Wrong. Routes logs, not cost alerts.",
+              "id": "c"
+            },
+            {
+              "text": "A quota increase",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to budget alerting.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/billing/docs/how-to/budgets",
+          "id": "gcpace-s4-q33"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A GKE app needs config values (non-secret) injected as environment variables, updatable without rebuilding the image. What do you use?",
+          "options": [
+            {
+              "text": "A ConfigMap referenced by the Deployment",
+              "correct": true,
+              "explanation": "Correct. Store config in a ConfigMap and reference it via envFrom/valueFrom; update the ConfigMap and roll the pods to apply — no image rebuild.",
+              "id": "a"
+            },
+            {
+              "text": "A Secret",
+              "correct": false,
+              "explanation": "Wrong. Secrets are for sensitive data; ConfigMap fits non-secret config.",
+              "id": "b"
+            },
+            {
+              "text": "Baking values into the image",
+              "correct": false,
+              "explanation": "Wrong. Requires a rebuild to change.",
+              "id": "c"
+            },
+            {
+              "text": "A PersistentVolume",
+              "correct": false,
+              "explanation": "Wrong. For storage, not env-var config.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/concepts/configmap",
+          "id": "gcpace-s4-q34"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must give a contractor temporary access that automatically expires after a set date. What IAM feature do you use?",
+          "options": [
+            {
+              "text": "An IAM conditional role binding with an expiry condition",
+              "correct": true,
+              "explanation": "Correct. Add a condition like `request.time < timestamp('2025-12-31T00:00:00Z')` to the binding so access lapses automatically. `gcloud ... add-iam-policy-binding --condition=...`.",
+              "id": "a"
+            },
+            {
+              "text": "A permanent role binding",
+              "correct": false,
+              "explanation": "Wrong. Doesn't expire.",
+              "id": "b"
+            },
+            {
+              "text": "Sharing a key with a note to delete it later",
+              "correct": false,
+              "explanation": "Wrong. Manual and unreliable.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Doesn't govern IAM access timing.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/conditions-overview",
+          "id": "gcpace-s4-q35"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "After enabling autoscaling, the MIG isn't scaling despite high load. What's a common configuration to verify?",
+          "options": [
+            {
+              "text": "The metric and target (e.g., CPU target) and min/max replica bounds",
+              "correct": true,
+              "explanation": "Correct. Verify `--target-cpu-utilization` and that `--max-num-replicas` isn't already reached; a low max or wrong metric prevents scaling.",
+              "id": "a"
+            },
+            {
+              "text": "The bucket lifecycle",
+              "correct": false,
+              "explanation": "Wrong. Storage config, unrelated to MIG scaling.",
+              "id": "b"
+            },
+            {
+              "text": "DNS settings",
+              "correct": false,
+              "explanation": "Wrong. Not a scaling factor.",
+              "id": "c"
+            },
+            {
+              "text": "The billing account name",
+              "correct": false,
+              "explanation": "Wrong. Doesn't affect autoscaler behavior.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/autoscaler/understanding-autoscaler-decisions",
+          "id": "gcpace-s4-q36"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A multi-tier app needs its database reachable only from the app tier, not from the internet or other subnets. How do you enforce this in the VPC?",
+          "options": [
+            {
+              "text": "Firewall rules using network tags/service accounts to allow only the app tier to the DB port",
+              "correct": true,
+              "explanation": "Correct. Tag app VMs and DB VMs, then `gcloud compute firewall-rules create allow-db --source-tags=app --target-tags=db --allow tcp:5432` — only tagged sources reach the DB.",
+              "id": "a"
+            },
+            {
+              "text": "A public IP on the database",
+              "correct": false,
+              "explanation": "Wrong. Exposes it to the internet.",
+              "id": "b"
+            },
+            {
+              "text": "Uniform bucket-level access",
+              "correct": false,
+              "explanation": "Wrong. That's storage, not VPC segmentation.",
+              "id": "c"
+            },
+            {
+              "text": "A retention policy",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to network access.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/vpc/docs/firewalls#serviceaccounts",
+          "id": "gcpace-s4-q37"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must run a quick container without writing YAML, exposed publicly, to validate an image. Which Cloud Run command is fastest?",
+          "options": [
+            {
+              "text": "gcloud run deploy --image with --allow-unauthenticated",
+              "correct": true,
+              "explanation": "Correct. `gcloud run deploy test --image=gcr.io/proj/img --allow-unauthenticated --region=us-central1` deploys and returns a public URL in one step.",
+              "id": "a"
+            },
+            {
+              "text": "Write a full GKE manifest",
+              "correct": false,
+              "explanation": "Wrong. Far more setup for a quick test.",
+              "id": "b"
+            },
+            {
+              "text": "Provision a VM and install Docker",
+              "correct": false,
+              "explanation": "Wrong. Slow for a quick validation.",
+              "id": "c"
+            },
+            {
+              "text": "Upload the image to a bucket",
+              "correct": false,
+              "explanation": "Wrong. Buckets don't run containers.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/run/docs/quickstarts/deploy-container",
+          "id": "gcpace-s4-q38"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must impersonate a service account for a single gcloud command without changing your active credentials. How?",
+          "options": [
+            {
+              "text": "Use the --impersonate-service-account flag",
+              "correct": true,
+              "explanation": "Correct. `gcloud storage ls gs://b --impersonate-service-account=sa@proj.iam.gserviceaccount.com` runs that one command as the SA (you need the Token Creator role).",
+              "id": "a"
+            },
+            {
+              "text": "Download the SA key and activate it",
+              "correct": false,
+              "explanation": "Wrong. Key files are discouraged; impersonation needs no key.",
+              "id": "b"
+            },
+            {
+              "text": "Change the active account permanently",
+              "correct": false,
+              "explanation": "Wrong. The requirement is a single command.",
+              "id": "c"
+            },
+            {
+              "text": "Edit ~/.config by hand",
+              "correct": false,
+              "explanation": "Wrong. Fragile and unnecessary.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/service-account-impersonation",
+          "id": "gcpace-s4-q39"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "A Cloud Function (2nd gen) must run in response to a file landing in a bucket. What trigger do you configure?",
+          "options": [
+            {
+              "text": "An Eventarc/Cloud Storage trigger on the object-finalized event",
+              "correct": true,
+              "explanation": "Correct. `gcloud functions deploy fn --trigger-event-filters='type=google.cloud.storage.object.v1.finalized' --trigger-event-filters='bucket=my-bucket'` fires on new objects.",
+              "id": "a"
+            },
+            {
+              "text": "A Cloud Scheduler cron",
+              "correct": false,
+              "explanation": "Wrong. Time-based, not object-driven.",
+              "id": "b"
+            },
+            {
+              "text": "An HTTP trigger only",
+              "correct": false,
+              "explanation": "Wrong. Requires an explicit call, not a storage event.",
+              "id": "c"
+            },
+            {
+              "text": "A Pub/Sub topic with no binding",
+              "correct": false,
+              "explanation": "Wrong. Needs the storage event wiring to fire on uploads.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/functions/docs/calling/storage",
+          "id": "gcpace-s4-q40"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must let Cloud Build deploy to Cloud Run as part of CI/CD. What identity and role are involved?",
+          "options": [
+            {
+              "text": "Grant the Cloud Build service account roles/run.admin and act-as on the runtime SA",
+              "correct": true,
+              "explanation": "Correct. Bind `roles/run.admin` and `roles/iam.serviceAccountUser` to the Cloud Build SA so pipelines can deploy services.",
+              "id": "a"
+            },
+            {
+              "text": "Use a personal account in the pipeline",
+              "correct": false,
+              "explanation": "Wrong. Ties automation to a human; discouraged.",
+              "id": "b"
+            },
+            {
+              "text": "Make Cloud Run public to avoid auth",
+              "correct": false,
+              "explanation": "Wrong. Doesn't address deploy permissions.",
+              "id": "c"
+            },
+            {
+              "text": "Share an SA key in the repo",
+              "correct": false,
+              "explanation": "Wrong. Leaks a credential; role bindings are the correct path.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/build/docs/deploying-builds/deploy-cloud-run",
+          "id": "gcpace-s4-q41"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "A bucket's objects must be served fast to global users with caching at the edge. What do you put in front of it?",
+          "options": [
+            {
+              "text": "Cloud CDN on a load balancer backed by the bucket",
+              "correct": true,
+              "explanation": "Correct. Enable Cloud CDN on the backend bucket of an external HTTPS LB to cache content at Google's edge: `gcloud compute backend-buckets create ... --enable-cdn`.",
+              "id": "a"
+            },
+            {
+              "text": "A retention policy",
+              "correct": false,
+              "explanation": "Wrong. Governs deletion, not edge caching.",
+              "id": "b"
+            },
+            {
+              "text": "Uniform bucket-level access",
+              "correct": false,
+              "explanation": "Wrong. ACL model, not CDN.",
+              "id": "c"
+            },
+            {
+              "text": "A larger machine type",
+              "correct": false,
+              "explanation": "Wrong. Buckets aren't VM-backed.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/cdn/docs/overview",
+          "id": "gcpace-s4-q42"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You must limit a namespace's total CPU and memory consumption in GKE. What Kubernetes object do you apply?",
+          "options": [
+            {
+              "text": "A ResourceQuota in the namespace",
+              "correct": true,
+              "explanation": "Correct. `kubectl apply` a ResourceQuota capping requests.cpu/limits.memory etc.; pods that would exceed the quota are rejected.",
+              "id": "a"
+            },
+            {
+              "text": "A LimitRange only",
+              "correct": false,
+              "explanation": "Wrong. LimitRange sets per-pod defaults/bounds, not a namespace-wide total cap.",
+              "id": "b"
+            },
+            {
+              "text": "A NetworkPolicy",
+              "correct": false,
+              "explanation": "Wrong. Governs traffic, not resource totals.",
+              "id": "c"
+            },
+            {
+              "text": "A HorizontalPodAutoscaler",
+              "correct": false,
+              "explanation": "Wrong. Scales replicas; doesn't cap namespace totals.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/concepts/resourcequotas",
+          "id": "gcpace-s4-q43"
+        },
+        {
+          "domainId": "d1",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You need to authenticate the gcloud CLI on a headless server (no browser). Which flow do you use?",
+          "options": [
+            {
+              "text": "gcloud auth login --no-launch-browser (or service account activation)",
+              "correct": true,
+              "explanation": "Correct. `gcloud auth login --no-launch-browser` prints a URL/code for another device; for automation, `gcloud auth activate-service-account --key-file=...` (or Workload Identity Federation).",
+              "id": "a"
+            },
+            {
+              "text": "A standard browser login",
+              "correct": false,
+              "explanation": "Wrong. Fails on a headless box.",
+              "id": "b"
+            },
+            {
+              "text": "Editing config files manually",
+              "correct": false,
+              "explanation": "Wrong. Not the supported auth flow.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to authentication.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/sdk/docs/authorizing",
+          "id": "gcpace-s4-q44"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You want a single pane showing latency, error rate, and traffic for a Cloud Run service. What do you use?",
+          "options": [
+            {
+              "text": "The built-in Cloud Run metrics/dashboards in Cloud Monitoring",
+              "correct": true,
+              "explanation": "Correct. Cloud Run emits request count, latency, and error metrics viewable in Monitoring dashboards; add alerting policies as needed.",
+              "id": "a"
+            },
+            {
+              "text": "VPC Flow Logs",
+              "correct": false,
+              "explanation": "Wrong. Network metadata, not service SLIs.",
+              "id": "b"
+            },
+            {
+              "text": "A billing report",
+              "correct": false,
+              "explanation": "Wrong. Cost, not latency/errors.",
+              "id": "c"
+            },
+            {
+              "text": "gsutil stat",
+              "correct": false,
+              "explanation": "Wrong. Storage object info, unrelated.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/run/docs/monitoring",
+          "id": "gcpace-s4-q45"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "Cross-project: a Cloud Function in project A must publish to a Pub/Sub topic in project B. What binding makes this work?",
+          "options": [
+            {
+              "text": "Grant the function's service account roles/pubsub.publisher on the project-B topic",
+              "correct": true,
+              "explanation": "Correct. `gcloud pubsub topics add-iam-policy-binding topic --member='serviceAccount:fn-sa@projA...' --role='roles/pubsub.publisher'` — IAM spans projects by member.",
+              "id": "a"
+            },
+            {
+              "text": "Make the topic public",
+              "correct": false,
+              "explanation": "Wrong. Over-exposes; unnecessary.",
+              "id": "b"
+            },
+            {
+              "text": "Copy a key into project B",
+              "correct": false,
+              "explanation": "Wrong. Keys aren't needed for cross-project IAM.",
+              "id": "c"
+            },
+            {
+              "text": "Add the function SA as project-B owner",
+              "correct": false,
+              "explanation": "Wrong. Far too broad for publish-only.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/pubsub/docs/access-control",
+          "id": "gcpace-s4-q46"
+        },
+        {
+          "domainId": "d2",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must give a VM more disk space without recreating it. What's the procedure for its persistent disk?",
+          "options": [
+            {
+              "text": "Resize the persistent disk, then grow the filesystem",
+              "correct": true,
+              "explanation": "Correct. `gcloud compute disks resize my-disk --size=200GB`, then extend the filesystem inside the OS (e.g., resize2fs) — no VM recreation.",
+              "id": "a"
+            },
+            {
+              "text": "Create a new VM",
+              "correct": false,
+              "explanation": "Wrong. Unnecessary; disks resize in place.",
+              "id": "b"
+            },
+            {
+              "text": "A lifecycle rule",
+              "correct": false,
+              "explanation": "Wrong. For storage objects.",
+              "id": "c"
+            },
+            {
+              "text": "Add an external IP",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to disk size.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/compute/docs/disks/resize-persistent-disk",
+          "id": "gcpace-s4-q47"
+        },
+        {
+          "domainId": "d3",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You must ensure a GKE Deployment keeps at least 2 pods available during a voluntary node drain/upgrade. What do you define?",
+          "options": [
+            {
+              "text": "A PodDisruptionBudget with minAvailable: 2",
+              "correct": true,
+              "explanation": "Correct. `kubectl apply` a PDB so voluntary disruptions (drains/upgrades) never take availability below 2 pods.",
+              "id": "a"
+            },
+            {
+              "text": "A ResourceQuota",
+              "correct": false,
+              "explanation": "Wrong. Caps resource usage, not disruption tolerance.",
+              "id": "b"
+            },
+            {
+              "text": "A HorizontalPodAutoscaler",
+              "correct": false,
+              "explanation": "Wrong. Scales on load, doesn't guard drains.",
+              "id": "c"
+            },
+            {
+              "text": "A NetworkPolicy",
+              "correct": false,
+              "explanation": "Wrong. Governs traffic, not pod availability during drains.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/how-to/pod-disruption-budgets",
+          "id": "gcpace-s4-q48"
+        },
+        {
+          "domainId": "d4",
+          "difficulty": "medium",
+          "type": "single",
+          "stem": "You must roll a GKE cluster to a newer Kubernetes version with minimal disruption to running workloads. What command and practice apply?",
+          "options": [
+            {
+              "text": "gcloud container clusters upgrade with a surge/PDB-aware node upgrade",
+              "correct": true,
+              "explanation": "Correct. `gcloud container clusters upgrade my-cluster --master` then upgrade node pools; PodDisruptionBudgets and surge upgrades keep workloads available during the node rollout.",
+              "id": "a"
+            },
+            {
+              "text": "Delete and recreate the cluster",
+              "correct": false,
+              "explanation": "Wrong. Causes a full outage.",
+              "id": "b"
+            },
+            {
+              "text": "Upgrade all nodes simultaneously with no PDB",
+              "correct": false,
+              "explanation": "Wrong. Risks dropping availability.",
+              "id": "c"
+            },
+            {
+              "text": "A firewall rule change",
+              "correct": false,
+              "explanation": "Wrong. Unrelated to version upgrades.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/kubernetes-engine/docs/how-to/upgrading-a-cluster",
+          "id": "gcpace-s4-q49"
+        },
+        {
+          "domainId": "d5",
+          "difficulty": "hard",
+          "type": "single",
+          "stem": "You must verify whether a specific principal can perform compute.instances.delete on a project before granting more access. Which tool?",
+          "options": [
+            {
+              "text": "IAM Policy Troubleshooter (or gcloud policy-troubleshoot)",
+              "correct": true,
+              "explanation": "Correct. The Policy Troubleshooter evaluates whether a member has a permission and which binding grants or denies it, helping right-size access before changes.",
+              "id": "a"
+            },
+            {
+              "text": "VPC Flow Logs",
+              "correct": false,
+              "explanation": "Wrong. Network data, not IAM evaluation.",
+              "id": "b"
+            },
+            {
+              "text": "A budget alert",
+              "correct": false,
+              "explanation": "Wrong. Cost, not permissions.",
+              "id": "c"
+            },
+            {
+              "text": "gsutil iam get",
+              "correct": false,
+              "explanation": "Wrong. Shows a bucket policy, not a project-wide permission check for a principal.",
+              "id": "d"
+            }
+          ],
+          "reference": "https://cloud.google.com/iam/docs/troubleshooting-access",
+          "id": "gcpace-s4-q50"
+        }
+      ]
     }
   ]
 }
