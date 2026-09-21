@@ -3,7 +3,7 @@
   "title": "Certified Kubernetes Administrator (CKA)",
   "vendor": "CNCF",
   "examVersion": "2025",
-  "lastUpdated": "2026-06-11",
+  "lastUpdated": "2026-09-21",
   "passScore": 66,
   "note": "The real CKA is a hands-on, performance-based exam (live cluster tasks), not multiple choice. These MCQ sets build conceptual recall and command knowledge — pair them with actual kubectl practice on a cluster.",
   "domains": [
