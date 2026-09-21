@@ -3,9 +3,9 @@
   "title": "Certified Kubernetes Administrator (CKA)",
   "vendor": "CNCF",
   "examVersion": "2026",
-  "lastUpdated": "2026-06-11",
+  "lastUpdated": "2026-09-21",
   "passScore": 66,
-  "note": "The real CKA is a hands-on, performance-based exam (live cluster tasks), not multiple choice. These MCQ sets build conceptual recall and command knowledge — pair them with real kubectl practice on a cluster.",
+  "note": "The real CKA is a hands-on, performance-based exam (live cluster tasks), not multiple choice. These MCQ sets build conceptual recall and command knowledge for the current v1.32+ curriculum (including the Gateway API) — pair them with real kubectl practice on a cluster.",
   "domains": [
     {
       "id": "d1",
@@ -545,38 +545,38 @@
           "id": "cka-s1-q15"
         },
         {
+          "id": "cka-s1-q16",
           "domainId": "d3",
-          "difficulty": "easy",
+          "difficulty": "medium",
           "type": "single",
-          "stem": "Which Service type is the default and internal-only?",
+          "stem": "In the Gateway API, which resource defines the HTTP routing rules (hostnames, paths, backends) that attach to a Gateway?",
           "options": [
             {
-              "text": "ClusterIP",
+              "text": "HTTPRoute",
               "correct": true,
-              "explanation": "Correct. ClusterIP exposes the Service within the cluster only.",
+              "explanation": "Correct. HTTPRoute holds the host/path match rules and backendRefs, and attaches to a Gateway via parentRefs. `kubectl get httproute` lists them; apiVersion is gateway.networking.k8s.io/v1.",
               "id": "a"
             },
             {
-              "text": "NodePort",
+              "text": "GatewayClass",
               "correct": false,
-              "explanation": "Wrong. NodePort exposes on nodes externally.",
+              "explanation": "Wrong. GatewayClass is the cluster-level template (like a StorageClass) that says which controller implements Gateways — it carries no routing rules.",
               "id": "b"
             },
             {
-              "text": "LoadBalancer",
+              "text": "Gateway",
               "correct": false,
-              "explanation": "Wrong. LoadBalancer provisions an external LB.",
+              "explanation": "Wrong. A Gateway defines listeners (protocol, port, TLS); the actual path/host routing lives in HTTPRoute objects that reference it.",
               "id": "c"
             },
             {
-              "text": "ExternalName",
+              "text": "Ingress",
               "correct": false,
-              "explanation": "Wrong. It is a DNS alias.",
+              "explanation": "Wrong. Ingress is the older API. The Gateway API's expressive replacement for its routing rules is HTTPRoute.",
               "id": "d"
             }
           ],
-          "reference": "https://kubernetes.io/docs/concepts/services-networking/service/",
-          "id": "cka-s1-q16"
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/gateway/"
         },
         {
           "domainId": "d3",
@@ -3034,38 +3034,38 @@
           "id": "cka-s2-q38"
         },
         {
+          "id": "cka-s2-q39",
           "domainId": "d3",
-          "difficulty": "hard",
+          "difficulty": "medium",
           "type": "single",
-          "stem": "What does a LimitRange do?",
+          "stem": "The Gateway API is role-oriented. Which resource is normally owned by the cluster/infrastructure operator rather than the application developer?",
           "options": [
             {
-              "text": "Sets default and min/max resource constraints for pods/containers in a namespace",
+              "text": "GatewayClass (and the Gateway)",
               "correct": true,
-              "explanation": "Correct. LimitRange enforces per-object resource bounds.",
+              "explanation": "Correct. The infra operator installs the controller and defines the GatewayClass/Gateway (listeners, TLS, IPs); app teams then attach HTTPRoutes. This role split is the main design goal over a single monolithic Ingress. `kubectl get gatewayclass,gateway -A`.",
               "id": "a"
             },
             {
-              "text": "Caps total namespace usage",
+              "text": "HTTPRoute",
               "correct": false,
-              "explanation": "Wrong. That is ResourceQuota.",
+              "explanation": "Wrong. HTTPRoute is the app-developer's resource — it defines how their service is routed and attaches to a Gateway the operator provides.",
               "id": "b"
             },
             {
-              "text": "Routes external traffic",
+              "text": "Service",
               "correct": false,
-              "explanation": "Wrong. That is Ingress.",
+              "explanation": "Wrong. A Service is the backend target of a route, owned by the app team, not the infra-level entry point.",
               "id": "c"
             },
             {
-              "text": "Stores secrets",
+              "text": "EndpointSlice",
               "correct": false,
-              "explanation": "Wrong. Unrelated.",
+              "explanation": "Wrong. EndpointSlices are generated automatically by the control plane; they are not a Gateway API role boundary.",
               "id": "d"
             }
           ],
-          "reference": "https://kubernetes.io/docs/concepts/policy/limit-range/",
-          "id": "cka-s2-q39"
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/gateway/"
         },
         {
           "domainId": "d4",
@@ -4945,38 +4945,38 @@
           "id": "cka-s3-q44"
         },
         {
+          "id": "cka-s3-q45",
           "domainId": "d3",
-          "difficulty": "medium",
+          "difficulty": "hard",
           "type": "single",
-          "stem": "You applied an Ingress but nothing answers on the host. kubectl get ingress shows ADDRESS empty. Most common cluster-level cause?",
+          "stem": "Using the Gateway API (not Ingress), you must route api.example.com/v1 to svc-v1 and /v2 to svc-v2. What is the minimal resource design?",
           "options": [
             {
-              "text": "No Ingress controller is installed/running to satisfy the resource",
+              "text": "One HTTPRoute with two path rules, attached to a Gateway via parentRefs",
               "correct": true,
-              "explanation": "Correct. Ingress objects are inert without a controller; check `kubectl get pods -n ingress-nginx` (or your controller's ns).",
+              "explanation": "Correct. A single HTTPRoute lists two rules (matches: path PathPrefix /v1 → svc-v1; /v2 → svc-v2) under one hostname and references the Gateway in parentRefs. Verify with `kubectl describe httproute api-route`.",
               "id": "a"
             },
             {
-              "text": "The YAML used apiVersion networking.k8s.io/v1",
+              "text": "Two Ingress resources on the same host",
               "correct": false,
-              "explanation": "Wrong. That's the correct API.",
+              "explanation": "Wrong. The requirement is Gateway API, not Ingress; and one HTTPRoute already expresses both paths.",
               "id": "b"
             },
             {
-              "text": "CoreDNS is down",
+              "text": "One Gateway per path",
               "correct": false,
-              "explanation": "Wrong. ADDRESS comes from the controller, not DNS.",
+              "explanation": "Wrong. A Gateway is the listener/entry point; you don't create one per path. Paths are expressed as rules inside an HTTPRoute.",
               "id": "c"
             },
             {
-              "text": "PVCs unbound",
+              "text": "A GatewayClass with two backends",
               "correct": false,
-              "explanation": "Wrong. Storage is unrelated.",
+              "explanation": "Wrong. GatewayClass selects the controller implementation; it carries no routing or backends.",
               "id": "d"
             }
           ],
-          "reference": "https://kubernetes.io/docs/concepts/services-networking/ingress-controllers/",
-          "id": "cka-s3-q45"
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/gateway/"
         },
         {
           "domainId": "d5",
@@ -6312,38 +6312,38 @@
           "id": "cka-s4-q34"
         },
         {
+          "id": "cka-s4-q35",
           "domainId": "d3",
-          "difficulty": "medium",
+          "difficulty": "hard",
           "type": "single",
-          "stem": "A pod must be reachable by other pods only at its individual identity (no load balancing), e.g. Kafka brokers. Object combo?",
+          "stem": "For a canary, the same host/path must send 90% of traffic to svc-stable and 10% to svc-canary. How does an HTTPRoute express this?",
           "options": [
             {
-              "text": "StatefulSet + headless Service giving kafka-0.kafka.ns.svc DNS per pod",
+              "text": "A single rule with two backendRefs carrying weight: 90 and weight: 10",
               "correct": true,
-              "explanation": "Correct. Headless Services publish per-pod records keyed to StatefulSet ordinals — exactly the broker-addressing model.",
+              "explanation": "Correct. Weighted backendRefs in one HTTPRoute rule split traffic by ratio — no separate resource per version. Shift the canary by editing the weights: `kubectl edit httproute app-route` (weight 90/10 → 50/50 → 0/100).",
               "id": "a"
             },
             {
-              "text": "Deployment + ClusterIP",
+              "text": "Two HTTPRoutes with equal priority",
               "correct": false,
-              "explanation": "Wrong. ClusterIP load-balances; identities blur.",
+              "explanation": "Wrong. Duplicate routes don't define a ratio; weighting belongs on backendRefs within one rule.",
               "id": "b"
             },
             {
-              "text": "NodePort per broker",
+              "text": "An Ingress annotation for canary weight",
               "correct": false,
-              "explanation": "Wrong. Node coupling and port sprawl.",
+              "explanation": "Wrong. That's the controller-specific Ingress approach. The Gateway API expresses splitting natively via backendRef weights.",
               "id": "c"
             },
             {
-              "text": "hostNetwork",
+              "text": "Two Gateways behind a load balancer",
               "correct": false,
-              "explanation": "Wrong. Identity by node, not by pod ordinal.",
+              "explanation": "Wrong. Gateways are listeners; traffic ratio is a routing concern handled by HTTPRoute weights.",
               "id": "d"
             }
           ],
-          "reference": "https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#stable-network-id",
-          "id": "cka-s4-q35"
+          "reference": "https://kubernetes.io/docs/concepts/services-networking/gateway/"
         },
         {
           "domainId": "d1",
